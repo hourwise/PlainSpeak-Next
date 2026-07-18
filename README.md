@@ -55,10 +55,10 @@ python -m pytest tests/ -v
 
 See [LIMITATIONS.md](LIMITATIONS.md) for a full accounting of known gaps. Key items:
 
-- Core analysis engine not yet implemented.
-- No test suite exists yet.
 - English-only; no internationalization.
 - No empirical validation with human readers.
+- Heuristic accuracy limits (~90% syllable counting).
+- HTML report not tested with real screen readers.
 
 ## Principal limitations
 
@@ -75,3 +75,5 @@ MIT — see [LICENSE](LICENSE) file.
 ## Contributing
 
 This is an experimental project built within a constrained 24-hour window. Contributions, forks, and continuations are welcome. Start with [MISSION.md](MISSION.md) to understand the project's purpose and [DECISIONS.md](DECISIONS.md) for the rationale behind major choices.
+
+Repository: [github.com/hourwise/Project-Question-Mark-](https://github.com/hourwise/Project-Question-Mark-)
