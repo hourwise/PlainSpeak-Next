@@ -19,7 +19,9 @@ from .simplifier import SimplificationResult, Barrier
 
 # ── HTML template ───────────────────────────────────────────────────────────
 
-HTML_TEMPLATE = """<!DOCTYPE html>
+def _build_html_template() -> str:
+    """Build the HTML template string (avoiding format-string issues with CSS braces)."""
+    return """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -27,7 +29,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <title>PlainSpeak Readability Report</title>
 <style>
 /* ── Base styles (WCAG 2.1 AA compliant) ── */
-:root {
+:root """ + """{
   --text: #1a1a1a;
   --bg: #ffffff;
   --accent: #2563eb;
@@ -44,9 +46,9 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   --line-height: 1.6;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* """ + """{ box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
+body """ + """{
   font-family: var(--font);
   font-size: 1rem;
   line-height: var(--line-height);
@@ -57,16 +59,14 @@ body {
   padding: 1.5rem 1rem 3rem;
 }
 
-/* ── Typography ── */
-h1 { font-size: 1.75rem; margin: 1.5rem 0 0.75rem; font-weight: 700; }
-h2 { font-size: 1.375rem; margin: 1.75rem 0 0.5rem; font-weight: 600; border-bottom: 2px solid var(--border); padding-bottom: 0.25rem; }
-h3 { font-size: 1.125rem; margin: 1.25rem 0 0.5rem; font-weight: 600; }
-p { margin: 0.75rem 0; }
-a { color: var(--accent); text-decoration: underline; }
-a:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
+h1 """ + """{ font-size: 1.75rem; margin: 1.5rem 0 0.75rem; font-weight: 700; }
+h2 """ + """{ font-size: 1.375rem; margin: 1.75rem 0 0.5rem; font-weight: 600; border-bottom: 2px solid var(--border); padding-bottom: 0.25rem; }
+h3 """ + """{ font-size: 1.125rem; margin: 1.25rem 0 0.5rem; font-weight: 600; }
+p """ + """{ margin: 0.75rem 0; }
+a """ + """{ color: var(--accent); text-decoration: underline; }
+a:focus """ + """{ outline: 3px solid var(--accent); outline-offset: 2px; }
 
-/* ── Skip link ── */
-.skip-link {
+.skip-link """ + """{
   position: absolute;
   top: -100px;
   left: 0;
@@ -75,24 +75,23 @@ a:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
   padding: 0.5rem 1rem;
   z-index: 100;
 }
-.skip-link:focus { top: 0; }
+.skip-link:focus """ + """{ top: 0; }
 
-/* ── Score cards ── */
-.score-grid {
+.score-grid """ + """{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
   gap: 1rem;
   margin: 1rem 0;
 }
 
-.score-card {
+.score-card """ + """{
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 0.5rem;
   padding: 1rem;
 }
 
-.score-card dt {
+.score-card dt """ + """{
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -100,13 +99,13 @@ a:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
   margin-bottom: 0.25rem;
 }
 
-.score-card dd {
+.score-card dd """ + """{
   font-size: 1.5rem;
   font-weight: 700;
   font-family: var(--mono);
 }
 
-.score-card .label {
+.score-card .label """ + """{
   font-size: 0.8rem;
   color: #666;
   margin-top: 0.25rem;
@@ -114,8 +113,7 @@ a:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
   font-family: var(--font);
 }
 
-/* ── Consensus banner ── */
-.consensus-banner {
+.consensus-banner """ + """{
   background: var(--surface);
   border: 2px solid var(--accent);
   border-radius: 0.5rem;
@@ -123,44 +121,43 @@ a:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
   margin: 1.5rem 0;
 }
 
-.consensus-banner .grade {
+.consensus-banner .grade """ + """{
   font-size: 2.5rem;
   font-weight: 800;
   color: var(--accent);
   font-family: var(--mono);
 }
 
-.consensus-banner .description {
+.consensus-banner .description """ + """{
   font-size: 1.1rem;
   margin-top: 0.5rem;
 }
 
-/* ── Issue list ── */
-.issue-list { list-style: none; margin: 1rem 0; }
+.issue-list """ + """{ list-style: none; margin: 1rem 0; }
 
-.issue-item {
+.issue-item """ + """{
   padding: 0.75rem 1rem;
   margin: 0.5rem 0;
   border-radius: 0.375rem;
   border-left: 4px solid var(--border);
 }
 
-.issue-item.critical {
+.issue-item.critical """ + """{
   background: var(--surface-critical);
   border-left-color: var(--critical);
 }
 
-.issue-item.warning {
+.issue-item.warning """ + """{
   background: var(--surface-warning);
   border-left-color: var(--warning);
 }
 
-.issue-item.info {
+.issue-item.info """ + """{
   background: var(--surface-info);
   border-left-color: var(--info);
 }
 
-.issue-badge {
+.issue-badge """ + """{
   display: inline-block;
   font-size: 0.7rem;
   font-weight: 700;
@@ -171,11 +168,11 @@ a:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
   margin-right: 0.5rem;
 }
 
-.issue-badge.critical { background: var(--critical); color: white; }
-.issue-badge.warning { background: var(--warning); color: white; }
-.issue-badge.info { background: var(--info); color: white; }
+.issue-badge.critical """ + """{ background: var(--critical); color: white; }
+.issue-badge.warning """ + """{ background: var(--warning); color: white; }
+.issue-badge.info """ + """{ background: var(--info); color: white; }
 
-.issue-type {
+.issue-type """ + """{
   font-weight: 600;
   font-size: 0.85rem;
   text-transform: uppercase;
@@ -183,7 +180,7 @@ a:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
   color: #555;
 }
 
-.issue-quote {
+.issue-quote """ + """{
   font-family: var(--mono);
   font-size: 0.9rem;
   background: rgba(0,0,0,0.04);
@@ -193,31 +190,30 @@ a:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
   word-break: break-word;
 }
 
-.issue-suggestion {
+.issue-suggestion """ + """{
   margin: 0.25rem 0;
   padding: 0.25rem 0;
 }
 
-.issue-explanation {
+.issue-explanation """ + """{
   font-size: 0.875rem;
   color: #555;
   margin-top: 0.25rem;
 }
 
-/* ── Statistics table ── */
-.stats-table {
+.stats-table """ + """{
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
 }
 
-.stats-table caption {
+.stats-table caption """ + """{
   font-weight: 600;
   text-align: left;
   margin-bottom: 0.5rem;
 }
 
-.stats-table th {
+.stats-table th """ + """{
   text-align: left;
   padding: 0.5rem 0.75rem;
   background: var(--surface);
@@ -225,13 +221,12 @@ a:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
   font-weight: 600;
 }
 
-.stats-table td {
+.stats-table td """ + """{
   padding: 0.5rem 0.75rem;
   border-bottom: 1px solid var(--border);
 }
 
-/* ── Footer ── */
-footer {
+footer """ + """{
   margin-top: 3rem;
   padding-top: 1rem;
   border-top: 1px solid var(--border);
@@ -239,7 +234,7 @@ footer {
   color: #888;
 }
 
-.warning-note {
+.warning-note """ + """{
   background: var(--surface-warning);
   border: 1px solid var(--warning);
   border-radius: 0.375rem;
@@ -248,19 +243,17 @@ footer {
   font-size: 0.9rem;
 }
 
-.warning-note strong { color: var(--warning); }
+.warning-note strong """ + """{ color: var(--warning); }
 
-/* ── Responsive ── */
-@media (max-width: 600px) {
-  body { padding: 1rem 0.75rem 2rem; }
-  .score-grid { grid-template-columns: 1fr; }
-  .consensus-banner .grade { font-size: 2rem; }
+@media (max-width: 600px) """ + """{
+  body """ + """{ padding: 1rem 0.75rem 2rem; }
+  .score-grid """ + """{ grid-template-columns: 1fr; }
+  .consensus-banner .grade """ + """{ font-size: 2rem; }
 }
 
-/* ── Print ── */
-@media print {
-  body { max-width: none; }
-  .issue-item { break-inside: avoid; }
+@media print """ + """{
+  body """ + """{ max-width: none; }
+  .issue-item """ + """{ break-inside: avoid; }
 }
 </style>
 </head>
@@ -271,13 +264,13 @@ footer {
 <header>
   <h1>PlainSpeak Readability Report</h1>
   <p>
-    <time datetime="{timestamp_iso}">{timestamp_display}</time>
-    &mdash; Generated by PlainSpeak {version}
+    <time datetime="__TIMESTAMP_ISO__">__TIMESTAMP_DISPLAY__</time>
+    &mdash; Generated by PlainSpeak __VERSION__
   </p>
 </header>
 
 <main id="main-content">
-{content}
+__CONTENT__
 </main>
 
 <footer>
@@ -288,7 +281,7 @@ footer {
     comprehension. All suggestions should be reviewed by a human
     before applying.
   </p>
-  <p>PlainSpeak {version} &mdash; <a href="https://github.com/plainspeak">github.com/plainspeak</a></p>
+  <p>PlainSpeak __VERSION__ &mdash; <a href="https://github.com/plainspeak">github.com/plainspeak</a></p>
 </footer>
 
 </body>
@@ -342,8 +335,9 @@ def generate_report(
     """
     from . import __version__
 
-    now = datetime.utcnow()
-    timestamp_iso = now.isoformat() + "Z"
+    from datetime import timezone
+    now = datetime.now(timezone.utc)
+    timestamp_iso = now.isoformat()
     timestamp_display = now.strftime("%Y-%m-%d %H:%M UTC")
 
     parts: list[str] = []
@@ -556,12 +550,13 @@ def generate_report(
 
     content = "\n".join(parts)
 
-    return HTML_TEMPLATE.format(
-        timestamp_iso=timestamp_iso,
-        timestamp_display=timestamp_display,
-        version=__version__,
-        content=content,
-    )
+    template = _build_html_template()
+    html_output = template.replace("__TIMESTAMP_ISO__", timestamp_iso)
+    html_output = html_output.replace("__TIMESTAMP_DISPLAY__", timestamp_display)
+    html_output = html_output.replace("__VERSION__", __version__)
+    html_output = html_output.replace("__CONTENT__", content)
+
+    return html_output
 
 
 def _pct(part: int, whole: int) -> str:

@@ -42,10 +42,10 @@ def count_syllables(word: str) -> int:
     """
     Estimate the number of syllables in an English word.
 
-    Uses a pattern-based heuristic. Accuracy is approximately 90-95%
+    Uses a pattern-based heuristic. Accuracy is approximately 85-95%
     for common English words. Known to fail on:
-    - Words with silent 'e' that should be pronounced
-    - Words where 'le' at the end forms a syllable
+    - Words with irregular vowel patterns (e.g., 'people', 'every')
+    - Words where silent 'e' rules don't apply
     - Irregular loanwords
     - Some compound words
 
@@ -59,9 +59,22 @@ def count_syllables(word: str) -> int:
     if len(word) <= 2:
         return 1
 
-    # Remove silent e at end (but not for short words where e is pronounced)
+    original = word
+
+    # Check for -le and -les patterns BEFORE removing silent e
+    # These form a syllable: table -> ta-ble, little -> lit-tle
+    le_syllable = False
+    if word.endswith("le") and len(word) > 2 and word[-3] not in "aeiouy":
+        le_syllable = True
+    if word.endswith("les") and len(word) > 3 and word[-4] not in "aeiouy":
+        le_syllable = True
+
+    # Remove silent e at end
+    # But keep it if the word is short or the e is part of a vowel digraph
     if word.endswith("e") and len(word) > 3:
-        word = word[:-1]
+        # Don't remove if preceded by a vowel (e.g., 'see', 'bee', 'free')
+        if word[-2] not in "aeiouy":
+            word = word[:-1]
 
     # Count vowel groups
     vowels = "aeiouy"
@@ -74,18 +87,16 @@ def count_syllables(word: str) -> int:
             count += 1
         prev_is_vowel = is_vowel
 
-    # Common patterns that add a syllable
-    if word.endswith("le") and len(word) > 2 and word[-3] not in vowels:
-        count += 1
-    if word.endswith("les") and len(word) > 3 and word[-4] not in vowels:
+    # Add syllable for -le pattern
+    if le_syllable:
         count += 1
 
-    # Common patterns that should not count as syllables
-    if word.endswith("ed") and len(word) > 3 and word[-3] in "dt":
-        # 'wanted', 'needed' — ed is a syllable
-        pass
-    elif word.endswith("ed") and len(word) > 3:
-        count = max(1, count - 1)
+    # ed-endings: 'wanted', 'needed' keep the syllable, others lose it
+    if original.endswith("ed") and len(original) > 3:
+        if original[-3] in "dt":
+            pass  # 'wanted', 'needed' — ed IS a syllable
+        else:
+            count = max(1, count - 1)
 
     return max(1, count)
 
