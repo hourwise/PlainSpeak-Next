@@ -76,4 +76,4 @@ MIT — see [LICENSE](LICENSE) file.
 
 This is an experimental project built within a constrained 24-hour window. Contributions, forks, and continuations are welcome. Start with [MISSION.md](MISSION.md) to understand the project's purpose and [DECISIONS.md](DECISIONS.md) for the rationale behind major choices.
 
-Repository: [github.com/hourwise/Project-Question-Mark-](https://github.com/hourwise/Project-Question-Mark-)
+Repository: [github.com/hourwise/Project-PlainSpeak](https://github.com/hourwise/Project-PlainSpeak)

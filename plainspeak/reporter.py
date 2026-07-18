@@ -285,7 +285,7 @@ __CONTENT__
     comprehension. All suggestions should be reviewed by a human
     before applying.
   </p>
-  <p>PlainSpeak __VERSION__ &mdash; <a href="https://github.com/hourwise/Project-Question-Mark-">github.com/hourwise/Project-Question-Mark-</a></p>
+  <p>PlainSpeak __VERSION__ &mdash; <a href="https://github.com/hourwise/Project-PlainSpeak">github.com/hourwise/Project-PlainSpeak</a></p>
 </footer>
 
 </body>
