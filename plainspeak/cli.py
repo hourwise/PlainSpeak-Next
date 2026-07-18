@@ -13,8 +13,8 @@ import click
 
 from . import __version__
 from .analyzer import analyze, ReadabilityScores
-from .simplifier import analyze_simplification, SimplificationResult
-from .reporter import generate_report, format_console_report
+from .simplifier import analyze_simplification, SimplificationResult, generate_simplified_text
+from .reporter import generate_report, format_console_report, generate_json
 
 
 @click.group()
@@ -48,6 +48,10 @@ def main():
     help="Write HTML report to the specified file.",
 )
 @click.option(
+    "--json", "-j", "json_output", type=click.Path(), default=None,
+    help="Write JSON report to the specified file.",
+)
+@click.option(
     "--no-simplify", is_flag=True,
     help="Skip simplification analysis (faster, but no suggestions).",
 )
@@ -59,6 +63,7 @@ def analyze_cmd(
     file: Optional[str],
     from_stdin: bool,
     output: Optional[str],
+    json_output: Optional[str],
     no_simplify: bool,
     console: bool,
 ):
@@ -126,6 +131,18 @@ def analyze_cmd(
             click.echo(f"Error writing report to '{output}': {e}", err=True)
             sys.exit(1)
 
+    if json_output:
+        # JSON output
+        json_report = generate_json(readability, simplification, text)
+        try:
+            json_path = Path(json_output)
+            json_path.parent.mkdir(parents=True, exist_ok=True)
+            json_path.write_text(json_report, encoding="utf-8")
+            click.echo(f"\nJSON report written to: {json_path.absolute()}")
+        except OSError as e:
+            click.echo(f"Error writing JSON to '{json_output}': {e}", err=True)
+            sys.exit(1)
+
 
 @main.command()
 @click.argument("text", required=False)
@@ -164,6 +181,59 @@ def score(text: Optional[str], from_stdin: bool):
     click.echo(f"SMOG:                {scores.smog_index:.1f}")
     click.echo(f"Consensus Grade:     {scores.consensus_grade_level:.1f}")
     click.echo(f"Level:               {scores.reading_level_description}")
+
+
+@main.command()
+@click.argument("file", type=click.Path(exists=True), required=False)
+@click.option("--stdin", "from_stdin", is_flag=True, help="Read text from standard input.")
+@click.option("--output", "-o", type=click.Path(), default=None, help="Write simplified text to a file.")
+def simplify(file: Optional[str], from_stdin: bool, output: Optional[str]):
+    """
+    Generate a mechanically simplified version of the text.
+
+    Applies plain-language word substitutions from the glossary.
+    Changed words are marked with **asterisks** for review.
+
+    IMPORTANT: This is a mechanical transformation. Review all changes
+    before using the output, especially for legal, medical, or
+    safety-critical content.
+    """
+    if from_stdin:
+        text = sys.stdin.read()
+    elif file:
+        try:
+            text = Path(file).read_text(encoding="utf-8")
+        except UnicodeDecodeError:
+            try:
+                text = Path(file).read_text(encoding="latin-1")
+            except Exception as e:
+                click.echo(f"Error: Cannot read file '{file}': {e}", err=True)
+                sys.exit(1)
+    else:
+        click.echo("Error: Provide a file or use --stdin.", err=True)
+        sys.exit(1)
+
+    if not text.strip():
+        click.echo("Error: Input text is empty.", err=True)
+        sys.exit(1)
+
+    simplified, count = generate_simplified_text(text)
+
+    click.echo(f"Made {count} mechanical substitution(s).")
+    click.echo("Changed words are marked with **asterisks** for your review.")
+    click.echo("=" * 60)
+
+    if output:
+        try:
+            output_path = Path(output)
+            output_path.parent.mkdir(parents=True, exist_ok=True)
+            output_path.write_text(simplified, encoding="utf-8")
+            click.echo(f"\nSimplified text written to: {output_path.absolute()}")
+        except OSError as e:
+            click.echo(f"Error writing to '{output}': {e}", err=True)
+            sys.exit(1)
+
+    click.echo(simplified)
 
 
 @main.command()

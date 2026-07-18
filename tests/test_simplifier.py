@@ -12,6 +12,7 @@ from plainspeak.simplifier import (
     find_redundant_pairs,
     find_hidden_verbs,
     analyze_simplification,
+    generate_simplified_text,
     split_sentences,
     Barrier,
     SimplificationResult,
@@ -248,3 +249,46 @@ class TestFullSimplification:
         for barrier in result.barriers:
             assert barrier.sentence_index >= prev_idx
             prev_idx = barrier.sentence_index
+
+
+class TestSimplifiedTextGeneration:
+    """Test the mechanical text simplification feature."""
+
+    def test_replaces_jargon_words(self):
+        text = "We will utilize this methodology."
+        simplified, count = generate_simplified_text(text)
+        assert count >= 2  # "utilize" and "methodology"
+        assert "**use**" in simplified.lower() or "**method**" in simplified.lower()
+
+    def test_marks_replacements(self):
+        """Replacements should be marked with **asterisks**."""
+        text = "We will commence the project."
+        simplified, count = generate_simplified_text(text)
+        assert count >= 1
+        assert "**" in simplified  # Should have marked replacements
+
+    def test_preserves_unchanged_text(self):
+        """Words without glossary entries should remain unchanged."""
+        text = "The cat sat on the mat."
+        simplified, count = generate_simplified_text(text)
+        assert count == 0
+        assert simplified == text
+
+    def test_replaces_multi_word_phrases(self):
+        text = "The payment is due prior to the deadline."
+        simplified, count = generate_simplified_text(text)
+        assert count >= 1
+        # "prior to" should be replaced with "before"
+        assert "**before**" in simplified.lower()
+
+    def test_no_replacements_in_empty_text(self):
+        text = ""
+        simplified, count = generate_simplified_text(text)
+        assert count == 0
+        assert simplified == ""
+
+    def test_case_insensitive_replacement(self):
+        """Replacements should work regardless of capitalization."""
+        text = "UTILIZE this tool. Utilize it well."
+        simplified, count = generate_simplified_text(text)
+        assert count >= 2

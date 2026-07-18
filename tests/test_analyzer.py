@@ -139,6 +139,31 @@ class TestSentenceSegmentation:
         # Should handle the decimal without splitting incorrectly
         assert len(sentences) >= 1
 
+    def test_ellipsis(self):
+        """Ellipsis should not be treated as sentence boundary."""
+        text = "She thought about it... and then decided to go."
+        sentences = split_sentences(text)
+        assert len(sentences) == 1
+
+    def test_acronyms(self):
+        """Text with U.S. and U.K. should handle abbreviations."""
+        text = "The U.S. and U.K. have strong ties. They cooperate often."
+        sentences = split_sentences(text)
+        assert len(sentences) == 2
+
+    def test_list_with_periods(self):
+        """Numbered list items should be handled."""
+        text = "There are three reasons. First, it is easy. Second, it is fast. Third, it is free."
+        sentences = split_sentences(text)
+        assert len(sentences) == 4
+
+    def test_dialogue(self):
+        """Text with quotation marks."""
+        text = 'She said "hello." He replied "goodbye."'
+        sentences = split_sentences(text)
+        # Should handle quotes around sentence boundaries
+        assert len(sentences) >= 1
+
 
 # ── Word splitting tests ───────────────────────────────────────────────────
 

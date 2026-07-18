@@ -593,3 +593,61 @@ def analyze_simplification(text: str) -> SimplificationResult:
         info_count=infos,
         summary=summary,
     )
+
+
+def generate_simplified_text(text: str) -> tuple[str, int]:
+    """
+    Generate a version of the text with plain-language substitutions applied.
+
+    This is a MECHANICAL transformation only — it applies glossary-based
+    word replacements. It does NOT restructure sentences, fix passive voice,
+    or make any semantic changes. The output MUST be reviewed by a human
+    before use, especially for legal, medical, or safety-critical content.
+
+    Args:
+        text: The text to simplify.
+
+    Returns:
+        Tuple of (simplified_text, number_of_replacements_made).
+    """
+    import re
+
+    result = text
+    replacements = 0
+
+    # Sort phrases by length (longest first) to avoid partial matches
+    phrases = sorted(
+        [(k, v[0]) for k, v in GLOSSARY.items() if " " in k],
+        key=lambda x: len(x[0].split()),
+        reverse=True,
+    )
+
+    # Replace multi-word phrases first
+    for phrase, simpler in phrases:
+        pattern = re.compile(re.escape(phrase), re.IGNORECASE)
+        count = len(pattern.findall(result))
+        if count > 0:
+            result = pattern.sub(f"**{simpler}**", result)
+            replacements += count
+
+    # Then replace single words (word-boundary match only)
+    for word, simpler in SIMPLE_WORD_MAP.items():
+        pattern = re.compile(r'\b' + re.escape(word) + r'\b', re.IGNORECASE)
+        count = len(pattern.findall(result))
+        if count > 0:
+            result = pattern.sub(f"**{simpler}**", result)
+            replacements += count
+
+    # GLOSSARY single words
+    for word, (simpler, _) in GLOSSARY.items():
+        if " " in word:
+            continue  # Already handled above
+        pattern = re.compile(r'\b' + re.escape(word) + r'\b', re.IGNORECASE)
+        # Skip words that were already replaced by SIMPLE_WORD_MAP
+        if word not in SIMPLE_WORD_MAP:
+            count = len(pattern.findall(result))
+            if count > 0:
+                result = pattern.sub(f"**{simpler}**", result)
+                replacements += count
+
+    return result, replacements
