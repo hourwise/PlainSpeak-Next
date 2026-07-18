@@ -1,0 +1,39 @@
+HOW TO USE THIS TOOL
+
+PlainSpeak is a tool that helps you check how easy your writing is to read.
+
+WHAT IT DOES
+
+- It measures how readable your text is using several standard tests.
+- It finds words and sentences that might be hard for some readers.
+- It suggests simpler words you could use instead.
+- It creates a report that you can view in your web browser.
+
+WHO IT HELPS
+
+PlainSpeak helps anyone who writes for the public. This includes people who write government forms, health information, educational materials, and legal documents. It also helps teachers, editors, and people who check content for clarity.
+
+HOW TO USE IT
+
+1. Write your text in any text editor and save it as a .txt file.
+2. Open a terminal or command prompt.
+3. Type: plainspeak analyze yourfile.txt
+4. The tool will show you readability scores and suggestions.
+5. To save an HTML report, add: --output report.html
+
+WHAT THE SCORES MEAN
+
+The tool gives you several scores. The main one is the grade level. A lower grade level means the text is easier to read. Here is a simple guide:
+
+- Grade 6 or below: Easy to read. Most adults can understand it.
+- Grade 7 to 8: Plain English. Suitable for the general public.
+- Grade 9 to 12: Harder to read. Some readers may struggle.
+- Above Grade 12: Very hard. Best for expert readers only.
+
+TIPS FOR CLEAR WRITING
+
+Keep sentences short. Aim for 15 to 20 words per sentence. Use common words that most people know. Write in active voice — say who does what. Avoid jargon and technical terms when you can. If you must use a hard word, explain it the first time.
+
+LIMITATIONS
+
+The scores are not perfect. They count things like word length and sentence length. They cannot tell if your text makes sense or if it is well organized. A text with a low score can still be confusing. A text with a high score can still be clear. Use your judgment along with the scores.
