@@ -17,6 +17,16 @@ All known limitations, uncertainties, and gaps. This document is maintained hone
 - **Plain language suggestions are from a static glossary.** They do not account for context. A suggested replacement may be inappropriate for the specific domain or may change nuance.
 - **No guarantee that suggestions improve comprehension.** We have not conducted user studies. Suggestions are based on established plain-language guidelines (e.g., Plain Language Act, CDC Clear Communication Index) but have not been empirically validated in this tool.
 
+### Stemming limitations
+- **Basic suffix-stripping only.** The stemmer handles common suffixes (-tion, -ment, -ing, -ed, -ly, etc.) but does not handle irregular forms, vowel changes, or morphology rules. Accuracy is approximately 70% for inflected forms.
+- **No lemmatization.** The stemmer does not use a dictionary, so it cannot distinguish between different base forms that share the same stem (e.g., "organ" could be the base of "organic" or "organize").
+- **Stemming is used only for glossary matching.** It does not affect readability metric computation or other analysis.
+
+### Mechanical simplification
+- **Word-level substitution only.** The `simplify` command replaces individual words with glossary alternatives. It does not restructure sentences, adjust grammar, or fix passive voice.
+- **Can produce ungrammatical output.** For example, "The implementation of the policy" → "The carry out of the policy" (should be "Carrying out the policy"). This is a fundamental limitation of word-level substitution without syntactic transformation.
+- **Replacements marked with **asterisks** for mandatory human review.** The tool does not produce "clean" simplified text because it cannot guarantee grammatical correctness.
+
 ### Input size
 - **Not tested on documents > 100,000 words.** Performance characteristics for large documents are unknown.
 - **Memory usage is proportional to input size.** The tool loads the full text into memory.

@@ -33,3 +33,4 @@ htmlcov/
 
 # Project output
 *.html.report/
+examples/plain_report.html
