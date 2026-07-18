@@ -23,6 +23,146 @@ from .glossary import GLOSSARY, SIMPLE_WORD_MAP
 from .analyzer import split_sentences, split_words, count_syllables
 
 
+# ── Basic stemming ─────────────────────────────────────────────────────────
+
+# Common English suffixes to strip for glossary matching
+# Ordered from longest to shortest to strip the most specific first
+SUFFIXES_TO_STRIP = [
+    "alization", "alisation",  # normalization -> normalize
+    "izations", "isations",
+    "ization", "isation",  # organization -> organize
+    "fulness", "fulnesses",
+    "abilities",
+    "ability",  # readability -> readable -> read
+    "alities",
+    "ality",  # functionality -> functional
+    "iveness",
+    "nesses",
+    "ational",  # organizational -> organize (approx)
+    "ations",  # implementations -> implement
+    "ments",  # agreements -> agreement
+    "ment",  # agreement -> agree
+    "tions",  # implementations -> implementa (fallback)
+    "sions",
+    "ation",  # implementation -> implement
+    "tion",  # implementation -> implementa (fallback)
+    "sion",
+    "ances",  # performances -> perform
+    "ences",
+    "ance",  # performance -> perform
+    "ence",
+    "ables", "ables",
+    "able",  # manageable -> manage
+    "ibles",
+    "ible",
+    "ings",  # workings -> work
+    "ingly",
+    "edly",
+    "ing",  # working -> work
+    "ed",  # worked -> work
+    "ers",  # writers -> write
+    "ers",
+    "ors",
+    "er",  # writer -> write
+    "or",
+    "est",  # biggest -> big
+    "ly",  # quickly -> quick
+    "ies",  # carries -> carry
+    "ied",
+    "ify",
+    "ise",  # organise -> organ
+    "ize",  # organize -> organ
+    "al",  # functional -> function
+    "s",  # cats -> cat (keep last)
+]
+
+# Words that should not be stemmed (stemming would create non-words or wrong base forms)
+STEM_EXCEPTIONS: set[str] = {
+    "is", "was", "has", "had", "does", "goes", "says", "said",
+    "us", "yes", "this", "thus", "plus", "minus", "versus",
+    "its", "his", "hers", "ours", "yours", "theirs",
+    "always", "perhaps", "sometimes", "nowadays",
+    "analysis", "basis", "crisis", "thesis", "emphasis",
+    "series", "species",
+    "news", "lens", "atlas", "canvas", "surplus",
+    "process", "progress", "success", "access", "excess",
+    "across", "address", "assess", "discuss", "express",
+    "miss", "kiss", "boss", "loss", "toss", "cross",
+    "class", "glass", "grass", "mass", "pass",
+    "press", "dress", "stress",
+    "less", "unless", "nevertheless", "nonetheless",
+    "business", "witness", "fairness", "darkness",
+    "happiness", "sadness",
+}
+
+
+def stem_word(word: str) -> str:
+    """
+    Apply basic suffix stripping to reduce a word to its base form.
+
+    This is a SIMPLISTIC stemmer — it does not handle irregular forms,
+    vowel changes, or morphology rules. It is designed solely to improve
+    glossary matching for the simplification feature.
+
+    Args:
+        word: A lowercase word to stem.
+
+    Returns:
+        The stemmed form.
+    """
+    word = word.lower().strip()
+    if not word or len(word) <= 3:
+        return word
+    if word in STEM_EXCEPTIONS:
+        return word
+
+    for suffix in SUFFIXES_TO_STRIP:
+        if word.endswith(suffix) and len(word) - len(suffix) >= 3:
+            stem = word[:-len(suffix)]
+            # Handle doubled consonants from -ing/-ed (running -> run)
+            if suffix in ("ing", "ed", "er", "est") and len(stem) >= 3:
+                if stem[-1] == stem[-2] and stem[-1] not in "aeiouy":
+                    stem = stem[:-1]
+            # Handle -ies -> -y (carries -> carry)
+            if suffix in ("ies", "ied"):
+                stem += "y"
+            return stem
+
+    return word
+
+
+def find_glossary_match(word: str) -> Optional[tuple[str, str]]:
+    """
+    Find a glossary entry for a word, trying exact match first,
+    then stemmed match.
+
+    Args:
+        word: The word to look up.
+
+    Returns:
+        (simpler_alternative, explanation) if found, None otherwise.
+    """
+    word_lower = word.lower()
+
+    # Exact match in GLOSSARY
+    if word_lower in GLOSSARY:
+        return GLOSSARY[word_lower]
+
+    # Exact match in SIMPLE_WORD_MAP
+    if word_lower in SIMPLE_WORD_MAP:
+        return (SIMPLE_WORD_MAP[word_lower], "A simpler word is available.")
+
+    # Try stemmed match
+    stemmed = stem_word(word_lower)
+    if stemmed != word_lower:
+        if stemmed in GLOSSARY:
+            return GLOSSARY[stemmed]
+        if stemmed in SIMPLE_WORD_MAP:
+            return (SIMPLE_WORD_MAP[stemmed], "A simpler word is available.")
+
+    return None
+
+
 # ── Data classes ───────────────────────────────────────────────────────────
 
 @dataclass
@@ -287,14 +427,12 @@ def find_complex_words(sentence: str, sentence_index: int) -> list[Barrier]:
         syllables = count_syllables(word_lower)
 
         if syllables >= 3 or len(word) >= 7:
-            # Check if we have a simpler alternative
+            # Check if we have a simpler alternative (with stemming)
             suggestion = ""
-            if word_lower in GLOSSARY:
-                simpler, explanation = GLOSSARY[word_lower]
+            match = find_glossary_match(word_lower)
+            if match:
+                simpler, explanation = match
                 suggestion = f'Consider using "{simpler}" instead. {explanation}'
-            elif word_lower in SIMPLE_WORD_MAP:
-                simpler = SIMPLE_WORD_MAP[word_lower]
-                suggestion = f'Consider using "{simpler}" instead of "{word_lower}".'
 
             if suggestion or syllables >= 4 or len(word) >= 9:
                 severity = "warning" if (syllables >= 4 or len(word) >= 10) else "info"
@@ -423,8 +561,9 @@ def find_jargon(sentence: str, sentence_index: int) -> list[Barrier]:
     # Then check single words
     for word in words:
         word_lower = word.lower()
-        if word_lower in GLOSSARY:
-            simpler, explanation = GLOSSARY[word_lower]
+        match = find_glossary_match(word_lower)
+        if match:
+            simpler, explanation = match
             barriers.append(Barrier(
                 barrier_type="jargon",
                 sentence_index=sentence_index,
@@ -432,17 +571,6 @@ def find_jargon(sentence: str, sentence_index: int) -> list[Barrier]:
                 matched_text=word,
                 suggestion=f'Consider using "{simpler}" instead. {explanation}',
                 explanation=f'"{word}" can often be replaced with a simpler word.',
-                severity="info",
-            ))
-        elif word_lower in SIMPLE_WORD_MAP:
-            simpler = SIMPLE_WORD_MAP[word_lower]
-            barriers.append(Barrier(
-                barrier_type="jargon",
-                sentence_index=sentence_index,
-                sentence_text=sentence,
-                matched_text=word,
-                suggestion=f'Consider using "{simpler}" instead of "{word}".',
-                explanation=f'A simpler alternative exists for "{word}".',
                 severity="info",
             ))
 
@@ -604,6 +732,9 @@ def generate_simplified_text(text: str) -> tuple[str, int]:
     or make any semantic changes. The output MUST be reviewed by a human
     before use, especially for legal, medical, or safety-critical content.
 
+    Now includes basic stemming so inflected forms like "commencement"
+    can match the glossary entry for "commence."
+
     Args:
         text: The text to simplify.
 
@@ -630,24 +761,44 @@ def generate_simplified_text(text: str) -> tuple[str, int]:
             result = pattern.sub(f"**{simpler}**", result)
             replacements += count
 
-    # Then replace single words (word-boundary match only)
-    for word, simpler in SIMPLE_WORD_MAP.items():
-        pattern = re.compile(r'\b' + re.escape(word) + r'\b', re.IGNORECASE)
-        count = len(pattern.findall(result))
-        if count > 0:
-            result = pattern.sub(f"**{simpler}**", result)
-            replacements += count
-
-    # GLOSSARY single words
+    # Build a combined word-replacement map from GLOSSARY + SIMPLE_WORD_MAP
+    # (deduplicating — GLOSSARY takes precedence for richer explanations)
+    word_replacements: dict[str, str] = {}
     for word, (simpler, _) in GLOSSARY.items():
-        if " " in word:
-            continue  # Already handled above
-        pattern = re.compile(r'\b' + re.escape(word) + r'\b', re.IGNORECASE)
-        # Skip words that were already replaced by SIMPLE_WORD_MAP
-        if word not in SIMPLE_WORD_MAP:
-            count = len(pattern.findall(result))
-            if count > 0:
-                result = pattern.sub(f"**{simpler}**", result)
-                replacements += count
+        if " " not in word:
+            word_replacements[word] = simpler
+    for word, simpler in SIMPLE_WORD_MAP.items():
+        if word not in word_replacements:
+            word_replacements[word] = simpler
+
+    # Extract words from text and try to match each one (with stemming)
+    all_words = re.findall(r'\b[a-zA-Z]+\b', result)
+    # Track which words we've already replaced to avoid double-counting
+    replaced_words: set[str] = set()
+
+    for match_word in set(w.lower() for w in all_words):
+        if match_word in replaced_words:
+            continue
+        
+        # Try exact match
+        if match_word in word_replacements:
+            simpler = word_replacements[match_word]
+            pattern = re.compile(r'\b' + re.escape(match_word) + r'\b', re.IGNORECASE)
+            new_result = pattern.sub(f"**{simpler}**", result)
+            if new_result != result:
+                replacements += 1
+                result = new_result
+                replaced_words.add(match_word)
+        else:
+            # Try stemmed match
+            stemmed = stem_word(match_word)
+            if stemmed != match_word and stemmed in word_replacements:
+                simpler = word_replacements[stemmed]
+                pattern = re.compile(r'\b' + re.escape(match_word) + r'\b', re.IGNORECASE)
+                new_result = pattern.sub(f"**{simpler}**", result)
+                if new_result != result:
+                    replacements += 1
+                    result = new_result
+                    replaced_words.add(match_word)
 
     return result, replacements

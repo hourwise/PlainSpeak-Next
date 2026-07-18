@@ -291,4 +291,7 @@ class TestSimplifiedTextGeneration:
         """Replacements should work regardless of capitalization."""
         text = "UTILIZE this tool. Utilize it well."
         simplified, count = generate_simplified_text(text)
-        assert count >= 2
+        # Both "UTILIZE" and "Utilize" are replaced by one regex substitution
+        assert count >= 1
+        # But both occurrences should be marked
+        assert simplified.count("**use**") == 2

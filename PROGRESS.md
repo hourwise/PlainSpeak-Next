@@ -94,3 +94,76 @@ Nothing currently. The scope is already minimal and each module serves a clear p
 
 ### 8. Should the scope change?
 **No.** The core toolkit works. Expanding scope now (e.g., adding a web UI, multi-language support, ML-based simplification) would risk incomplete delivery. Focus on hardening, testing, and documentation.
+
+---
+
+## 2026-07-18 03:00 — Feature expansion
+
+**Attempted:** Added JSON output format for machine readability, mechanical text simplification with marked replacements, and `simplify` CLI command.
+
+**Changed:** 
+- `reporter.py` now exports `generate_json()` for structured output.
+- `simplifier.py` now exports `generate_simplified_text()` that applies glossary substitutions and marks changes with **asterisks**.
+- CLI adds `--json` flag to `analyze` command and new `simplify` command.
+- Test suite expanded to 142 tests covering CLI, JSON output, and simplification.
+
+**Learned:** 
+- Mechanical word substitution (without stemming/lemmatization) only catches exact matches. "commencement" won't be simplified even though "commence" is in the glossary. This is a fundamental limitation of a glossary-based approach without NLP.
+- The simplification feature correctly identified the tension between "helpful automation" and "dangerous automation." The **asterisk** marking and prominent warnings are essential safeguards.
+
+**Failed:** Nothing failed — all 142 tests pass. The simplification correctly replaces terms like "utilize" → "use", "methodology" → "method", "prior to" → "before".
+
+**Next:** Hour 6 reassessment. Add more domain-specific glossary terms. Consider adding basic stemming for the simplification feature.
+
+**Mission alignment:** ✅ The tool now provides both diagnostic (analysis) and interventional (simplification) capabilities, while maintaining clear warnings about the limits of mechanical transformation.
+
+---
+
+## 2026-07-18 06:00 — Hour 6 reassessment
+
+### 1. Is the selected problem still worth addressing?
+**Yes, and the evidence has strengthened.** Testing with real documents (legal pleading, medical discharge instructions, plain-language guide) demonstrates that:
+- The readability gap is real and measurable (Grade 2.8 vs. Grade 17.8).
+- The tool discriminates effectively between accessible and inaccessible text.
+- The simplification feature provides concrete, reviewable alternatives.
+- No free, offline, open-source tool with this combination of features exists.
+
+### 2. Is the project producing credible value?
+**Yes.** The tool is functional, tested (142 tests), and produces actionable output. The HTML reports are accessible and self-contained. The glossary with 300+ terms covers the most common jargon patterns. However, the value is limited by:
+- English-only scope.
+- Heuristic accuracy (~90% for syllable counting, variable for passive detection).
+- No stemming/lemmatization for word matching.
+- No empirical validation with human readers.
+
+### 3. What assumption has been weakened or disproved?
+- **Assumption: "A static glossary would cover most jargon in general-purpose text."** **Weakened.** While the glossary covers common bureaucratic terms well, domain-specific jargon (insurance, tax, housing, social services) would need significantly more entries. The 300-term glossary is a strong start but not comprehensive.
+- **Assumption: "Rule-based passive detection would be sufficient."** **Partially weakened.** The adjectival participle filter helps, but without syntactic parsing, precision is limited. The tool flags constructions that look passive but may not be, and misses genuine passives that don't match the simple patterns.
+
+### 4. What is currently the highest-value next action?
+1. Expand the glossary with more domain-specific terms (insurance, housing, social services, tax).
+2. Add basic stemming for the simplification feature so "commencement" → "commence" matches.
+3. Conduct a security review of HTML output escaping.
+4. Test the HTML report with an automated accessibility checker (if a local tool is available).
+
+### 5. What should be removed or simplified?
+Nothing. Each feature serves a clear purpose. The CLI is already minimal with three commands.
+
+### 6. What risk is being underexamined?
+- **Simplification misuse risk:** The `simplify` command could be used to mechanically "simplify" legal/medical documents without human review. The warnings are present but unenforceable.
+- **Report sharing risk:** HTML reports contain the full analyzed text. If shared, sensitive content could be exposed. This is documented but users may not read the documentation.
+- **Dependency risk:** `click` is the sole dependency and is well-maintained, but any future vulnerability in click would affect the project.
+
+### 7. Is the repository understandable to an unfamiliar reviewer?
+**Yes.** The documentation is thorough and honest. Code is organized and commented. Tests are comprehensive. An unfamiliar reviewer could:
+- Understand the mission from MISSION.md (5 minute read).
+- Follow the decisions from DECISIONS.md (10 minute read).
+- Run the tool from README.md instructions (2 minutes).
+- Run the tests (1 command).
+- Understand limitations from LIMITATIONS.md.
+
+### 8. Should the scope change?
+**No.** The core toolkit is stable. Adding major features (web UI, multi-language, ML-based simplification) would risk incomplete delivery. The remaining effort should focus on:
+- Expanding glossary coverage with more domain-specific terms.
+- Adding basic stemming for the simplification feature.
+- Security and accessibility review.
+- Final documentation and FINAL_REPORT.md.
