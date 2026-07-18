@@ -27,16 +27,16 @@ PlainSpeak gives writers and advocates a free, offline tool to check whether tex
 
 ## What currently works
 
-🚧 **Under active development.** The project is in its initial build phase.
+✅ **Working prototype.** The core toolkit is functional and tested.
 
 - [x] Problem selection and mission definition
 - [x] Repository structure and documentation
-- [ ] Readability metric computation
-- [ ] Text pattern analysis
-- [ ] Plain-language suggestion engine
-- [ ] HTML report generation
-- [ ] CLI interface
-- [ ] Test suite
+- [x] Readability metric computation (6 metrics)
+- [x] Text pattern analysis (7 barrier types)
+- [x] Plain-language suggestion engine (300+ terms)
+- [x] HTML report generation (WCAG 2.1 AA-targeted)
+- [x] CLI interface (analyze, score, version commands)
+- [x] Test suite (113 tests, all passing)
 
 ## How to run it
 
