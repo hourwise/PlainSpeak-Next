@@ -164,6 +164,40 @@ class TestSentenceSegmentation:
         # Should handle quotes around sentence boundaries
         assert len(sentences) >= 1
 
+    # ── Structural break regression tests ──
+
+    def test_double_newline_boundary(self):
+        """Double newlines should create sentence boundaries."""
+        text = "First paragraph here.\n\nSecond paragraph goes here."
+        sentences = split_sentences(text)
+        assert len(sentences) >= 2, f"Expected >=2 sentences, got {len(sentences)}: {sentences}"
+
+    def test_list_markers_as_boundaries(self):
+        """Lines starting with bullet/list markers should be separate."""
+        text = "Things to do:\n- Buy milk\n- Walk dog\n- Call mum"
+        sentences = split_sentences(text)
+        # Should recognise the bullet items as separate units
+        assert len(sentences) >= 3, f"Expected >=3, got {len(sentences)}: {sentences}"
+
+    def test_heading_line_boundary(self):
+        """ALL CAPS headings should be separate from body text."""
+        text = "IMPORTANT SAFETY NOTICE\nThe building will be closed on Friday."
+        sentences = split_sentences(text)
+        assert len(sentences) >= 2, f"Expected >=2, got {len(sentences)}: {sentences}"
+
+    def test_lines_without_terminal_punctuation(self):
+        """Lines without .!? should be treated as separate when appropriate."""
+        text = "Meeting agenda\nIntroduction\nBudget review\nAny other business"
+        sentences = split_sentences(text)
+        # Each line is a standalone item
+        assert len(sentences) >= 3, f"Expected >=3, got {len(sentences)}: {sentences}"
+
+    def test_colon_heading_boundary(self):
+        """Lines ending with colon should separate from following content."""
+        text = "Please note the following:\nAll visitors must sign in at reception."
+        sentences = split_sentences(text)
+        assert len(sentences) >= 2, f"Expected >=2, got {len(sentences)}: {sentences}"
+
 
 # ── Word splitting tests ───────────────────────────────────────────────────
 
@@ -337,6 +371,51 @@ class TestAnalyze:
         scores = analyze(short_text)
         # Coleman-Liau should be None for very short texts
         # (though it depends on exact implementation threshold)
+
+    # ── Grade clamping regression tests ──
+
+    def test_grades_never_exceed_max(self):
+        """No grade metric should exceed MAX_CREDIBLE_GRADE (25.0)."""
+        from plainspeak.analyzer import MAX_CREDIBLE_GRADE
+        text = "This is a test. " * 5  # Short text, might produce unstable metrics
+        scores = analyze(text)
+        grade_metrics = [
+            scores.flesch_kincaid_grade,
+            scores.gunning_fog_index,
+            scores.smog_index,
+            scores.automated_readability_index,
+            scores.coleman_liau_index,
+        ]
+        for g in grade_metrics:
+            if g is not None:
+                assert g <= MAX_CREDIBLE_GRADE, f"Grade {g} exceeds max {MAX_CREDIBLE_GRADE}"
+
+    def test_grades_never_below_zero(self):
+        """No grade metric should be below 0."""
+        text = "Simple. " * 10
+        scores = analyze(text)
+        grade_metrics = [
+            scores.flesch_kincaid_grade,
+            scores.gunning_fog_index,
+            scores.smog_index,
+            scores.automated_readability_index,
+            scores.coleman_liau_index,
+        ]
+        for g in grade_metrics:
+            if g is not None:
+                assert g >= 0, f"Grade {g} is below 0"
+
+    def test_gunning_fog_clamped_on_extreme_text(self):
+        """Gunning Fog should be clamped for text with extreme complex-word ratio."""
+        # Very short text with all complex words and one "sentence" — 
+        # this is the kind of edge case that produces absurd Fog values
+        text = "antidisestablishmentarianism counterrevolutionary incomprehensibility"
+        scores = analyze(text)
+        if scores.gunning_fog_index is not None:
+            from plainspeak.analyzer import MAX_CREDIBLE_GRADE
+            assert scores.gunning_fog_index <= MAX_CREDIBLE_GRADE, (
+                f"Gunning Fog {scores.gunning_fog_index} exceeds max {MAX_CREDIBLE_GRADE}"
+            )
 
 
 class TestFleschDescription:

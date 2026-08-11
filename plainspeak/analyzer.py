@@ -248,14 +248,81 @@ def split_sentences(text: str) -> list[str]:
 
     protected = numbered_list_pattern.sub(_protect_list, protected)
 
-    # Phase 2: Split on sentence-ending punctuation
-
-    # Split on [.!?] followed by one or more whitespace characters
-    # and then a capital letter or a number (start of next sentence)
-    sentences = re.split(r'(?<=[.!?])\s+(?=[A-Z0-9])', protected)
-
-    # Also handle sentence-ending punctuation followed by newline + capital
-    # (already handled above since \s+ includes \n)
+    # Phase 2: Split on structural boundaries first (paragraphs, list items)
+    
+    # 2a. Split on double newlines (paragraph/section breaks)
+    paragraphs = re.split(r'\n\s*\n', protected)
+    
+    all_sentences = []
+    for para in paragraphs:
+        para = para.strip()
+        if not para:
+            continue
+        
+        # 2b. Split on single newlines within paragraphs — treat each line
+        # as a potential independent unit if it lacks terminal punctuation
+        # or if the next line starts with a list marker / heading pattern
+        lines = para.split('\n')
+        if len(lines) <= 1:
+            # Single-line paragraph — apply punctuation splitting
+            all_sentences.append(para)
+        else:
+            # Multi-line paragraph — check each line
+            merged = []
+            for line in lines:
+                line = line.strip()
+                if not line:
+                    if merged:
+                        all_sentences.append(' '.join(merged))
+                        merged = []
+                    continue
+                
+                # Detect standalone lines: headings, list items, lines without
+                # terminal punctuation that aren't clearly continuations
+                is_standalone = False
+                
+                # Line starts with a list-like marker (bullet, number, letter)
+                if re.match(r'^[\*\-\•\‣\◦\d+\.]\s', line):
+                    is_standalone = True
+                # Line is ALL CAPS or Title Case (likely a heading)
+                elif line.isupper() and len(line.split()) <= 10:
+                    is_standalone = True
+                # Line ends with colon (heading introducing a list)
+                elif line.rstrip().endswith(':'):
+                    is_standalone = True
+                # Line has no terminal punctuation and doesn't start lowercase
+                elif not re.search(r'[.!?]$', line) and line[0].isupper():
+                    is_standalone = True
+                
+                if is_standalone:
+                    # Flush any accumulated non-standalone text
+                    if merged:
+                        all_sentences.append(' '.join(merged))
+                        merged = []
+                    # Standalone line becomes its own sentence
+                    all_sentences.append(line)
+                else:
+                    merged.append(line)
+            
+            if merged:
+                all_sentences.append(' '.join(merged))
+    
+    # 2c. Now apply punctuation-based splitting to each unit
+    sentences = []
+    for unit in all_sentences:
+        unit = unit.strip()
+        if not unit:
+            continue
+        # Split on [.!?] followed by whitespace and capital letter/number
+        sub_sentences = re.split(r'(?<=[.!?])\s+(?=[A-Z0-9])', unit)
+        for s in sub_sentences:
+            s = s.strip()
+            if s:
+                sentences.append(s)
+    
+    # If no structural splits found, fall back to punctuation-only splitting
+    if not sentences:
+        sentences = re.split(r'(?<=[.!?])\s+(?=[A-Z0-9])', protected)
 
     # Phase 3: Restore protected patterns
     result = []
@@ -344,6 +411,12 @@ class ReadabilityScores:
     short_text_warning: str = ""        # Non-empty if text is too short for reliable metrics
     metric_spread: float = 0.0          # Range between highest and lowest grade metric
     metric_count: int = 0               # How many grade metrics were computable
+    grade_warnings: list = field(default_factory=list)  # Warnings about clamped/unreliable metrics
+
+# Maximum credible grade level — values above this are clamped and flagged
+MAX_CREDIBLE_GRADE: float = 25.0
+# Minimum grade level (below kindergarten)
+MIN_CREDIBLE_GRADE: float = 0.0
 
 
 def _classify_difficulty_band(grade: float) -> dict:
@@ -493,35 +566,54 @@ def analyze(text: str) -> ReadabilityScores:
     # Flesch-Kincaid Grade Level: 0.39 * (words/sentences) + 11.8 * (syllables/words) - 15.59
     if total_sentences > 0 and total_words > 0:
         fkgl = 0.39 * avg_sentence_length + 11.8 * avg_syllables_per_word - 15.59
-        scores.flesch_kincaid_grade = max(0, fkgl)
+        fkgl = max(MIN_CREDIBLE_GRADE, fkgl)
+        if fkgl > MAX_CREDIBLE_GRADE:
+            scores.grade_warnings.append(f"Flesch-Kincaid grade clamped from {fkgl:.0f} to {MAX_CREDIBLE_GRADE:.0f} (unreliable for this text)")
+            fkgl = MAX_CREDIBLE_GRADE
+        scores.flesch_kincaid_grade = fkgl
 
     # Gunning Fog Index: 0.4 * [(words/sentences) + 100 * (complex_words/words)]
     if total_sentences > 0 and total_words > 0:
         complex_pct = (total_complex_words / total_words) * 100
         gfi = 0.4 * (avg_sentence_length + complex_pct)
-        scores.gunning_fog_index = max(0, gfi)
+        gfi = max(MIN_CREDIBLE_GRADE, gfi)
+        if gfi > MAX_CREDIBLE_GRADE:
+            scores.grade_warnings.append(f"Gunning Fog index clamped from {gfi:.0f} to {MAX_CREDIBLE_GRADE:.0f} (unreliable for this text)")
+            gfi = MAX_CREDIBLE_GRADE
+        scores.gunning_fog_index = gfi
 
     # SMOG Index: 1.0430 * sqrt(complex_words * 30/sentences) + 3.1291
-    # Use the simplified formula for consistency
     if total_sentences > 0 and total_complex_words > 0:
         smog = 1.0430 * math.sqrt(total_complex_words * (30 / total_sentences)) + 3.1291
-        scores.smog_index = max(0, smog)
+        smog = max(MIN_CREDIBLE_GRADE, smog)
+        if smog > MAX_CREDIBLE_GRADE:
+            scores.grade_warnings.append(f"SMOG index clamped from {smog:.0f} to {MAX_CREDIBLE_GRADE:.0f} (unreliable for this text)")
+            smog = MAX_CREDIBLE_GRADE
+        scores.smog_index = smog
     elif total_sentences > 0:
-        scores.smog_index = 3.1291  # Minimum score
+        scores.smog_index = 3.1291
 
     # Automated Readability Index: 4.71 * (chars/words) + 0.5 * (words/sentences) - 21.43
     if total_sentences > 0 and total_words > 0:
         ari = 4.71 * (total_characters / total_words) + 0.5 * avg_sentence_length - 21.43
-        scores.automated_readability_index = max(0, ari)
+        ari = max(MIN_CREDIBLE_GRADE, ari)
+        if ari > MAX_CREDIBLE_GRADE:
+            scores.grade_warnings.append(f"ARI clamped from {ari:.0f} to {MAX_CREDIBLE_GRADE:.0f} (unreliable for this text)")
+            ari = MAX_CREDIBLE_GRADE
+        scores.automated_readability_index = ari
 
     # Coleman-Liau Index: 0.0588 * L - 0.296 * S - 15.8
-    # L = average letters per 100 words, S = average sentences per 100 words
     if total_words >= 100 and total_sentences > 0:
         L = (total_characters / total_words) * 100
         S = (total_sentences / total_words) * 100
         cli = 0.0588 * L - 0.296 * S - 15.8
-        scores.coleman_liau_index = max(0, cli)
+        cli = max(MIN_CREDIBLE_GRADE, cli)
+        if cli > MAX_CREDIBLE_GRADE:
+            scores.grade_warnings.append(f"Coleman-Liau index clamped from {cli:.0f} to {MAX_CREDIBLE_GRADE:.0f} (unreliable for this text)")
+            cli = MAX_CREDIBLE_GRADE
+        scores.coleman_liau_index = cli
 
+    # ── Clamp and label the consensus average if any individual metric was clamped ──
     # Consensus grade level (average of available grade-level metrics)
     # Note: this averaging approach is a pragmatic summary, not a scientifically
     # validated composite. Different formulas measure different constructs.
@@ -538,6 +630,9 @@ def analyze(text: str) -> ReadabilityScores:
     
     if grade_metrics:
         scores.consensus_grade_level = sum(grade_metrics) / len(grade_metrics)
+        # Clamp consensus too
+        if scores.consensus_grade_level > MAX_CREDIBLE_GRADE:
+            scores.consensus_grade_level = MAX_CREDIBLE_GRADE
         scores.metric_count = len(grade_metrics)
         scores.metric_spread = max(grade_metrics) - min(grade_metrics) if len(grade_metrics) > 1 else 0.0
         

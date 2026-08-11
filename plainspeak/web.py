@@ -1187,6 +1187,7 @@ def create_app():
             "short_text_warning": readability.short_text_warning,
             "metric_spread": round(readability.metric_spread, 1),
             "metric_count": readability.metric_count,
+            "grade_warnings": readability.grade_warnings,
             # Statistics
             "total_words": readability.total_words,
             "total_sentences": readability.total_sentences,
