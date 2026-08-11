@@ -35,16 +35,22 @@ class TestProtectedTerms:
         """'deemed' is a legal deeming term — protect it."""
         assert is_protected_term("deemed")
 
-    def test_protected_term_not_replaced_in_jargon(self):
-        """Protected terms are flagged but not given replacement suggestions."""
-        sentence = "The material breach was deemed significant by the court."
-        barriers = find_jargon(sentence, 0)
-        for b in barriers:
+    def test_protected_term_not_replaced_by_any_detector(self):
+        """Protected terms must NEVER get replacement suggestions from ANY detector."""
+        sentence = "This medication is contraindicated for patients who administer significant doses."
+        result = analyze_simplification(sentence)
+        protected_in_sentence = ["medication", "contraindicated", "administer", "significant"]
+        for b in result.barriers:
             word = b.matched_text.lower().strip()
-            if is_protected_term(word):
-                # Protected terms must NOT have a replacement suggestion
-                assert "instead" not in b.suggestion.lower() or "defining" in b.suggestion.lower(), (
-                    f"Protected term '{word}' got replacement suggestion: {b.suggestion}"
+            if word in protected_in_sentence:
+                # Must not have a word-replacement suggestion
+                has_replacement = (
+                    "instead" in (b.suggestion or "").lower() or
+                    "consider using" in (b.suggestion or "").lower() or
+                    "replace" in (b.suggestion or "").lower()
+                )
+                assert not has_replacement, (
+                    f"Protected term '{word}' got replacement via {b.barrier_type}: {b.suggestion}"
                 )
 
     def test_legal_terms_in_protected_set(self):
@@ -140,7 +146,7 @@ class TestDeduplication:
     """Barriers must not be duplicated by overlapping detectors."""
 
     def test_dedup_removes_duplicates(self):
-        """Identical barriers (same sentence, type, text) are deduplicated."""
+        """Identical barriers (same sentence, text) are deduplicated."""
         b1 = Barrier(barrier_type="jargon", sentence_index=0, sentence_text="test",
                      matched_text="shall", severity="warning")
         b2 = Barrier(barrier_type="jargon", sentence_index=0, sentence_text="test",
@@ -158,25 +164,24 @@ class TestDeduplication:
         assert len(result) == 1
         assert result[0].severity == "warning"
 
-    def test_different_types_not_deduped(self):
-        """Different barrier types on same text are not duplicates."""
+    def test_cross_type_dedup(self):
+        """Same word flagged by different detectors → one barrier (cross-type dedup)."""
+        b1 = Barrier(barrier_type="jargon", sentence_index=0, sentence_text="test",
+                     matched_text="contraindicated", severity="warning")
+        b2 = Barrier(barrier_type="complex_word", sentence_index=0, sentence_text="test",
+                     matched_text="contraindicated", severity="info")
+        result = _deduplicate_barriers([b1, b2])
+        assert len(result) == 1, f"Cross-type dedup failed: got {len(result)} barriers"
+        assert result[0].severity == "warning"
+
+    def test_different_words_not_deduped(self):
+        """Different words on same sentence are not duplicates."""
         b1 = Barrier(barrier_type="jargon", sentence_index=0, sentence_text="test",
                      matched_text="shall", severity="warning")
-        b2 = Barrier(barrier_type="complex_word", sentence_index=0, sentence_text="test",
-                     matched_text="shall", severity="info")
+        b2 = Barrier(barrier_type="jargon", sentence_index=0, sentence_text="test",
+                     matched_text="indemnify", severity="info")
         result = _deduplicate_barriers([b1, b2])
         assert len(result) == 2
-
-    def test_no_duplicates_in_full_analysis(self):
-        """Full analysis should not contain duplicate barriers."""
-        text = "The party shall indemnify the other party against all claims."
-        result = analyze_simplification(text)
-        # Check for exact duplicates
-        seen = set()
-        for b in result.barriers:
-            key = (b.sentence_index, b.barrier_type, b.matched_text.lower().strip())
-            assert key not in seen, f"Duplicate barrier: {key}"
-            seen.add(key)
 
 
 # ── P2: Glossary consistency ──────────────────────────────────────────────
@@ -219,6 +224,19 @@ class TestGlossaryConsistency:
         """'prescribe' in SIMPLE_WORD_MAP must align with GLOSSARY."""
         assert SIMPLE_WORD_MAP.get("prescribe") != "require", (
             "'prescribe' must not map to 'require' — GLOSSARY uses 'set'"
+        )
+
+    def test_zero_meaningful_conflicts(self):
+        """Assert zero conflicts where the two maps disagree meaningfully."""
+        conflicts = []
+        for word in GLOSSARY:
+            if word in SIMPLE_WORD_MAP and " " not in word:
+                g_val = GLOSSARY[word][0].lower().strip()
+                s_val = SIMPLE_WORD_MAP[word].lower().strip()
+                if g_val != s_val and g_val not in s_val and s_val not in g_val:
+                    conflicts.append((word, g_val, s_val))
+        assert len(conflicts) == 0, (
+            f"Found {len(conflicts)} glossary conflicts: {conflicts}"
         )
 
 

@@ -244,13 +244,22 @@ def find_glossary_match(word: str) -> Optional[tuple[str, str]]:
     Find a glossary entry for a word, trying exact match first,
     then stemmed match.
 
+    Protected domain terms of art (legal, medical, financial) will
+    NEVER receive a meaning-changing replacement from this function.
+    Detectors should flag them as difficult but suggest definition
+    or explanation rather than substitution.
+
     Args:
         word: The word to look up.
 
     Returns:
-        (simpler_alternative, explanation) if found, None otherwise.
+        (simpler_alternative, explanation) if found and safe, None otherwise.
     """
     word_lower = word.lower()
+
+    # Protected terms of art: never propose a replacement word
+    if is_protected_term(word_lower):
+        return None
 
     # Exact match in GLOSSARY
     if word_lower in GLOSSARY:
@@ -263,6 +272,9 @@ def find_glossary_match(word: str) -> Optional[tuple[str, str]]:
     # Try stemmed match
     stemmed = stem_word(word_lower)
     if stemmed != word_lower:
+        # Check stemmed form is not a protected term
+        if is_protected_term(stemmed):
+            return None
         if stemmed in GLOSSARY:
             return GLOSSARY[stemmed]
         if stemmed in SIMPLE_WORD_MAP:
@@ -711,25 +723,33 @@ def find_jargon(sentence: str, sentence_index: int) -> list[Barrier]:
     # Then check single words
     for word in words:
         word_lower = word.lower()
-        match = find_glossary_match(word_lower)
-        if match:
-            simpler, explanation = match
-            # Protected term: flag but don't suggest replacement
-            if is_protected_term(word_lower):
-                domain = get_protected_domain(word_lower)
-                suggestion = (
-                    f'"{word}" is a {domain} term of art with specific meaning. '
-                    f'Consider defining or explaining it on first use.'
-                )
-            else:
-                suggestion = f'Consider using "{simpler}" instead. {explanation}'
-            
+        # Check protected terms BEFORE glossary match — still flag but
+        # with a definition/explanation suggestion, never a replacement
+        if is_protected_term(word_lower):
+            domain = get_protected_domain(word_lower)
             barriers.append(Barrier(
                 barrier_type="jargon",
                 sentence_index=sentence_index,
                 sentence_text=sentence,
                 matched_text=word,
-                suggestion=suggestion,
+                suggestion=(
+                    f'"{word}" is a {domain} term of art with specific meaning. '
+                    f'Consider defining or explaining it on first use.'
+                ),
+                explanation=f'"{word}" is a domain-specific term that may be unfamiliar to some readers.',
+                severity="info",
+            ))
+            continue
+        
+        match = find_glossary_match(word_lower)
+        if match:
+            simpler, explanation = match
+            barriers.append(Barrier(
+                barrier_type="jargon",
+                sentence_index=sentence_index,
+                sentence_text=sentence,
+                matched_text=word,
+                suggestion=f'Consider using "{simpler}" instead. {explanation}',
                 explanation=f'"{word}" can often be replaced with a simpler word.',
                 severity="info",
             ))
@@ -827,17 +847,20 @@ def _deduplicate_barriers(barriers: list[Barrier]) -> list[Barrier]:
     Remove duplicate barriers produced by overlapping detectors.
     
     Two barriers are considered duplicates if they share the same
-    (sentence_index, barrier_type, matched_text). The highest-severity
-    instance is kept.
+    (sentence_index, matched_text) regardless of barrier_type.
+    This prevents a single word like 'contraindicated' from appearing
+    as both a 'complex_word' and 'jargon' barrier.
+    The highest-severity instance is kept.
     """
     severity_order = {"critical": 3, "warning": 2, "info": 1}
+    # Primary key: (sentence_index, matched_text) — cross-type dedup
     seen: dict[tuple, Barrier] = {}
     
     for b in barriers:
-        key = (b.sentence_index, b.barrier_type, b.matched_text.lower().strip())
+        key = (b.sentence_index, b.matched_text.lower().strip())
         if key in seen:
-            # Keep the higher-severity instance
             existing = seen[key]
+            # Keep the higher-severity instance
             if severity_order.get(b.severity, 0) > severity_order.get(existing.severity, 0):
                 seen[key] = b
         else:
