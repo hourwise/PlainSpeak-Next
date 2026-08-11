@@ -16,6 +16,7 @@ All known limitations, uncertainties, and gaps. This document is maintained hone
 ### Suggestion quality
 - **Plain language suggestions are from a static glossary.** They do not account for context. A suggested replacement may be inappropriate for the specific domain or may change nuance.
 - **No guarantee that suggestions improve comprehension.** We have not conducted user studies. Suggestions are based on established plain-language guidelines (e.g., Plain Language Act, CDC Clear Communication Index) but have not been empirically validated in this tool.
+- **Grammar issues from word substitution.** Mechanical word replacement inevitably breaks grammar (a/an agreement, gerund/infinitive, tense). v0.3.0 adds basic post-processing (a/an fixes, capitalization) but many grammar issues remain.
 
 ### Stemming limitations
 - **Basic suffix-stripping only.** The stemmer handles common suffixes (-tion, -ment, -ing, -ed, -ly, etc.) but does not handle irregular forms, vowel changes, or morphology rules. Accuracy is approximately 70% for inflected forms.

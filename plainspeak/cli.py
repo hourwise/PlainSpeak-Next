@@ -15,6 +15,7 @@ from . import __version__
 from .analyzer import analyze, ReadabilityScores
 from .simplifier import analyze_simplification, SimplificationResult, generate_simplified_text
 from .reporter import generate_report, format_console_report, generate_json
+from .grammar import post_process_simplified
 
 
 @click.group()
@@ -78,17 +79,42 @@ def analyze_cmd(
         text = sys.stdin.read()
         source = "stdin"
     elif file:
+        # Try the multi-format reader first (supports .txt, .docx, .pdf, .html, .md)
         try:
-            text = Path(file).read_text(encoding="utf-8")
-            source = file
-        except UnicodeDecodeError:
-            # Try with other common encodings
+            from .reader import read_auto
+            text, source_format = read_auto(file)
+            source = f"{file} ({source_format})"
+        except ImportError:
+            # reader module not available, fall back to plain text
             try:
-                text = Path(file).read_text(encoding="latin-1")
+                text = Path(file).read_text(encoding="utf-8")
                 source = file
-            except Exception as e:
-                click.echo(f"Error: Cannot read file '{file}': {e}", err=True)
-                sys.exit(1)
+            except UnicodeDecodeError:
+                try:
+                    text = Path(file).read_text(encoding="latin-1")
+                    source = file
+                except Exception as e:
+                    click.echo(f"Error: Cannot read file '{file}': {e}", err=True)
+                    sys.exit(1)
+        except ValueError as e:
+            click.echo(f"Error: {e}", err=True)
+            click.echo("Supported formats: .txt, .md, .docx, .pdf, .html", err=True)
+            sys.exit(1)
+        except FileNotFoundError as e:
+            click.echo(f"Error: {e}", err=True)
+            sys.exit(1)
+        except Exception as e:
+            # Fall back to plain text reading
+            try:
+                text = Path(file).read_text(encoding="utf-8")
+                source = file
+            except UnicodeDecodeError:
+                try:
+                    text = Path(file).read_text(encoding="latin-1")
+                    source = file
+                except Exception as e2:
+                    click.echo(f"Error: Cannot read file '{file}': {e2}", err=True)
+                    sys.exit(1)
     else:
         click.echo(
             "Error: Please provide a file or use --stdin. "
@@ -201,14 +227,20 @@ def simplify(file: Optional[str], from_stdin: bool, output: Optional[str]):
     if from_stdin:
         text = sys.stdin.read()
     elif file:
+        # Try multi-format reader first
         try:
-            text = Path(file).read_text(encoding="utf-8")
-        except UnicodeDecodeError:
+            from .reader import read_auto
+            text, source_format = read_auto(file)
+        except (ImportError, ValueError, FileNotFoundError):
+            # Fall back to plain text
             try:
-                text = Path(file).read_text(encoding="latin-1")
-            except Exception as e:
-                click.echo(f"Error: Cannot read file '{file}': {e}", err=True)
-                sys.exit(1)
+                text = Path(file).read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                try:
+                    text = Path(file).read_text(encoding="latin-1")
+                except Exception as e:
+                    click.echo(f"Error: Cannot read file '{file}': {e}", err=True)
+                    sys.exit(1)
     else:
         click.echo("Error: Provide a file or use --stdin.", err=True)
         sys.exit(1)
@@ -218,6 +250,7 @@ def simplify(file: Optional[str], from_stdin: bool, output: Optional[str]):
         sys.exit(1)
 
     simplified, count = generate_simplified_text(text)
+    simplified = post_process_simplified(simplified)
 
     click.echo(f"Made {count} mechanical substitution(s).")
     click.echo("Changed words are marked with **asterisks** for your review.")

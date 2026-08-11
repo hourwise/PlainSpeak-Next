@@ -38,7 +38,10 @@ PlainSpeak gives writers and advocates a free, offline tool to check whether tex
 - [x] CLI interface (analyze, score, simplify, web, version commands)
 - [x] **Local web application** with real-time analysis, dark mode, sample texts
 - [x] Improved sentence segmentation (200+ abbreviations, URLs, initials, numbered lists)
-- [x] Test suite (142 tests, all passing)
+- [x] **Dictionary-backed syllable counting** (CMU Pronouncing Dictionary, 125K+ words)
+- [x] **Multi-format document support** (.txt, .md, .docx, .pdf, .html)
+- [x] **Grammar-aware post-processing** (a/an article fixes, capitalization)
+- [x] Test suite (165 tests, all passing)
 
 ## How to run it
 

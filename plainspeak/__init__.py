@@ -5,5 +5,5 @@ Helps writers and advocates understand how readable text is and what
 can be done to make it clearer. All processing is offline and local.
 """
 
-__version__ = "0.2.0"
-__all__ = ["analyzer", "simplifier", "glossary", "reporter", "cli", "web"]
+__version__ = "0.3.0"
+__all__ = ["analyzer", "simplifier", "glossary", "reporter", "cli", "web", "reader", "grammar"]

@@ -18,6 +18,7 @@ from typing import Optional
 from . import __version__
 from .analyzer import analyze, describe_flesch_score
 from .simplifier import analyze_simplification, generate_simplified_text
+from .grammar import post_process_simplified
 
 
 # ── HTML escaping helper ───────────────────────────────────────────────────
@@ -1029,6 +1030,7 @@ def create_app():
         if not no_simplify:
             simplification = analyze_simplification(text)
             simplified_text, _substitution_count = generate_simplified_text(text)
+            simplified_text = post_process_simplified(simplified_text)
             result_dict["simplification"] = {
                 "total_barriers": simplification.total_barriers,
                 "critical_count": simplification.critical_count,

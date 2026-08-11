@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "plainspeak"
-version = "0.2.0"
+version = "0.3.0"
 description = "A readability analysis and text simplification toolkit"
 readme = "README.md"
 license = {text = "MIT"}
@@ -38,6 +38,17 @@ dev = [
 ]
 web = [
     "flask>=3.0",
+]
+docx = [
+    "python-docx>=0.8",
+]
+pdf = [
+    "pypdf>=3.0",
+]
+all = [
+    "flask>=3.0",
+    "python-docx>=0.8",
+    "pypdf>=3.0",
 ]
 
 [project.scripts]

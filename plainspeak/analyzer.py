@@ -77,12 +77,9 @@ def count_syllables(word: str) -> int:
     """
     Estimate the number of syllables in an English word.
 
-    Uses a pattern-based heuristic. Accuracy is approximately 85-95%
-    for common English words. Known to fail on:
-    - Words with irregular vowel patterns (e.g., 'people', 'every')
-    - Words where silent 'e' rules don't apply
-    - Irregular loanwords
-    - Some compound words
+    Uses the CMU Pronouncing Dictionary for known words (125,000+ entries,
+    near-100% accuracy) and falls back to a pattern-based heuristic for
+    unknown words (~85-95% accuracy).
 
     Returns at least 1 for any non-empty alphabetic string.
     """
@@ -94,6 +91,24 @@ def count_syllables(word: str) -> int:
     if len(word) <= 2:
         return 1
 
+    # Try the CMU dictionary first (lazy-loaded, cached in memory)
+    try:
+        from .syllable_data import get_syllable_count
+        syllable_dict = get_syllable_count()
+        if word in syllable_dict:
+            return syllable_dict[word]
+    except (ImportError, FileNotFoundError):
+        pass  # Fall back to heuristic if data file not available
+
+    # Fall back to heuristic for words not in the dictionary
+    return _count_syllables_heuristic(word)
+
+
+def _count_syllables_heuristic(word: str) -> int:
+    """
+    Pattern-based syllable counter. Used as fallback when the CMU dictionary
+    doesn't contain the word.
+    """
     original = word
 
     # Check for -le and -les patterns BEFORE removing silent e
