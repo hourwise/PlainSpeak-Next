@@ -788,6 +788,20 @@ def generate_simplified_text(text: str) -> tuple[str, int]:
             result = pattern.sub(f"**{simpler}**", result)
             replacements += count
 
+    # Handle hyphenated single-token glossary entries (e.g., "pro-rata")
+    # These aren't caught by the phrase matcher (no space) or the word
+    # matcher (regex only matches [a-zA-Z]+).
+    hyphenated_terms = [
+        (k, v[0]) for k, v in GLOSSARY.items()
+        if " " not in k and "-" in k
+    ]
+    for term, simpler in hyphenated_terms:
+        pattern = re.compile(re.escape(term), re.IGNORECASE)
+        count = len(pattern.findall(result))
+        if count > 0:
+            result = pattern.sub(f"**{simpler}**", result)
+            replacements += count
+
     # Build a combined word-replacement map from GLOSSARY + SIMPLE_WORD_MAP
     # (deduplicating — GLOSSARY takes precedence for richer explanations)
     word_replacements: dict[str, str] = {}
@@ -798,34 +812,43 @@ def generate_simplified_text(text: str) -> tuple[str, int]:
         if word not in word_replacements:
             word_replacements[word] = simpler
 
-    # Extract words from text and try to match each one (with stemming)
-    all_words = re.findall(r'\b[a-zA-Z]+\b', result)
-    # Track which words we've already replaced to avoid double-counting
+    # Extract words from text, excluding those already inside **...** markup
+    # Process word replacements segment-by-segment to avoid double-replacement
+    segments = re.split(r'(\*\*[^*]+\*\*)', result)
+    result_parts: list[str] = []
     replaced_words: set[str] = set()
-
-    for match_word in set(w.lower() for w in all_words):
-        if match_word in replaced_words:
+    
+    for seg in segments:
+        if seg.startswith('**'):
+            # Already-marked segment — keep as-is
+            result_parts.append(seg)
             continue
         
-        # Try exact match
-        if match_word in word_replacements:
-            simpler = word_replacements[match_word]
+        # Non-marked segment — apply word replacements
+        working = seg
+        seg_words = set(w.lower() for w in re.findall(r'\b[a-zA-Z]+\b', working))
+        
+        for match_word in seg_words:
+            if match_word in replaced_words:
+                continue
+            
+            if match_word in word_replacements:
+                simpler = word_replacements[match_word]
+            else:
+                stemmed = stem_word(match_word)
+                if stemmed != match_word and stemmed in word_replacements:
+                    simpler = word_replacements[stemmed]
+                else:
+                    continue
+            
             pattern = re.compile(r'\b' + re.escape(match_word) + r'\b', re.IGNORECASE)
-            new_result = pattern.sub(f"**{simpler}**", result)
-            if new_result != result:
+            new_working = pattern.sub(f"**{simpler}**", working)
+            if new_working != working:
                 replacements += 1
-                result = new_result
+                working = new_working
                 replaced_words.add(match_word)
-        else:
-            # Try stemmed match
-            stemmed = stem_word(match_word)
-            if stemmed != match_word and stemmed in word_replacements:
-                simpler = word_replacements[stemmed]
-                pattern = re.compile(r'\b' + re.escape(match_word) + r'\b', re.IGNORECASE)
-                new_result = pattern.sub(f"**{simpler}**", result)
-                if new_result != result:
-                    replacements += 1
-                    result = new_result
-                    replaced_words.add(match_word)
-
+        
+        result_parts.append(working)
+    
+    result = ''.join(result_parts)
     return result, replacements
