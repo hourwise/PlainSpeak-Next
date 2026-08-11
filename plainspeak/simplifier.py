@@ -23,6 +23,87 @@ from .glossary import GLOSSARY, SIMPLE_WORD_MAP
 from .analyzer import split_sentences, split_words, count_syllables
 
 
+# ── Protected terms of art ─────────────────────────────────────────────────
+# Domain terms whose meaning must not be altered by word substitution.
+# These may still be FLAGGED as difficult/jargon, with a recommendation to
+# define or explain on first use, but the engine must NEVER propose a
+# replacement word that changes the term's legal/clinical/financial meaning.
+PROTECTED_TERMS: dict[str, str] = {
+    # Legal terms of art
+    "shall": "legal",
+    "may": "legal",
+    "consideration": "legal",
+    "party": "legal",
+    "execute": "legal",
+    "remedy": "legal",
+    "damages": "legal",
+    "liable": "legal",
+    "indemnify": "legal",
+    "warrant": "legal",
+    "negligence": "legal",
+    "covenant": "legal",
+    "waive": "legal",
+    "construe": "legal",
+    "prejudice": "legal",
+    "instrument": "legal",
+    "serve": "legal",
+    "notice": "legal",
+    "provision": "legal",
+    "estate": "legal",
+    "deemed": "legal",
+    "material": "legal",
+    "notwithstanding": "legal",
+    "heretofore": "legal",
+    "thereto": "legal",
+    "hereunder": "legal",
+    "thereunder": "legal",
+    "forthwith": "legal",
+    "thereby": "legal",
+    "hereby": "legal",
+    "herein": "legal",
+    "thereof": "legal",
+    # Medical/clinical terms of art
+    "acute": "medical",
+    "chronic": "medical",
+    "negative": "medical",
+    "positive": "medical",
+    "stable": "medical",
+    "expired": "medical",
+    "gross": "medical",
+    "occult": "medical",
+    "frank": "medical",
+    "guarded": "medical",
+    "labile": "medical",
+    "refractory": "medical",
+    "adverse": "medical",
+    "titrate": "medical",
+    "dose": "medical",
+    "indicated": "medical",
+    "contraindicated": "medical",
+    "administer": "medical",
+    "medication": "medical",
+    "dosage": "medical",
+    "significant": "medical",
+    # Financial terms of art
+    "principal": "financial",
+    "securities": "financial",
+    "maturity": "financial",
+    "interest": "financial",
+    "accrue": "financial",
+    "default": "financial",
+}
+
+
+def is_protected_term(word: str) -> bool:
+    """Check if a word is a protected domain term of art."""
+    return word.lower() in PROTECTED_TERMS
+
+
+def get_protected_domain(word: str) -> str:
+    """Get the domain tag for a protected term."""
+    return PROTECTED_TERMS.get(word.lower(), "")
+
+
 # ── Basic stemming ─────────────────────────────────────────────────────────
 
 # Common English suffixes to strip for glossary matching
@@ -516,48 +597,78 @@ def find_nominalizations(sentence: str, sentence_index: int) -> list[Barrier]:
 
 
 def _nominalization_to_verb(word: str) -> Optional[str]:
-    """Attempt to convert a nominalization back to its verb form."""
+    """Attempt to convert a nominalization back to its verb form.
+    
+    Only returns a verb if the derived form is a validated real English word
+    (checked against the CMU Pronouncing Dictionary). Bogus derivations like
+    'medication' -> 'medice' are suppressed.
+    """
     word = word.lower()
-    # Common transformations
+    candidate = None
+    
     if word.endswith("ization"):
-        return word[:-6] + "e"  # organization -> organize
-    if word.endswith("isation"):
-        return word[:-6] + "e"  # organisation -> organise
-    if word.endswith("tion"):
+        candidate = word[:-7] + "ize"
+    elif word.endswith("isation"):
+        candidate = word[:-7] + "ise"
+    elif word.endswith("ation"):
+        # implementation -> implement, consideration -> consider
+        candidate = word[:-5]
+    elif word.endswith("tion"):
         base = word[:-4]
         if base.endswith("a"):
-            return base[:-1] + "e"  # creation -> create
-        if base.endswith("i"):
-            return base[:-1] + "y"  # justification -> justify?
-        return base + "e"  # completion -> complete (approx)
-    if word.endswith("sion"):
+            candidate = base[:-1] + "e"
+        elif base.endswith("i"):
+            candidate = base[:-1] + "y"
+        else:
+            candidate = base + "e"
+    elif word.endswith("sion"):
         base = word[:-4]
         if base.endswith("mis"):
-            return base[:-3] + "mit"  # submission -> submit
-        if base.endswith("ci"):
-            return base[:-2] + "de"  # decision -> decide
-        return base + "e"
-    if word.endswith("ment"):
-        return word[:-4]  # development -> develop
-    if word.endswith("ance"):
+            candidate = base[:-3] + "mit"
+        elif base.endswith("ci"):
+            candidate = base[:-2] + "de"
+        else:
+            candidate = base + "e"
+    elif word.endswith("ment"):
+        candidate = word[:-4]
+    elif word.endswith("ance"):
         base = word[:-4]
         if base.endswith("r"):
-            return base  # performance -> perform
-        return base + "e"  # guidance -> guide? (not perfect)
-    if word.endswith("ence"):
+            candidate = base
+        else:
+            candidate = base + "e"
+    elif word.endswith("ence"):
         base = word[:-4]
-        return base + "e"  # existence -> exist (approx)
-    if word.endswith("ness"):
-        return word[:-4]  # happiness -> happy (adjective, not verb)
-    if word.endswith("ity"):
+        candidate = base + "e"
+    elif word.endswith("ness"):
+        candidate = word[:-4]
+    elif word.endswith("ity"):
         base = word[:-3]
-        return base + "e"  # creativity -> creative (adjective, not verb)
+        candidate = base + "e"
+    
+    if candidate and _is_real_word(candidate):
+        return candidate
     return None
+
+
+def _is_real_word(word: str) -> bool:
+    """Check if a word is a real English word using the CMU dictionary."""
+    try:
+        from .syllable_data import get_syllable_count
+        syllable_dict = get_syllable_count()
+        return word.lower() in syllable_dict
+    except (ImportError, FileNotFoundError):
+        vowels = set('aeiou')
+        return len(word) >= 3 and bool(vowels & set(word.lower()))
 
 
 def find_jargon(sentence: str, sentence_index: int) -> list[Barrier]:
     """
     Find jargon terms and bureaucratic language with plain-language alternatives.
+    
+    Protected domain terms of art are flagged as potentially difficult but
+    are NOT given meaning-changing replacements. Instead, the suggestion
+    recommends defining or explaining the term on first use.
     """
     barriers = []
     words = split_words(sentence)
@@ -573,6 +684,18 @@ def find_jargon(sentence: str, sentence_index: int) -> list[Barrier]:
     for phrase, (simpler, explanation) in phrases:
         idx = sentence_lower.find(phrase)
         if idx != -1:
+            # Check if any word in the phrase is a protected term
+            phrase_words = phrase.lower().split()
+            is_protected = any(w in PROTECTED_TERMS for w in phrase_words)
+            
+            if is_protected:
+                suggestion = (
+                    f'"{phrase}" is a domain term of art. '
+                    f'Consider defining or explaining it on first use rather than replacing it.'
+                )
+            else:
+                suggestion = f'Consider using "{simpler}" instead. {explanation}'
+            
             barriers.append(Barrier(
                 barrier_type="jargon",
                 sentence_index=sentence_index,
@@ -580,7 +703,7 @@ def find_jargon(sentence: str, sentence_index: int) -> list[Barrier]:
                 start_char=idx,
                 end_char=idx + len(phrase),
                 matched_text=phrase,
-                suggestion=f'Consider using "{simpler}" instead. {explanation}',
+                suggestion=suggestion,
                 explanation=f'"{phrase}" is bureaucratic or formal language. Using plain alternatives makes text more accessible.',
                 severity="warning" if len(phrase.split()) >= 3 else "info",
             ))
@@ -591,12 +714,22 @@ def find_jargon(sentence: str, sentence_index: int) -> list[Barrier]:
         match = find_glossary_match(word_lower)
         if match:
             simpler, explanation = match
+            # Protected term: flag but don't suggest replacement
+            if is_protected_term(word_lower):
+                domain = get_protected_domain(word_lower)
+                suggestion = (
+                    f'"{word}" is a {domain} term of art with specific meaning. '
+                    f'Consider defining or explaining it on first use.'
+                )
+            else:
+                suggestion = f'Consider using "{simpler}" instead. {explanation}'
+            
             barriers.append(Barrier(
                 barrier_type="jargon",
                 sentence_index=sentence_index,
                 sentence_text=sentence,
                 matched_text=word,
-                suggestion=f'Consider using "{simpler}" instead. {explanation}',
+                suggestion=suggestion,
                 explanation=f'"{word}" can often be replaced with a simpler word.',
                 severity="info",
             ))
@@ -689,6 +822,30 @@ def _noun_to_verb(noun: str) -> Optional[str]:
 # ── Main analysis function ─────────────────────────────────────────────────
 
 
+def _deduplicate_barriers(barriers: list[Barrier]) -> list[Barrier]:
+    """
+    Remove duplicate barriers produced by overlapping detectors.
+    
+    Two barriers are considered duplicates if they share the same
+    (sentence_index, barrier_type, matched_text). The highest-severity
+    instance is kept.
+    """
+    severity_order = {"critical": 3, "warning": 2, "info": 1}
+    seen: dict[tuple, Barrier] = {}
+    
+    for b in barriers:
+        key = (b.sentence_index, b.barrier_type, b.matched_text.lower().strip())
+        if key in seen:
+            # Keep the higher-severity instance
+            existing = seen[key]
+            if severity_order.get(b.severity, 0) > severity_order.get(existing.severity, 0):
+                seen[key] = b
+        else:
+            seen[key] = b
+    
+    return list(seen.values())
+
+
 def analyze_simplification(text: str) -> SimplificationResult:
     """
     Perform a full simplification analysis of the given text.
@@ -712,6 +869,11 @@ def analyze_simplification(text: str) -> SimplificationResult:
 
     # Add long sentence barriers
     all_barriers.extend(find_long_sentences(sentences))
+
+    # ── De-duplicate barriers ──
+    # Overlapping detectors can produce the same finding. Keep the
+    # highest-severity instance per (sentence_index, barrier_type, matched_text).
+    all_barriers = _deduplicate_barriers(all_barriers)
 
     # Sort by sentence index then severity
     severity_order = {"critical": 0, "warning": 1, "info": 2}
