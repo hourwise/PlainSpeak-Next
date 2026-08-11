@@ -852,3 +852,202 @@ def generate_simplified_text(text: str) -> tuple[str, int]:
     
     result = ''.join(result_parts)
     return result, replacements
+
+
+# ── Barrier metadata: confidence and priority ──────────────────────────────
+
+# Confidence levels for each barrier type, based on what the implementation
+# can honestly establish from surface-level text analysis.
+BARRIER_CONFIDENCE: dict[str, str] = {
+    "long_sentence": "high",       # Word count is objective
+    "complex_word": "medium",      # Syllable/char heuristics are approximate
+    "jargon": "medium",            # Glossary is curated but context-free
+    "passive_voice": "medium",     # Regex-based, ~70-80% precision
+    "nominalization": "medium",    # Suffix-based, reasonable but not perfect
+    "hidden_verb": "uncertain",    # Highly context-dependent
+    "redundant_pair": "medium",    # Pattern-based, generally reliable
+}
+
+# Priority levels: how much each barrier type affects comprehension
+BARRIER_PRIORITY: dict[str, str] = {
+    "long_sentence": "high",       # Strongest predictor of reading difficulty
+    "passive_voice": "consider",   # Can obscure agency but sometimes appropriate
+    "jargon": "high",              # Directly blocks comprehension for many readers
+    "complex_word": "consider",    # Individual words less critical than overall
+    "nominalization": "consider",  # Contributes to density but not always harmful
+    "hidden_verb": "consider",     # Can make text feel bureaucratic
+    "redundant_pair": "info",      # Minor efficiency issue, rarely blocks comprehension
+}
+
+BARRIER_LABELS: dict[str, str] = {
+    "long_sentence": "Long sentence",
+    "complex_word": "Complex word",
+    "jargon": "Jargon or formal language",
+    "passive_voice": "Passive voice",
+    "nominalization": "Nominalization",
+    "hidden_verb": "Hidden verb",
+    "redundant_pair": "Redundant word pair",
+}
+
+
+def get_barrier_confidence(barrier_type: str) -> str:
+    """Return the confidence level for a barrier type."""
+    return BARRIER_CONFIDENCE.get(barrier_type, "medium")
+
+
+def get_barrier_priority(barrier_type: str) -> str:
+    """Return the priority level for a barrier type."""
+    return BARRIER_PRIORITY.get(barrier_type, "consider")
+
+
+def get_barrier_label(barrier_type: str) -> str:
+    """Return a human-readable label for a barrier type."""
+    return BARRIER_LABELS.get(barrier_type, barrier_type.replace("_", " ").title())
+
+
+def group_barriers_by_sentence(barriers: list) -> list[dict]:
+    """
+    Group barriers by sentence, deduplicating by type within each sentence.
+    
+    Returns a list of sentence-group dicts sorted by priority (high first).
+    """
+    from collections import defaultdict
+    
+    # Group by sentence index
+    by_sentence: dict[int, list] = defaultdict(list)
+    for b in barriers:
+        by_sentence[b.sentence_index].append(b)
+    
+    result = []
+    for sent_idx in sorted(by_sentence.keys()):
+        sent_barriers = by_sentence[sent_idx]
+        sentence_text = sent_barriers[0].sentence_text if sent_barriers else ""
+        word_count = len(sentence_text.split()) if sentence_text else 0
+        
+        # Deduplicate by type within this sentence
+        seen_types: set[str] = set()
+        unique_barriers = []
+        for b in sent_barriers:
+            if b.barrier_type not in seen_types:
+                seen_types.add(b.barrier_type)
+                unique_barriers.append(b)
+        
+        # Determine sentence priority (highest among its barriers)
+        priorities = {"high": 3, "consider": 2, "info": 1}
+        sent_priority = "info"
+        sent_priority_score = 0
+        issue_types = []
+        for b in unique_barriers:
+            p = get_barrier_priority(b.barrier_type)
+            ps = priorities.get(p, 0)
+            if ps > sent_priority_score:
+                sent_priority = p
+                sent_priority_score = ps
+            issue_types.append({
+                "type": b.barrier_type,
+                "label": get_barrier_label(b.barrier_type),
+                "confidence": get_barrier_confidence(b.barrier_type),
+                "priority": p,
+                "count": sum(1 for x in sent_barriers if x.barrier_type == b.barrier_type),
+                "matched_text": b.matched_text,
+                "suggestion": b.suggestion,
+                "explanation": b.explanation,
+            })
+        
+        # Sort issues by priority
+        issue_types.sort(key=lambda x: priorities.get(x["priority"], 0), reverse=True)
+        
+        result.append({
+            "sentence_index": sent_idx,
+            "sentence_text": sentence_text[:300] + ("..." if len(sentence_text) > 300 else ""),
+            "word_count": word_count,
+            "priority": sent_priority,
+            "total_issues": len(sent_barriers),
+            "unique_issue_types": len(unique_barriers),
+            "issues": issue_types,
+        })
+    
+    # Sort sentences by priority
+    result.sort(key=lambda x: priorities.get(x["priority"], 0), reverse=True)
+    
+    return result
+
+
+def build_top_improvements(grouped_barriers: list[dict], max_items: int = 7) -> list[dict]:
+    """
+    Build a prioritized "Top improvements" summary from grouped barriers.
+    
+    Returns up to max_items actions, each with a clear recommendation.
+    """
+    improvements = []
+    seen = set()
+    
+    for group in grouped_barriers:
+        for issue in group["issues"]:
+            key = (group["sentence_index"], issue["type"])
+            if key in seen:
+                continue
+            seen.add(key)
+            
+            if len(improvements) >= max_items:
+                break
+            
+            # Build a specific, actionable recommendation
+            rec = _build_recommendation(group, issue)
+            if rec:
+                improvements.append(rec)
+        
+        if len(improvements) >= max_items:
+            break
+    
+    return improvements
+
+
+def _build_recommendation(group: dict, issue: dict) -> dict | None:
+    """Build a single actionable recommendation."""
+    sent_idx = group["sentence_index"]
+    priority = issue["priority"]
+    btype = issue["type"]
+    
+    if btype == "long_sentence":
+        return {
+            "priority": priority,
+            "location": f"Sentence {sent_idx + 1}",
+            "issue": f"This sentence is {group['word_count']} words long",
+            "action": "Break into 2-3 shorter sentences. Aim for 15-25 words per sentence.",
+            "impact": "Shorter sentences are the single most effective way to improve readability.",
+        }
+    elif btype == "passive_voice":
+        return {
+            "priority": priority,
+            "location": f"Sentence {sent_idx + 1}",
+            "issue": "Uses passive voice",
+            "action": "Rewrite in active voice: identify who is doing what.",
+            "impact": "Active voice is more direct and easier to follow.",
+        }
+    elif btype == "jargon":
+        return {
+            "priority": priority,
+            "location": f"Sentence {sent_idx + 1}",
+            "issue": f"Contains jargon or formal language: '{issue['matched_text']}'",
+            "action": f"Consider replacing with: {issue['suggestion']}" if issue.get("suggestion") else "Replace with a plain-language alternative.",
+            "impact": "Jargon is the most common barrier for non-specialist readers.",
+        }
+    elif btype == "complex_word":
+        return {
+            "priority": priority,
+            "location": f"Sentence {sent_idx + 1}",
+            "issue": f"Contains complex words (e.g. '{issue['matched_text']}')",
+            "action": "Replace complex words with shorter, more common alternatives where possible.",
+            "impact": "Familiar words reduce cognitive load for all readers.",
+        }
+    elif btype == "nominalization":
+        return {
+            "priority": priority,
+            "location": f"Sentence {sent_idx + 1}",
+            "issue": "Uses nominalizations (verbs turned into nouns)",
+            "action": "Rewrite using active verbs instead of abstract nouns.",
+            "impact": "Active verbs make writing more direct and easier to process.",
+        }
+    
+    return None

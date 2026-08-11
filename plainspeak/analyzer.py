@@ -336,6 +336,105 @@ class ReadabilityScores:
 
     # Interpretation
     reading_level_description: str = ""
+    
+    # Difficulty band (replaces raw consensus grade as primary output)
+    difficulty_band: str = ""           # e.g. "Very Difficult"
+    difficulty_band_label: str = ""     # e.g. "Very difficult (graduate/professional level)"
+    difficulty_band_explanation: str = ""  # Longer explanation for the report
+    short_text_warning: str = ""        # Non-empty if text is too short for reliable metrics
+    metric_spread: float = 0.0          # Range between highest and lowest grade metric
+    metric_count: int = 0               # How many grade metrics were computable
+
+
+def _classify_difficulty_band(grade: float) -> dict:
+    """
+    Classify a grade level into a difficulty band with explanations.
+    
+    Returns a dict with band, label, and explanation keys.
+    Designed to communicate difficulty honestly without implying
+    false precision from readability formulas.
+    """
+    if grade <= 3:
+        return {
+            "band": "Very Easy",
+            "label": "Very easy (approximately early primary level)",
+            "explanation": (
+                "Text at this level uses very short sentences and common words. "
+                "It should be accessible to almost all adult readers, including "
+                "those with lower literacy, non-native speakers, and people with "
+                "cognitive disabilities. This is the target level for essential "
+                "public information."
+            ),
+        }
+    elif grade <= 6:
+        return {
+            "band": "Easy",
+            "label": "Easy (approximately upper primary level)",
+            "explanation": (
+                "Text at this level uses mostly short sentences and common words. "
+                "It should be accessible to most adult readers. This is a good "
+                "target for public-facing information, patient leaflets, and "
+                "consumer communications."
+            ),
+        }
+    elif grade <= 8:
+        return {
+            "band": "Fairly Easy",
+            "label": "Fairly easy (approximately lower secondary level)",
+            "explanation": (
+                "Text at this level is generally accessible but may present "
+                "difficulties for readers with lower literacy or non-native "
+                "speakers. Consider whether your intended audience includes "
+                "people who may struggle with this level."
+            ),
+        }
+    elif grade <= 10:
+        return {
+            "band": "Standard",
+            "label": "Standard (approximately mid-secondary level)",
+            "explanation": (
+                "Text at this level is typical of newspapers and general-interest "
+                "writing. It may be challenging for readers with lower literacy, "
+                "some non-native speakers, and people with cognitive fatigue. "
+                "For public-service communication, consider simplification."
+            ),
+        }
+    elif grade <= 12:
+        return {
+            "band": "Fairly Difficult",
+            "label": "Fairly difficult (approximately upper secondary level)",
+            "explanation": (
+                "Text at this level requires a secondary-school reading ability. "
+                "It is likely to exclude a significant portion of the general "
+                "public. If this text is intended for a broad audience, "
+                "substantial revision is recommended."
+            ),
+        }
+    elif grade <= 16:
+        return {
+            "band": "Difficult",
+            "label": "Difficult (undergraduate university level)",
+            "explanation": (
+                "Text at this level is comparable to undergraduate textbooks "
+                "and academic writing. It assumes significant reading skill and "
+                "subject knowledge. Only appropriate for specialist or "
+                "professional audiences. For general-public use, this text "
+                "needs major simplification."
+            ),
+        }
+    else:
+        return {
+            "band": "Very Difficult",
+            "label": "Very difficult (graduate/professional level)",
+            "explanation": (
+                "Text at this level is comparable to graduate-level academic "
+                "or professional writing. It is inaccessible to the majority "
+                "of adults. If this text is intended for anyone other than "
+                "subject-matter specialists, it requires fundamental rewriting. "
+                "Even for specialist audiences, consider whether complexity "
+                "is serving communication or habit."
+            ),
+        }
 
 
 def analyze(text: str) -> ReadabilityScores:
@@ -424,6 +523,9 @@ def analyze(text: str) -> ReadabilityScores:
         scores.coleman_liau_index = max(0, cli)
 
     # Consensus grade level (average of available grade-level metrics)
+    # Note: this averaging approach is a pragmatic summary, not a scientifically
+    # validated composite. Different formulas measure different constructs.
+    # The difficulty band (below) is the primary user-facing output.
     grade_metrics = [
         g for g in [
             scores.flesch_kincaid_grade,
@@ -433,10 +535,34 @@ def analyze(text: str) -> ReadabilityScores:
             scores.coleman_liau_index,
         ] if g is not None
     ]
+    
     if grade_metrics:
         scores.consensus_grade_level = sum(grade_metrics) / len(grade_metrics)
-        scores.reading_level_description = _describe_grade_level(
-            scores.consensus_grade_level
+        scores.metric_count = len(grade_metrics)
+        scores.metric_spread = max(grade_metrics) - min(grade_metrics) if len(grade_metrics) > 1 else 0.0
+        
+        # Classify into difficulty band
+        band_info = _classify_difficulty_band(scores.consensus_grade_level)
+        scores.difficulty_band = band_info["band"]
+        scores.difficulty_band_label = band_info["label"]
+        scores.difficulty_band_explanation = band_info["explanation"]
+        
+        # Legacy description (kept for backward compatibility)
+        scores.reading_level_description = scores.difficulty_band_label
+    
+    # Short-text reliability warning
+    # Readability formulas need sufficient text to produce stable estimates.
+    # Below ~100 words or ~3 sentences, results should be treated as indicative only.
+    if total_words < 100 or total_sentences < 3:
+        scores.short_text_warning = (
+            "This text is very short. Readability formulas need at least "
+            "100 words and 3+ sentences to produce stable estimates. "
+            "Treat these results as rough indicators, not precise measurements."
+        )
+    elif total_words < 300:
+        scores.short_text_warning = (
+            "This text is fairly short. Readability estimates may vary with "
+            "small changes. For more reliable results, analyse a longer passage."
         )
 
     return scores

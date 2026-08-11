@@ -17,7 +17,11 @@ from typing import Optional
 
 from . import __version__
 from .analyzer import analyze, describe_flesch_score
-from .simplifier import analyze_simplification, generate_simplified_text
+from .simplifier import (
+    analyze_simplification, generate_simplified_text,
+    get_barrier_confidence, get_barrier_priority,
+    group_barriers_by_sentence, build_top_improvements,
+)
 from .grammar import post_process_simplified
 
 
@@ -985,7 +989,14 @@ def create_app():
         result_dict: dict = {
             "tool": "PlainSpeak",
             "version": __version__,
-            # Statistics — flat
+            # Difficulty band — PRIMARY user-facing output
+            "difficulty_band": readability.difficulty_band,
+            "difficulty_band_label": readability.difficulty_band_label,
+            "difficulty_band_explanation": readability.difficulty_band_explanation,
+            "short_text_warning": readability.short_text_warning,
+            "metric_spread": round(readability.metric_spread, 1),
+            "metric_count": readability.metric_count,
+            # Statistics
             "total_words": readability.total_words,
             "total_sentences": readability.total_sentences,
             "total_syllables": readability.total_syllables,
@@ -994,7 +1005,7 @@ def create_app():
             "avg_sentence_length": round(readability.avg_sentence_length, 2),
             "avg_word_length": round(readability.avg_word_length, 2),
             "avg_syllables_per_word": round(readability.avg_syllables_per_word, 2),
-            # Scores — flat
+            # Scores — secondary evidence
             "flesch_reading_ease": (
                 round(readability.flesch_reading_ease, 1)
                 if readability.flesch_reading_ease is not None else None
@@ -1019,7 +1030,7 @@ def create_app():
                 round(readability.coleman_liau_index, 1)
                 if readability.coleman_liau_index is not None else None
             ),
-            # Consensus — flat
+            # Legacy compatibility
             "consensus_grade_level": (
                 round(readability.consensus_grade_level, 1)
                 if readability.consensus_grade_level is not None else None
@@ -1031,12 +1042,19 @@ def create_app():
             simplification = analyze_simplification(text)
             simplified_text, _substitution_count = generate_simplified_text(text)
             simplified_text = post_process_simplified(simplified_text)
+            
+            # Build grouped barriers by sentence
+            grouped = group_barriers_by_sentence(simplification.barriers)
+            top_improvements = build_top_improvements(grouped)
+            
             result_dict["simplification"] = {
                 "total_barriers": simplification.total_barriers,
                 "critical_count": simplification.critical_count,
                 "warning_count": simplification.warning_count,
                 "info_count": simplification.info_count,
                 "summary": simplification.summary,
+                "top_improvements": top_improvements,
+                "grouped_barriers": grouped,
                 "barriers": [
                     {
                         "barrier_type": b.barrier_type,
@@ -1048,6 +1066,8 @@ def create_app():
                         "suggestion": b.suggestion,
                         "explanation": b.explanation,
                         "severity": b.severity,
+                        "confidence": get_barrier_confidence(b.barrier_type),
+                        "priority": get_barrier_priority(b.barrier_type),
                     }
                     for b in simplification.barriers
                 ],

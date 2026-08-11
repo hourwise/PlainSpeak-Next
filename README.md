@@ -1,15 +1,24 @@
 ﻿# PlainSpeak
 
-**A readability analysis and text simplification toolkit.**
+**A diagnostic and review assistant for plain-language communication.**
 
-PlainSpeak helps you understand how readable your writing is — and what you can do to make it clearer.
+PlainSpeak helps you understand how readable your writing is, identifies
+where readers may struggle, and suggests what you can reasonably improve.
+It is primarily a **diagnostic and review tool** — not an authoritative
+automatic rewriting system.
+
+All suggestions require human review. This is especially important for
+legal, medical, financial, or safety-critical content.
 
 ## What it does
 
-- **Measures readability** using Flesch-Kincaid Grade Level, Flesch Reading Ease, Gunning Fog Index, and SMOG Index.
-- **Identifies barriers** to comprehension: passive voice, long sentences, complex words, nominalizations, and jargon.
-- **Suggests plain-language alternatives** from a built-in glossary of over 200 common jargon terms.
-- **Generates accessible HTML reports** that explain each finding in plain language — the report itself is designed to be readable.
+- **Measures readability** using six established metrics and a difficulty band system.
+- **Identifies barriers** to comprehension: long sentences, passive voice, jargon, complex words, nominalizations, and more.
+- **Prioritizes findings** — grouped by sentence, ranked by impact, with confidence levels.
+- **Suggests plain-language alternatives** from a glossary of over 600 terms across legal, medical, financial, academic, and bureaucratic domains.
+- **Generates accessible reports** — HTML and console output, plus a local web application.
+- **Supports multiple formats** — paste text, upload .txt/.md/.docx/.pdf/.html files.
+- **Runs entirely offline** — no accounts, no data collection, no network access required.
 
 ## What problem it addresses
 

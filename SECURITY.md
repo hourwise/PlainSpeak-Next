@@ -58,12 +58,34 @@ If PlainSpeak is used to "simplify" legal contracts, medical instructions, or sa
 
 ## Reporting guidance
 
-Security issues can be reported via the repository's issue tracker. Since this is an experiment with a limited 24-hour development window, formal security response processes are not established.
+Security issues can be reported via the repository's issue tracker.
+
+## Document import threat model (v0.3.0)
+
+PlainSpeak can now extract text from `.docx`, `.pdf`, `.html`, and `.md` files.
+
+### Threat assessment per format
+
+| Format | Parser | Risk | Mitigation |
+|---|---|---|---|
+| `.docx` | python-docx (lxml) | XML parsing; malformed XML raises exceptions safely | Library-level error handling; no known RCE vectors in current python-docx |
+| `.pdf` | pypdf | Malformed PDFs may cause memory pressure; no known RCE vectors | Text extraction only; no JavaScript/embedded content executed |
+| `.html` | stdlib html.parser | XSS via embedded scripts | Script/style/iframe/head content discarded before text extraction |
+| `.md` | Plain text read | No parser exploits | Treated as plain text; no Markdown rendering |
+
+### Verification status (v0.3.0)
+- [x] Web server binds to localhost (127.0.0.1) by default
+- [x] No external resources loaded by UI (zero CDN references confirmed)
+- [x] No telemetry, analytics, or outbound requests
+- [x] HTML input strips scripts before text extraction
+- [x] Generated output escapes source content
+- [x] Pasted/uploaded text not persisted unless user explicitly saves
+- [x] DOCX/PDF readers handle malformed files gracefully
 
 ## Security work remaining
 
-- [ ] Input size limits to prevent memory exhaustion
-- [ ] Fuzz testing with malformed input
+- [ ] Input size limits to prevent memory exhaustion (very large documents can cause memory pressure)
+- [ ] Fuzz testing with malformed input across all document formats
 - [ ] Dependency hash verification in setup
 - [ ] Formal escaping audit of HTML output
 - [ ] Consider sandboxing for HTML report viewing
