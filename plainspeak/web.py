@@ -987,7 +987,7 @@ def create_app():
 
         if not no_simplify:
             simplification = analyze_simplification(text)
-            simplified_text = generate_simplified_text(text, simplification)
+            simplified_text, _substitution_count = generate_simplified_text(text)
             result_dict["simplification"] = {
                 "total_barriers": simplification.total_barriers,
                 "critical_count": simplification.critical_count,
