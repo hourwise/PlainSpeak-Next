@@ -26,7 +26,8 @@ from .analyzer import split_sentences, split_words, count_syllables
 # ── Basic stemming ─────────────────────────────────────────────────────────
 
 # Common English suffixes to strip for glossary matching
-# Ordered from longest to shortest to strip the most specific first
+# CRITICAL: Must be ordered longest-to-shortest to prevent shorter suffixes
+# from matching before longer ones (e.g., "ied" before "ed", "ies" before "s").
 SUFFIXES_TO_STRIP = [
     "alization", "alisation",  # normalization -> normalize
     "izations", "isations",
@@ -51,29 +52,28 @@ SUFFIXES_TO_STRIP = [
     "ences",
     "ance",  # performance -> perform
     "ence",
-    "ables", "ables",
+    "ables",
     "able",  # manageable -> manage
     "ibles",
     "ible",
     "ings",  # workings -> work
     "ingly",
     "edly",
-    "ing",  # working -> work
-    "ed",  # worked -> work
-    "ers",  # writers -> write
-    "ers",
+    "ied",   # carried -> carry (MUST come before 'ed' and 'ing')
+    "ies",   # carries -> carry (MUST come before 's' and 'ly')
+    "ing",   # working -> work
+    "ed",    # worked -> work (MUST come after 'ied')
+    "ers",   # writers -> write
     "ors",
-    "er",  # writer -> write
+    "er",    # writer -> write (MUST come after 'ers')
     "or",
-    "est",  # biggest -> big
-    "ly",  # quickly -> quick
-    "ies",  # carries -> carry
-    "ied",
+    "est",   # biggest -> big
+    "ly",    # quickly -> quick (MUST come after 'ingly', 'edly')
     "ify",
-    "ise",  # organise -> organ
-    "ize",  # organize -> organ
-    "al",  # functional -> function
-    "s",  # cats -> cat (keep last)
+    "ise",   # organise -> organ
+    "ize",   # organize -> organ
+    "al",    # functional -> function
+    "s",     # cats -> cat (keep VERY LAST)
 ]
 
 # Words that should not be stemmed (stemming would create non-words or wrong base forms)
@@ -93,6 +93,25 @@ STEM_EXCEPTIONS: set[str] = {
     "less", "unless", "nevertheless", "nonetheless",
     "business", "witness", "fairness", "darkness",
     "happiness", "sadness",
+    # Words whose suffixes look strippable but are part of the root:
+    # -ance/-ence that is part of the base word
+    "enhance", "advance", "finance", "balance", "distance", "instance",
+    "substance", "resistance", "assistance", "insurance", "performance",
+    "maintenance", "significance", "experience", "science", "conscience",
+    "audience", "convenience", "obedience",
+    # -al that is part of the base word  
+    "several", "moral", "legal", "royal", "loyal", "rural",
+    # -ize/-ise that is part of a short base
+    "size", "rise", "wise",
+    # Short words that get mangled
+    "phase", "phrase", "cause", "because", "please", "release",
+    "disease", "increase", "decrease", "purpose", "suppose",
+    "oppose", "expose", "impose", "compose", "propose",
+    "refuse", "confuse", "accuse", "excuse",
+    "office", "notice", "practice", "service", "justice",
+    "surface", "replace", "displace",
+    # -ate words that aren't suffix-derived
+    "debate", "relate", "create", "estate", "update", "donate",
 }
 
 
@@ -126,6 +145,14 @@ def stem_word(word: str) -> str:
             # Handle -ies -> -y (carries -> carry)
             if suffix in ("ies", "ied"):
                 stem += "y"
+            # Handle silent-e restoration for -ed and -ing:
+            # demonstrate -> demonstrated (e dropped), stripping -ed -> demonstrat
+            # enhance -> enhanced (e dropped), stripping -ed -> enhanc
+            # Try adding 'e' back; only accept if it produces a known glossary word.
+            if suffix in ("ed", "ing") and len(stem) >= 3:
+                e_stem = stem + "e"
+                if e_stem in GLOSSARY or e_stem in SIMPLE_WORD_MAP:
+                    return e_stem
             return stem
 
     return word
