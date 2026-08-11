@@ -18,7 +18,6 @@ from typing import Optional
 from . import __version__
 from .analyzer import analyze, describe_flesch_score
 from .simplifier import analyze_simplification, generate_simplified_text
-from .reporter import generate_json as reporter_generate_json
 
 
 # ── HTML escaping helper ───────────────────────────────────────────────────
@@ -980,10 +979,52 @@ def create_app():
         except ValueError as e:
             return jsonify({"error": str(e)}), 422
 
-        result = reporter_generate_json(readability, None, text)
-        # Parse it back so we can add simplified text
-        import json as _json
-        result_dict = _json.loads(result)
+        # Build flat response dict directly (frontend expects flat keys,
+        # not the nested structure from reporter.generate_json)
+        result_dict: dict = {
+            "tool": "PlainSpeak",
+            "version": __version__,
+            # Statistics — flat
+            "total_words": readability.total_words,
+            "total_sentences": readability.total_sentences,
+            "total_syllables": readability.total_syllables,
+            "total_complex_words": readability.total_complex_words,
+            "total_long_words": readability.total_long_words,
+            "avg_sentence_length": round(readability.avg_sentence_length, 2),
+            "avg_word_length": round(readability.avg_word_length, 2),
+            "avg_syllables_per_word": round(readability.avg_syllables_per_word, 2),
+            # Scores — flat
+            "flesch_reading_ease": (
+                round(readability.flesch_reading_ease, 1)
+                if readability.flesch_reading_ease is not None else None
+            ),
+            "flesch_kincaid_grade": (
+                round(readability.flesch_kincaid_grade, 1)
+                if readability.flesch_kincaid_grade is not None else None
+            ),
+            "gunning_fog_index": (
+                round(readability.gunning_fog_index, 1)
+                if readability.gunning_fog_index is not None else None
+            ),
+            "smog_index": (
+                round(readability.smog_index, 1)
+                if readability.smog_index is not None else None
+            ),
+            "automated_readability_index": (
+                round(readability.automated_readability_index, 1)
+                if readability.automated_readability_index is not None else None
+            ),
+            "coleman_liau_index": (
+                round(readability.coleman_liau_index, 1)
+                if readability.coleman_liau_index is not None else None
+            ),
+            # Consensus — flat
+            "consensus_grade_level": (
+                round(readability.consensus_grade_level, 1)
+                if readability.consensus_grade_level is not None else None
+            ),
+            "reading_level_description": readability.reading_level_description,
+        }
 
         if not no_simplify:
             simplification = analyze_simplification(text)
