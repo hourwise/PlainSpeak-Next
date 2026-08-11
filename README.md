@@ -27,18 +27,31 @@ PlainSpeak gives writers and advocates a free, offline tool to check whether tex
 
 ## What currently works
 
-✅ **Working prototype.** The core toolkit is functional and tested.
+✅ **Working prototype with web interface.** The core toolkit is functional and tested.
 
 - [x] Problem selection and mission definition
 - [x] Repository structure and documentation
 - [x] Readability metric computation (6 metrics)
 - [x] Text pattern analysis (7 barrier types)
-- [x] Plain-language suggestion engine (300+ terms)
+- [x] Plain-language suggestion engine (420+ terms)
 - [x] HTML report generation (WCAG 2.1 AA-targeted)
-- [x] CLI interface (analyze, score, version commands)
-- [x] Test suite (113 tests, all passing)
+- [x] CLI interface (analyze, score, simplify, web, version commands)
+- [x] **Local web application** with real-time analysis, dark mode, sample texts
+- [x] Improved sentence segmentation (200+ abbreviations, URLs, initials, numbered lists)
+- [x] Test suite (142 tests, all passing)
 
 ## How to run it
+
+### Web interface (recommended for most users)
+
+```bash
+pip install -e ".[web]"
+plainspeak web
+```
+
+Opens a browser-based analyzer at http://127.0.0.1:5100. Paste text, click analyze, see results instantly. Nothing leaves your computer.
+
+### Command-line interface
 
 ```bash
 pip install -e .

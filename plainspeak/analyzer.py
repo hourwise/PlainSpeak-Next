@@ -24,17 +24,52 @@ from typing import Optional
 
 # Abbreviations that should not trigger sentence boundaries
 ABBREVIATIONS: set[str] = {
-    "mr", "mrs", "ms", "dr", "prof", "rev", "hon", "st", "sr", "jr",
-    "dept", "univ", "assn", "bros", "inc", "ltd", "co", "corp",
-    "etc", "vs", "viz", "al", "approx", "appt", "apt", "ave",
-    "blvd", "bldg", "capt", "col", "comdr", "gen", "gov", "lt",
-    "maj", "mgr", "ph.d", "phd", "md", "rn", "esq",
+    # Titles & honorifics
+    "mr", "mrs", "ms", "miss", "dr", "prof", "rev", "hon", "st", "sr", "jr",
+    "esq", "sir", "madam", "mx", "fr", "br", "hrh",
+    # Military & professional ranks
+    "capt", "col", "comdr", "gen", "gov", "lt", "maj", "sgt", "cpl", "adm",
+    "cmdr", "ltcol", "bg", "mg", "lg", "pfc", "po", "cpt",
+    # Academic degrees & certifications
+    "ph.d", "phd", "md", "rn", "jd", "dds", "dvm", "edd", "psyd",
+    "ba", "bs", "ma", "ms", "mfa", "mba", "mpa", "mph", "llb", "llm",
+    "cpa", "cfa", "pe", "ra", "aia",
+    # Business entities
+    "inc", "ltd", "co", "corp", "llc", "llp", "plc", "pty", "bros",
+    "assn", "assoc", "dept", "univ", "inst", "soc", "org",
+    # Common Latin abbreviations
+    "etc", "vs", "viz", "al", "et al", "ca", "cf", "ibid", "op cit",
+    "loc cit", "et seq", "q.v", "s.v", "n.b",
+    # Common English abbreviations
+    "approx", "appt", "apt", "ave", "blvd", "bldg", "est", "temp",
+    "mgr", "admin", "dept", "div", "ext", "fax", "tel", "ph",
+    # Months
     "jan", "feb", "mar", "apr", "jun", "jul", "aug", "sep", "sept",
-    "oct", "nov", "dec", "a.m", "p.m", "am", "pm",
-    "u.s", "u.k", "e.g", "i.e", "a.d", "b.c", "c.e", "b.c.e",
+    "oct", "nov", "dec",
+    # Time
+    "a.m", "p.m", "am", "pm",
+    # Countries/regions (common abbreviations)
+    "u.s", "u.k", "u.s.a", "u.a.e", "e.u", "n.z",
+    # Latin phrases
+    "e.g", "i.e", "a.d", "b.c", "c.e", "b.c.e",
+    # References & citations
     "no", "nos", "vol", "vols", "pp", "p", "ch", "ed", "eds",
-    "fig", "figs", "eq", "eqs", "ref", "refs",
-    "dept", "est", "temp",
+    "fig", "figs", "eq", "eqs", "ref", "refs", "sec", "secs",
+    "art", "arts", "para", "paras", "sch", "sched", "reg", "regs",
+    # Units of measurement
+    "kg", "lb", "lbs", "oz", "fl oz", "ml", "l", "gal", "qt", "pt",
+    "cm", "m", "km", "mm", "in", "ft", "yd", "mi", "sq", "cu",
+    "mph", "kph", "rpm", "psi", "v", "w", "kw", "mw", "hz", "khz",
+    # States (US)
+    "al", "ak", "az", "ar", "ca", "co", "ct", "de", "fl", "ga",
+    "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md",
+    "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj",
+    "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "ri", "sc",
+    "sd", "tn", "tx", "ut", "vt", "va", "wa", "wv", "wi", "wy",
+    # Additional common multi-word abbreviations
+    "u.s", "u.k", "e.g", "i.e",
+    # Ordinal indicators
+    "st", "nd", "rd", "th",
 }
 
 
@@ -105,44 +140,131 @@ def split_sentences(text: str) -> list[str]:
     """
     Split text into sentences using regex heuristics.
 
-    Handles common abbreviations but will fail on:
-    - Abbreviations not in the ABBREVIATIONS set
-    - Decimal numbers at end of sentence: "...worth 3.5. Next..."
-    - Some dialogue and quotation patterns
-    - Lists with complex punctuation
-    - Titles with periods (Mr., Mrs., Dr. are handled)
+    Handles common abbreviations, decimal numbers, URLs, initials,
+    numbered lists, and ellipses. Known limitations:
+    - Some abbreviations not in ABBREVIATIONS set
+    - Dialogue with complex punctuation
+    - Lists with complex formatting
 
     Returns a list of sentence strings with whitespace stripped.
     """
     if not text:
         return []
 
-    # Replace common abbreviations to protect their periods
+    # Phase 1: Protect patterns that contain periods but are not
+    # sentence boundaries.
+
     protected = text
+
+    # 1a. Protect URLs and email addresses
+    # Match http/https/ftp URLs and email addresses
+    url_pattern = re.compile(
+        r'(?:https?://|ftp://|www\.)[^\s<>"{}|\\^`\[\]]+',
+        re.IGNORECASE,
+    )
+    url_placeholders: dict[str, str] = {}
+    url_counter = [0]
+
+    def _protect_url(match: re.Match) -> str:
+        key = f"__URL_{url_counter[0]}__"
+        url_counter[0] += 1
+        url_placeholders[key] = match.group(0)
+        return key
+
+    protected = url_pattern.sub(_protect_url, protected)
+
+    # Also protect email addresses
+    email_pattern = re.compile(r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}')
+    email_placeholders: dict[str, str] = {}
+    email_counter = [0]
+
+    def _protect_email(match: re.Match) -> str:
+        key = f"__EMAIL_{email_counter[0]}__"
+        email_counter[0] += 1
+        email_placeholders[key] = match.group(0)
+        return key
+
+    protected = email_pattern.sub(_protect_email, protected)
+
+    # 1b. Protect decimal numbers (3.14, 99.9%, $5.00, etc.)
+    protected = re.sub(r'(\d)\.(\d)', r'\1__DECIMAL__\2', protected)
+
+    # 1c. Protect known abbreviations (longest first to avoid partial matches)
     for abbr in sorted(ABBREVIATIONS, key=len, reverse=True):
+        # Match abbreviation followed by a period, at word boundaries
         pattern = re.compile(
-            r"\b" + re.escape(abbr) + r"\.",
+            r'\b' + re.escape(abbr) + r'\.',
             re.IGNORECASE,
         )
-        placeholder = f"__ABBR_{abbr.replace('.', '_')}__"
+        placeholder = f'__ABBR_{abbr.replace(".", "_").replace(" ", "_")}__'
         protected = pattern.sub(placeholder, protected)
 
-    # Also protect decimal numbers and URLs
-    protected = re.sub(r"(\d)\.(\d)", r"\1__DOT__\2", protected)
-    protected = re.sub(r"(\w)\.(\w)\.(\w)", r"\1__DOT__\2__DOT__\3", protected)
+    # 1d. Protect single-letter initials in names (J.K. Rowling, J. R. R. Tolkien)
+    # Pattern: uppercase letter + period, possibly repeated with spaces
+    # This is tricky; we target the common "X. X. Lastname" pattern
+    initial_pattern = re.compile(
+        r'\b([A-Z])\.(?=\s+[A-Z]\.)',
+    )
+    protected = initial_pattern.sub(r'\1__INITIAL__', protected)
 
-    # Split on sentence-ending punctuation followed by whitespace and capital letter
-    # or end of string
-    sentences = re.split(r'(?<=[.!?])\s+(?=[A-Z])', protected)
-    
-    # Also split on sentence-ending punctuation at end of string
+    # Also protect single initial before surname: "J. Smith"
+    initial_surname_pattern = re.compile(
+        r'\b([A-Z])\.(?=\s+[A-Z][a-z])',
+    )
+    protected = initial_surname_pattern.sub(r'\1__INITIAL__', protected)
+
+    # 1e. Protect ellipsis (...)
+    protected = protected.replace('...', '__ELLIPSIS__')
+
+    # 1f. Protect numbered list markers at start of line
+    # Like "1." or "1.1" or "a." or "i." at the beginning of a line
+    numbered_list_pattern = re.compile(
+        r'(^|\n)\s*((?:\d+\.)+(?:\d+)?|[a-zA-Z]\.|\([a-zA-Z0-9]+\))\s*',
+        re.MULTILINE,
+    )
+    list_placeholders: dict[str, str] = {}
+    list_counter = [0]
+
+    def _protect_list(match: re.Match) -> str:
+        key = f'__LIST_{list_counter[0]}__'
+        list_counter[0] += 1
+        list_placeholders[key] = match.group(0)
+        return key
+
+    protected = numbered_list_pattern.sub(_protect_list, protected)
+
+    # Phase 2: Split on sentence-ending punctuation
+
+    # Split on [.!?] followed by one or more whitespace characters
+    # and then a capital letter or a number (start of next sentence)
+    sentences = re.split(r'(?<=[.!?])\s+(?=[A-Z0-9])', protected)
+
+    # Also handle sentence-ending punctuation followed by newline + capital
+    # (already handled above since \s+ includes \n)
+
+    # Phase 3: Restore protected patterns
     result = []
     for s in sentences:
-        # Restore protected periods
-        s = re.sub(r"__DOT__", ".", s)
+        # Restore URLs
+        for key, url in url_placeholders.items():
+            s = s.replace(key, url)
+        # Restore emails
+        for key, email in email_placeholders.items():
+            s = s.replace(key, email)
+        # Restore decimal numbers
+        s = s.replace('__DECIMAL__', '.')
+        # Restore abbreviations
         for abbr in ABBREVIATIONS:
-            placeholder = f"__ABBR_{abbr.replace('.', '_')}__"
-            s = s.replace(placeholder, abbr + ".")
+            placeholder = f'__ABBR_{abbr.replace(".", "_").replace(" ", "_")}__'
+            s = s.replace(placeholder, abbr + '.')
+        # Restore initials
+        s = s.replace('__INITIAL__', '.')
+        # Restore ellipsis
+        s = s.replace('__ELLIPSIS__', '...')
+        # Restore list markers
+        for key, marker in list_placeholders.items():
+            s = s.replace(key, marker)
+
         stripped = s.strip()
         if stripped:
             result.append(stripped)

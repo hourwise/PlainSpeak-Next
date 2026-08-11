@@ -237,6 +237,56 @@ def simplify(file: Optional[str], from_stdin: bool, output: Optional[str]):
 
 
 @main.command()
+@click.option(
+    "--host", default="127.0.0.1",
+    help="Host to bind to (default: 127.0.0.1).",
+)
+@click.option(
+    "--port", "-p", type=int, default=5100,
+    help="Port to listen on (default: 5100).",
+)
+@click.option(
+    "--no-open", is_flag=True,
+    help="Don't automatically open the browser.",
+)
+def web(host: str, port: int, no_open: bool):
+    """
+    Start the local web interface.
+
+    Opens a browser-based readability analyzer that runs entirely
+    on your computer. No data is ever sent anywhere.
+
+    Install web dependencies with: pip install plainspeak[web]
+    """
+    try:
+        from .web import create_app
+    except ImportError:
+        click.echo(
+            "Error: Flask is required for the web interface.\n"
+            "Install it with: pip install plainspeak[web]\n"
+            "Or: pip install flask",
+            err=True,
+        )
+        sys.exit(1)
+
+    import webbrowser
+
+    app = create_app()
+
+    click.echo(f"\n  PlainSpeak Web v{__version__}")
+    click.echo("  ─────────────────────────────")
+    click.echo(f"  Starting local server at: http://{host}:{port}")
+    click.echo("  All analysis runs offline on your computer.")
+    click.echo("  No data is ever sent anywhere.")
+    click.echo("  Press Ctrl+C to stop.\n")
+
+    if not no_open:
+        webbrowser.open(f"http://{host}:{port}")
+
+    app.run(host=host, port=port, debug=False)
+
+
+@main.command()
 def version():
     """Print version information."""
     click.echo(f"PlainSpeak v{__version__}")

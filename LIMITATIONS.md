@@ -9,8 +9,8 @@ All known limitations, uncertainties, and gaps. This document is maintained hone
 - **No non-Latin script handling.** The tool has not been tested with Arabic, Chinese, Japanese, Korean, Cyrillic, or other writing systems.
 
 ### Text processing
-- **Sentence segmentation is heuristic.** We use regex-based sentence splitting, which will fail on abbreviations (e.g., "Dr.", "U.S."), decimal numbers, and other edge cases. This is a known limitation of all regex-based approaches.
-- **Syllable counting is approximate.** The syllable counter uses pattern-based heuristics. It will be wrong for some words, especially loanwords and irregular pronunciations. The error rate is typically ~5-10%, which propagates to Flesch-Kincaid and other syllable-dependent metrics.
+- **Sentence segmentation is heuristic (improved in v0.2.0).** We use regex-based sentence splitting with a multi-phase protection-and-restore approach. Now handles 200+ abbreviations, URLs, email addresses, decimal numbers, initials, and numbered lists. Still known to fail on: dialogue with complex punctuation, some abbreviations not in the set, and highly irregular formatting.
+- **Syllable counting is approximate.** The syllable counter uses pattern-based heuristics. It will be wrong for some words, especially loanwords and irregular pronunciations. The error rate is typically ~5-10%, which propagates to Flesch-Kincaid and other syllable-dependent metrics. A dictionary-based improvement is planned (see ROADMAP.md Phase 3.2).
 - **No semantic understanding.** The tool analyzes surface features of text. It cannot tell whether a "complex" sentence is actually clear in context, or whether a "simple" sentence is ambiguous.
 
 ### Suggestion quality
@@ -42,7 +42,8 @@ All known limitations, uncertainties, and gaps. This document is maintained hone
 
 ## Accessibility gaps
 
-- **CLI is not accessible to all users.** A command-line interface assumes comfort with terminal environments, which excludes many of the intended beneficiaries.
+- **CLI is not accessible to all users.** A command-line interface assumes comfort with terminal environments, which excludes many of the intended beneficiaries. **Partially addressed in v0.2.0:** the `plainspeak web` command provides a browser-based interface that is more accessible to non-technical users.
+- **Web interface requires local server.** The web app runs on localhost:5100, which still requires running a command first. A standalone double-clickable executable is planned (see ROADMAP.md Phase 6.1).
 - **HTML report has not been tested with screen readers.** We aim for WCAG 2.1 AA compliance but have not verified this with assistive technology.
 - **No internationalization.** All interface text, explanations, and suggestions are in English.
 

@@ -47,7 +47,52 @@ Build **PlainSpeak**: a readability analysis and text simplification toolkit as 
 
 If evidence emerges that:
 - Rule-based simplification produces unhelpful or misleading suggestions at an unacceptable rate, we will restrict scope to measurement and identification only (removing the suggestion feature).
-- The target audience cannot practically use a CLI tool, we will consider a simple local web interface.
+- The target audience cannot practically use a CLI tool, we will consider a simple local web interface. **(Triggered — see Decision 7.)**
+
+---
+
+## Decision 7: Web interface — Flask-based local web application
+
+**Date:** 2026-08-11  
+**Status:** Accepted
+
+### Context
+
+The original Decision 1 identified that "the target audience cannot practically use a CLI tool" as a reversal condition. After completing v0.1.0 and reviewing the project after several weeks, it was clear this condition was met. The intended beneficiaries (people with lower literacy, non-native speakers, elderly, people with cognitive disabilities) are the least likely to use a command line.
+
+### Decision
+
+Build a local web application using Flask, accessible via `plainspeak web`. The web app runs entirely on localhost — preserving the offline, privacy-first architecture.
+
+### Alternatives considered
+
+| Approach | Pros | Cons |
+|---|---|---|
+| Flask local web app | Simple, Python-native, reuses all existing code | Requires `pip install plainspeak[web]`; still needs terminal to start |
+| Standalone Electron app | Double-clickable, no terminal needed | Heavy dependency, complex build, overkill for a text tool |
+| Static HTML+JS only (no server) | Zero dependencies | Cannot run Python analysis in browser; would need JS reimplementation of all metrics |
+| Streamlit / Gradio | Quick to build, nice UI | Heavy dependencies, designed for ML demos, less control over accessibility |
+| PyInstaller standalone executable | Double-clickable, no Python required | Complex build per platform, large file size |
+
+### Rationale
+
+1. **Flask is minimal.** It has zero dependencies of its own, aligning with PlainSpeak's philosophy.
+2. **100% code reuse.** The `/api/analyze` endpoint calls the exact same `analyze()`, `analyze_simplification()`, and `generate_json()` functions as the CLI. No duplication.
+3. **Inline SPA approach.** The entire frontend is a single HTML string with embedded CSS and JS — no templates directory, no build step, no npm. Deployment is one file.
+4. **Accessibility built in.** The web UI includes skip link, ARIA labels, semantic HTML, dark mode (prefers-color-scheme), responsive design, and keyboard shortcuts.
+5. **Preserves all privacy guarantees.** The browser talks only to localhost. No data leaves the machine.
+
+### Trade-offs accepted
+
+- **Still requires terminal to start.** The user must run `plainspeak web` in a terminal. This is a smaller barrier than using the CLI for all analysis, but remains. A standalone executable is deferred to Phase 6.
+- **Flask is an optional dependency.** Users who only want CLI functionality are not forced to install it.
+- **No offline service worker.** The web app requires the Flask server to be running. It is not a PWA that works without the server.
+
+### Reversal conditions
+
+If user feedback indicates that:
+- The terminal requirement to start the web app is still too high a barrier, we will prioritize the PyInstaller standalone executable (Phase 6.1).
+- Flask proves unreliable or difficult for users to install, we will consider a pure stdlib `http.server` implementation.
 
 ---
 

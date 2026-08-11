@@ -46,7 +46,62 @@ Timestamped work log. Each entry records what was attempted, what changed, what 
 **Learned:**
 - Syllable counting is the trickiest heuristic. The silent-e and -le patterns interact in non-obvious ways. Even after fixes, accuracy is ~90% for common words â€” and that's the best a pattern-based approach can achieve without a dictionary.
 - HTML template escaping with Python's `str.format()` is a common pitfall when CSS uses `{}` braces. Switched to placeholder replacement.
-- The legal sample text scored Grade 13.5 (university level), medical discharge instructions scored Grade 17.8 (graduate level), and simple text scored Grade 2.8 â€” which validates that the metrics produce reasonable, discriminating results.
+- The legal sample text scored Grade 13.5 (university level), medical discharge instructions scored Grade 17.8 (graduate level), and simple text scored Grade 2.8 — which validates that the metrics produce reasonable, discriminating results.
+
+---
+
+## 2026-08-11 00:00 — Phase 2 planning and roadmap
+
+**Attempted:** Revisited the project after several weeks. Reviewed all documentation, source code, tests, and limitations. Identified the single biggest gap: the CLI-only interface excludes the intended beneficiaries.
+
+**Changed:** Created ROADMAP.md with 6-phase plan for continued development: (2) Local Web App, (3) Accuracy Improvements, (4) Empirical Validation, (5) Multi-Language Support, (6) Ecosystem & Distribution.
+
+**Learned:** The project's architecture — offline, deterministic, privacy-preserving — ages well. The core value is real. The main failure mode is accessibility of the tool itself, not the quality of its analysis.
+
+**Next:** Build the local web application, improve sentence segmentation, update documentation.
+
+**Mission alignment:** ✅ Roadmap prioritizes reaching the intended beneficiaries.
+
+---
+
+## 2026-08-11 01:00 — Web application built
+
+**Attempted:** Built a complete local web interface for PlainSpeak:
+- `web.py`: Flask application with routes for the main UI, `/api/analyze` JSON endpoint (full readability + simplification results), and `/api/sample/<name>` for loading example texts.
+- Inline HTML/CSS/JS single-page application: paste/type text area, live-updating readability scores with debounced analysis, tabbed results (Scores / Barriers / Simplified Text), sample text loading, dark mode (prefers-color-scheme), skip link, ARIA labels, keyboard shortcuts (Ctrl+Enter), copy-to-clipboard, responsive design, print styles.
+- `plainspeak web` CLI command with host/port/--no-open options.
+
+**Changed:** From CLI-only to dual CLI + web interface. Flask added as optional dependency (`plainspeak[web]`). Version bumped to 0.2.0.
+
+**Learned:**
+- An inline SPA approach (HTML template string in Python) keeps deployment dead simple — one file, one command, no build step.
+- The `/api/analyze` endpoint reuses 100% of existing analyzer, simplifier, glossary, and reporter modules. Zero code duplication.
+- Dark mode via `prefers-color-scheme` media query is trivial to implement and significantly improves accessibility for users with light sensitivity.
+
+**Next:** Improve sentence segmentation accuracy, update documentation, validate.
+
+**Mission alignment:** ✅ The web interface directly addresses the #1 barrier: non-technical users can now use the tool.
+
+---
+
+## 2026-08-11 02:00 — Sentence segmentation overhaul
+
+**Attempted:** Rewrote the `split_sentences()` function in analyzer.py with a multi-phase protection-and-restore approach. Expanded ABBREVIATIONS set from ~55 to ~200 entries.
+
+**Changed:**
+- Phase 1 protects: URLs, email addresses, decimal numbers, known abbreviations (200+), single-letter initials (J.K. Rowling), ellipsis, and numbered list markers.
+- Phase 2 splits on sentence-ending punctuation.
+- Phase 3 restores all protected patterns.
+- New abbreviation categories: military ranks, academic degrees, business entities, Latin phrases, months, countries, references, units of measurement, US state codes.
+
+**Learned:**
+- The protection-and-restore pattern is much more robust than trying to handle all edge cases in a single regex.
+- State code abbreviations (AL, AK, AZ...) are tricky because many are also common words. They're included because they almost always appear with periods in formal writing.
+- 142 tests all pass after the changes — the improved segmenter is backward-compatible with all existing test cases.
+
+**Next:** Update documentation, final validation.
+
+**Mission alignment:** ✅ Better segmentation means more accurate readability scores, which means more trustworthy output for users.
 
 **Failed:** Initial syllable counter had a bug where silent-e removal happened before -le pattern detection, causing "table", "apple", "little" etc. to count as 1 syllable instead of 2. Fixed by reordering the checks.
 
