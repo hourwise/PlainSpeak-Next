@@ -233,7 +233,62 @@ button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .results { display: none; }
 .results.visible { display: block; }
 
-/* Consensus banner */
+/* Difficulty band banner */
+.difficulty-banner {
+  background: var(--surface);
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin: 1rem 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.diff-band {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: white;
+  background: var(--accent);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.diff-body { flex: 1; min-width: 14rem; }
+.diff-label { font-size: 0.85rem; color: #666; margin-bottom: 0.25rem; }
+.diff-explanation { font-size: 0.9rem; line-height: 1.55; }
+
+/* Short text warning */
+.short-text-warning {
+  background: var(--surface-warning);
+  border: 1px solid var(--warning);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  margin: 0.75rem 0;
+  font-size: 0.85rem;
+  color: var(--warning);
+}
+
+/* Top improvements */
+.top-improvements { margin: 1rem 0; }
+.top-improvements h2 { border-bottom: none; margin-bottom: 0.5rem; }
+.improvement-card {
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 0.6rem 1rem;
+  margin: 0.4rem 0;
+}
+.improvement-card.high { border-left-color: var(--critical); }
+.improvement-card.consider { border-left-color: var(--warning); }
+.improvement-card.info { border-left-color: var(--info); }
+.improvement-card .imp-loc { font-weight: 600; font-size: 0.8rem; color: #666; }
+.improvement-card .imp-issue { font-size: 0.9rem; margin: 0.2rem 0; }
+.improvement-card .imp-action { font-size: 0.85rem; color: #555; font-style: italic; }
+
+/* Consensus banner (legacy, kept for compatibility) */
 .consensus {
   background: var(--surface);
   border: 2px solid var(--accent);
@@ -245,15 +300,22 @@ button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
   gap: 1.5rem;
   flex-wrap: wrap;
 }
-.consensus .grade {
-  font-size: 3rem;
-  font-weight: 800;
-  color: var(--accent);
-  font-family: var(--mono);
-  line-height: 1;
-}
+.consensus .grade { font-size: 3rem; font-weight: 800; color: var(--accent); font-family: var(--mono); line-height: 1; }
 .consensus .grade-label { font-size: 0.8rem; color: #666; }
 .consensus .description { font-size: 1rem; }
+
+/* Compare panel */
+.compare-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin: 0.75rem 0;
+}
+.compare-card .cmp-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; color: #888; }
+.compare-card .cmp-value { font-size: 1.2rem; font-weight: 700; font-family: var(--mono); }
+.compare-card.improved { border-left: 4px solid var(--success); }
+.compare-card.regressed { border-left: 4px solid var(--critical); }
 
 /* Score grid */
 .score-grid {
@@ -581,21 +643,19 @@ h3 { font-size: 1rem; margin: 1.25rem 0 0.5rem; font-weight: 600; }
   <!-- Results -->
   <div class="results" id="results" aria-label="Analysis results">
 
-    <!-- Consensus -->
-    <div class="consensus" aria-live="polite">
-      <div>
-        <div class="grade" id="consensus-grade">—</div>
-        <div class="grade-label">Consensus Grade Level</div>
-      </div>
-      <div>
-        <div class="description" id="consensus-desc"></div>
-        <div style="font-size:0.8rem;color:#888;margin-top:0.25rem;">
-          Flesch Reading Ease: <strong id="consensus-ease">—</strong>
-        </div>
+    <!-- Difficulty band banner — primary output, always visible -->
+    <div class="difficulty-banner" id="difficulty-banner" aria-live="polite">
+      <div class="diff-band" id="diff-band">—</div>
+      <div class="diff-body">
+        <div class="diff-label" id="diff-label"></div>
+        <div class="diff-explanation" id="diff-explanation"></div>
       </div>
     </div>
 
-    <!-- Summary stats -->
+    <!-- Short text warning -->
+    <div class="short-text-warning" id="short-text-warning" style="display:none;"></div>
+
+    <!-- Summary stats strip -->
     <div class="summary-stats">
       <div class="stat-chip"><div class="num" id="stat-words">—</div><div class="lbl">Words</div></div>
       <div class="stat-chip"><div class="num" id="stat-sentences">—</div><div class="lbl">Sentences</div></div>
@@ -604,25 +664,22 @@ h3 { font-size: 1rem; margin: 1.25rem 0 0.5rem; font-weight: 600; }
       <div class="stat-chip"><div class="num" id="stat-barriers">—</div><div class="lbl">Barriers Found</div></div>
     </div>
 
-    <!-- Tabs -->
+    <!-- Top improvements — always visible -->
+    <div class="top-improvements" id="top-improvements">
+      <h2>Top improvements</h2>
+      <div id="top-improvements-list"></div>
+    </div>
+
+    <!-- Tabs: Simplified Text first (default), then Barriers, then Scores -->
     <div class="tabs" role="tablist">
-      <button class="tab-btn active" role="tab" aria-selected="true" onclick="switchTab('scores')" id="tab-scores">Scores</button>
+      <button class="tab-btn active" role="tab" aria-selected="true" onclick="switchTab('simplified')" id="tab-simplified">Simplified Text</button>
       <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('barriers')" id="tab-barriers">Barriers</button>
-      <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('simplified')" id="tab-simplified">Simplified Text</button>
+      <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('scores')" id="tab-scores">Scores</button>
+      <button class="tab-btn" role="tab" aria-selected="false" onclick="switchTab('compare')" id="tab-compare">Compare</button>
     </div>
 
-    <!-- Scores panel -->
-    <div class="tab-panel active" id="panel-scores" role="tabpanel">
-      <dl class="score-grid" id="score-grid"></dl>
-    </div>
-
-    <!-- Barriers panel -->
-    <div class="tab-panel" id="panel-barriers" role="tabpanel">
-      <div id="barriers-container"></div>
-    </div>
-
-    <!-- Simplified panel -->
-    <div class="tab-panel" id="panel-simplified" role="tabpanel">
+    <!-- Simplified Text panel — DEFAULT active tab -->
+    <div class="tab-panel active" id="panel-simplified" role="tabpanel">
       <div class="warning-note">
         <strong>⚠ Review required.</strong> Simplified text is mechanically generated by word substitution.
         Changed words are <mark>highlighted</mark>. Always review before using — substitutions may not fit the context.
@@ -634,9 +691,30 @@ h3 { font-size: 1rem; margin: 1.25rem 0 0.5rem; font-weight: 600; }
       </div>
     </div>
 
-    <!-- All metrics -->
-    <h2>All Readability Scores</h2>
-    <dl class="score-grid" id="all-scores-grid"></dl>
+    <!-- Barriers panel — grouped by sentence -->
+    <div class="tab-panel" id="panel-barriers" role="tabpanel">
+      <div id="barriers-container"></div>
+    </div>
+
+    <!-- Scores panel — moved into a tab -->
+    <div class="tab-panel" id="panel-scores" role="tabpanel">
+      <div id="scores-detail"></div>
+      <details style="margin-top:1.5rem;">
+        <summary style="cursor:pointer;font-weight:600;font-size:0.9rem;">Technical scores (all six metrics)</summary>
+        <dl class="score-grid" id="all-scores-grid" style="margin-top:0.75rem;"></dl>
+      </details>
+    </div>
+
+    <!-- Compare panel — before/after mode -->
+    <div class="tab-panel" id="panel-compare" role="tabpanel">
+      <p style="margin-bottom:0.75rem;color:#666;">Paste a revised version of your text below to compare readability before and after editing.</p>
+      <textarea id="compare-text" placeholder="Paste your revised text here..." style="min-height:8rem;"></textarea>
+      <div class="button-row">
+        <button class="btn-analyze" onclick="runComparison()">Compare versions</button>
+      </div>
+      <div id="compare-results" style="margin-top:1rem;"></div>
+    </div>
+
   </div>
 
   <!-- Empty state -->
@@ -740,12 +818,31 @@ function renderResults(data) {
   document.getElementById('results').classList.add('visible');
   updateLiveScores(data);
 
-  // Consensus
-  document.getElementById('consensus-grade').textContent = data.consensus_grade_level != null ? data.consensus_grade_level.toFixed(1) : '—';
-  document.getElementById('consensus-desc').textContent = data.reading_level_description || '';
-  document.getElementById('consensus-ease').textContent = data.flesch_reading_ease != null ? data.flesch_reading_ease.toFixed(1) : '—';
+  // ── Difficulty band banner (primary output) ──
+  const band = data.difficulty_band || describeEase(data.flesch_reading_ease);
+  document.getElementById('diff-band').textContent = band;
+  document.getElementById('diff-label').textContent = data.difficulty_band_label || data.reading_level_description || '';
+  document.getElementById('diff-explanation').textContent = data.difficulty_band_explanation || '';
 
-  // Stats
+  // Colour the band badge by difficulty
+  const bandEl = document.getElementById('diff-band');
+  const bandColors = {
+    'Very Easy': 'var(--success)', 'Easy': '#16a34a', 'Fairly Easy': '#65a30d',
+    'Standard': '#ca8a04', 'Fairly Difficult': 'var(--warning)',
+    'Difficult': '#dc2626', 'Very Difficult': 'var(--critical)'
+  };
+  bandEl.style.background = bandColors[band] || 'var(--accent)';
+
+  // Short text warning
+  const warnEl = document.getElementById('short-text-warning');
+  if (data.short_text_warning) {
+    warnEl.textContent = '⚠ ' + data.short_text_warning;
+    warnEl.style.display = 'block';
+  } else {
+    warnEl.style.display = 'none';
+  }
+
+  // ── Stats ──
   document.getElementById('stat-words').textContent = data.total_words || 0;
   document.getElementById('stat-sentences').textContent = data.total_sentences || 0;
   document.getElementById('stat-syllables').textContent = data.total_syllables || 0;
@@ -753,7 +850,31 @@ function renderResults(data) {
   const barrierCount = data.simplification ? data.simplification.total_barriers : 0;
   document.getElementById('stat-barriers').textContent = barrierCount;
 
-  // Score grid
+  // ── Top improvements ──
+  const topList = document.getElementById('top-improvements-list');
+  const improvements = (data.simplification && data.simplification.top_improvements) || [];
+  if (improvements.length > 0) {
+    document.getElementById('top-improvements').style.display = '';
+    topList.innerHTML = improvements.map(imp =>
+      '<div class="improvement-card ' + esc(imp.priority || 'consider') + '">' +
+      '<div class="imp-loc">' + esc(imp.location || '') + '</div>' +
+      '<div class="imp-issue">' + esc(imp.issue || '') + '</div>' +
+      '<div class="imp-action">→ ' + esc(imp.action || '') + '</div>' +
+      '</div>'
+    ).join('');
+  } else {
+    document.getElementById('top-improvements').style.display = 'none';
+  }
+
+  // ── Scores detail (in scores tab) ──
+  const metricSpread = data.metric_spread ? ' (spread: ' + data.metric_spread.toFixed(1) + ')' : '';
+  document.getElementById('scores-detail').innerHTML =
+    '<p style="color:#666;font-size:0.85rem;">The difficulty band above is based on averaging ' +
+    (data.metric_count || 5) + ' grade-level formulas' + esc(metricSpread) +
+    '. Individual formulas can disagree — the band is a guide, not a precise measurement.</p>' +
+    '<p style="font-size:0.85rem;">Flesch Reading Ease: <strong>' + (data.flesch_reading_ease != null ? data.flesch_reading_ease.toFixed(1) : '—') + '</strong> — ' + esc(describeEase(data.flesch_reading_ease)) + '</p>';
+
+  // Technical scores grid
   const scores = [
     ['Flesch Reading Ease', data.flesch_reading_ease, '/100', describeEase(data.flesch_reading_ease)],
     ['Flesch-Kincaid Grade', data.flesch_kincaid_grade, 'grade', ''],
@@ -762,15 +883,6 @@ function renderResults(data) {
     ['Automated Readability', data.automated_readability_index, 'grade', ''],
     ['Coleman-Liau Index', data.coleman_liau_index, 'grade', ''],
   ];
-  document.getElementById('score-grid').innerHTML = scores.map(([name, val, unit, sub]) =>
-    '<div class="score-card">' +
-    '<dt>' + esc(name) + '</dt>' +
-    '<dd>' + (val != null ? val.toFixed(1) : '—') + ' <span style="font-size:0.7rem;font-weight:400;">' + esc(unit) + '</span></dd>' +
-    (sub ? '<div class="sub">' + esc(sub) + '</div>' : '') +
-    '</div>'
-  ).join('');
-
-  // All scores grid (bottom)
   document.getElementById('all-scores-grid').innerHTML = scores.map(([name, val, unit, sub]) =>
     '<div class="score-card">' +
     '<dt>' + esc(name) + '</dt>' +
@@ -779,40 +891,119 @@ function renderResults(data) {
     '</div>'
   ).join('');
 
-  // Barriers
+  // ── Barriers (grouped by sentence) ──
   const barriersContainer = document.getElementById('barriers-container');
   const tabBarriers = document.getElementById('tab-barriers');
-  if (data.simplification && data.simplification.barriers && data.simplification.barriers.length > 0) {
-    tabBarriers.textContent = 'Barriers (' + data.simplification.barriers.length + ')';
-    barriersContainer.innerHTML = '<ul class="barrier-list">' +
-      data.simplification.barriers.map(b =>
-        '<li class="barrier-item ' + esc(b.severity || 'info') + '">' +
-        '<span class="barrier-badge ' + esc(b.severity || 'info') + '">' + esc(b.severity || 'info') + '</span>' +
-        '<span class="barrier-type">' + esc(formatBarrierType(b.barrier_type)) + '</span>' +
-        '<div class="barrier-quote">' + esc(b.sentence_text || '') + '</div>' +
-        (b.suggestion ? '<div class="barrier-suggestion">💡 Suggestion: <strong>' + esc(b.suggestion) + '</strong></div>' : '') +
-        (b.explanation ? '<div class="barrier-explanation">' + esc(b.explanation) + '</div>' : '') +
-        '</li>'
-      ).join('') +
-      '</ul>';
+  const grouped = (data.simplification && data.simplification.grouped_barriers) || [];
+  const rawBarriers = (data.simplification && data.simplification.barriers) || [];
+
+  if (grouped.length > 0) {
+    tabBarriers.textContent = 'Barriers (' + rawBarriers.length + ')';
+    barriersContainer.innerHTML = grouped.map(g => {
+      const priorityBadge = g.priority === 'high' ? ' 🔴' : (g.priority === 'consider' ? ' 🟡' : ' 🔵');
+      return '<div class="barrier-item ' + esc(g.priority || 'info') + '">' +
+        '<span class="barrier-badge ' + esc(g.priority || 'info') + '">' + esc(g.priority || 'info') + '</span>' +
+        '<strong>Sentence ' + (g.sentence_index + 1) + '</strong>' + priorityBadge +
+        ' <span style="font-size:0.75rem;color:#888;">(' + g.word_count + ' words, ' + g.unique_issue_types + ' issue types)</span>' +
+        '<div class="barrier-quote">' + esc(g.sentence_text || '') + '</div>' +
+        g.issues.map(issue =>
+          '<div style="margin:0.3rem 0;font-size:0.85rem;">' +
+          '<span style="color:#888;font-size:0.65rem;text-transform:uppercase;">' + esc(issue.label) + '</span>' +
+          (issue.confidence ? ' <span style="font-size:0.65rem;color:#999;">(' + esc(issue.confidence) + ' confidence)</span>' : '') +
+          (issue.matched_text ? '<br><em>"' + esc(issue.matched_text) + '"</em>' : '') +
+          (issue.suggestion ? ' → <strong>' + esc(issue.suggestion) + '</strong>' : '') +
+          (issue.explanation ? '<br><span style="color:#888;">' + esc(issue.explanation) + '</span>' : '') +
+          '</div>'
+        ).join('') +
+        '</div>';
+    }).join('');
+  } else if (rawBarriers.length > 0) {
+    // Fallback to flat list
+    tabBarriers.textContent = 'Barriers (' + rawBarriers.length + ')';
+    barriersContainer.innerHTML = rawBarriers.map(b =>
+      '<div class="barrier-item ' + esc(b.severity || 'info') + '">' +
+      '<span class="barrier-badge ' + esc(b.severity || 'info') + '">' + esc(b.severity || 'info') + '</span>' +
+      '<span class="barrier-type">' + esc(formatBarrierType(b.barrier_type)) + '</span>' +
+      (b.confidence ? ' <span style="font-size:0.65rem;color:#999;">(' + esc(b.confidence) + ' confidence)</span>' : '') +
+      '<div class="barrier-quote">' + esc(b.sentence_text || '') + '</div>' +
+      (b.suggestion ? '<div class="barrier-suggestion">→ <strong>' + esc(b.suggestion) + '</strong></div>' : '') +
+      (b.explanation ? '<div class="barrier-explanation">' + esc(b.explanation) + '</div>' : '') +
+      '</div>'
+    ).join('');
   } else {
     tabBarriers.textContent = 'Barriers';
-    barriersContainer.innerHTML = '<p style="color:#888;margin:1rem 0;">No readability barriers detected. The text appears to be clearly written.</p>';
+    barriersContainer.innerHTML = '<p style="color:#888;margin:1rem 0;">No readability barriers detected.</p>';
   }
 
-  // Simplified text
+  // ── Simplified text ──
   const simplifiedContainer = document.getElementById('simplified-text');
   if (data.simplified_text) {
     simplifiedContainer.innerHTML = esc(data.simplified_text).replace(/\\*\\*(.+?)\\*\\*/g, '<mark>$1</mark>');
   } else {
-    simplifiedContainer.textContent = 'No simplified version available. Run analysis with simplification enabled.';
+    simplifiedContainer.textContent = 'No simplified version available.';
   }
 
-  // Reset tabs
-  switchTab('scores');
-
-  // Scroll to results
+  // ── Default to simplified text tab ──
+  switchTab('simplified');
   document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── Before/After comparison ──
+async function runComparison() {
+  const originalText = textInput.value;
+  const revisedText = document.getElementById('compare-text').value;
+  if (!originalText.trim() || !revisedText.trim()) {
+    showError('Please provide both original and revised text for comparison.');
+    return;
+  }
+  const container = document.getElementById('compare-results');
+  container.innerHTML = '<p style="color:#888;">Comparing...</p>';
+  try {
+    const [origResp, revResp] = await Promise.all([
+      fetch('/api/analyze', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({text:originalText, no_simplify:true}) }),
+      fetch('/api/analyze', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({text:revisedText, no_simplify:true}) })
+    ]);
+    const orig = await origResp.json();
+    const rev = await revResp.json();
+
+    const changes = [];
+    // Difficulty band
+    if (orig.difficulty_band !== rev.difficulty_band) {
+      changes.push({label:'Difficulty band', before:orig.difficulty_band, after:rev.difficulty_band,
+        improved: (rev.consensus_grade_level||99) < (orig.consensus_grade_level||99)});
+    }
+    // Sentence length
+    if (orig.avg_sentence_length && rev.avg_sentence_length) {
+      const diff = orig.avg_sentence_length - rev.avg_sentence_length;
+      if (Math.abs(diff) > 1) {
+        changes.push({label:'Avg sentence length', before:orig.avg_sentence_length.toFixed(1)+' words', after:rev.avg_sentence_length.toFixed(1)+' words',
+          improved: diff > 0});
+      }
+    }
+    // Word count
+    changes.push({label:'Word count', before:String(orig.total_words||0), after:String(rev.total_words||0),
+      improved: (rev.total_words||0) <= (orig.total_words||0)});
+    // Barriers
+    const origB = (orig.simplification&&orig.simplification.total_barriers)||0;
+    const revB = (rev.simplification&&rev.simplification.total_barriers)||0;
+    if (origB !== revB) {
+      changes.push({label:'Barriers found', before:String(origB), after:String(revB), improved: revB < origB});
+    }
+
+    container.innerHTML = '<h3 style="margin-top:0;">Comparison results</h3>' +
+      changes.map(c =>
+        '<div class="compare-card ' + (c.improved ? 'improved' : 'regressed') + '">' +
+        '<div class="cmp-label">' + esc(c.label) + '</div>' +
+        '<div style="display:flex;gap:2rem;align-items:baseline;flex-wrap:wrap;">' +
+        '<div><span style="color:#888;font-size:0.75rem;">Before</span><br><span class="cmp-value">' + esc(c.before) + '</span></div>' +
+        '<div><span style="color:#888;font-size:0.75rem;">After</span><br><span class="cmp-value">' + esc(c.after) + '</span></div>' +
+        '<div style="font-size:0.8rem;color:' + (c.improved?'var(--success)':'var(--critical)') + ';">' + (c.improved ? '✓ Improved' : 'Changed') + '</div>' +
+        '</div></div>'
+      ).join('') +
+      '<p style="font-size:0.8rem;color:#888;margin-top:0.75rem;">Note: lower scores and fewer barriers generally indicate better readability, but ensure meaning has not been lost. Scores are indicators, not absolutes.</p>';
+  } catch(e) {
+    container.innerHTML = '<p style="color:var(--critical);">Comparison failed: ' + esc(e.message) + '</p>';
+  }
 }
 
 // ── Helpers ──
