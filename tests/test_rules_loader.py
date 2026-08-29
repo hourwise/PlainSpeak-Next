@@ -240,3 +240,34 @@ def test_lookup_by_id(bundled: Ruleset) -> None:
 def test_mode_partitions_cover_every_rule(bundled: Ruleset) -> None:
     total = len(bundled.safe_fixes) + len(bundled.diagnostics) + len(bundled.protections)
     assert total == len(bundled)
+
+
+# ── Cross-platform identity ────────────────────────────────────────────────
+
+#: The identity of the ruleset as it currently ships. Pinned deliberately.
+#:
+#: Every other test in this file checks that the hash does not move for reasons
+#: it should not — file order, layout, formatting. None of them would catch the
+#: hash differing *between platforms*, because each machine computes its own
+#: value and compares it only to itself. Pinning the expected value means the
+#: Windows, Linux and macOS CI jobs all assert the same number, which is the
+#: only way that requirement is actually tested.
+#:
+#: Updating this is the correct thing to do when the rules change, and the diff
+#: is a useful signal in review: a commit that touches a rule file and does not
+#: touch this line has changed something it did not mean to.
+BUNDLED_RULESET_VERSION = "2026.1"
+BUNDLED_RULESET_HASH = "2110d4ed2836387d368f3a833ef1da27f7a28243ec5c8ba168abe337c74174a3"
+BUNDLED_RULE_COUNT = 38
+
+
+def test_the_bundled_ruleset_has_its_expected_identity(bundled: Ruleset) -> None:
+    assert bundled.version == BUNDLED_RULESET_VERSION
+    assert len(bundled) == BUNDLED_RULE_COUNT
+    assert bundled.hash == BUNDLED_RULESET_HASH, (
+        "The bundled ruleset hash changed.\n"
+        "  If you edited a rule, update BUNDLED_RULESET_HASH in this file and say so\n"
+        "  in the commit message — the hash is a published identity.\n"
+        "  If you did not edit a rule, something platform-dependent has reached the\n"
+        "  canonical form, and that is a bug in the hashing rather than in this test."
+    )
