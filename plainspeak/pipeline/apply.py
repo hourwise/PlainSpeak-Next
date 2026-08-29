@@ -24,6 +24,8 @@ from dataclasses import dataclass
 from typing import Optional, Sequence
 
 from ..document.model import Document, Span, content_hash
+from ..integrity import check as integrity_check
+from ..integrity.policy import policy_hash as integrity_policy_hash
 from .plan import ProposedChange
 from .planner import TransformationPlan
 
@@ -32,6 +34,8 @@ from .planner import TransformationPlan
 ABORT_WRONG_DOCUMENT = "the plan was built against a different document"
 ABORT_STALE = "the document has changed since the plan was built"
 ABORT_OVERLAP = "two accepted changes cover the same characters"
+ABORT_STALE_POLICY = "the plan was authorised under a different integrity policy"
+ABORT_INTEGRITY = "the finished document would not preserve protected information"
 
 
 class ApplicationError(RuntimeError):
@@ -66,6 +70,8 @@ class ApplicationResult:
     ruleset_hash: str
     ruleset_version: str
     engine_version: str
+    integrity_policy_version: str
+    integrity_policy_hash: str
     applied: tuple[AppliedChange, ...]
     refused_count: int
     diagnostic_count: int
@@ -94,6 +100,15 @@ def apply_plan(document: Document, plan: TransformationPlan) -> ApplicationResul
     # here where it could drift.
     output = document.serialise(replacements)
 
+    # The document-global integrity check. Every accepted proposal already
+    # passed the firewall on its own and in the context of its block, but only
+    # the finished text can show what several edits did together. It runs before
+    # this function returns anything, so an output that failed it is never seen
+    # by a caller — there is no repair attempt and no partial application.
+    verdict = integrity_check(document.source, output)
+    if not verdict.passed:
+        raise ApplicationError(f"{ABORT_INTEGRITY}: {verdict.summary}")
+
     applied = tuple(
         AppliedChange(
             rule_id=change.rule_id,
@@ -117,6 +132,8 @@ def apply_plan(document: Document, plan: TransformationPlan) -> ApplicationResul
         ruleset_hash=plan.ruleset_hash,
         ruleset_version=plan.ruleset_version,
         engine_version=plan.engine_version,
+        integrity_policy_version=plan.integrity_policy_version,
+        integrity_policy_hash=plan.integrity_policy_hash,
         applied=applied,
         refused_count=len(plan.refused),
         diagnostic_count=len(plan.diagnostics),
@@ -124,6 +141,18 @@ def apply_plan(document: Document, plan: TransformationPlan) -> ApplicationResul
 
 
 def _check_preconditions(document: Document, plan: TransformationPlan) -> None:
+    # A plan carries the identity of the safety policy that approved it. Applying
+    # one under a different policy would mean applying edits that were never
+    # checked against the rules now in force, which is exactly the situation the
+    # policy version exists to make visible.
+    current = integrity_policy_hash()
+    if plan.integrity_policy_hash != current:
+        raise ApplicationError(
+            f"{ABORT_STALE_POLICY}: plan was approved under "
+            f"{plan.integrity_policy_version} ({plan.integrity_policy_hash[:12]}), "
+            f"running {current[:12]}"
+        )
+
     if not plan.is_for(document):
         raise ApplicationError(
             f"{ABORT_WRONG_DOCUMENT}: plan expects {plan.input_hash[:12]}, "

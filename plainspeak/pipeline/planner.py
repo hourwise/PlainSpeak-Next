@@ -35,6 +35,9 @@ from typing import Iterable, Optional, Sequence
 
 from .. import __version__ as ENGINE_VERSION
 from ..document.model import Document, Span
+from ..integrity import Violation, check as integrity_check
+from ..integrity.policy import POLICY_VERSION as INTEGRITY_POLICY_VERSION
+from ..integrity.policy import policy_hash as integrity_policy_hash
 from ..integrity.protected import get_protected_domain, is_protected_term
 from ..rules import (
     MODE_DIAGNOSTIC,
@@ -61,6 +64,29 @@ REFUSAL_SUPERSEDED_LONGER = "a longer match covers this text"
 REFUSAL_DUPLICATE = "an identical change was already proposed"
 REFUSAL_OUT_OF_SCOPE = "the match is outside the scopes this rule declares"
 REFUSAL_DIAGNOSTIC = "this rule reports only and never proposes an edit"
+REFUSAL_INTEGRITY = "the change would alter protected information"
+
+
+@dataclass(frozen=True)
+class IntegrityRefusal:
+    """A proposal the integrity firewall vetoed, and what it found.
+
+    Recorded separately from the refusal reason on the proposal itself so
+    that an audit can say *which* protected category moved and in which
+    direction. "Refused for integrity" is not something a reader can act on;
+    "modal: must became may" is.
+    """
+
+    rule_id: str
+    rule_version: int
+    #: Where the vetoed proposal sat, so an audit entry can be matched to its
+    #: refusal without relying on the rule ID being unique within a document.
+    analysis_start: int
+    analysis_end: int
+    #: Which comparison caught it — see `_integrity_preflight`.
+    scope: str
+    summary: str
+    violations: tuple[Violation, ...]
 
 
 @dataclass(frozen=True)
@@ -89,6 +115,11 @@ class TransformationPlan:
     engine_version: str
     ruleset_version: str
     ruleset_hash: str
+    #: The integrity policy that authorised this plan. Application checks it:
+    #: applying a plan approved under one safety policy while running another
+    #: would mean applying edits nobody actually checked.
+    integrity_policy_version: str
+    integrity_policy_hash: str
     input_hash: str
     projection_hash: str
     #: Every safe-fix candidate, whether or not it survived.
@@ -101,6 +132,8 @@ class TransformationPlan:
     diagnostics: tuple[ProposedChange, ...]
     #: Overlaps and how each was settled.
     conflicts: tuple[Conflict, ...]
+    #: Proposals the firewall vetoed after conflict resolution had chosen them.
+    integrity_refusals: tuple[IntegrityRefusal, ...] = ()
 
     @property
     def rule_ids(self) -> tuple[str, ...]:
@@ -144,10 +177,19 @@ def build_plan(
 
     accepted, refused, conflicts = _resolve(tuple(proposals), _priority_lookup(rules))
 
+    # The firewall runs last, on what conflict resolution actually chose.
+    # Running it earlier would let a vetoed proposal's loser take its place,
+    # which would be a second, implicit conflict-resolution path — see
+    # `_integrity_preflight`.
+    accepted, vetoed, integrity_refusals = _integrity_preflight(view, accepted)
+    refused = tuple(sorted(refused + vetoed, key=_order))
+
     return TransformationPlan(
         engine_version=ENGINE_VERSION,
         ruleset_version=rules.version,
         ruleset_hash=rules.hash,
+        integrity_policy_version=INTEGRITY_POLICY_VERSION,
+        integrity_policy_hash=integrity_policy_hash(),
         input_hash=document.source_hash,
         projection_hash=sha256_text(view.text),
         proposals=tuple(proposals),
@@ -155,7 +197,103 @@ def build_plan(
         refused=refused,
         diagnostics=diagnostics,
         conflicts=conflicts,
+        integrity_refusals=integrity_refusals,
     )
+
+
+# ── The integrity firewall ─────────────────────────────────────────────────
+
+
+def _integrity_preflight(
+    view: Projection, accepted: tuple[ProposedChange, ...]
+) -> tuple[tuple[ProposedChange, ...], tuple[ProposedChange, ...], tuple[IntegrityRefusal, ...]]:
+    """Veto any accepted proposal that would alter protected information.
+
+    Two comparisons, both bounded:
+
+    **proposal-local** — the text being replaced against its replacement. Catches
+    the direct cases: a dose, a percentage, a modal verb, a currency symbol.
+
+    **context-local** — the enclosing block, before and after the substitution.
+    Catches what a span-only view cannot: a deletion adjacent to a negation
+    changes the sentence without the negation itself lying inside the span.
+
+    A third, **document-global** check runs at application time over the complete
+    candidate output; see `plainspeak.pipeline.apply`.
+
+    Crucially this runs *after* conflict resolution, on the proposal that
+    resolution chose. If a vetoed proposal's losing rival were reinstated here,
+    the engine would have two paths to deciding an overlap and the result would
+    depend on which safety check happened to fire. A conflict group whose winner
+    fails integrity produces no automatic edit at all.
+    """
+    survivors: list[ProposedChange] = []
+    vetoed: list[ProposedChange] = []
+    records: list[IntegrityRefusal] = []
+
+    for change in accepted:
+        verdict = integrity_check(change.original_text, change.replacement)
+        scope = "proposal"
+
+        if verdict.passed:
+            before, after = _context_pair(view, change)
+            if before is not None:
+                verdict = integrity_check(before, after)
+                scope = "context"
+
+        if verdict.passed:
+            survivors.append(change)
+            continue
+
+        vetoed.append(
+            replace(change, applicable=False, reason=f"{REFUSAL_INTEGRITY}: {verdict.summary}")
+        )
+        records.append(
+            IntegrityRefusal(
+                rule_id=change.rule_id,
+                rule_version=change.rule_version,
+                analysis_start=change.analysis_span.start,
+                analysis_end=change.analysis_span.end,
+                scope=scope,
+                summary=verdict.summary,
+                violations=verdict.violations,
+            )
+        )
+
+    records.sort(key=lambda item: (item.analysis_start, item.analysis_end, item.rule_id))
+    return tuple(survivors), tuple(vetoed), tuple(records)
+
+
+def _context_pair(view: Projection, change: ProposedChange) -> tuple[Optional[str], str]:
+    """The enclosing block's text, before and after this one substitution.
+
+    Bounded to the block rather than the document: a block is the largest unit a
+    single edit can affect the reading of, and scanning the whole document once
+    per proposal would make planning quadratic in a long report for no extra
+    safety — the whole-document check at application time covers the rest.
+    """
+    segments = [
+        segment
+        for segment in view.segments
+        if not segment.synthetic and segment.block_path == _block_of(view, change)
+    ]
+    if not segments:
+        return None, ""
+
+    start = min(segment.analysis_span.start for segment in segments)
+    end = max(segment.analysis_span.end for segment in segments)
+    span = change.analysis_span
+    if not (start <= span.start and span.end <= end):
+        return None, ""
+
+    before = view.text[start:end]
+    after = view.text[start : span.start] + change.replacement + view.text[span.end : end]
+    return before, after
+
+
+def _block_of(view: Projection, change: ProposedChange) -> tuple[int, ...]:
+    segment = view.segment_at(change.analysis_span.start)
+    return segment.block_path if segment is not None else change.document_path
 
 
 # ── Scope ──────────────────────────────────────────────────────────────────

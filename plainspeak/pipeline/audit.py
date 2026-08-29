@@ -35,19 +35,28 @@ STATUS_DIAGNOSTIC = "diagnostic"
 
 def plan_to_dict(plan: TransformationPlan) -> dict[str, Any]:
     """The plan as plain, ordered data."""
+    # Integrity refusals are attached to the change entry they belong to, keyed
+    # by position as well as rule identity — one rule can fire several times in
+    # a document and be vetoed at only some of them.
+    by_position = {
+        (item.rule_id, item.rule_version, item.analysis_start, item.analysis_end): item
+        for item in plan.integrity_refusals
+    }
     # Built from the settled lists rather than from `proposals`, which holds the
     # candidates as they were *before* conflict resolution. A refused candidate
     # still looks applicable in that list; only its counterpart in `refused`
     # carries the reason it was turned down.
-    entries = [_change_entry(change, STATUS_ACCEPTED) for change in plan.accepted]
-    entries += [_change_entry(change, STATUS_REFUSED) for change in plan.refused]
-    entries += [_change_entry(change, STATUS_DIAGNOSTIC) for change in plan.diagnostics]
+    entries = [_change_entry(change, STATUS_ACCEPTED, by_position) for change in plan.accepted]
+    entries += [_change_entry(change, STATUS_REFUSED, by_position) for change in plan.refused]
+    entries += [_change_entry(change, STATUS_DIAGNOSTIC, by_position) for change in plan.diagnostics]
     entries.sort(key=_entry_order)
 
     return {
         "engine_version": plan.engine_version,
         "ruleset_version": plan.ruleset_version,
         "ruleset_sha256": plan.ruleset_hash,
+        "integrity_policy_version": plan.integrity_policy_version,
+        "integrity_policy_sha256": plan.integrity_policy_hash,
         "input_sha256": plan.input_hash,
         "projection_sha256": plan.projection_hash,
         "counts": {
@@ -56,6 +65,7 @@ def plan_to_dict(plan: TransformationPlan) -> dict[str, Any]:
             "refused": len(plan.refused),
             "diagnostics": len(plan.diagnostics),
             "conflicts": len(plan.conflicts),
+            "integrity_refusals": len(plan.integrity_refusals),
         },
         "rules_fired": list(plan.rule_ids),
         "changes": entries,
@@ -81,6 +91,8 @@ def result_to_dict(result: ApplicationResult) -> dict[str, Any]:
         "ruleset_sha256": result.ruleset_hash,
         "input_sha256": result.input_hash,
         "output_sha256": result.output_hash,
+        "integrity_policy_version": result.integrity_policy_version,
+        "integrity_policy_sha256": result.integrity_policy_hash,
         "changed": result.changed,
         "counts": {
             "applied": len(result.applied),
@@ -108,10 +120,20 @@ def result_to_json(result: ApplicationResult) -> str:
 # ── Entries ────────────────────────────────────────────────────────────────
 
 
-def _change_entry(change: ProposedChange, status: str) -> dict[str, Any]:
+def _change_entry(
+    change: ProposedChange, status: str, integrity: dict[tuple, Any]
+) -> dict[str, Any]:
     span = change.source_span
     spans = [{"start": item.start, "end": item.end} for item in change.source_spans]
-    return {
+    refusal = integrity.get(
+        (
+            change.rule_id,
+            change.rule_version,
+            change.analysis_span.start,
+            change.analysis_span.end,
+        )
+    )
+    entry: dict[str, Any] = {
         "rule_id": change.rule_id,
         "rule_version": change.rule_version,
         "mode": change.mode,
@@ -131,6 +153,13 @@ def _change_entry(change: ProposedChange, status: str) -> dict[str, Any]:
         "after": change.replacement,
         "reason": change.reason,
     }
+    if refusal is not None:
+        entry["integrity"] = {
+            "scope": refusal.scope,
+            "summary": refusal.summary,
+            "violations": [violation.as_dict() for violation in refusal.violations],
+        }
+    return entry
 
 
 def _entry_order(entry: dict[str, Any]) -> tuple:
