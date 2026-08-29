@@ -17,8 +17,15 @@ separately by the `package` job in CI, which builds them for real.
 """
 from __future__ import annotations
 
-import tomllib
 from pathlib import Path
+
+try:  # Python 3.11+
+    import tomllib
+except ModuleNotFoundError:  # pragma: no cover - exercised on 3.10 only
+    # The project supports 3.10, which has no TOML parser in the standard
+    # library, and this guard is not worth a dependency. The fallback reads the
+    # one table it cares about; see `_package_data`.
+    tomllib = None
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = REPO_ROOT / "plainspeak" / "core" / "syllable_data.bin"
@@ -60,6 +67,38 @@ def test_the_dictionary_path_is_used_rather_than_the_heuristic() -> None:
     )
 
 
+def _package_data() -> dict[str, list[str]]:
+    """The `[tool.setuptools.package-data]` table from pyproject.toml.
+
+    Uses the standard-library TOML parser where there is one. On 3.10 there is
+    not, and rather than take a dependency for a single table this reads the
+    section directly. The fallback is narrow on purpose: it knows about one
+    table and gives up loudly rather than half-understanding the file.
+    """
+    text = (REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8")
+
+    if tomllib is not None:
+        return tomllib.loads(text)["tool"]["setuptools"]["package-data"]
+
+    table: dict[str, list[str]] = {}
+    inside = False
+    for line in text.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("["):
+            inside = stripped == "[tool.setuptools.package-data]"
+            continue
+        if not inside or not stripped or stripped.startswith("#") or "=" not in stripped:
+            continue
+        key, _, value = stripped.partition("=")
+        table[key.strip().strip('"')] = [
+            item.strip().strip('"').strip("'")
+            for item in value.strip().strip("[]").split(",")
+            if item.strip()
+        ]
+    assert table, "could not find [tool.setuptools.package-data] in pyproject.toml"
+    return table
+
+
 def test_packaging_declares_the_data_file() -> None:
     """The configuration that stops it being dropped from a built wheel.
 
@@ -67,10 +106,9 @@ def test_packaging_declares_the_data_file() -> None:
     reintroduce the original defect exactly, and nothing else in the suite
     would notice.
     """
-    config = tomllib.loads((REPO_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
-    package_data = config["tool"]["setuptools"]["package-data"]
-
+    package_data = _package_data()
     patterns = package_data.get("plainspeak.core", [])
+
     assert any(pattern.endswith(".bin") or pattern == "*" for pattern in patterns), (
         "pyproject.toml no longer ships plainspeak.core data files; the syllable "
         f"dictionary would be dropped from built wheels. Found: {package_data}"
