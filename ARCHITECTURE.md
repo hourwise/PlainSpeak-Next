@@ -24,10 +24,11 @@ it fails the build.
        │                   │                   │
        ▼                   ▼                   ▼
    document             reporting            core
-   text · html          html · json      tokenize · metrics
-   docx · pdf           console          barriers · transform
-   detect               labels           lexicon · glossary
-                                         morphology · syllables
+   model · load         html · json      tokenize · metrics
+   parse_text           console          barriers · transform
+   parse_markdown       labels           lexicon · glossary
+   text · html                           morphology · syllables
+   docx · pdf · detect
                            │                   │
                            └─────────┬─────────┘
                                      ▼
@@ -41,7 +42,7 @@ Arrows are the *only* permitted directions.
 |---|---|---|
 | `core` | Tokenising, metrics, barrier detection, substitution, morphology | `core`, `integrity` |
 | `integrity` | What must never be changed | nothing |
-| `document` | Reading files into text | `document` |
+| `document` | Reading files, and the structured representation of one | `document` |
 | `reporting` | Rendering results for a human or a machine | `reporting`, `core`, `integrity` |
 | `adapters` | Interfaces onto the engine | everything |
 
@@ -80,6 +81,57 @@ locations, so external callers keep working. **Nothing inside the package may
 import through a shim** — that too is enforced by a test, because a shim that
 becomes load-bearing stops being a courtesy and starts being architecture.
 
+## The document representation
+
+`plainspeak.document.model` is where a document stops being a string.
+
+Every node records the exact character span of the source it came from, along
+with its path in the tree, the parser that produced it, and a SHA-256 of its
+original text. One property does most of the work:
+
+> **Serialising an unedited document returns the original bytes, because the
+> original bytes are what it holds.**
+
+The document keeps its full source and nodes index into it. An edit is a span
+replacement; a transformation plan is a list of span replacements that can be
+checked for overlap and ordered before anything is applied. Nothing has to be
+reconstructed, so nothing can be reconstructed wrongly.
+
+`Document.prose_spans()` is the engine's only licence to edit. It walks the
+tree and yields the spans of `Text` nodes that are transformable *and* have no
+enclosing node forbidding it — so a paragraph inside a block quote contains
+perfectly ordinary prose and is still not offered up, because rewording
+somebody else's words and leaving them in quotation marks misattributes them.
+
+What is excluded, and why it is recorded rather than implied:
+
+| Excluded | Reason |
+|---|---|
+| Code blocks and code spans | code is not prose |
+| Block quotes | quoted material must not be reworded |
+| Tables | the pipe structure is significant and the cells are not yet parsed |
+| Link and image destinations | an address is not prose |
+| Autolinks | the visible text *is* the address |
+| Raw HTML, thematic breaks | not prose |
+
+### Failing safe
+
+markdown-it reports inline tokens with no source offsets, so the offsets are
+recovered by scanning the block's source and locating each token in turn. That
+scan can fail, and what happens then is the heart of the design: **a node whose
+location cannot be established exactly is refused, not guessed at.** The
+scanner latches into a lost state on the first miss and never resumes, and the
+enclosing block is marked untransformable. An edit applied at a wrong offset
+corrupts a document silently, which is far worse than leaving it alone.
+
+Three constructs used to trigger that refusal for whole paragraphs and no
+longer do — escapes and entities (`text_join` is disabled so their source form
+survives in the token), autolinks (there is no bracket to find), and reference
+links (the destination lives elsewhere in the document, so that lookup is
+allowed to miss). No Markdown construct currently tested defeats the scanner,
+which means the refusal path only ever runs on a parser bug. It is tested by
+forcing a failure, because a safety net nobody has pulled is not known to hold.
+
 ## What is deliberately not here yet
 
 The build plan describes several layers that this codebase has not earned the
@@ -91,10 +143,14 @@ implies a decision that has not been made:
   the data that will move first.
 - **`style/`** — style profiles. There is currently one behaviour, not a
   choice between several.
-- **A document intermediate representation.** Every reader currently flattens
-  its input to a plain string, which is why the engine cannot tell a heading
-  from a quotation, or a code block from prose. This is the next piece of work,
-  and the one that most limits what the engine can safely do.
+- **The analyser does not use the representation yet.** `core` still consumes a
+  flat string; the IR sits alongside it. Connecting the two — so that detection
+  runs per prose span rather than over the whole document — is the next step,
+  and it is what turns the structural knowledge into behaviour.
+- **DOCX, PDF and HTML have no structured parser.** They load through the
+  plain-text parser, which is an honest degradation: the document records which
+  parser actually ran, so a caller can tell "the structure says this is prose"
+  from "we could not see any structure".
 
 ## Known weaknesses in the inherited engine
 
@@ -105,8 +161,10 @@ is good":
   finds real passives and also finds things that are not passives.
 - Nominalisation reversal derives verbs by stripping suffixes, which produces
   non-words: `clarity` currently yields the suggestion `clare`.
-- Markdown is read as undifferentiated text, so link URLs, code fences and
-  table pipes are all treated as prose.
+- The inherited reader path (`read_auto`, which the analyser still uses)
+  flattens Markdown to undifferentiated text, so link URLs, code fences and
+  table pipes are all treated as prose. The document representation fixes
+  this, but nothing in `core` consults it yet.
 - Empty and whitespace-only input raises rather than returning an empty result.
 - Substitution marks its replacements with `**bold**` regardless of whether the
   surrounding document is Markdown.

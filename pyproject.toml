@@ -29,6 +29,10 @@ classifiers = [
 ]
 dependencies = [
     "click>=8.0",
+    # CommonMark parsing for the document representation. Reports a line
+    # range for every block token, which is what makes exact source
+    # offsets — and therefore safe editing — possible at all.
+    "markdown-it-py>=3.0",
 ]
 
 [project.optional-dependencies]
