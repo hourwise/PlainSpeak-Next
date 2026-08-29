@@ -1,0 +1,95 @@
+PS.LEXICAL.100  [verb]  accomplish -> do  accomplishes -> does  accomplishing -> doing
+PS.LEXICAL.102  [verb]  acquire -> get  acquires -> gets  acquired -> got  acquiring -> getting
+PS.LEXICAL.105  [verb]  alleviate -> reduce  alleviates -> reduces  alleviated -> reduced  alleviating -> reducing
+PS.LEXICAL.106  [verb]  alter -> change  alters -> changes  altered -> changed  altering -> changing
+PS.LEXICAL.108  [verb]  ameliorate -> improve  ameliorates -> improves  ameliorated -> improved  ameliorating -> improving
+PS.LEXICAL.109  [verb]  anticipate -> expect  anticipates -> expects  anticipated -> expected  anticipating -> expecting
+PS.LEXICAL.110  [verb]  append -> add  appends -> adds  appended -> added  appending -> adding
+PS.LEXICAL.111  [verb]  apprise -> tell  apprises -> tells  apprised -> told  apprising -> telling
+PS.LEXICAL.112  [verb]  attain -> reach  attains -> reaches  attained -> reached  attaining -> reaching
+PS.LEXICAL.113  [verb]  augment -> add to  augments -> adds to  augmented -> added to  augmenting -> adding to
+PS.LEXICAL.115  [verb]  cease -> stop  ceases -> stops  ceased -> stopped  ceasing -> stopping
+PS.LEXICAL.116  [verb]  collaborate -> work with  collaborates -> works with  collaborated -> worked with  collaborating -> working with
+PS.LEXICAL.117  [verb]  compensate -> pay  compensates -> pays  compensated -> paid  compensating -> paying
+PS.LEXICAL.118  [noun]  component -> part  components -> parts
+PS.LEXICAL.120  [verb]  comprise -> make up  comprises -> makes up  comprised -> made up  comprising -> making up
+PS.LEXICAL.121  [verb]  concur -> agree  concurs -> agrees  concurred -> agreed  concurring -> agreeing
+PS.LEXICAL.124  [verb]  consolidate -> combine  consolidates -> combines  consolidated -> combined  consolidating -> combining
+PS.LEXICAL.125  [verb]  constitute -> make up  constitutes -> makes up  constituted -> made up  constituting -> making up
+PS.LEXICAL.126  [verb]  construct -> build  constructs -> builds  constructed -> built  constructing -> building
+PS.LEXICAL.127  [verb]  contemplate -> think about  contemplates -> thinks about  contemplated -> thought about  contemplating -> thinking about
+PS.LEXICAL.129  [noun]  contusion -> bruise  contusions -> bruises
+PS.LEXICAL.130  [verb]  convene -> meet  convenes -> meets  convened -> met  convening -> meeting
+PS.LEXICAL.131  [verb]  corroborate -> support  corroborates -> supports  corroborated -> supported  corroborating -> supporting
+PS.LEXICAL.134  [verb]  delineate -> outline  delineates -> outlines  delineated -> outlined  delineating -> outlining
+PS.LEXICAL.135  [verb]  depict -> show  depicts -> shows  depicting -> showing
+PS.LEXICAL.137  [verb]  designate -> choose  designates -> chooses  designating -> choosing
+PS.LEXICAL.139  [verb]  disburse -> pay out  disburses -> pays out  disbursed -> paid out  disbursing -> paying out
+PS.LEXICAL.140  [verb]  discontinue -> stop  discontinues -> stops  discontinued -> stopped  discontinuing -> stopping
+PS.LEXICAL.141  [verb]  disseminate -> spread  disseminates -> spreads  disseminated -> spread  disseminating -> spreading
+PS.LEXICAL.142  [verb]  effectuate -> carry out  effectuates -> carries out  effectuated -> carried out  effectuating -> carrying out
+PS.LEXICAL.143  [verb]  elucidate -> explain  elucidates -> explains  elucidated -> explained  elucidating -> explaining
+PS.LEXICAL.145  [verb]  endeavor -> try  endeavors -> tries  endeavored -> tried  endeavoring -> trying
+PS.LEXICAL.146  [verb]  endeavour -> try  endeavours -> tries  endeavoured -> tried  endeavouring -> trying
+PS.LEXICAL.147  [verb]  enhance -> improve  enhances -> improves  enhanced -> improved  enhancing -> improving
+PS.LEXICAL.148  [verb]  enumerate -> list  enumerates -> lists  enumerated -> listed  enumerating -> listing
+PS.LEXICAL.150  [verb]  exacerbate -> worsen  exacerbates -> worsens  exacerbated -> worsened  exacerbating -> worsening
+PS.LEXICAL.151  [verb]  expedite -> speed up  expedites -> speeds up  expedited -> sped up  expediting -> speeding up
+PS.LEXICAL.152  [verb]  expend -> spend  expends -> spends  expended -> spent  expending -> spending
+PS.LEXICAL.153  [verb]  facilitate -> help  facilitates -> helps  facilitated -> helped  facilitating -> helping
+PS.LEXICAL.154  [noun]  fatality -> death  fatalities -> deaths
+PS.LEXICAL.156  [verb]  finalize -> finish  finalizes -> finishes  finalized -> finished  finalizing -> finishing
+PS.LEXICAL.157  [verb]  formulate -> create  formulates -> creates  formulated -> created  formulating -> creating
+PS.LEXICAL.160  [verb]  furnish -> give  furnishes -> gives  furnishing -> giving
+PS.LEXICAL.168  [verb]  impair -> harm  impairs -> harms  impaired -> harmed  impairing -> harming
+PS.LEXICAL.169  [verb]  incorporate -> include  incorporates -> includes  incorporated -> included  incorporating -> including
+PS.LEXICAL.170  [verb]  inhibit -> prevent  inhibits -> prevents  inhibited -> prevented  inhibiting -> preventing
+PS.LEXICAL.171  [verb]  initiate -> start  initiates -> starts  initiated -> started  initiating -> starting
+PS.LEXICAL.174  [verb]  intervene -> step in  intervenes -> steps in  intervened -> stepped in  intervening -> stepping in
+PS.LEXICAL.175  [noun]  laceration -> cut  lacerations -> cuts
+PS.LEXICAL.176  [verb]  liaise -> work with  liaises -> works with  liaised -> worked with  liaising -> working with
+PS.LEXICAL.177  [noun]  magnitude -> size  magnitudes -> sizes
+PS.LEXICAL.178  [verb]  manufacture -> make  manufactures -> makes  manufactured -> made  manufacturing -> making
+PS.LEXICAL.179  [noun]  methodology -> method  methodologies -> methods
+PS.LEXICAL.180  [verb]  mitigate -> reduce  mitigates -> reduces  mitigated -> reduced  mitigating -> reducing
+PS.LEXICAL.181  [noun]  modification -> change  modifications -> changes
+PS.LEXICAL.182  [verb]  modify -> change  modifies -> changes  modified -> changed  modifying -> changing
+PS.LEXICAL.184  [verb]  necessitate -> require  necessitates -> requires  necessitated -> required  necessitating -> requiring
+PS.LEXICAL.186  [verb]  notify -> tell  notifies -> tells  notified -> told  notifying -> telling
+PS.LEXICAL.188  [noun]  objective -> goal  objectives -> goals
+PS.LEXICAL.189  [noun]  obligation -> duty  obligations -> duties
+PS.LEXICAL.191  [verb]  obtain -> get  obtains -> gets  obtained -> got  obtaining -> getting
+PS.LEXICAL.192  [noun]  occurrence -> event  occurrences -> events
+PS.LEXICAL.195  [verb]  originate -> start  originates -> starts  originated -> started  originating -> starting
+PS.LEXICAL.196  [noun]  paradigm -> model  paradigms -> models
+PS.LEXICAL.198  [verb]  perpetuate -> continue  perpetuates -> continues  perpetuated -> continued  perpetuating -> continuing
+PS.LEXICAL.199  [noun]  portion -> part  portions -> parts
+PS.LEXICAL.200  [verb]  possess -> have  possesses -> has  possessed -> had  possessing -> having
+PS.LEXICAL.204  [verb]  preserve -> keep  preserves -> keeps  preserved -> kept  preserving -> keeping
+PS.LEXICAL.205  [verb]  procure -> get  procures -> gets  procured -> got  procuring -> getting
+PS.LEXICAL.206  [verb]  prohibit -> ban  prohibits -> bans  prohibited -> banned  prohibiting -> banning
+PS.LEXICAL.207  [verb]  promulgate -> announce  promulgates -> announces  promulgated -> announced  promulgating -> announcing
+PS.LEXICAL.210  [verb]  quash -> overturn  quashes -> overturns  quashed -> overturned  quashing -> overturning
+PS.LEXICAL.211  [verb]  reimburse -> pay back  reimburses -> pays back  reimbursed -> paid back  reimbursing -> paying back
+PS.LEXICAL.212  [verb]  relinquish -> give up  relinquishes -> gives up  relinquishing -> giving up
+PS.LEXICAL.213  [verb]  relocate -> move  relocates -> moves  relocated -> moved  relocating -> moving
+PS.LEXICAL.214  [noun]  remainder -> rest  remainders -> rests
+PS.LEXICAL.215  [verb]  replicate -> copy  replicates -> copies  replicated -> copied  replicating -> copying
+PS.LEXICAL.216  [verb]  request -> ask  requests -> asks  requested -> asked  requesting -> asking
+PS.LEXICAL.218  [verb]  rescind -> cancel  rescinds -> cancels  rescinded -> cancelled  rescinding -> cancelling
+PS.LEXICAL.219  [verb]  reside -> live  resides -> lives  resided -> lived  residing -> living
+PS.LEXICAL.221  [verb]  retain -> keep  retains -> keeps  retained -> kept  retaining -> keeping
+PS.LEXICAL.222  [noun]  revision -> change  revisions -> changes
+PS.LEXICAL.223  [verb]  scrutinize -> examine  scrutinizes -> examines  scrutinized -> examined  scrutinizing -> examining
+PS.LEXICAL.224  [verb]  signify -> mean  signifies -> means  signified -> meant  signifying -> meaning
+PS.LEXICAL.225  [noun]  specification -> detail  specifications -> details
+PS.LEXICAL.226  [verb]  substantiate -> back up  substantiates -> backs up  substantiated -> backed up  substantiating -> backing up
+PS.LEXICAL.227  [verb]  synthesise -> combine  synthesises -> combines  synthesised -> combined  synthesising -> combining
+PS.LEXICAL.228  [verb]  synthesize -> combine  synthesizes -> combines  synthesized -> combined  synthesizing -> combining
+PS.LEXICAL.229  [noun]  threshold -> limit  thresholds -> limits
+PS.LEXICAL.230  [noun]  trajectory -> path  trajectories -> paths
+PS.LEXICAL.231  [verb]  transcribe -> write down  transcribes -> writes down  transcribing -> writing down
+PS.LEXICAL.233  [verb]  transmit -> send  transmits -> sends  transmitted -> sent  transmitting -> sending
+PS.LEXICAL.235  [verb]  undertake -> do  undertakes -> does  undertook -> did  undertaken -> done  undertaking -> doing
+PS.LEXICAL.237  [verb]  validate -> confirm  validates -> confirms  validated -> confirmed  validating -> confirming
+PS.LEXICAL.238  [verb]  verify -> check  verifies -> checks  verified -> checked  verifying -> checking
