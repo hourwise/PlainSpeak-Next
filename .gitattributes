@@ -1,0 +1,16 @@
+# Normalise line endings so the same input text produces the same bytes on
+# every platform. Cross-platform textual determinism is a project invariant,
+# and CRLF drift in fixtures would silently break it.
+* text=auto eol=lf
+
+# Fixtures and corpora are byte-significant: never let git rewrite them.
+tests/fixtures/**  -text
+corpora/**         -text
+
+# Binary document formats.
+*.docx binary
+*.pdf  binary
+*.png  binary
+*.jpg  binary
+*.ico  binary
+*.zip  binary
