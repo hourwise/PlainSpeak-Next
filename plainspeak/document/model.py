@@ -57,16 +57,36 @@ class Span:
         return self.start <= other.start and other.end <= self.end
 
 
-# Why a node may not be transformed. Recorded rather than implied, so that a
-# report can say *why* a passage was left alone — "inside a code block" and
-# "the parser could not locate it" are very different answers to a user asking
-# why nothing happened.
+# Two different authorities, deliberately kept apart.
+#
+#   analyzable    — this text is prose, and the analyser may read and report on
+#                   it.
+#   transformable — the engine may additionally *rewrite* it.
+#
+# They are not the same question, and collapsing them loses real cases. A block
+# quote is ordinary prose: it can be measured, and a report should say if it is
+# hard to read. It still must not be reworded, because rewording somebody
+# else's words while leaving them inside quotation marks misattributes them.
+#
+# A code fence is the other shape: not prose at all, so neither authority
+# applies. Recording *which* authority is missing, and why, is what lets a
+# report answer "why was nothing done here?" with something better than
+# silence.
+#
+# Invariant: anything not analyzable is not transformable either. There is no
+# meaningful "rewrite text we are not willing to read".
+
+#: Not prose. Neither analysable nor transformable.
 REASON_CODE = "code is not prose"
-REASON_QUOTE = "quoted material must not be reworded"
 REASON_TABLE = "table structure is significant"
 REASON_RAW = "raw markup is not prose"
 REASON_LINK_TARGET = "a link destination is an address, not prose"
 REASON_UNLOCATABLE = "the parser could not establish this node's source offsets"
+
+#: Prose, but not ours to change.
+REASON_QUOTE = "quoted material must not be reworded"
+
+#: Applied to descendants of a node that carries one of the reasons above.
 REASON_INHERITED = "an enclosing node is not transformable"
 
 
@@ -85,9 +105,14 @@ class Node:
     #: current source no longer hashes to this, something has rewritten the
     #: document underneath us.
     original_hash: str = ""
+    #: Whether this node's text is prose the analyser may read.
+    analyzable: bool = True
+    #: Whether the engine may rewrite it. Never true when `analyzable` is false.
     transformable: bool = True
     #: Empty when `transformable`; otherwise one of the REASON_* constants.
     untransformable_reason: str = ""
+    #: Empty when `analyzable`; otherwise one of the REASON_* constants.
+    unanalyzable_reason: str = ""
 
     @property
     def location(self) -> str:
@@ -95,8 +120,19 @@ class Node:
         return ".".join(str(index) for index in self.path) or "root"
 
     def mark_untransformable(self, reason: str) -> None:
+        """Withhold edit authority while leaving the text analysable."""
         self.transformable = False
         self.untransformable_reason = reason
+
+    def mark_unanalyzable(self, reason: str) -> None:
+        """Withhold both authorities: this node's text is not prose.
+
+        Edit authority goes with it necessarily. Rewriting text the analyser is
+        not willing to read would mean editing on no evidence at all.
+        """
+        self.analyzable = False
+        self.unanalyzable_reason = reason
+        self.mark_untransformable(reason)
 
     def children(self) -> Sequence["Node"]:
         return ()
@@ -134,7 +170,26 @@ class CodeSpan(Inline):
     code: str = ""
 
     def __post_init__(self) -> None:
-        self.mark_untransformable(REASON_CODE)
+        self.mark_unanalyzable(REASON_CODE)
+
+
+@dataclass
+class Literal(Inline):
+    r"""A prose character the source spells with markup: an escape or an entity.
+
+    `\*` is one asterisk. `&amp;` is one ampersand. Both are ordinary prose to
+    a reader, and both occupy more source characters than they contribute to
+    the text, so `text` and `span` here deliberately have different lengths.
+    Everything downstream must therefore treat this node as non-linear: a range
+    covering part of it has no exact source equivalent, though a range covering
+    all of it maps cleanly onto the whole markup.
+
+    Dropping these instead — the obvious shortcut — would delete characters
+    from the middle of a sentence and hand the analyser prose the author never
+    wrote.
+    """
+
+    text: str = ""
 
 
 @dataclass
@@ -142,7 +197,7 @@ class RawInline(Inline):
     """Inline HTML or any other markup passed through untouched."""
 
     def __post_init__(self) -> None:
-        self.mark_untransformable(REASON_RAW)
+        self.mark_unanalyzable(REASON_RAW)
 
 
 @dataclass
@@ -211,10 +266,10 @@ class Heading(Block):
 class Quote(Block):
     """Quoted material.
 
-    Marked untransformable by default: rewording somebody else's words and
-    leaving them inside quotation marks misattributes them. Prose inside a
-    quote is still parsed and still analysed — it is only edits that are
-    refused.
+    Marked untransformable but *not* unanalysable: rewording somebody else's
+    words and leaving them inside quotation marks misattributes them, but a
+    quotation is still prose and a report should be able to say that it is hard
+    to read. This is the case that makes the two authorities worth separating.
     """
 
     content: list[Block] = field(default_factory=list)
@@ -249,7 +304,7 @@ class CodeBlock(Block):
     code: str = ""
 
     def __post_init__(self) -> None:
-        self.mark_untransformable(REASON_CODE)
+        self.mark_unanalyzable(REASON_CODE)
 
 
 @dataclass
@@ -262,19 +317,76 @@ class Table(Block):
     """
 
     def __post_init__(self) -> None:
-        self.mark_untransformable(REASON_TABLE)
+        self.mark_unanalyzable(REASON_TABLE)
 
 
 @dataclass
 class ThematicBreak(Block):
     def __post_init__(self) -> None:
-        self.mark_untransformable(REASON_RAW)
+        self.mark_unanalyzable(REASON_RAW)
 
 
 @dataclass
 class HtmlBlock(Block):
     def __post_init__(self) -> None:
-        self.mark_untransformable(REASON_RAW)
+        self.mark_unanalyzable(REASON_RAW)
+
+
+# ── The structural contract ────────────────────────────────────────────────
+
+
+def _segment_kind(node: Node) -> str:
+    if isinstance(node, Text):
+        return "text"
+    if isinstance(node, Literal):
+        return "literal"
+    return "break"
+
+
+@dataclass(frozen=True)
+class ProseSegment:
+    """One run of document text, with both authorities already resolved.
+
+    This is the contract between the document representation and everything
+    downstream. It is produced by exactly one traversal
+    (`Document.prose_segments`) so that no two callers can form different
+    opinions about what may be read or written.
+
+    A segment is a run of prose (`kind="text"`), a character the source spells
+    as markup (`kind="literal"` — an escape or an entity), or a line break
+    inside a block (`kind="break"`). The latter two are included because they
+    occupy source characters between runs of prose: a consumer that skipped
+    them would either lose the gap or silently join two lines together.
+
+    Only `text` segments are guaranteed to have `len(text) == len(span)`.
+    """
+
+    span: Span
+    kind: str
+    text: str
+    path: tuple[int, ...]
+    #: Path of the enclosing block. A consumer that has to know where one unit
+    #: of prose ends and the next begins cannot recover this from `path` alone,
+    #: because an inline node may be nested to any depth inside its block.
+    block_path: tuple[int, ...]
+    provenance: str
+    original_hash: str
+    #: The analyser may read this text.
+    analyzable: bool
+    #: The engine may rewrite it. Never true when `analyzable` is false.
+    transformable: bool
+    #: Why an authority is missing. Empty when the segment carries both.
+    #: When the segment is not analysable this explains that; otherwise, if it
+    #: is merely not transformable, it explains *that*. One field, because two
+    #: could disagree.
+    reason: str = ""
+
+    def __post_init__(self) -> None:
+        if self.transformable and not self.analyzable:
+            raise ValueError(
+                "a segment cannot be transformable without being analyzable: "
+                "rewriting text the analyser will not read is editing on no evidence"
+            )
 
 
 # ── The document ───────────────────────────────────────────────────────────
@@ -303,26 +415,77 @@ class Document:
         for block in self.blocks:
             yield from block.walk()
 
+    def prose_segments(self) -> list["ProseSegment"]:
+        """The single structural traversal, in document order.
+
+        Everything that needs to know what may be read or written derives from
+        this one walk. Two traversals that answered "is this prose?" and "may we
+        edit this?" separately would agree today and drift apart on the first
+        node type somebody adds to only one of them, and the failure would be
+        silent — the engine would simply start editing something it should not.
+
+        Authority is resolved by inheritance down the tree, because that is
+        where the interesting cases live. The paragraph inside a block quote is
+        transformable in itself; it is its enclosing quote that says no.
+        """
+        segments: list[ProseSegment] = []
+
+        def visit(
+            node: Node,
+            analysis_refusal: str,
+            edit_refusal: str,
+            block_path: tuple[int, ...],
+        ) -> None:
+            if not node.analyzable:
+                analysis_refusal = analysis_refusal or node.unanalyzable_reason
+            if not node.transformable:
+                edit_refusal = edit_refusal or node.untransformable_reason
+            if isinstance(node, Block):
+                block_path = node.path
+
+            if isinstance(node, (Text, Literal, LineBreak)) and len(node.span):
+                segments.append(
+                    ProseSegment(
+                        span=node.span,
+                        kind=_segment_kind(node),
+                        text=getattr(node, "text", ""),
+                        path=node.path,
+                        block_path=block_path,
+                        provenance=node.provenance,
+                        original_hash=node.original_hash,
+                        analyzable=not analysis_refusal,
+                        transformable=not (analysis_refusal or edit_refusal),
+                        reason=analysis_refusal or edit_refusal,
+                    )
+                )
+
+            for child in node.children():
+                visit(child, analysis_refusal, edit_refusal, block_path)
+
+        for block in self.blocks:
+            visit(block, "", "", block.path)
+        return segments
+
     def prose_spans(self) -> list[Span]:
         """Every span the engine is allowed to rewrite, in document order.
 
-        A `Text` node qualifies only if it is transformable *and* nothing
-        enclosing it forbids transformation — which is why this walks the tree
-        rather than filtering a flat list. A paragraph inside a block quote
-        contains perfectly ordinary prose; it is still not ours to reword.
+        Derived from `prose_segments` rather than walking the tree again, so
+        the edit authority reported here can never disagree with the one the
+        analysis pipeline sees.
         """
-        spans: list[Span] = []
+        return [
+            segment.span
+            for segment in self.prose_segments()
+            if segment.transformable and segment.kind in ("text", "literal")
+        ]
 
-        def visit(node: Node, blocked: bool) -> None:
-            blocked = blocked or not node.transformable
-            if isinstance(node, Text) and not blocked and len(node.span):
-                spans.append(node.span)
-            for child in node.children():
-                visit(child, blocked)
+    def analyzable_segments(self) -> list["ProseSegment"]:
+        """The segments whose text the analyser may read.
 
-        for block in self.blocks:
-            visit(block, False)
-        return spans
+        A superset of the transformable ones: it includes block quotes, which
+        are prose but not ours to reword.
+        """
+        return [segment for segment in self.prose_segments() if segment.analyzable]
 
     def text_of(self, span: Span) -> str:
         return span.text(self.source)

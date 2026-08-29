@@ -36,6 +36,7 @@ from .model import (
     Link,
     ListBlock,
     ListItem,
+    Literal,
     Paragraph,
     Quote,
     RawInline,
@@ -260,8 +261,8 @@ class _Builder:
         is the only honest response.
         """
         for node in block.walk():
-            if node.untransformable_reason == REASON_UNLOCATABLE:
-                block.mark_untransformable(REASON_UNLOCATABLE)
+            if node.unanalyzable_reason == REASON_UNLOCATABLE:
+                block.mark_unanalyzable(REASON_UNLOCATABLE)
                 return
 
     # ── inlines ────────────────────────────────────────────────────────────
@@ -317,6 +318,14 @@ class _Builder:
 
         if token.type in ("softbreak", "hardbreak"):
             span = scanner.locate("\n")
+            if span is not None and span.start > 0 and self.source[span.start - 1] == "\r":
+                # A CRLF terminator is two characters. Claiming only the
+                # newline would leave a stray carriage return sitting between
+                # two prose segments, which reads as a structural gap and
+                # would withdraw edit authority across the line break for no
+                # reason. The same document with either line ending must
+                # produce the same structure.
+                span = Span(span.start - 1, span.end)
             return (
                 LineBreak(**self.node_kwargs_or_lost(span, path), hard=token.type == "hardbreak"),
                 index + 1,
@@ -355,13 +364,23 @@ class _Builder:
                 href_span=href_span,
             )
             if autolink:
-                # An autolink's "text" is its URL. Nothing inside is prose.
-                node.mark_untransformable(REASON_LINK_TARGET)
+                # An autolink's "text" *is* its URL, so there is no prose here
+                # to read, let alone to rewrite.
+                node.mark_unanalyzable(REASON_LINK_TARGET)
             return node, index
 
-        if token.type in ("html_inline", "image", "text_special"):
-            # For an escape or an entity, `markup` is the source form and
-            # `content` is the decoded character; only the former is findable.
+        if token.type == "text_special":
+            # An escape or an entity: `markup` is the source form and `content`
+            # is the character it stands for. Both are needed — the former to
+            # find it, the latter because that character is what the prose
+            # actually contains.
+            span = scanner.locate(token.markup) if token.markup else None
+            return (
+                Literal(**self.node_kwargs_or_lost(span, path), text=token.content),
+                index + 1,
+            )
+
+        if token.type in ("html_inline", "image"):
             probe = token.markup or token.content
             span = scanner.locate(probe) if probe else None
             return RawInline(**self.node_kwargs_or_lost(span, path)), index + 1
@@ -371,11 +390,17 @@ class _Builder:
 
     def node_kwargs_or_lost(self, span: Optional[Span], path: tuple[int, ...]) -> dict:
         if span is None:
+            # Both authorities are withheld. Without trustworthy offsets there
+            # is nothing to map an analysis result back onto, so reporting on
+            # this text would produce findings that cannot be acted on and
+            # cannot even be pointed at.
             return {
                 "span": Span(0, 0),
                 "path": path,
                 "provenance": PROVENANCE,
                 "original_hash": "",
+                "analyzable": False,
+                "unanalyzable_reason": REASON_UNLOCATABLE,
                 "transformable": False,
                 "untransformable_reason": REASON_UNLOCATABLE,
             }
