@@ -32,12 +32,18 @@ ALLOWED_IMPORTS: dict[str, set[str]] = {
     "integrity": set(),
     # Reading documents is independent of analysing them.
     "document": {"document"},
+    # Declarative rules are a leaf, like `integrity`. A rule sees a string and
+    # reports analysis coordinates; it does not parse documents and cannot
+    # compute a source offset, because it has never seen one. That is what makes
+    # it impossible for a rule to put an edit in the wrong place. It may import
+    # within itself; what it may not do is reach any other layer.
+    "rules": {"rules"},
     # Rendering consumes results; it must not compute them.
     "reporting": {"reporting", "core", "integrity"},
     # Orchestration, and the only layer permitted to depend on both `document`
     # and `core`. It notably may not import `reporting`: deciding how to render
     # a result is not part of producing one.
-    "pipeline": {"pipeline", "core", "document", "integrity"},
+    "pipeline": {"pipeline", "core", "document", "integrity", "rules"},
     # Adapters are the only layer allowed to reach across the whole system.
     "adapters": {"adapters", "pipeline", "core", "integrity", "reporting"},
 }
@@ -280,3 +286,92 @@ def test_documented_dependencies_match_the_enforced_ones() -> None:
         "ARCHITECTURE.md and the enforced policy disagree. "
         f"documented: {documented} / enforced: {ALLOWED_IMPORTS}"
     )
+
+
+# ── The rule engine ────────────────────────────────────────────────────────
+
+
+def test_rules_do_not_parse_documents() -> None:
+    """A rule matches text. Understanding markup is somebody else's job."""
+    for path in sorted((PACKAGE_ROOT / "rules").rglob("*.py")):
+        targets = {target for target, _ in _imported_targets(path)}
+        assert "document" not in targets, (
+            f"{path.relative_to(PACKAGE_ROOT.parent)} imports `document`; rules must "
+            f"not parse documents or compute source offsets"
+        )
+
+
+def test_rules_import_nothing_from_the_rest_of_the_package() -> None:
+    """The leaf property, stated directly rather than inferred from the table."""
+    for path in sorted((PACKAGE_ROOT / "rules").rglob("*.py")):
+        offenders = [
+            f"{path.relative_to(PACKAGE_ROOT.parent)}:{line} imports `{target}`"
+            for target, line in _imported_targets(path)
+            if target != "rules"
+        ]
+        assert not offenders, "rules must stay a leaf: " + "; ".join(offenders)
+
+
+def test_no_rule_module_can_evaluate_code() -> None:
+    """Rules are data. Nothing in the loader may turn them into behaviour.
+
+    A rule file that could reach `eval`, `exec` or `__import__` would stop being
+    configuration and start being code, and the review that a YAML ruleset
+    invites is not the review that code needs.
+    """
+    forbidden = {"eval", "exec", "compile", "__import__", "globals", "locals"}
+    offences = []
+    for path in sorted((PACKAGE_ROOT / "rules").rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+                if node.func.id in forbidden:
+                    offences.append(
+                        f"{path.relative_to(PACKAGE_ROOT.parent)}:{node.lineno} "
+                        f"calls `{node.func.id}`"
+                    )
+    assert not offences, "; ".join(offences)
+
+
+def test_yaml_is_only_ever_loaded_safely() -> None:
+    """`yaml.load` and `full_load` can construct arbitrary Python objects."""
+    unsafe = {"load", "full_load", "unsafe_load", "load_all", "full_load_all", "unsafe_load_all"}
+    offences = []
+    for path in sorted(PACKAGE_ROOT.rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if (
+                isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Attribute)
+                and isinstance(node.func.value, ast.Name)
+                and node.func.value.id == "yaml"
+                and node.func.attr in unsafe
+            ):
+                offences.append(
+                    f"{path.relative_to(PACKAGE_ROOT.parent)}:{node.lineno} "
+                    f"calls yaml.{node.func.attr}"
+                )
+    assert not offences, "use safe_load / safe_load_all only: " + "; ".join(offences)
+
+
+def test_adapters_do_not_match_or_resolve_conflicts() -> None:
+    """Matching and conflict resolution belong to one place each."""
+    forbidden = {"find_matches", "build_plan", "apply_plan", "load_ruleset", "_settle", "_resolve"}
+    offences = []
+    for path in sorted((PACKAGE_ROOT / "adapters").rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name in forbidden:
+                offences.append(
+                    f"{path.relative_to(PACKAGE_ROOT.parent)}:{node.lineno} defines `{node.name}`"
+                )
+    assert not offences, "rule-engine logic found in an adapter: " + "; ".join(offences)
+
+
+def test_the_bundled_rules_ship_with_the_package() -> None:
+    """A rules directory outside the package would not survive installation."""
+    from plainspeak.rules import BUNDLED_ROOT
+
+    assert BUNDLED_ROOT.is_relative_to(PACKAGE_ROOT)
+    assert (BUNDLED_ROOT / "RULESET.yaml").is_file()
+    assert list(BUNDLED_ROOT.rglob("*.yaml"))

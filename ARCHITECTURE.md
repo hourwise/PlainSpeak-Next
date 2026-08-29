@@ -22,22 +22,19 @@ it fails the build.
                               │
                               ▼
                           pipeline
-                 projection · analysis · plan
+         projection · analysis · planner · apply · audit
                               │
-       ┌──────────────────────┼──────────────────────┐
-       │                      │                      │
-       ▼                      ▼                      ▼
-   document               reporting                core
-   model · load           html · json          tokenize · metrics
-   parse_text             console              barriers · transform
-   parse_markdown         labels               lexicon · glossary
-   text · html · detect                        morphology · syllables
-   docx · pdf
-                              │                      │
-                              └──────────┬───────────┘
-                                         ▼
-                                     integrity
-                                     protected
+       ┌───────────┬──────────┼──────────┬───────────┐
+       │           │          │          │           │
+       ▼           ▼          ▼          ▼           ▼
+   document      rules    reporting    core      integrity
+   model         schema   html · json  tokenize  protected
+   load          loader   console      metrics
+   parse_text    matcher  labels       barriers
+   parse_markdown canonical            transform
+   text · html   explain               lexicon
+   docx · pdf    bundled/              glossary
+   detect                              morphology
 ```
 
 Arrows are the *only* permitted directions.
@@ -48,7 +45,8 @@ Arrows are the *only* permitted directions.
 | `integrity` | What must never be changed | nothing |
 | `document` | Reading files, and the structured representation of one | `document` |
 | `reporting` | Rendering results for a human or a machine | `reporting`, `core`, `integrity` |
-| `pipeline` | Orchestration between documents and analysis | `pipeline`, `core`, `document`, `integrity` |
+| `rules` | Declarative prose rules and deterministic matching | `rules` |
+| `pipeline` | Orchestration between documents, rules and analysis | `pipeline`, `core`, `document`, `integrity`, `rules` |
 | `adapters` | Interfaces onto the engine | `adapters`, `pipeline`, `core`, `integrity`, `reporting` |
 
 That table is not a description. `tests/test_architecture.py` parses it out of
@@ -56,7 +54,7 @@ this file and compares it against what the code actually imports, so a
 documented rule and an enforced rule cannot drift apart. Changing the policy
 means changing the table.
 
-Three of those constraints are worth spelling out.
+Four of those constraints are worth spelling out.
 
 **`integrity` is a leaf on purpose.** It is the part of the system whose job is
 to say "no". Anything it imported could import it back, and a cycle there would
@@ -70,6 +68,12 @@ calculated its own numbers would be a second engine wearing a different hat.
 file itself and then called `core` would be joining parsing to analysis on its
 own terms, and two adapters doing that independently is exactly how the CLI and
 the MCP server end up answering the same question differently.
+
+**`rules` is a leaf, like `integrity`.** A rule sees a string and reports
+analysis coordinates. It does not parse documents, does not know what a heading
+is, and cannot compute a source offset — because it has never seen one. That is
+what makes it impossible for a rule to put an edit in the wrong place, and it is
+worth more than any amount of care taken further down the pipeline.
 
 **`core` does not import `document`.** The analysis engine works on strings and
 knows nothing about headings, quotes or code fences. The document
@@ -261,17 +265,156 @@ empty analysis rather than being handed to the inherited analyser, which raises
 on empty input — this layer declining to ask a question, not a change to the
 answer.
 
+## The rule engine
+
+Language behaviour used to live in Python — `if pattern: make suggestion`. It
+now lives in YAML that a reviewer can read without opening a source file, and
+the code is a platform for running it deterministically.
+
+```
+versioned rule data
+        ↓
+validated loader          a malformed rule is a build failure
+        ↓
+deterministic matcher     analysis coordinates only
+        ↓
+projection mapping        the Phase 3.5 authority
+        ↓
+protection                declarative, then inherited
+        ↓
+conflict resolution       explicit, or refuse
+        ↓
+immutable plan
+        ↓
+atomic application
+```
+
+### Rules are data, not code
+
+`yaml.safe_load` constructs plain data — no object instantiation, no imports,
+nothing reachable from a rule file. Past that, the schema accepts a fixed
+vocabulary and rejects everything else, **including unknown keys**: a typo would
+otherwise become a rule that quietly does something other than what it says. A
+malformed bundled rule raises, and is never skipped with a warning, because a
+skipped rule looks exactly like a rule that decided not to fire — the only
+symptom would be prose silently not being improved.
+
+Regex support is deliberately narrow. Backreferences, recursion, conditionals
+and inline flags are rejected, as is any quantifier applied to a group that
+already contains one — the classic shape of catastrophic backtracking. Patterns
+are length-capped, and a regex may not drive a replacement at all, because the
+matched text varies with the input and the result could not be reviewed in
+advance.
+
+### Every rule carries its own tests
+
+The schema requires `examples.positive` and `examples.negative`, and a safe-fix
+must additionally state the transformation it produces. The negative cases are
+the half that matters: a rule with no stated false-positive case is a rule whose
+author has not yet thought about when it should stay quiet.
+
+`tests/test_bundled_rules.py` enforces those claims, and it earned its keep
+immediately — six rules shipped with negative examples describing cases a
+lexical matcher cannot actually distinguish. Two of those turned out to be
+genuine limitations, now recorded in the rule descriptions rather than papered
+over.
+
+### Ruleset identity
+
+The hash is computed over a canonical JSON rendering of the *validated rules* —
+the objects the loader produced, not the text it read. It therefore cannot move
+because of directory traversal order, path separators, which folder a rule was
+filed under, YAML key order, quoting, comments or line endings. It does move
+when a rule's published wording changes, because descriptions and reasons appear
+in reports and in `explain_rule`.
+
+Files are loaded in whatever order the filesystem offers, deliberately unsorted:
+sorting there would conceal an order dependency rather than remove one. The
+ruleset is sorted by rule identity afterwards, and the tests shuffle the file
+list to prove that is enough.
+
+### Nothing is applied while matching
+
+Every rule matches against one projection of the *original* document. If a rule
+saw text an earlier rule had changed, the result would depend on which order the
+rules ran, and every claim to determinism would be gone. Matches are collected,
+mapped and judged before a single character moves.
+
+### Two kinds of protection, neither able to weaken the other
+
+Declarative `protected` rules cover phrases the ruleset knows about — "informed
+consent", "additional insured", "force majeure". The inherited register in
+`plainspeak.integrity.protected` covers the 59 terms the project has treated as
+untouchable since before rules existed. A proposal has to survive both, and the
+inherited check runs against *every word* inside a proposed edit rather than
+just the head word: replacing "the material fact" as a unit changes "material"
+as surely as replacing it alone would.
+
+A test asserts that no bundled safe-fix targets an inherited protected term,
+because such a rule could never fire and would be dead weight in the ruleset.
+
+### Conflicts are settled by rule, or refused
+
+Overlapping proposals are gathered into groups, and each group is settled by a
+short cascade whose every branch is total — there is no "otherwise, whichever
+came first":
+
+1. One proposal → accept it.
+2. All identical → accept the lowest rule ID; the rest are duplicates.
+3. Exactly one strictly highest priority → accept it.
+4. Exactly one strictly containing all the others → accept the longer match.
+5. Anything else → **refuse the whole group.**
+
+Step 5 is the important one. When two rules want the same characters in
+different ways and neither has been given precedence, there is no principled
+answer, and picking one would make the output depend on an accident. Refusing
+both leaves the document unchanged and the reader informed.
+
+### Application is atomic
+
+`apply_plan` checks that the plan was built against this document, that every
+accepted proposal still finds the text it was made against, and that no two
+accepted edits overlap — all before anything is replaced. If any check fails,
+nothing is applied. Not "as much as possible": a half-applied plan is a document
+in a state no rule intended and no audit record describes, with no way to tell
+from the result which half ran.
+
+The original `Document` is never mutated; application returns a new string.
+
+### Idempotence
+
+`fix(fix(text)) == fix(text)` is enforced for every bundled safe-fix, for each
+rule's own worked example, and across the whole characterisation corpus. There
+is also a direct check at the source of the problem: no rule's replacement text
+may be matched by any rule in the set.
+
+### The audit record
+
+Canonical JSON with sorted keys, a total entry order that does not depend on
+iteration, and **no timestamp anywhere in the hashed content**. The record's own
+hash identifies the decision rather than the moment it was taken — otherwise two
+runs over the same input would produce different audits, and the hash would be
+useless for the comparison it exists to support.
+
 ## What is deliberately not here yet
 
 The build plan describes several layers that this codebase has not earned the
 right to yet. They are absent rather than stubbed, because an empty package
 implies a decision that has not been made:
 
-- **`rules/`** — the declarative rule system. Today's detectors are Python
-  functions with hard-coded patterns. The vocabulary in `core/glossary.py` is
-  the data that will move first.
-- **`style/`** — style profiles. There is currently one behaviour, not a
-  choice between several.
+- **`style/`** — style profiles. There is currently one behaviour, not a choice
+  between several. The schema recognises `style-fix` only in order to reject it
+  with an explanation, since a style fix has nothing to be relative to yet.
+- **The glossary has not migrated.** Twelve lexical rules were re-authored from
+  it; the other 600-odd entries stay in `core/glossary.py` until the rule
+  semantics have been used enough to be trusted. The inherited flat path still
+  uses all of them, and is still sealed.
+- **No morphology.** One rule per inflected form, written out. Deriving forms is
+  what produced `clarity` → `clare`, and a deliberate, testable mechanism for it
+  belongs to a later phase.
+- **The CLI cannot apply rules.** `rules list` and `rules explain` are
+  read-only. A destructive `fix` command should wait until the engine has been
+  used in anger.
 - **No adapter offers the structured path yet.** `analyze_document` exists and
   is tested, and the CLI now takes its input through `pipeline.sources`, but
   the CLI's own commands still run the inherited flat-text path. Wiring that up
