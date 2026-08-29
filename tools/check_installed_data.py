@@ -36,9 +36,23 @@ def main() -> int:
         print(f"only {len(ruleset)} rules loaded from the installed package", file=sys.stderr)
         return 1
 
+    # The integrity policy is Python rather than packaged data, so it cannot go
+    # missing the way the syllable dictionary did — but its *hash* is what binds
+    # a plan to the safety rules that approved it, and an installed copy whose
+    # policy differed from the source tree's would be a serious surprise.
+    from plainspeak.integrity import POLICY_VERSION, check, policy_hash
+
+    if len(policy_hash()) != 64:
+        print("the installed integrity policy has no usable hash", file=sys.stderr)
+        return 1
+    if check("You must not apply.", "You must apply.").passed:
+        print("the installed integrity firewall is not refusing", file=sys.stderr)
+        return 1
+
     print(
-        f"installed package loads {len(counts)} syllable entries "
-        f"and {len(ruleset)} rules (ruleset {ruleset.version})"
+        f"installed package loads {len(counts)} syllable entries, "
+        f"{len(ruleset)} rules (ruleset {ruleset.version}) and "
+        f"integrity policy {POLICY_VERSION} ({policy_hash()[:12]})"
     )
     return 0
 

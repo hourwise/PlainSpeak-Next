@@ -189,9 +189,18 @@ def test_an_aborted_application_leaves_no_partial_output() -> None:
 
 
 def test_every_safe_fix_states_a_transformation_the_engine_produces(bundled) -> None:
-    """A rule's own worked example must be what the engine actually does."""
+    """A rule's own worked example must be what the engine actually does.
+
+    Rules the integrity firewall vetoes are excluded and checked separately by
+    `test_integrity_vetoes_exactly_the_documented_rules`, which pins the set so
+    it cannot grow without somebody noticing.
+    """
+    from .test_bundled_rules import INTEGRITY_VETOED
+
     failures = []
     for rule in bundled.safe_fixes:
+        if rule.id in INTEGRITY_VETOED:
+            continue
         for example in rule.examples.transform:
             _, _, result = run(example.before + "\n", bundled)
             produced = result.output.rstrip("\n")

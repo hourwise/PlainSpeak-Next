@@ -29,6 +29,9 @@ it fails the build.
        ▼           ▼          ▼          ▼           ▼
    document      rules    reporting    core      integrity
    model         schema   html · json  tokenize  protected
+                                                 policy
+                                                 extract
+                                                 compare
    load          loader   console      metrics
    parse_text    matcher  labels       barriers
    parse_markdown canonical            transform
@@ -42,7 +45,7 @@ Arrows are the *only* permitted directions.
 | Layer | Holds | May import |
 |---|---|---|
 | `core` | Tokenising, metrics, barrier detection, substitution, morphology | `core`, `integrity` |
-| `integrity` | What must never be changed | nothing |
+| `integrity` | What must never be changed, and the firewall that enforces it | `integrity` |
 | `document` | Reading files, and the structured representation of one | `document` |
 | `reporting` | Rendering results for a human or a machine | `reporting`, `core`, `integrity` |
 | `rules` | Declarative prose rules and deterministic matching | `rules` |
@@ -396,6 +399,152 @@ hash identifies the decision rather than the moment it was taken — otherwise t
 runs over the same input would produce different audits, and the hash would be
 useless for the comparison it exists to support.
 
+## The integrity firewall
+
+The rule engine can show that a transformation is structurally valid: it matched
+a declared pattern, mapped to exact source characters, survived conflict
+resolution. None of that says the transformation preserved what the document
+*meant*.
+
+```
+                    proposed transformation
+                             │
+                             ▼
+                    integrity firewall
+                             │
+          ┌──────────────────┴──────────────────┐
+          ▼                                     ▼
+        PASS                                  REFUSE
+   accepted change                    diagnostic + audit record
+```
+
+The firewall answers one narrow question — *did this change information we have
+declared invariant?* — and it does not care whether the prose reads better.
+Numbers, percentages, currency, units, dates, times, URLs, emails, file paths,
+version and vulnerability identifiers, digests, negation, modal verbs and a
+bounded set of comparators.
+
+### Rules propose; integrity vetoes
+
+A rule classified `safe-fix` does not outrank this layer. A rule turning
+
+    You must not apply after 5pm.
+
+into
+
+    You must apply after 5pm.
+
+is structurally impeccable and is refused.
+
+**There is no way to switch it off.** No rule field — the schema rejects unknown
+keys, so there is nowhere to put one. No caller flag — `build_plan` takes a
+document, a ruleset and a projection; `apply_plan` takes a document and a plan.
+No style profile, no future adapter. Tests assert each of those. If an expert
+workflow ever needs an override, that is a separate architecture and threat-model
+decision, not a keyword argument.
+
+### A versioned policy, not an implementation detail
+
+The policy is product behaviour. A document processed under `2026.1` was checked
+against those categories and no others, so the version and its SHA-256 travel
+with every plan and every audit record — and a plan approved under one policy is
+**refused** at application time under another. Applying edits nobody checked is
+exactly the failure a version number exists to prevent.
+
+The hash covers everything that changes what would be accepted: category order
+(order is behaviour — an earlier category claims text a later one then cannot
+see), every pattern, case sensitivity per category, the trimming rules, which
+normaliser each kind uses, and every vocabulary. Tests mutate each of those in
+turn and assert the hash moves. It is pinned as a constant so that the Windows,
+Linux and macOS jobs all assert the same number, rather than each machine
+comparing itself to itself.
+
+### Facts, snapshots and comparison
+
+A **fact** is one invariant found at one place: kind, surface, normalised
+identity, exact offsets. A **snapshot** is every fact in a piece of text plus
+the policy that found them; comparing snapshots from different policies is
+refused rather than attempted.
+
+Comparison is **position-independent and count-sensitive**. Any edit shifts the
+offsets of everything after it, so comparing positions would flag every
+successful transformation. What is compared is the multiset of identities — a
+dosage that appeared twice must still appear twice.
+
+Normalisation is applied narrowly, and only where a reformatting plainly is not
+a change of meaning: `£2,500` and `£2500` are one amount, `5mg` and `5 mg` are
+one dose. Where deciding would take judgement — `mL` against `ml`, `2026-08-29`
+against `29 August 2026` — the surfaces are kept and treated as different.
+Being too strict costs a refused edit; being too lax costs the reader the
+meaning of the sentence.
+
+Direction does not matter. Removing a negation turns a prohibition into a
+permission; introducing one does the same in reverse.
+
+### Three layers of check
+
+| Layer | Compares | Catches |
+|---|---|---|
+| **proposal-local** | the replaced span against its replacement | doses, modals, currency symbols — the direct cases |
+| **context-local** | the enclosing block, before and after the substitution | what a span-only view cannot: an edit adjacent to a negation |
+| **document-global** | the original document against the finished output | what several edits did *together* |
+
+The first two run during planning. The third runs inside `apply_plan`, before
+it returns anything, so an output that failed it is never seen by a caller.
+There is no repair attempt and no partial application.
+
+Work is bounded deliberately: a proposal is checked against its block, never the
+whole document, and the document-wide comparison happens exactly once per
+application. Both are asserted structurally rather than by timing.
+
+### The firewall runs last
+
+Order matters more than it looks:
+
+```
+propose → protect → resolve conflicts → integrity → plan
+```
+
+If a proposal the firewall vetoes had its losing rival reinstated, the engine
+would have two paths to resolving an overlap, and which edit landed would depend
+on which safety check happened to fire. So **a conflict group whose winner fails
+integrity produces no automatic edit at all.** The loser keeps the refusal
+reason conflict resolution gave it. A later run reconsiders the document afresh.
+
+### What it costs the shipped ruleset
+
+Two of the 24 bundled safe fixes are now refused, and both refusals are correct
+under a policy that deliberately cannot read meaning:
+
+- `PS.CLARITY.009` replaces "prior to" with "before". "Before" is a protected
+  comparator, and the firewall cannot tell that substitution from one that
+  reverses an ordering.
+- `PS.FRAMING.003` deletes "it should be noted that", which happens to contain
+  the modal "should". The modal is part of the idiom rather than an obligation,
+  but knowing that requires reading meaning.
+
+Neither rule was changed and the ruleset hash is unaffected. Softening the
+firewall to let them through would mean dropping "before" from the comparators —
+which would allow a genuine ordering reversal — or exempting modals inside
+deletions, which would allow "you should not apply" to lose its "should". Both
+cost more than two missed simplifications do. The set is pinned by a test, so it
+can only grow deliberately.
+
+### Two authorities, not one
+
+The protected-term register and the firewall are independent, and a proposal has
+to survive both. The register refuses substituting "consideration" — a term of
+art with no integrity facts in it at all. The firewall refuses turning "must"
+into "may" — a word the register has never heard of. Neither can weaken the
+other, and a test drives all three outcomes through one document.
+
+### Not semantic equivalence
+
+The firewall does not attempt to prove that "prior to" means "before" or that
+"cannot" means "is unable to". Uncertainty resolves to refusal. A later reviewed
+mechanism may let a rule *declare* an integrity-preserving equivalence; inferring
+one is not something this layer will ever do.
+
 ## What is deliberately not here yet
 
 The build plan describes several layers that this codebase has not earned the
@@ -415,6 +564,14 @@ implies a decision that has not been made:
 - **The CLI cannot apply rules.** `rules list` and `rules explain` are
   read-only. A destructive `fix` command should wait until the engine has been
   used in anger.
+- **No declared equivalences.** A rule cannot yet say "this substitution
+  preserves the comparator", which is what would let `prior to` → `before`
+  through. Designing that safely is its own piece of work.
+- **Dates are protected by surface, not by value.** `29/08/2026` and
+  `08/29/2026` are different facts; no locale is resolved and none is guessed.
+- **Units are matched, not understood.** A reviewed list, not a unit grammar.
+  `5 mg` → `5 g` is caught because the unit changed, not because the engine
+  knows what a milligram is.
 - **No adapter offers the structured path yet.** `analyze_document` exists and
   is tested, and the CLI now takes its input through `pipeline.sources`, but
   the CLI's own commands still run the inherited flat-text path. Wiring that up

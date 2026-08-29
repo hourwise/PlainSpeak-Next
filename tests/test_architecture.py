@@ -26,10 +26,11 @@ ALLOWED_IMPORTS: dict[str, set[str]] = {
     # does not import `document`: the analysis engine works on strings and must
     # not acquire opinions about markup.
     "core": {"core", "integrity"},
-    # The protected-term register is deliberately a leaf: anything it imported
-    # could import it back, and a cycle here would be a cycle in the one part
-    # of the system that exists to say "no".
-    "integrity": set(),
+    # The integrity firewall is deliberately a leaf: anything it imported could
+    # import it back, and a cycle here would be a cycle in the one part of the
+    # system that exists to say "no". Its modules may import each other; what
+    # they may not do is reach any other layer.
+    "integrity": {"integrity"},
     # Reading documents is independent of analysing them.
     "document": {"document"},
     # Declarative rules are a leaf, like `integrity`. A rule sees a string and

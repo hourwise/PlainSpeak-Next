@@ -116,22 +116,108 @@ def test_negative_examples_do_not_match(rule: Rule) -> None:
 # ── Safe fixes do what they say ────────────────────────────────────────────
 
 
+#: Rules whose stated transformation the integrity firewall vetoes.
+#:
+#: Both are correct refusals under a policy that cannot read meaning, and both
+#: are recorded here rather than fixed, because the alternatives are worse. See
+#: `test_integrity_vetoes_exactly_the_documented_rules` for the reasoning; the
+#: point of pinning the set is that adding to it has to be a deliberate act.
+INTEGRITY_VETOED = {
+    "PS.CLARITY.009": "replacing 'prior to' with 'before' introduces a protected comparator",
+    "PS.FRAMING.003": "deleting 'it should be noted that' removes the modal 'should'",
+}
+
+
+def _proposed_output(rule: Rule, before: str) -> str:
+    """What the rule itself proposes, before the firewall has its say.
+
+    Read from `plan.proposals`, which holds the candidates as the rule offered
+    them. A rule's `examples.transform` is a claim about the rule, so that is
+    the level the claim should be checked at.
+    """
+    document = parse_markdown.parse(before + "\n")
+    plan = build_plan(document, RULESET)
+    candidates = [
+        change
+        for change in plan.proposals
+        if change.rule_id == rule.id and change.applicable
+    ]
+    if not candidates:
+        return document.source
+    return document.serialise(
+        [(change.source_span, change.replacement) for change in candidates]
+    )
+
+
 @pytest.mark.parametrize("rule", SAFE_FIXES, ids=ids(SAFE_FIXES))
-def test_stated_transformations_are_produced(rule: Rule) -> None:
-    """Run the rule's own worked example through the whole pipeline."""
+def test_stated_transformations_are_proposed(rule: Rule) -> None:
+    """Every rule produces the transformation it advertises."""
+    for example in rule.examples.transform:
+        produced = _proposed_output(rule, example.before).rstrip("\n")
+        assert produced == example.after, (
+            f"{rule.id} advertises {example.after!r} but proposes {produced!r}"
+        )
+
+
+@pytest.mark.parametrize("rule", SAFE_FIXES, ids=ids(SAFE_FIXES))
+def test_stated_transformations_survive_to_the_output(rule: Rule) -> None:
+    """...and reaches the output, unless the firewall documented a veto."""
     for example in rule.examples.transform:
         document = parse_markdown.parse(example.before + "\n")
         result = apply_plan(document, build_plan(document, RULESET))
-        assert result.output.rstrip("\n") == example.after, (
-            f"{rule.id} advertises {example.after!r} but produced "
-            f"{result.output.rstrip(chr(10))!r}"
+        produced = result.output.rstrip("\n")
+
+        if rule.id in INTEGRITY_VETOED:
+            assert produced == example.before, (
+                f"{rule.id} is documented as vetoed by integrity, but the text changed"
+            )
+            continue
+
+        assert produced == example.after, (
+            f"{rule.id} advertises {example.after!r} but produced {produced!r}"
         )
+
+
+def test_integrity_vetoes_exactly_the_documented_rules() -> None:
+    """The firewall's effect on the shipped ruleset, pinned.
+
+    Two of the 24 safe fixes are refused, and both refusals are correct under a
+    policy that deliberately cannot read meaning:
+
+    - `PS.CLARITY.009` replaces "prior to" with "before". "Before" is a
+      protected comparator, and the firewall cannot tell that substitution from
+      one that reverses an ordering.
+    - `PS.FRAMING.003` deletes "it should be noted that", which happens to
+      contain the modal "should". The modal is part of the idiom rather than an
+      obligation, but knowing that requires reading meaning.
+
+    Neither rule was changed, and the ruleset hash is unaffected. Softening the
+    firewall to let them through would mean either dropping "before" from the
+    comparators — which would allow a genuine ordering reversal — or exempting
+    modals inside deletions, which would allow "you should not apply" to lose
+    its "should". Both cost more than the two missed simplifications do.
+
+    This test exists so that the set can only grow deliberately.
+    """
+    vetoed = set()
+    for rule in SAFE_FIXES:
+        for example in rule.examples.transform:
+            document = parse_markdown.parse(example.before + "\n")
+            plan = build_plan(document, RULESET)
+            vetoed.update(item.rule_id for item in plan.integrity_refusals)
+
+    assert vetoed == set(INTEGRITY_VETOED), (
+        f"the firewall's effect on the ruleset changed: now vetoes {sorted(vetoed)}, "
+        f"documented as {sorted(INTEGRITY_VETOED)}"
+    )
 
 
 @pytest.mark.parametrize("rule", SAFE_FIXES, ids=ids(SAFE_FIXES))
 def test_a_safe_fix_output_is_stable(rule: Rule) -> None:
     """The engine must not want to change its own output again."""
     for example in rule.examples.transform:
+        if rule.id in INTEGRITY_VETOED:
+            continue
         document = parse_markdown.parse(example.after + "\n")
         plan = build_plan(document, RULESET)
         assert plan.accepted == (), (
