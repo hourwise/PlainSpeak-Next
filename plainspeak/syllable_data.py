@@ -1,23 +1,15 @@
+"""The pre-computed syllable dictionary.
+
+This module moved when the engine was split into layers. It is kept as a
+compatibility shim so that existing callers — and the characterisation
+seal, which must keep testing the same entry points across the refactor —
+go on working unchanged.
+
+New code should import from the layer directly.
 """
-Pre-computed syllable counts from the CMU Pronouncing Dictionary.
 
-Source: http://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict/cmudict-0.7b
-Words: 125068
-Uses Python marshal format for fast loading (~50ms vs ~1200ms for .py).
-Generated automatically — do not edit by hand.
-"""
+from .core.syllables import get_syllable_count
 
-import marshal
-from pathlib import Path
-
-_SYLLABLE_COUNT: dict[str, int] | None = None
-
-
-def get_syllable_count() -> dict[str, int]:
-    """Return the syllable count dictionary, loading from binary on first call."""
-    global _SYLLABLE_COUNT
-    if _SYLLABLE_COUNT is None:
-        _data_path = Path(__file__).parent / "syllable_data.bin"
-        with open(_data_path, "rb") as _f:
-            _SYLLABLE_COUNT = marshal.load(_f)
-    return _SYLLABLE_COUNT
+__all__ = [
+    "get_syllable_count",
+]

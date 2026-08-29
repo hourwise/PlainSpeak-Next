@@ -40,12 +40,12 @@ for w in checks:
 import marshal
 
 # Write binary data file
-bin_path = Path(__file__).parent / 'plainspeak' / 'syllable_data.bin'
+bin_path = Path(__file__).parent / 'plainspeak' / 'core' / 'syllable_data.bin'
 with open(bin_path, 'wb') as f:
     marshal.dump(syllable_map, f)
 
 # Write a thin Python wrapper
-out_path = Path(__file__).parent / 'plainspeak' / 'syllable_data.py'
+out_path = Path(__file__).parent / 'plainspeak' / 'core' / 'syllables.py'
 with open(out_path, 'w', encoding='utf-8') as f:
     f.write('"""\n')
     f.write('Pre-computed syllable counts from the CMU Pronouncing Dictionary.\n')

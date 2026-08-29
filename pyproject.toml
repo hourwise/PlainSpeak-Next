@@ -52,12 +52,18 @@ all = [
 ]
 
 [project.scripts]
-plainspeak = "plainspeak.cli:main"
-plainspeak-web = "plainspeak.web:main"
+plainspeak = "plainspeak.adapters.cli:main"
+plainspeak-web = "plainspeak.adapters.web:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["plainspeak*"]
+
+# The CMU syllable dictionary is a 1.8 MB marshal blob loaded at runtime.
+# Without this it is left out of built wheels and every syllable count
+# silently falls back to the heuristic.
+[tool.setuptools.package-data]
+"plainspeak.core" = ["*.bin"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
