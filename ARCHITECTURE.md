@@ -28,6 +28,7 @@ it fails the build.
        │           │          │          │           │
        ▼           ▼          ▼          ▼           ▼
    document      rules    reporting    core      integrity
+                 morphology
    model         schema   html · json  tokenize  protected
                                                  policy
                                                  extract
@@ -48,7 +49,8 @@ Arrows are the *only* permitted directions.
 | `integrity` | What must never be changed, and the firewall that enforces it | `integrity` |
 | `document` | Reading files, and the structured representation of one | `document` |
 | `reporting` | Rendering results for a human or a machine | `reporting`, `core`, `integrity` |
-| `rules` | Declarative prose rules and deterministic matching | `rules` |
+| `morphology` | Bounded English inflection, one way only | `morphology` |
+| `rules` | Declarative prose rules and deterministic matching | `rules`, `morphology` |
 | `pipeline` | Orchestration between documents, rules and analysis | `pipeline`, `core`, `document`, `integrity`, `rules` |
 | `adapters` | Interfaces onto the engine | `adapters`, `pipeline`, `core`, `integrity`, `reporting` |
 
@@ -545,6 +547,102 @@ The firewall does not attempt to prove that "prior to" means "before" or that
 mechanism may let a rule *declare* an integrity-preserving equivalence; inferring
 one is not something this layer will ever do.
 
+## Morphology
+
+A lexical rule declares a lemma; the loader expands it into explicit surface
+forms:
+
+```yaml
+match:
+  type: lemma
+  lemma: "utilise"
+  pos: verb
+action:
+  type: replace
+  lemma: "use"
+```
+
+becomes `utilise → use`, `utilises → uses`, `utilised → used`,
+`utilising → using`. Expansion happens once, at load time, and the forms are
+stored on the rule. Three things stay true because of that: the matcher only
+ever sees literals, `plainspeak rules explain` can show a reviewer the exact
+surfaces, and **the ruleset hash covers the generated forms** rather than only
+the lemma that produced them — so a change to morphology moves the ruleset
+identity instead of silently changing what it matches.
+
+### It runs forwards only
+
+Morphology never takes a surface form and works out what it came from. The
+inherited simplifier did exactly that — strip a suffix, hope the result is a
+word — and suggested the verb "clare" for the noun "clarity". Going forwards
+from a declared lemma the worst case is a form nobody uses; it cannot be a word
+that does not exist, because a person wrote the lemma down. A test asserts no
+function in the package looks like a stemmer.
+
+Regular inflection follows a small set of rules declared as data. Everything
+those rules would get wrong — irregular verbs, irregular plurals, consonant
+doubling — is in a table somebody read. English doubles in "commit" and not in
+"benefit", and the difference is stress, which is not recoverable from spelling;
+so it is listed rather than derived.
+
+### When it cannot tell, it says nothing
+
+A regular English verb writes its past and its past participle the same way.
+When the *target* distinguishes them, one source surface has two possible
+replacements: "accomplished" is "did" after a subject and "done" after "was".
+The engine produces neither and the rule does not match that form. `accomplish
+→ do` therefore covers base, third person and gerund only.
+
+That is the same defect as `clarity → clare`, arriving from the opposite
+direction, and it gets the same answer.
+
+### Identity
+
+Morphology is versioned product behaviour, like the ruleset and the integrity
+policy. Its hash covers the irregular tables, the inflection rules, the casing
+policy, the supported form classes, phrasal-head handling and every exception.
+It is pinned and asserted on all three platforms.
+
+`inflect` was evaluated and not adopted: it has no verb conjugation API, which
+is the main requirement, and deriving forms from a third party would move a
+pinned safety identity whenever that package changed its heuristics. The reasons
+are recorded in `plainspeak/morphology/policy.py` and
+[GLOSSARY_MIGRATION.md](GLOSSARY_MIGRATION.md).
+
+## The glossary migration
+
+The inherited glossary — 706 unique terms — is **source material, not a
+transformation policy**. 140 entries became rules. The rest are diagnostics,
+deferred, protected, rejected or already covered, and
+[GLOSSARY_MIGRATION.md](GLOSSARY_MIGRATION.md) reconciles all 706 exactly.
+
+The rules are generated from `migration/decisions.yaml` by
+`tools/build_glossary_inventory.py`, which also emits the machine-readable
+inventory. Regenerating is the only supported way to change them, so the
+inventory and the rules cannot disagree.
+
+Adding 176 rules to 38 makes collisions likely, so four audits run as tests: no
+two rules claiming one surface, no rule's output matched by another rule, no
+generated surface that is a protected term, and no surface generated by two
+lemmas. The first run found 13 — the migration was about to add a second rule
+for words Phase 4 already handled by hand. Those are now detected and classified
+`already-covered`, and **no existing rule ID was renumbered**.
+
+### Scaling
+
+214 rules over a 34,000-word document took a hundred seconds, because scope
+filtering answered "which segments does this range touch?" by scanning every
+segment: match count and segment count both grow with the text, and the product
+is quadratic. A `_SegmentIndex` built once per plan replaces the scan with a
+binary search over the contiguous run of segments a range touches. Planning is
+now linear at roughly 105 ms per thousand words.
+
+An optimisation that changed a decision would be a behaviour change wearing a
+performance costume, so a test compares the index against the scan it replaced —
+over every corpus document, every match the real ruleset makes, and every
+single-character range. Bounded work is asserted by counting lookups rather than
+seconds, so it cannot go flaky on a loaded machine.
+
 ## What is deliberately not here yet
 
 The build plan describes several layers that this codebase has not earned the
@@ -554,13 +652,13 @@ implies a decision that has not been made:
 - **`style/`** — style profiles. There is currently one behaviour, not a choice
   between several. The schema recognises `style-fix` only in order to reject it
   with an explanation, since a style fix has nothing to be relative to yet.
-- **The glossary has not migrated.** Twelve lexical rules were re-authored from
-  it; the other 600-odd entries stay in `core/glossary.py` until the rule
-  semantics have been used enough to be trusted. The inherited flat path still
-  uses all of them, and is still sealed.
-- **No morphology.** One rule per inflected form, written out. Deriving forms is
-  what produced `clarity` → `clare`, and a deliberate, testable mechanism for it
-  belongs to a later phase.
+- **477 glossary entries are still deferred.** Each needs individual review;
+  until it has one, the engine says nothing about it. The inherited flat path
+  still uses all 706 and remains sealed.
+- **228 multi-word entries are untouched.** Phrase rewriting needs syntactic
+  review, not lexical substitution.
+- **No comparatives or superlatives.** No shipped rule needs them, and an
+  untested form class is a liability.
 - **The CLI cannot apply rules.** `rules list` and `rules explain` are
   read-only. A destructive `fix` command should wait until the engine has been
   used in anger.

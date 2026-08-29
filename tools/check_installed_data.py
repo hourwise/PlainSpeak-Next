@@ -13,6 +13,7 @@ MINIMUM_ENTRIES = 100_000
 
 def main() -> int:
     from plainspeak.core.syllables import get_syllable_count
+    from plainspeak.morphology import forms_for
     from plainspeak.core.tokenize import _count_syllables_heuristic, count_syllables
 
     counts = get_syllable_count()
@@ -49,10 +50,24 @@ def main() -> int:
         print("the installed integrity firewall is not refusing", file=sys.stderr)
         return 1
 
+    # Morphology generates the surfaces the migrated rules match, so an installed
+    # copy whose morphology differed from the source tree's would match different
+    # words while still calling itself the same ruleset.
+    from plainspeak.morphology import MORPHOLOGY_VERSION
+    from plainspeak.morphology import policy_hash as morphology_hash
+
+    if ruleset.morphology_hash != morphology_hash():
+        print("the installed ruleset and morphology disagree", file=sys.stderr)
+        return 1
+    if forms_for("utilise", "verb")["past"] != "utilised":
+        print("the installed morphology is not inflecting correctly", file=sys.stderr)
+        return 1
+
     print(
         f"installed package loads {len(counts)} syllable entries, "
-        f"{len(ruleset)} rules (ruleset {ruleset.version}) and "
-        f"integrity policy {POLICY_VERSION} ({policy_hash()[:12]})"
+        f"{len(ruleset)} rules (ruleset {ruleset.version} {ruleset.hash[:12]}), "
+        f"integrity policy {POLICY_VERSION} ({policy_hash()[:12]}) and "
+        f"morphology {MORPHOLOGY_VERSION} ({morphology_hash()[:12]})"
     )
     return 0
 

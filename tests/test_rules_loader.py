@@ -256,9 +256,14 @@ def test_mode_partitions_cover_every_rule(bundled: Ruleset) -> None:
 #: Updating this is the correct thing to do when the rules change, and the diff
 #: is a useful signal in review: a commit that touches a rule file and does not
 #: touch this line has changed something it did not mean to.
-BUNDLED_RULESET_VERSION = "2026.1"
-BUNDLED_RULESET_HASH = "2110d4ed2836387d368f3a833ef1da27f7a28243ec5c8ba168abe337c74174a3"
-BUNDLED_RULE_COUNT = 38
+#: Imported rather than pinned a second time. Two copies of the same hash in
+#: two files is two places to forget, and the migration suite is where a
+#: reviewer already has to look when the ruleset changes.
+from .test_glossary_migration import (  # noqa: E402
+    RULESET_COUNT as BUNDLED_RULE_COUNT,
+    RULESET_HASH as BUNDLED_RULESET_HASH,
+    RULESET_VERSION as BUNDLED_RULESET_VERSION,
+)
 
 
 def test_the_bundled_ruleset_has_its_expected_identity(bundled: Ruleset) -> None:

@@ -54,8 +54,10 @@ def test_the_network_fixture_actually_blocks(no_network) -> None:
 def test_the_ruleset_loads_offline(no_network) -> None:
     from plainspeak.rules import load_ruleset
 
+    from .test_glossary_migration import RULESET_COUNT
+
     ruleset = load_ruleset()
-    assert len(ruleset) == 38
+    assert len(ruleset) == RULESET_COUNT
     assert ruleset.hash
 
 

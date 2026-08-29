@@ -30,6 +30,7 @@ proposal has to survive both.
 """
 from __future__ import annotations
 
+import bisect
 from dataclasses import dataclass, replace
 from typing import Iterable, Optional, Sequence
 
@@ -160,7 +161,8 @@ def build_plan(
     matches = find_matches(view.text, rules.rules)
     by_id = {rule.id: rule for rule in rules.rules}
 
-    in_scope = [match for match in matches if _in_scope(view, match, by_id[match.rule_id])]
+    index = _SegmentIndex(view)
+    in_scope = [match for match in matches if _in_scope(index, match, by_id[match.rule_id])]
 
     protected_regions = _protected_regions(view, document, in_scope, by_id)
     diagnostics = tuple(
@@ -181,7 +183,7 @@ def build_plan(
     # Running it earlier would let a vetoed proposal's loser take its place,
     # which would be a second, implicit conflict-resolution path — see
     # `_integrity_preflight`.
-    accepted, vetoed, integrity_refusals = _integrity_preflight(view, accepted)
+    accepted, vetoed, integrity_refusals = _integrity_preflight(view, index, accepted)
     refused = tuple(sorted(refused + vetoed, key=_order))
 
     return TransformationPlan(
@@ -205,7 +207,7 @@ def build_plan(
 
 
 def _integrity_preflight(
-    view: Projection, accepted: tuple[ProposedChange, ...]
+    view: Projection, index: "_SegmentIndex", accepted: tuple[ProposedChange, ...]
 ) -> tuple[tuple[ProposedChange, ...], tuple[ProposedChange, ...], tuple[IntegrityRefusal, ...]]:
     """Veto any accepted proposal that would alter protected information.
 
@@ -236,7 +238,7 @@ def _integrity_preflight(
         scope = "proposal"
 
         if verdict.passed:
-            before, after = _context_pair(view, change)
+            before, after = _context_pair(view, index, change)
             if before is not None:
                 verdict = integrity_check(before, after)
                 scope = "context"
@@ -264,7 +266,9 @@ def _integrity_preflight(
     return tuple(survivors), tuple(vetoed), tuple(records)
 
 
-def _context_pair(view: Projection, change: ProposedChange) -> tuple[Optional[str], str]:
+def _context_pair(
+    view: Projection, index: "_SegmentIndex", change: ProposedChange
+) -> tuple[Optional[str], str]:
     """The enclosing block's text, before and after this one substitution.
 
     Bounded to the block rather than the document: a block is the largest unit a
@@ -272,16 +276,12 @@ def _context_pair(view: Projection, change: ProposedChange) -> tuple[Optional[st
     per proposal would make planning quadratic in a long report for no extra
     safety — the whole-document check at application time covers the rest.
     """
-    segments = [
-        segment
-        for segment in view.segments
-        if not segment.synthetic and segment.block_path == _block_of(view, change)
-    ]
-    if not segments:
+    block_path = _block_of(index, change)
+    bounds = index.block_range(block_path)
+    if bounds is None:
         return None, ""
 
-    start = min(segment.analysis_span.start for segment in segments)
-    end = max(segment.analysis_span.end for segment in segments)
+    start, end = bounds
     span = change.analysis_span
     if not (start <= span.start and span.end <= end):
         return None, ""
@@ -291,15 +291,69 @@ def _context_pair(view: Projection, change: ProposedChange) -> tuple[Optional[st
     return before, after
 
 
-def _block_of(view: Projection, change: ProposedChange) -> tuple[int, ...]:
-    segment = view.segment_at(change.analysis_span.start)
-    return segment.block_path if segment is not None else change.document_path
+def _block_of(index: "_SegmentIndex", change: ProposedChange) -> tuple[int, ...]:
+    touched = index.touching(change.analysis_span.start, change.analysis_span.start + 1)
+    return touched[0].block_path if touched else change.document_path
 
 
-# ── Scope ──────────────────────────────────────────────────────────────────
+# ── Locating segments ──────────────────────────────────────────────────────
 
 
-def _in_scope(view: Projection, match: RuleMatch, rule: Rule) -> bool:
+class _SegmentIndex:
+    """A read-only index over a projection's segments.
+
+    Both scope filtering and the context check need "which segments does this
+    range touch?", and answering it by scanning every segment made planning
+    quadratic: with 214 rules over a 34,000-word document the match count and
+    the segment count both grow with the text, and the product took a hundred
+    seconds.
+
+    Segments tile the projection in order, so the ones a range touches form a
+    contiguous run and a binary search finds it. The index is built once per
+    plan and changes no semantics — a test asserts it agrees with the scan it
+    replaces.
+    """
+
+    __slots__ = ("segments", "_starts", "_blocks")
+
+    def __init__(self, view: Projection) -> None:
+        self.segments = view.segments
+        self._starts = [segment.analysis_span.start for segment in view.segments]
+
+        blocks: dict[tuple[int, ...], list[int]] = {}
+        for segment in view.segments:
+            if segment.synthetic:
+                continue
+            span = blocks.get(segment.block_path)
+            if span is None:
+                blocks[segment.block_path] = [
+                    segment.analysis_span.start,
+                    segment.analysis_span.end,
+                ]
+            else:
+                span[0] = min(span[0], segment.analysis_span.start)
+                span[1] = max(span[1], segment.analysis_span.end)
+        self._blocks = {path: (low, high) for path, (low, high) in blocks.items()}
+
+    def touching(self, start: int, end: int) -> list:
+        """Every segment overlapping `[start, end)`, in document order."""
+        if end <= start or not self.segments:
+            return []
+        first = max(bisect.bisect_right(self._starts, start) - 1, 0)
+        touched = []
+        for segment in self.segments[first:]:
+            if segment.analysis_span.start >= end:
+                break
+            if segment.analysis_span.end > start:
+                touched.append(segment)
+        return touched
+
+    def block_range(self, path: tuple[int, ...]):
+        """The analysis range covered by one block, or `None`."""
+        return self._blocks.get(path)
+
+
+def _in_scope(index: "_SegmentIndex", match: RuleMatch, rule: Rule) -> bool:
     """Whether a match sits somewhere the rule says it applies.
 
     A match that crosses a block boundary is dropped outright. The separator
@@ -307,11 +361,7 @@ def _in_scope(view: Projection, match: RuleMatch, rule: Rule) -> bool:
     artefact of how the projection was assembled rather than something an
     author wrote.
     """
-    touched = [
-        segment
-        for segment in view.segments
-        if segment.analysis_span.overlaps(Span(match.start, match.end))
-    ]
+    touched = index.touching(match.start, match.end)
     if not touched or any(segment.synthetic for segment in touched):
         return False
 

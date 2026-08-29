@@ -37,8 +37,13 @@ ALLOWED_IMPORTS: dict[str, set[str]] = {
     # reports analysis coordinates; it does not parse documents and cannot
     # compute a source offset, because it has never seen one. That is what makes
     # it impossible for a rule to put an edit in the wrong place. It may import
-    # within itself; what it may not do is reach any other layer.
-    "rules": {"rules"},
+    # within itself and it may ask `morphology` what forms a declared lemma has,
+    # which is a pure text service with no knowledge of documents either.
+    "rules": {"rules", "morphology"},
+    # Bounded English morphology: a lemma in, its surface forms out. A leaf like
+    # `integrity`, and for the same reason — it is consulted by the layer above
+    # and must never be able to reach back.
+    "morphology": {"morphology"},
     # Rendering consumes results; it must not compute them.
     "reporting": {"reporting", "core", "integrity"},
     # Orchestration, and the only layer permitted to depend on both `document`
@@ -302,15 +307,54 @@ def test_rules_do_not_parse_documents() -> None:
         )
 
 
-def test_rules_import_nothing_from_the_rest_of_the_package() -> None:
-    """The leaf property, stated directly rather than inferred from the table."""
+def test_rules_reach_only_morphology() -> None:
+    """`rules` sits one step above the leaves and no higher.
+
+    It may ask morphology what forms a lemma has, because that is a question
+    about words rather than about documents. Anything else — a document, a
+    projection, a pipeline — would put a rule in a position to compute a source
+    offset, which is the one thing this arrangement exists to prevent.
+    """
     for path in sorted((PACKAGE_ROOT / "rules").rglob("*.py")):
         offenders = [
             f"{path.relative_to(PACKAGE_ROOT.parent)}:{line} imports `{target}`"
             for target, line in _imported_targets(path)
-            if target != "rules"
+            if target not in {"rules", "morphology"}
         ]
-        assert not offenders, "rules must stay a leaf: " + "; ".join(offenders)
+        assert not offenders, "rules may only reach morphology: " + "; ".join(offenders)
+
+
+def test_morphology_is_a_leaf() -> None:
+    """Nothing in morphology may reach back up into what consults it."""
+    for path in sorted((PACKAGE_ROOT / "morphology").rglob("*.py")):
+        offenders = [
+            f"{path.relative_to(PACKAGE_ROOT.parent)}:{line} imports `{target}`"
+            for target, line in _imported_targets(path)
+            if target != "morphology"
+        ]
+        assert not offenders, "morphology must stay a leaf: " + "; ".join(offenders)
+
+
+def test_morphology_never_runs_backwards() -> None:
+    """No stemming: a surface form is never turned back into a lemma.
+
+    The inherited simplifier did exactly that and produced the verb "clare" for
+    the noun "clarity". Morphology here goes one way only, from a declared lemma
+    outwards, and a function that reversed it would reintroduce the whole class
+    of defect.
+    """
+    forbidden = {"stem", "lemmatize", "lemmatise", "unconjugate", "singularise_form"}
+    offences = []
+    for path in sorted((PACKAGE_ROOT / "morphology").rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                if any(word in node.name.lower() for word in forbidden):
+                    offences.append(
+                        f"{path.relative_to(PACKAGE_ROOT.parent)}:{node.lineno} "
+                        f"defines `{node.name}`"
+                    )
+    assert not offences, "; ".join(offences)
 
 
 def test_no_rule_module_can_evaluate_code() -> None:
