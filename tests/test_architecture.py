@@ -22,7 +22,9 @@ PACKAGE_ROOT = Path(__file__).resolve().parent.parent / "plainspeak"
 # means the import is a layering violation, not merely unusual.
 ALLOWED_IMPORTS: dict[str, set[str]] = {
     # Detection and transformation. May consult the integrity register to find
-    # out what it is forbidden to touch, and nothing else.
+    # out what it is forbidden to touch, and nothing else. In particular it
+    # does not import `document`: the analysis engine works on strings and must
+    # not acquire opinions about markup.
     "core": {"core", "integrity"},
     # The protected-term register is deliberately a leaf: anything it imported
     # could import it back, and a cycle here would be a cycle in the one part
@@ -32,9 +34,16 @@ ALLOWED_IMPORTS: dict[str, set[str]] = {
     "document": {"document"},
     # Rendering consumes results; it must not compute them.
     "reporting": {"reporting", "core", "integrity"},
+    # Orchestration, and the only layer permitted to depend on both `document`
+    # and `core`. It notably may not import `reporting`: deciding how to render
+    # a result is not part of producing one.
+    "pipeline": {"pipeline", "core", "document", "integrity"},
     # Adapters are the only layer allowed to reach across the whole system.
-    "adapters": {"adapters", "core", "document", "integrity", "reporting"},
+    "adapters": {"adapters", "pipeline", "core", "integrity", "reporting"},
 }
+
+#: The layer that joins documents to analysis. Exactly one may do so.
+ORCHESTRATION_LAYER = "pipeline"
 
 # The flat modules kept as compatibility shims for external callers. Nothing
 # inside the package may import through them, or the layering is bypassed and
@@ -154,3 +163,120 @@ def test_every_layer_has_a_docstring() -> None:
         if not ast.get_docstring(ast.parse(init.read_text(encoding="utf-8"))):
             missing.append(layer)
     assert not missing, f"layers with no docstring explaining what they are: {missing}"
+
+
+# ── The seam between documents and analysis ────────────────────────────────
+
+
+def test_core_does_not_import_document() -> None:
+    """Stated separately from the table because it is the load-bearing one.
+
+    Everything about the projection layer exists to keep this true. If it ever
+    stops being true, the reason to have a pipeline at all has gone, and the
+    right response is to think about the design again rather than to relax the
+    test.
+    """
+    for path in sorted((PACKAGE_ROOT / "core").rglob("*.py")):
+        targets = {target for target, _ in _imported_targets(path)}
+        assert "document" not in targets, (
+            f"{path.relative_to(PACKAGE_ROOT.parent)} imports `document`; "
+            f"core must not know about markup"
+        )
+
+
+def test_document_does_not_import_core() -> None:
+    """The other half of the same separation."""
+    for path in sorted((PACKAGE_ROOT / "document").rglob("*.py")):
+        targets = {target for target, _ in _imported_targets(path)}
+        assert "core" not in targets, (
+            f"{path.relative_to(PACKAGE_ROOT.parent)} imports `core`; "
+            f"parsing must not depend on analysis"
+        )
+
+
+def test_only_the_orchestration_layer_joins_documents_to_analysis() -> None:
+    """Orchestration lives in exactly one place.
+
+    A module that imports both `document` and `core` is, by definition, doing
+    the joining. If an adapter started doing it, the CLI and the MCP server
+    could answer the same question differently, which is the failure the whole
+    layering exists to prevent.
+    """
+    offenders = []
+    for layer, path in _layer_modules():
+        if layer == ORCHESTRATION_LAYER:
+            continue
+        targets = {target for target, _ in _imported_targets(path)}
+        if "document" in targets and "core" in targets:
+            offenders.append(str(path.relative_to(PACKAGE_ROOT.parent)))
+    assert not offenders, (
+        f"these modules join documents to analysis outside `{ORCHESTRATION_LAYER}`: {offenders}"
+    )
+
+
+def test_adapters_do_not_orchestrate_analysis_themselves() -> None:
+    """An adapter routes and renders; it does not build a projection."""
+    forbidden = {"project_document", "project_block", "analyze_document", "propose_change"}
+    offences = []
+    for path in sorted((PACKAGE_ROOT / "adapters").rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name in forbidden:
+                offences.append(
+                    f"{path.relative_to(PACKAGE_ROOT.parent)}:{node.lineno} defines `{node.name}`"
+                )
+    assert not offences, "orchestration found in an adapter: " + "; ".join(offences)
+
+
+def test_nothing_below_the_orchestration_layer_imports_it() -> None:
+    """The dependency runs outwards from `pipeline`, never back into it."""
+    offenders = []
+    for layer, path in _layer_modules():
+        if layer in (ORCHESTRATION_LAYER, "adapters"):
+            continue
+        for target, line in _imported_targets(path):
+            if target == ORCHESTRATION_LAYER:
+                offenders.append(f"{path.relative_to(PACKAGE_ROOT.parent)}:{line}")
+    assert not offenders, (
+        f"lower layers must not import `{ORCHESTRATION_LAYER}`: {offenders}"
+    )
+
+
+# ── Documentation and enforcement must agree ───────────────────────────────
+
+
+def _documented_policy() -> dict[str, set[str]]:
+    """Parse the dependency table out of ARCHITECTURE.md.
+
+    The table is the human-readable statement of the policy. Reading it here
+    means a change to one and not the other fails the build, rather than
+    leaving documentation that quietly describes a system that no longer
+    exists.
+    """
+    doc = (PACKAGE_ROOT.parent / "ARCHITECTURE.md").read_text(encoding="utf-8")
+    policy: dict[str, set[str]] = {}
+    for line in doc.splitlines():
+        if not line.startswith("| `"):
+            continue
+        cells = [cell.strip() for cell in line.strip("|").split("|")]
+        if len(cells) != 3:
+            continue
+        layer = cells[0].strip("`")
+        if layer not in ALLOWED_IMPORTS:
+            continue
+        allowed = cells[2]
+        policy[layer] = (
+            set()
+            if allowed == "nothing"
+            else {item.strip().strip("`") for item in allowed.split(",")}
+        )
+    return policy
+
+
+def test_documented_dependencies_match_the_enforced_ones() -> None:
+    documented = _documented_policy()
+    assert documented, "no dependency table found in ARCHITECTURE.md"
+    assert documented == ALLOWED_IMPORTS, (
+        "ARCHITECTURE.md and the enforced policy disagree. "
+        f"documented: {documented} / enforced: {ALLOWED_IMPORTS}"
+    )

@@ -17,23 +17,27 @@ it fails the build.
 ## The layers
 
 ```
-                       adapters
-                cli · web · (desktop) · (mcp)
-                           │
-       ┌───────────────────┼───────────────────┐
-       │                   │                   │
-       ▼                   ▼                   ▼
-   document             reporting            core
-   model · load         html · json      tokenize · metrics
-   parse_text           console          barriers · transform
-   parse_markdown       labels           lexicon · glossary
-   text · html                           morphology · syllables
-   docx · pdf · detect
-                           │                   │
-                           └─────────┬─────────┘
-                                     ▼
-                                 integrity
-                                 protected
+                          adapters
+                   cli · web · (desktop) · (mcp)
+                              │
+                              ▼
+                          pipeline
+                 projection · analysis · plan
+                              │
+       ┌──────────────────────┼──────────────────────┐
+       │                      │                      │
+       ▼                      ▼                      ▼
+   document               reporting                core
+   model · load           html · json          tokenize · metrics
+   parse_text             console              barriers · transform
+   parse_markdown         labels               lexicon · glossary
+   text · html · detect                        morphology · syllables
+   docx · pdf
+                              │                      │
+                              └──────────┬───────────┘
+                                         ▼
+                                     integrity
+                                     protected
 ```
 
 Arrows are the *only* permitted directions.
@@ -44,9 +48,15 @@ Arrows are the *only* permitted directions.
 | `integrity` | What must never be changed | nothing |
 | `document` | Reading files, and the structured representation of one | `document` |
 | `reporting` | Rendering results for a human or a machine | `reporting`, `core`, `integrity` |
-| `adapters` | Interfaces onto the engine | everything |
+| `pipeline` | Orchestration between documents and analysis | `pipeline`, `core`, `document`, `integrity` |
+| `adapters` | Interfaces onto the engine | `adapters`, `pipeline`, `core`, `integrity`, `reporting` |
 
-Two of those constraints are worth spelling out.
+That table is not a description. `tests/test_architecture.py` parses it out of
+this file and compares it against what the code actually imports, so a
+documented rule and an enforced rule cannot drift apart. Changing the policy
+means changing the table.
+
+Three of those constraints are worth spelling out.
 
 **`integrity` is a leaf on purpose.** It is the part of the system whose job is
 to say "no". Anything it imported could import it back, and a cycle there would
@@ -55,6 +65,20 @@ protected-term register can never be circumvented by import order.
 
 **`reporting` may read results but never compute them.** A report that
 calculated its own numbers would be a second engine wearing a different hat.
+
+**Adapters reach documents only through `pipeline`.** An adapter that read a
+file itself and then called `core` would be joining parsing to analysis on its
+own terms, and two adapters doing that independently is exactly how the CLI and
+the MCP server end up answering the same question differently.
+
+**`core` does not import `document`.** The analysis engine works on strings and
+knows nothing about headings, quotes or code fences. The document
+representation knows all of that and nothing about readability. Letting either
+depend on the other would be the convenient move, and the thing that would rot
+is `core` — it would gradually acquire opinions about markup, and the markup it
+knew about would gradually diverge from the markup the parser knew about. So
+neither imports the other, and `pipeline` joins them. Exactly one layer is
+permitted to depend on both, and a test enforces that too.
 
 ## Where the layers came from
 
@@ -132,6 +156,111 @@ allowed to miss). No Markdown construct currently tested defeats the scanner,
 which means the refusal path only ever runs on a parser bug. It is tested by
 forcing a failure, because a safety net nobody has pulled is not known to hold.
 
+## The analysis projection
+
+`core` analyses strings. `document` holds a tree. Neither imports the other, so
+something has to join them, and `pipeline` is the only layer allowed to.
+
+A **projection** is the string the analyser should see, plus the bookkeeping
+needed to turn any offset in that string back into an exact offset in the
+original source.
+
+```
+source:    The system provides a **robust** solution.
+analysis:  The system provides a robust solution.
+mapping:   analysis[22:28] -> source[24:30]
+```
+
+It is deliberately not a concatenation of `Text` nodes. Analysing each node
+separately would cut every sentence at each emphasis marker, and sentence
+segmentation, long-sentence detection and every readability statistic would be
+measuring fragments of sentences. The projection reads across inline boundaries
+so that the example above is one sentence, as it plainly is.
+
+### Two authorities, not one
+
+`analyzable` and `transformable` answer different questions, and the case that
+forces them apart is the block quote:
+
+| | analysable | transformable |
+|---|---|---|
+| Ordinary paragraph | yes | yes |
+| Block quote | **yes** | **no** — quoted material must not be reworded |
+| Code block or span | no | no |
+| Table | no | no |
+| Link or image destination | no | no |
+| Autolink | no | no — the visible text *is* the address |
+| Raw HTML, thematic break | no | no |
+| Anything the parser could not locate | no | no |
+
+A quotation is prose. A report should be able to say it is hard to read. It
+still must not be reworded, because rewording somebody else's words while
+leaving them inside quotation marks misattributes them.
+
+Both flags come from one traversal, `Document.prose_segments()`. Two traversals
+would agree today and drift apart on the first node type somebody added to only
+one of them — and the drift would be silent, because the symptom is the engine
+editing something it should not.
+
+### Mapping refuses rather than approximating
+
+Every character of a projection belongs to exactly one segment, and every
+segment either names its source characters or declares itself synthetic. There
+is no third category, because the only alternative to an exact offset is a
+wrong one.
+
+`map_to_source` refuses when the range:
+
+- crosses the synthetic separator inserted between blocks;
+- crosses markup, so that no single source replacement is defined;
+- covers only part of a **non-linear** segment — a CRLF line break is one
+  character of analysis text over two of source, and `&amp;` is one ampersand
+  spelled with five;
+- touches anything the engine may not rewrite.
+
+A refused mapping still carries the real source positions it *could* establish,
+so a finding stays reportable and pointable-at even when no safe edit exists
+for it. `applicable` is the only thing a caller may consult before proposing an
+automatic change.
+
+The same discipline applies to placing findings. The inherited detectors are
+inconsistent — some record offsets within the sentence, some record only the
+matched text — so both are handled, and a disagreement between them is a reason
+to refuse rather than a reason to pick one. A phrase that occurs twice in its
+sentence is ambiguous, and ambiguity is refused rather than resolved by
+guessing.
+
+### What this looks like in practice
+
+One word, four settings, three answers:
+
+| Source | Reaches the analyser | Editable |
+|---|---|---|
+| `Use **approximately** 5 mg.` | yes | yes — maps to the bare word, not the markers |
+| ``Use `approximately` as a variable name.`` | **no** | no |
+| `See [approximately](https://approximately.example).` | yes (the link text) | yes — maps inside the brackets |
+| `> Use approximately 5 mg.` | yes | **no** — quoted material |
+
+### The analysis unit
+
+Document-level statistics are computed over `project_document`, which joins
+blocks with a synthetic separator. Readability, sentence segmentation and
+long-sentence detection are all document-level questions, and answering them
+per block would change what the inherited engine means by every one of them.
+
+`project_block` exists for callers that want a bounded unit — reviewing one
+paragraph without paying for the whole document. Both map back to the same
+source coordinates.
+
+### Legacy compatibility
+
+`analyze(text)` is untouched and still means exactly what it meant; the
+characterisation seal holds it to that. `analyze_document(document)` is a second
+path alongside it, not a redefinition. A document of nothing but code returns an
+empty analysis rather than being handed to the inherited analyser, which raises
+on empty input — this layer declining to ask a question, not a change to the
+answer.
+
 ## What is deliberately not here yet
 
 The build plan describes several layers that this codebase has not earned the
@@ -143,10 +272,15 @@ implies a decision that has not been made:
   the data that will move first.
 - **`style/`** — style profiles. There is currently one behaviour, not a
   choice between several.
-- **The analyser does not use the representation yet.** `core` still consumes a
-  flat string; the IR sits alongside it. Connecting the two — so that detection
-  runs per prose span rather than over the whole document — is the next step,
-  and it is what turns the structural knowledge into behaviour.
+- **No adapter offers the structured path yet.** `analyze_document` exists and
+  is tested, and the CLI now takes its input through `pipeline.sources`, but
+  the CLI's own commands still run the inherited flat-text path. Wiring that up
+  is a separate, reviewable change.
+- **Table cells are not parsed.** The whole table is opaque, so prose inside a
+  cell is neither analysed nor editable. Parsing cell spans would make it both.
+- **Findings that cross markup are diagnostics only.** `provides a robust` in
+  `provides a **robust** solution` has no single source range, so it is
+  reported and refused. Multi-span edits are a Phase 4 question.
 - **DOCX, PDF and HTML have no structured parser.** They load through the
   plain-text parser, which is an honest degradation: the document records which
   parser actually ran, so a caller can tell "the structure says this is prose"

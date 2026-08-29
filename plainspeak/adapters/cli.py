@@ -84,7 +84,7 @@ def analyze_cmd(
     elif file:
         # Try the multi-format reader first (supports .txt, .docx, .pdf, .html, .md)
         try:
-            from ..document.detect import read_auto
+            from ..pipeline.sources import read_text_source as read_auto
             text, source_format = read_auto(file)
             source = f"{file} ({source_format})"
         except ImportError:
@@ -232,7 +232,7 @@ def simplify(file: Optional[str], from_stdin: bool, output: Optional[str]):
     elif file:
         # Try multi-format reader first
         try:
-            from ..document.detect import read_auto
+            from ..pipeline.sources import read_text_source as read_auto
             text, source_format = read_auto(file)
         except (ImportError, ValueError, FileNotFoundError):
             # Fall back to plain text

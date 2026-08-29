@@ -35,3 +35,31 @@ jobs:
 
       - name: Run tests
         run: python -m pytest -q
+
+  package:
+    name: built distributions carry their data
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Build wheel and sdist
+        run: python -m pip install --upgrade pip build && python -m build
+
+      # The syllable dictionary was omitted from wheels before Phase 2,
+      # because pyproject declared no package data. Editable installs hid it:
+      # syllable counting fell back to a heuristic, every readability metric
+      # shifted, and nothing failed. Only the built artefacts show this.
+      - name: Check the syllable dictionary ships
+        run: python tools/check_packaged_data.py dist
+
+      - name: Install the wheel and confirm the dictionary loads
+        run: |
+          python -m venv /tmp/wheeltest
+          /tmp/wheeltest/bin/python -m pip install --quiet dist/*.whl
+          /tmp/wheeltest/bin/python -m plainspeak.adapters.cli version
+          /tmp/wheeltest/bin/python tools/check_installed_data.py
