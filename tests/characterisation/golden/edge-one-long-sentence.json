@@ -1,0 +1,462 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 25.0,
+        "avg_sentence_length": 177.0,
+        "avg_syllables_per_word": 2.333333,
+        "avg_word_length": 7.457627,
+        "coleman_liau_index": 25.0,
+        "consensus_grade_level": 25.0,
+        "difficulty_band": "Very Difficult",
+        "difficulty_band_explanation": "Text at this level is comparable to graduate-level academic or professional writing. It is inaccessible to the majority of adults. If this text is intended for anyone other than subject-matter specialists, it requires fundamental rewriting. Even for specialist audiences, consider whether complexity is serving communication or habit.",
+        "difficulty_band_label": "Very difficult (graduate/professional level)",
+        "flesch_kincaid_grade": 25.0,
+        "flesch_reading_ease": 0,
+        "grade_warnings": [
+          "Flesch-Kincaid grade clamped from 81 to 25 (unreliable for this text)",
+          "Gunning Fog index clamped from 90 to 25 (unreliable for this text)",
+          "SMOG index clamped from 56 to 25 (unreliable for this text)",
+          "ARI clamped from 102 to 25 (unreliable for this text)",
+          "Coleman-Liau index clamped from 28 to 25 (unreliable for this text)"
+        ],
+        "gunning_fog_index": 25.0,
+        "metric_count": 5,
+        "metric_spread": 0.0,
+        "reading_level_description": "Very difficult (graduate/professional level)",
+        "short_text_warning": "This text is very short. Readability formulas need at least 100 words and 3+ sentences to produce stable estimates. Treat these results as rough indicators, not precise measurements.",
+        "smog_index": 25.0,
+        "total_complex_words": 86,
+        "total_long_words": 100,
+        "total_sentences": 1,
+        "total_syllables": 413,
+        "total_words": 177
+      },
+      "sentence_count": 1,
+      "sentences": [
+        "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned."
+      ],
+      "word_count": 177,
+      "words_head": [
+        "notwithstanding",
+        "the",
+        "foregoing",
+        "the",
+        "committee",
+        "subsequently",
+        "determined",
+        "that",
+        "the",
+        "aforementioned",
+        "applicant",
+        "had",
+        "failed",
+        "to",
+        "provide",
+        "sufficient",
+        "documentation",
+        "the",
+        "committee",
+        "subsequently",
+        "determined",
+        "that",
+        "the",
+        "aforementioned",
+        "applicant",
+        "had",
+        "failed",
+        "to",
+        "provide",
+        "sufficient",
+        "documentation",
+        "the",
+        "committee",
+        "subsequently",
+        "determined",
+        "that",
+        "the",
+        "aforementioned",
+        "applicant",
+        "had"
+      ],
+      "words_sha256": "eb5113566ee47d81dc7f5ea734f7ea3d558f1be6a10de4983b124ce44e01adf9"
+    }
+  },
+  "input": {
+    "chars": 1499,
+    "sha256": "d8382fb2224898f09b13fa47e0fac530b255acb61dc6fafa1f51740b930f3a3d"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 25.0\n  Very difficult (graduate/professional level)\n\n  Text Statistics:\n    Words:               177\n    Sentences:           1\n    Avg Sentence Length:  177.0 words\n    Avg Word Length:      7.5 characters\n    Complex Words (3+ syl): 86\n\n  Readability Scores:\n    Flesch Reading Ease:        0.0\n      Very difficult — university graduate level.\n    Flesch-Kincaid Grade Level:  25.0\n    Gunning Fog Index:           25.0\n    SMOG Index:                  25.0\n    Automated Readability Index: 25.0\n    Coleman-Liau Index:          25.0\n\n  Found 13 readability issue(s) across 1 sentence(s): 1 critical issue(s), 6 warning(s), 6 suggestion(s).\n\n  Top issues:\n    [CRITICAL] Long Sentence: \"Notwithstanding the foregoing, the committee subsequently de\"\n           -> This sentence has 177 words. Consider splitting it into two or more shorter sentences.\n    [WARNING] Complex Word: \"notwithstanding\"\n           -> \"notwithstanding\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"subsequently\"\n           -> Consider using \"later\" instead. A shorter, more direct word.\n    [WARNING] Complex Word: \"determined\"\n           -> Consider using \"decide\" instead. Decision words should be clear.\n    [WARNING] Complex Word: \"aforementioned\"\n           -> Consider using \"this\" instead. Archaic language creates distance from the reader.\n    [WARNING] Complex Word: \"sufficient\"\n           -> Consider using \"enough\" instead. A shorter, more common word.\n    [WARNING] Complex Word: \"documentation\"\n           -> \"documentation\" has 5 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"foregoing\"\n           -> \"foregoing\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"committee\"\n           -> \"committee\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"applicant\"\n           -> \"applicant\" has 3 syllables. Is there a simpler word you could use?\n    ... and 3 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 21020,
+      "html_sha256": "9fabdf81e429f6bba1730a590b3ac1ec5ac982b817befd8f57d6569cc7222a2a",
+      "json_report": {
+        "consensus": {
+          "description": "Very difficult (graduate/professional level)",
+          "grade_level": 25.0
+        },
+        "readability_scores": {
+          "automated_readability_index": 25.0,
+          "coleman_liau_index": 25.0,
+          "flesch_kincaid_grade": 25.0,
+          "flesch_reading_ease": 0,
+          "gunning_fog_index": 25.0,
+          "smog_index": 25.0
+        },
+        "simplification": {
+          "barriers": [
+            {
+              "explanation": "Sentences over 25 words are harder to follow. This one has 177 words. Try breaking it at natural pause points.",
+              "matched_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applica...",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "critical",
+              "suggestion": "This sentence has 177 words. Consider splitting it into two or more shorter sentences.",
+              "type": "long_sentence"
+            },
+            {
+              "explanation": "\"notwithstanding\" has 4 syllables and 15 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "notwithstanding",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "\"notwithstanding\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"subsequently\" has 4 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "subsequently",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "Consider using \"later\" instead. A shorter, more direct word.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"determined\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "determined",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "Consider using \"decide\" instead. Decision words should be clear.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"aforementioned\" has 4 syllables and 14 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "aforementioned",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "Consider using \"this\" instead. Archaic language creates distance from the reader.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"sufficient\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "sufficient",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "Consider using \"enough\" instead. A shorter, more common word.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"documentation\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "documentation",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "\"documentation\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"foregoing\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "foregoing",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "\"foregoing\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"committee\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "committee",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "\"committee\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "applicant",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "provide",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "Consider using \"give\" instead. Direct.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"therefore\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "therefore",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "\"therefore\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"adjourned\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "adjourned",
+              "sentence_context": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the afo...",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "\"adjourned\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "critical_count": 1,
+          "info_count": 6,
+          "summary": "Found 13 readability issue(s) across 1 sentence(s): 1 critical issue(s), 6 warning(s), 6 suggestion(s).",
+          "total_barriers": 13,
+          "warning_count": 6
+        },
+        "statistics": {
+          "avg_sentence_length": 177.0,
+          "avg_syllables_per_word": 2.33,
+          "avg_word_length": 7.46,
+          "total_complex_words": 86,
+          "total_long_words": 100,
+          "total_sentences": 1,
+          "total_syllables": 413,
+          "total_words": 177
+        },
+        "text_preview": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [
+        {
+          "issues": [
+            {
+              "confidence": "high",
+              "count": 1,
+              "explanation": "Sentences over 25 words are harder to follow. This one has 177 words. Try breaking it at natural pause points.",
+              "label": "Long sentence",
+              "matched_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applica...",
+              "priority": "high",
+              "suggestion": "This sentence has 177 words. Consider splitting it into two or more shorter sentences.",
+              "type": "long_sentence"
+            },
+            {
+              "confidence": "medium",
+              "count": 12,
+              "explanation": "\"notwithstanding\" has 4 syllables and 15 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "notwithstanding",
+              "priority": "consider",
+              "suggestion": "\"notwithstanding\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 0,
+          "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently dete...",
+          "total_issues": 13,
+          "unique_issue_types": 2,
+          "word_count": 177
+        }
+      ],
+      "replacement_count": 6,
+      "result": {
+        "barriers": [
+          {
+            "barrier_type": "long_sentence",
+            "end_char": 0,
+            "explanation": "Sentences over 25 words are harder to follow. This one has 177 words. Try breaking it at natural pause points.",
+            "matched_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applica...",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "critical",
+            "start_char": 0,
+            "suggestion": "This sentence has 177 words. Consider splitting it into two or more shorter sentences."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"notwithstanding\" has 4 syllables and 15 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "notwithstanding",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"notwithstanding\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"subsequently\" has 4 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "subsequently",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"later\" instead. A shorter, more direct word."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"determined\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "determined",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"decide\" instead. Decision words should be clear."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"aforementioned\" has 4 syllables and 14 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "aforementioned",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"this\" instead. Archaic language creates distance from the reader."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"sufficient\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "sufficient",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"enough\" instead. A shorter, more common word."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"documentation\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "documentation",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"documentation\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"foregoing\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "foregoing",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"foregoing\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"committee\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "committee",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"committee\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "applicant",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "provide",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"give\" instead. Direct."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"therefore\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "therefore",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"therefore\" has 2 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"adjourned\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "adjourned",
+            "sentence_index": 0,
+            "sentence_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"adjourned\" has 2 syllables. Is there a simpler word you could use?"
+          }
+        ],
+        "critical_count": 1,
+        "info_count": 6,
+        "original_text": "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned.\n",
+        "sentences": [
+          "Notwithstanding the foregoing, the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation the committee subsequently determined that the aforementioned applicant had failed to provide sufficient documentation and the matter was therefore adjourned."
+        ],
+        "summary": "Found 13 readability issue(s) across 1 sentence(s): 1 critical issue(s), 6 warning(s), 6 suggestion(s).",
+        "total_barriers": 13,
+        "warning_count": 6
+      },
+      "simplified_text": "**despite** the foregoing, the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation the committee **later** **decide** that the **this** applicant had failed to **give** **enough** documentation and the matter was therefore adjourned.\n",
+      "top_improvements": [
+        {
+          "action": "Break into 2-3 shorter sentences. Aim for 15-25 words per sentence.",
+          "impact": "Shorter sentences are the single most effective way to improve readability.",
+          "issue": "This sentence is 177 words long",
+          "location": "Sentence 1",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'notwithstanding')",
+          "location": "Sentence 1",
+          "priority": "consider"
+        }
+      ]
+    }
+  }
+}

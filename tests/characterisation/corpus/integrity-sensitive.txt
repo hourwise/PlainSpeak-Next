@@ -1,0 +1,23 @@
+You must apply before 31 March 2027. You must not apply more than once.
+
+The dose is 0.5 mg taken twice daily. Do not exceed 2.5 mg in any 24-hour
+period. A dose of 5 mg may cause serious harm.
+
+Version 1.5.0 is affected by this issue. Version 1.5.1 is unaffected.
+
+The fee is £1,250.00 plus VAT at 20%, payable to Account 12345678, sort code
+20-00-00. Payments received after 17:00 GMT are treated as next-day.
+
+Full guidance is at https://www.gov.uk/example-guidance/apply-online and
+enquiries should go to casework.team@example.gov.uk.
+
+Applicants shall provide evidence of residence. Applicants may provide a utility
+bill. Applicants shall not provide originals.
+
+The configuration file is at C:\ProgramData\Example\config.ini on Windows and
+/etc/example/config.ini on Linux.
+
+The checksum is 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08.
+Your reference number is HB-2026-004417.
+
+Approximately 68% of applications are decided within 15 working days.

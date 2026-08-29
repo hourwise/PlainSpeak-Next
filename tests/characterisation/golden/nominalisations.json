@@ -1,0 +1,1101 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 8.082905,
+        "avg_sentence_length": 8.818182,
+        "avg_syllables_per_word": 1.896907,
+        "avg_word_length": 5.329897,
+        "coleman_liau_index": null,
+        "consensus_grade_level": 11.551589,
+        "difficulty_band": "Fairly Difficult",
+        "difficulty_band_explanation": "Text at this level requires a secondary-school reading ability. It is likely to exclude a significant portion of the general public. If this text is intended for a broad audience, substantial revision is recommended.",
+        "difficulty_band_label": "Fairly difficult (approximately upper secondary level)",
+        "flesch_kincaid_grade": 10.232596,
+        "flesch_reading_ease": 37.406195,
+        "grade_warnings": [],
+        "gunning_fog_index": 15.486036,
+        "metric_count": 4,
+        "metric_spread": 7.40313,
+        "reading_level_description": "Fairly difficult (approximately upper secondary level)",
+        "short_text_warning": "This text is very short. Readability formulas need at least 100 words and 3+ sentences to produce stable estimates. Treat these results as rough indicators, not precise measurements.",
+        "smog_index": 12.404819,
+        "total_complex_words": 29,
+        "total_long_words": 32,
+        "total_sentences": 11,
+        "total_syllables": 184,
+        "total_words": 97
+      },
+      "sentence_count": 11,
+      "sentences": [
+        "The implementation of the new procedure resulted in the improvement of",
+        "processing times.",
+        "We will undertake an examination of the evidence and make a determination as to",
+        "whether the allegations have merit.",
+        "The Department is in receipt of your application and will give consideration to it in due course.",
+        "The utilisation of these resources requires the authorisation of the director.",
+        "Verification of the documentation is a requirement prior to the commencement of",
+        "the assessment.",
+        "Please make an application for a review of the decision.",
+        "The provision of information to the registrar is the responsibility of the",
+        "applicant."
+      ],
+      "word_count": 97,
+      "words_head": [
+        "the",
+        "implementation",
+        "of",
+        "the",
+        "new",
+        "procedure",
+        "resulted",
+        "in",
+        "the",
+        "improvement",
+        "of",
+        "processing",
+        "times",
+        "we",
+        "will",
+        "undertake",
+        "an",
+        "examination",
+        "of",
+        "the",
+        "evidence",
+        "and",
+        "make",
+        "a",
+        "determination",
+        "as",
+        "to",
+        "whether",
+        "the",
+        "allegations",
+        "have",
+        "merit",
+        "the",
+        "department",
+        "is",
+        "in",
+        "receipt",
+        "of",
+        "your",
+        "application"
+      ],
+      "words_sha256": "b689682c3710e21dd0c905f631fb94bf1709c6f9169a73300750c7fd2d8631ad"
+    }
+  },
+  "input": {
+    "chars": 625,
+    "sha256": "732824f60ee96aa0bf46aa53fb8da21f4676150863dfe2d262a857fed8f796d5"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 11.6\n  Fairly difficult (approximately upper secondary level)\n\n  Text Statistics:\n    Words:               97\n    Sentences:           11\n    Avg Sentence Length:  8.8 words\n    Avg Word Length:      5.3 characters\n    Complex Words (3+ syl): 29\n\n  Readability Scores:\n    Flesch Reading Ease:        37.4\n      Difficult — best understood by college graduates.\n    Flesch-Kincaid Grade Level:  10.2\n    Gunning Fog Index:           15.5\n    SMOG Index:                  12.4\n    Automated Readability Index: 8.1\n\n  Found 31 readability issue(s) across 11 sentence(s): 23 warning(s), 8 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"implementation\"\n           -> Consider using \"setup\" instead. A more concrete term.\n    [WARNING] Complex Word: \"improvement\"\n           -> \"improvement\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"procedure\"\n           -> \"procedure\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"processing\"\n           -> \"processing\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"examination\"\n           -> \"examination\" has 5 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"determination\"\n           -> \"determination\" has 5 syllables. Is there a simpler word you could use?\n    [WARNING] Jargon / Formal Language: \"make a determination\"\n           -> Consider using \"decide\" instead. Noun-heavy phrase -> verb.\n    [INFO] Complex Word: \"undertake\"\n           -> Consider using \"do\" instead. Direct verb.\n    [WARNING] Complex Word: \"allegations\"\n           -> \"allegations\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"department\"\n           -> \"department\" has 3 syllables. Is there a simpler word you could use?\n    ... and 21 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 30733,
+      "html_sha256": "4d050d0c9e21ffb1ad0e88f569b7e6ca390650f589b091f08d329cebe98db190",
+      "json_report": {
+        "consensus": {
+          "description": "Fairly difficult (approximately upper secondary level)",
+          "grade_level": 11.6
+        },
+        "readability_scores": {
+          "automated_readability_index": 8.1,
+          "coleman_liau_index": null,
+          "flesch_kincaid_grade": 10.2,
+          "flesch_reading_ease": 37.4,
+          "gunning_fog_index": 15.5,
+          "smog_index": 12.4
+        },
+        "simplification": {
+          "barriers": [
+            {
+              "explanation": "\"implementation\" has 5 syllables and 14 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "implementation",
+              "sentence_context": "The implementation of the new procedure resulted in the improvement of",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "Consider using \"setup\" instead. A more concrete term.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"improvement\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "improvement",
+              "sentence_context": "The implementation of the new procedure resulted in the improvement of",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "\"improvement\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"procedure\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "procedure",
+              "sentence_context": "The implementation of the new procedure resulted in the improvement of",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "\"procedure\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"processing\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "processing",
+              "sentence_context": "processing times.",
+              "sentence_index": 1,
+              "severity": "warning",
+              "suggestion": "\"processing\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"examination\" has 5 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "examination",
+              "sentence_context": "We will undertake an examination of the evidence and make a determination as to",
+              "sentence_index": 2,
+              "severity": "warning",
+              "suggestion": "\"examination\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"determination\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "determination",
+              "sentence_context": "We will undertake an examination of the evidence and make a determination as to",
+              "sentence_index": 2,
+              "severity": "warning",
+              "suggestion": "\"determination\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"make a determination\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "matched_text": "make a determination",
+              "sentence_context": "We will undertake an examination of the evidence and make a determination as to",
+              "sentence_index": 2,
+              "severity": "warning",
+              "suggestion": "Consider using \"decide\" instead. Noun-heavy phrase -> verb.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"undertake\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "undertake",
+              "sentence_context": "We will undertake an examination of the evidence and make a determination as to",
+              "sentence_index": 2,
+              "severity": "info",
+              "suggestion": "Consider using \"do\" instead. Direct verb.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"allegations\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "allegations",
+              "sentence_context": "whether the allegations have merit.",
+              "sentence_index": 3,
+              "severity": "warning",
+              "suggestion": "\"allegations\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"department\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "department",
+              "sentence_context": "The Department is in receipt of your application and will give consideration to it in due course.",
+              "sentence_index": 4,
+              "severity": "warning",
+              "suggestion": "\"department\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"application\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "application",
+              "sentence_context": "The Department is in receipt of your application and will give consideration to it in due course.",
+              "sentence_index": 4,
+              "severity": "warning",
+              "suggestion": "\"application\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"consideration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "consideration",
+              "sentence_context": "The Department is in receipt of your application and will give consideration to it in due course.",
+              "sentence_index": 4,
+              "severity": "warning",
+              "suggestion": "\"consideration\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"in receipt of\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "matched_text": "in receipt of",
+              "sentence_context": "The Department is in receipt of your application and will give consideration to it in due course.",
+              "sentence_index": 4,
+              "severity": "warning",
+              "suggestion": "Consider using \"received\" instead. Passive and wordy — use active voice.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"give consideration to\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "matched_text": "give consideration to",
+              "sentence_context": "The Department is in receipt of your application and will give consideration to it in due course.",
+              "sentence_index": 4,
+              "severity": "warning",
+              "suggestion": "\"give consideration to\" is a domain term of art. Consider defining or explaining it on first use rather than replacing it.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"utilisation\" has 5 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "utilisation",
+              "sentence_context": "The utilisation of these resources requires the authorisation of the director.",
+              "sentence_index": 5,
+              "severity": "warning",
+              "suggestion": "\"utilisation\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"authorisation\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "authorisation",
+              "sentence_context": "The utilisation of these resources requires the authorisation of the director.",
+              "sentence_index": 5,
+              "severity": "warning",
+              "suggestion": "\"authorisation\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"resources\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "resources",
+              "sentence_context": "The utilisation of these resources requires the authorisation of the director.",
+              "sentence_index": 5,
+              "severity": "info",
+              "suggestion": "\"resources\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"requires\" has 2 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "requires",
+              "sentence_context": "The utilisation of these resources requires the authorisation of the director.",
+              "sentence_index": 5,
+              "severity": "info",
+              "suggestion": "Consider using \"need\" instead. A shorter, more direct word.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"verification\" has 5 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "verification",
+              "sentence_context": "Verification of the documentation is a requirement prior to the commencement of",
+              "sentence_index": 6,
+              "severity": "warning",
+              "suggestion": "\"verification\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"documentation\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "documentation",
+              "sentence_context": "Verification of the documentation is a requirement prior to the commencement of",
+              "sentence_index": 6,
+              "severity": "warning",
+              "suggestion": "\"documentation\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"requirement\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "requirement",
+              "sentence_context": "Verification of the documentation is a requirement prior to the commencement of",
+              "sentence_index": 6,
+              "severity": "warning",
+              "suggestion": "Consider using \"need\" instead. A shorter, more direct word.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"commencement\" has 3 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "commencement",
+              "sentence_context": "Verification of the documentation is a requirement prior to the commencement of",
+              "sentence_index": 6,
+              "severity": "warning",
+              "suggestion": "Consider using \"start\" instead. One of the most common plain-language substitutions.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"prior to\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "matched_text": "prior to",
+              "sentence_context": "Verification of the documentation is a requirement prior to the commencement of",
+              "sentence_index": 6,
+              "severity": "info",
+              "suggestion": "Consider using \"before\" instead. Two words to one.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"assessment\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "assessment",
+              "sentence_context": "the assessment.",
+              "sentence_index": 7,
+              "severity": "warning",
+              "suggestion": "Consider using \"evaluation\" instead. A review of what help someone needs.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"application\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "application",
+              "sentence_context": "Please make an application for a review of the decision.",
+              "sentence_index": 8,
+              "severity": "warning",
+              "suggestion": "\"application\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"make an application\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "matched_text": "make an application",
+              "sentence_context": "Please make an application for a review of the decision.",
+              "sentence_index": 8,
+              "severity": "warning",
+              "suggestion": "Consider using \"apply\" instead. Another hidden verb.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"information\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "information",
+              "sentence_context": "The provision of information to the registrar is the responsibility of the",
+              "sentence_index": 9,
+              "severity": "warning",
+              "suggestion": "\"information\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"responsibility\" has 6 syllables and 14 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "responsibility",
+              "sentence_context": "The provision of information to the registrar is the responsibility of the",
+              "sentence_index": 9,
+              "severity": "warning",
+              "suggestion": "\"responsibility\" has 6 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"provision\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "provision",
+              "sentence_context": "The provision of information to the registrar is the responsibility of the",
+              "sentence_index": 9,
+              "severity": "info",
+              "suggestion": "\"provision\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"registrar\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "registrar",
+              "sentence_context": "The provision of information to the registrar is the responsibility of the",
+              "sentence_index": 9,
+              "severity": "info",
+              "suggestion": "\"registrar\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "applicant",
+              "sentence_context": "applicant.",
+              "sentence_index": 10,
+              "severity": "info",
+              "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "critical_count": 0,
+          "info_count": 8,
+          "summary": "Found 31 readability issue(s) across 11 sentence(s): 23 warning(s), 8 suggestion(s).",
+          "total_barriers": 31,
+          "warning_count": 23
+        },
+        "statistics": {
+          "avg_sentence_length": 8.82,
+          "avg_syllables_per_word": 1.9,
+          "avg_word_length": 5.33,
+          "total_complex_words": 29,
+          "total_long_words": 32,
+          "total_sentences": 11,
+          "total_syllables": 184,
+          "total_words": 97
+        },
+        "text_preview": "The implementation of the new procedure resulted in the improvement of\nprocessing times.\n\nWe will undertake an examination of the evidence and make a determination as to\nwhether the allegations have merit. The Department is in receipt of your\napplication and will give consideration to it in due course.\n\nThe utilisation of these resources requires the authorisation of the director.\nVerification of the documentation is a requirement prior to the commencement of\nthe assessment.\n\nPlease make an application for a review of the decision.\n\nThe provision of information to the registrar is the responsibility of the\napplicant.\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"make a determination\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "label": "Jargon or formal language",
+              "matched_text": "make a determination",
+              "priority": "high",
+              "suggestion": "Consider using \"decide\" instead. Noun-heavy phrase -> verb.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 3,
+              "explanation": "\"examination\" has 5 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "examination",
+              "priority": "consider",
+              "suggestion": "\"examination\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 2,
+          "sentence_text": "We will undertake an examination of the evidence and make a determination as to",
+          "total_issues": 4,
+          "unique_issue_types": 2,
+          "word_count": 14
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"in receipt of\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "label": "Jargon or formal language",
+              "matched_text": "in receipt of",
+              "priority": "high",
+              "suggestion": "Consider using \"received\" instead. Passive and wordy — use active voice.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 3,
+              "explanation": "\"department\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "department",
+              "priority": "consider",
+              "suggestion": "\"department\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 4,
+          "sentence_text": "The Department is in receipt of your application and will give consideration to it in due course.",
+          "total_issues": 5,
+          "unique_issue_types": 2,
+          "word_count": 17
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"prior to\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "label": "Jargon or formal language",
+              "matched_text": "prior to",
+              "priority": "high",
+              "suggestion": "Consider using \"before\" instead. Two words to one.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 4,
+              "explanation": "\"verification\" has 5 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "verification",
+              "priority": "consider",
+              "suggestion": "\"verification\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 6,
+          "sentence_text": "Verification of the documentation is a requirement prior to the commencement of",
+          "total_issues": 5,
+          "unique_issue_types": 2,
+          "word_count": 12
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"make an application\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "label": "Jargon or formal language",
+              "matched_text": "make an application",
+              "priority": "high",
+              "suggestion": "Consider using \"apply\" instead. Another hidden verb.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"application\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "application",
+              "priority": "consider",
+              "suggestion": "\"application\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 8,
+          "sentence_text": "Please make an application for a review of the decision.",
+          "total_issues": 2,
+          "unique_issue_types": 2,
+          "word_count": 10
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 3,
+              "explanation": "\"implementation\" has 5 syllables and 14 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "implementation",
+              "priority": "consider",
+              "suggestion": "Consider using \"setup\" instead. A more concrete term.",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 0,
+          "sentence_text": "The implementation of the new procedure resulted in the improvement of",
+          "total_issues": 3,
+          "unique_issue_types": 1,
+          "word_count": 11
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"processing\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "processing",
+              "priority": "consider",
+              "suggestion": "\"processing\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 1,
+          "sentence_text": "processing times.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 2
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"allegations\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "allegations",
+              "priority": "consider",
+              "suggestion": "\"allegations\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 3,
+          "sentence_text": "whether the allegations have merit.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 5
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 4,
+              "explanation": "\"utilisation\" has 5 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "utilisation",
+              "priority": "consider",
+              "suggestion": "\"utilisation\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 5,
+          "sentence_text": "The utilisation of these resources requires the authorisation of the director.",
+          "total_issues": 4,
+          "unique_issue_types": 1,
+          "word_count": 11
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"assessment\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "assessment",
+              "priority": "consider",
+              "suggestion": "Consider using \"evaluation\" instead. A review of what help someone needs.",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 7,
+          "sentence_text": "the assessment.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 2
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 4,
+              "explanation": "\"information\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "information",
+              "priority": "consider",
+              "suggestion": "\"information\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 9,
+          "sentence_text": "The provision of information to the registrar is the responsibility of the",
+          "total_issues": 4,
+          "unique_issue_types": 1,
+          "word_count": 12
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "applicant",
+              "priority": "consider",
+              "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 10,
+          "sentence_text": "applicant.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 1
+        }
+      ],
+      "replacement_count": 11,
+      "result": {
+        "barriers": [
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"implementation\" has 5 syllables and 14 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "implementation",
+            "sentence_index": 0,
+            "sentence_text": "The implementation of the new procedure resulted in the improvement of",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"setup\" instead. A more concrete term."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"improvement\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "improvement",
+            "sentence_index": 0,
+            "sentence_text": "The implementation of the new procedure resulted in the improvement of",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"improvement\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"procedure\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "procedure",
+            "sentence_index": 0,
+            "sentence_text": "The implementation of the new procedure resulted in the improvement of",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"procedure\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"processing\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "processing",
+            "sentence_index": 1,
+            "sentence_text": "processing times.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"processing\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"examination\" has 5 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "examination",
+            "sentence_index": 2,
+            "sentence_text": "We will undertake an examination of the evidence and make a determination as to",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"examination\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"determination\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "determination",
+            "sentence_index": 2,
+            "sentence_text": "We will undertake an examination of the evidence and make a determination as to",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"determination\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 73,
+            "explanation": "\"make a determination\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+            "matched_text": "make a determination",
+            "sentence_index": 2,
+            "sentence_text": "We will undertake an examination of the evidence and make a determination as to",
+            "severity": "warning",
+            "start_char": 53,
+            "suggestion": "Consider using \"decide\" instead. Noun-heavy phrase -> verb."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"undertake\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "undertake",
+            "sentence_index": 2,
+            "sentence_text": "We will undertake an examination of the evidence and make a determination as to",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"do\" instead. Direct verb."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"allegations\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "allegations",
+            "sentence_index": 3,
+            "sentence_text": "whether the allegations have merit.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"allegations\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"department\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "department",
+            "sentence_index": 4,
+            "sentence_text": "The Department is in receipt of your application and will give consideration to it in due course.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"department\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"application\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "application",
+            "sentence_index": 4,
+            "sentence_text": "The Department is in receipt of your application and will give consideration to it in due course.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"application\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"consideration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "consideration",
+            "sentence_index": 4,
+            "sentence_text": "The Department is in receipt of your application and will give consideration to it in due course.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"consideration\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 31,
+            "explanation": "\"in receipt of\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+            "matched_text": "in receipt of",
+            "sentence_index": 4,
+            "sentence_text": "The Department is in receipt of your application and will give consideration to it in due course.",
+            "severity": "warning",
+            "start_char": 18,
+            "suggestion": "Consider using \"received\" instead. Passive and wordy — use active voice."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 79,
+            "explanation": "\"give consideration to\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+            "matched_text": "give consideration to",
+            "sentence_index": 4,
+            "sentence_text": "The Department is in receipt of your application and will give consideration to it in due course.",
+            "severity": "warning",
+            "start_char": 58,
+            "suggestion": "\"give consideration to\" is a domain term of art. Consider defining or explaining it on first use rather than replacing it."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"utilisation\" has 5 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "utilisation",
+            "sentence_index": 5,
+            "sentence_text": "The utilisation of these resources requires the authorisation of the director.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"utilisation\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"authorisation\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "authorisation",
+            "sentence_index": 5,
+            "sentence_text": "The utilisation of these resources requires the authorisation of the director.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"authorisation\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"resources\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "resources",
+            "sentence_index": 5,
+            "sentence_text": "The utilisation of these resources requires the authorisation of the director.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"resources\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"requires\" has 2 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "requires",
+            "sentence_index": 5,
+            "sentence_text": "The utilisation of these resources requires the authorisation of the director.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"need\" instead. A shorter, more direct word."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"verification\" has 5 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "verification",
+            "sentence_index": 6,
+            "sentence_text": "Verification of the documentation is a requirement prior to the commencement of",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"verification\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"documentation\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "documentation",
+            "sentence_index": 6,
+            "sentence_text": "Verification of the documentation is a requirement prior to the commencement of",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"documentation\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"requirement\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "requirement",
+            "sentence_index": 6,
+            "sentence_text": "Verification of the documentation is a requirement prior to the commencement of",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"need\" instead. A shorter, more direct word."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"commencement\" has 3 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "commencement",
+            "sentence_index": 6,
+            "sentence_text": "Verification of the documentation is a requirement prior to the commencement of",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"start\" instead. One of the most common plain-language substitutions."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 59,
+            "explanation": "\"prior to\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+            "matched_text": "prior to",
+            "sentence_index": 6,
+            "sentence_text": "Verification of the documentation is a requirement prior to the commencement of",
+            "severity": "info",
+            "start_char": 51,
+            "suggestion": "Consider using \"before\" instead. Two words to one."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"assessment\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "assessment",
+            "sentence_index": 7,
+            "sentence_text": "the assessment.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"evaluation\" instead. A review of what help someone needs."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"application\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "application",
+            "sentence_index": 8,
+            "sentence_text": "Please make an application for a review of the decision.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"application\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 26,
+            "explanation": "\"make an application\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+            "matched_text": "make an application",
+            "sentence_index": 8,
+            "sentence_text": "Please make an application for a review of the decision.",
+            "severity": "warning",
+            "start_char": 7,
+            "suggestion": "Consider using \"apply\" instead. Another hidden verb."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"information\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "information",
+            "sentence_index": 9,
+            "sentence_text": "The provision of information to the registrar is the responsibility of the",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"information\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"responsibility\" has 6 syllables and 14 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "responsibility",
+            "sentence_index": 9,
+            "sentence_text": "The provision of information to the registrar is the responsibility of the",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"responsibility\" has 6 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"provision\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "provision",
+            "sentence_index": 9,
+            "sentence_text": "The provision of information to the registrar is the responsibility of the",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"provision\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"registrar\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "registrar",
+            "sentence_index": 9,
+            "sentence_text": "The provision of information to the registrar is the responsibility of the",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"registrar\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "applicant",
+            "sentence_index": 10,
+            "sentence_text": "applicant.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?"
+          }
+        ],
+        "critical_count": 0,
+        "info_count": 8,
+        "original_text": "The implementation of the new procedure resulted in the improvement of\nprocessing times.\n\nWe will undertake an examination of the evidence and make a determination as to\nwhether the allegations have merit. The Department is in receipt of your\napplication and will give consideration to it in due course.\n\nThe utilisation of these resources requires the authorisation of the director.\nVerification of the documentation is a requirement prior to the commencement of\nthe assessment.\n\nPlease make an application for a review of the decision.\n\nThe provision of information to the registrar is the responsibility of the\napplicant.\n",
+        "sentences": [
+          "The implementation of the new procedure resulted in the improvement of",
+          "processing times.",
+          "We will undertake an examination of the evidence and make a determination as to",
+          "whether the allegations have merit.",
+          "The Department is in receipt of your application and will give consideration to it in due course.",
+          "The utilisation of these resources requires the authorisation of the director.",
+          "Verification of the documentation is a requirement prior to the commencement of",
+          "the assessment.",
+          "Please make an application for a review of the decision.",
+          "The provision of information to the registrar is the responsibility of the",
+          "applicant."
+        ],
+        "summary": "Found 31 readability issue(s) across 11 sentence(s): 23 warning(s), 8 suggestion(s).",
+        "total_barriers": 31,
+        "warning_count": 23
+      },
+      "simplified_text": "The **setup** of the new procedure resulted in the improvement of\nprocessing times.\n\nWe will **do** an examination of the evidence and **decide** as to\nwhether the allegations have merit. The Department is **received** your\napplication and will **consider** it in due course.\n\nThe utilisation of these resources **need** the authorisation of the director.\nVerification of the documentation is a **need** **before** the **start** of\nthe **evaluation**.\n\nPlease **apply** for a review of the decision.\n\nThe provision of information to the registrar is the responsibility of the\napplicant.\n",
+      "top_improvements": [
+        {
+          "action": "Consider replacing with: Consider using \"decide\" instead. Noun-heavy phrase -> verb.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'make a determination'",
+          "location": "Sentence 3",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'examination')",
+          "location": "Sentence 3",
+          "priority": "consider"
+        },
+        {
+          "action": "Consider replacing with: Consider using \"received\" instead. Passive and wordy — use active voice.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'in receipt of'",
+          "location": "Sentence 5",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'department')",
+          "location": "Sentence 5",
+          "priority": "consider"
+        },
+        {
+          "action": "Consider replacing with: Consider using \"before\" instead. Two words to one.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'prior to'",
+          "location": "Sentence 7",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'verification')",
+          "location": "Sentence 7",
+          "priority": "consider"
+        },
+        {
+          "action": "Consider replacing with: Consider using \"apply\" instead. Another hidden verb.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'make an application'",
+          "location": "Sentence 9",
+          "priority": "high"
+        }
+      ]
+    }
+  }
+}

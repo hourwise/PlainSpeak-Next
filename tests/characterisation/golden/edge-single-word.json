@@ -1,0 +1,109 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 0.0,
+        "avg_sentence_length": 1.0,
+        "avg_syllables_per_word": 1.0,
+        "avg_word_length": 3.0,
+        "coleman_liau_index": null,
+        "consensus_grade_level": 0.882275,
+        "difficulty_band": "Very Easy",
+        "difficulty_band_explanation": "Text at this level uses very short sentences and common words. It should be accessible to almost all adult readers, including those with lower literacy, non-native speakers, and people with cognitive disabilities. This is the target level for essential public information.",
+        "difficulty_band_label": "Very easy (approximately early primary level)",
+        "flesch_kincaid_grade": 0.0,
+        "flesch_reading_ease": 100,
+        "grade_warnings": [],
+        "gunning_fog_index": 0.4,
+        "metric_count": 4,
+        "metric_spread": 3.1291,
+        "reading_level_description": "Very easy (approximately early primary level)",
+        "short_text_warning": "This text is very short. Readability formulas need at least 100 words and 3+ sentences to produce stable estimates. Treat these results as rough indicators, not precise measurements.",
+        "smog_index": 3.1291,
+        "total_complex_words": 0,
+        "total_long_words": 0,
+        "total_sentences": 1,
+        "total_syllables": 1,
+        "total_words": 1
+      },
+      "sentence_count": 1,
+      "sentences": [
+        "Yes"
+      ],
+      "word_count": 1,
+      "words_head": [
+        "yes"
+      ],
+      "words_sha256": "8a798890fe93817163b10b5f7bd2ca4d25d84c52739a645a889c173eee7d9d3d"
+    }
+  },
+  "input": {
+    "chars": 4,
+    "sha256": "927580bf287560d4a26a5d6e129f91ffa9cb63031b1a8c772be6ec584e65e82b"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 0.9\n  Very easy (approximately early primary level)\n\n  Text Statistics:\n    Words:               1\n    Sentences:           1\n    Avg Sentence Length:  1.0 words\n    Avg Word Length:      3.0 characters\n    Complex Words (3+ syl): 0\n\n  Readability Scores:\n    Flesch Reading Ease:        100.0\n      Very easy — understood by an average 11-year-old.\n    Flesch-Kincaid Grade Level:  0.0\n    Gunning Fog Index:           0.4\n    SMOG Index:                  3.1\n    Automated Readability Index: 0.0\n\n  Found 0 readability issue(s) across 1 sentence(s): No significant readability barriers found.\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 8916,
+      "html_sha256": "318e23dfd58e19ea7756bddbcac19790d703570ab479c332763f7cc50021d669",
+      "json_report": {
+        "consensus": {
+          "description": "Very easy (approximately early primary level)",
+          "grade_level": 0.9
+        },
+        "readability_scores": {
+          "automated_readability_index": 0.0,
+          "coleman_liau_index": null,
+          "flesch_kincaid_grade": 0.0,
+          "flesch_reading_ease": 100,
+          "gunning_fog_index": 0.4,
+          "smog_index": 3.1
+        },
+        "simplification": {
+          "barriers": [],
+          "critical_count": 0,
+          "info_count": 0,
+          "summary": "Found 0 readability issue(s) across 1 sentence(s): No significant readability barriers found.",
+          "total_barriers": 0,
+          "warning_count": 0
+        },
+        "statistics": {
+          "avg_sentence_length": 1.0,
+          "avg_syllables_per_word": 1.0,
+          "avg_word_length": 3.0,
+          "total_complex_words": 0,
+          "total_long_words": 0,
+          "total_sentences": 1,
+          "total_syllables": 1,
+          "total_words": 1
+        },
+        "text_preview": "Yes\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [],
+      "replacement_count": 0,
+      "result": {
+        "barriers": [],
+        "critical_count": 0,
+        "info_count": 0,
+        "original_text": "Yes\n",
+        "sentences": [
+          "Yes"
+        ],
+        "summary": "Found 0 readability issue(s) across 1 sentence(s): No significant readability barriers found.",
+        "total_barriers": 0,
+        "warning_count": 0
+      },
+      "simplified_text": "Yes\n",
+      "top_improvements": []
+    }
+  }
+}

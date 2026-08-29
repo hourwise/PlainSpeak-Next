@@ -1,0 +1,885 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 4.137741,
+        "avg_sentence_length": 7.307692,
+        "avg_syllables_per_word": 1.505263,
+        "avg_word_length": 4.652632,
+        "coleman_liau_index": null,
+        "consensus_grade_level": 6.599613,
+        "difficulty_band": "Fairly Easy",
+        "difficulty_band_explanation": "Text at this level is generally accessible but may present difficulties for readers with lower literacy or non-native speakers. Consider whether your intended audience includes people who may struggle with this level.",
+        "difficulty_band_label": "Fairly easy (approximately lower secondary level)",
+        "flesch_kincaid_grade": 5.022105,
+        "flesch_reading_ease": 72.072429,
+        "grade_warnings": [],
+        "gunning_fog_index": 8.396761,
+        "metric_count": 4,
+        "metric_spread": 4.704105,
+        "reading_level_description": "Fairly easy (approximately lower secondary level)",
+        "short_text_warning": "This text is very short. Readability formulas need at least 100 words and 3+ sentences to produce stable estimates. Treat these results as rough indicators, not precise measurements.",
+        "smog_index": 8.841846,
+        "total_complex_words": 13,
+        "total_long_words": 23,
+        "total_sentences": 13,
+        "total_syllables": 143,
+        "total_words": 95
+      },
+      "sentence_count": 13,
+      "sentences": [
+        "The applicant must first and foremost provide full and complete details.",
+        "Each and every applicant is required to sign the declaration.",
+        "The terms and",
+        "conditions are null and void unless the form is properly signed.",
+        "We will consider any and all evidence.",
+        "The decision is final and conclusive.",
+        "Please provide a true and accurate account of the events.",
+        "Any aid and assistance",
+        "given must be declared.",
+        "The plan is basic and fundamental to the project.",
+        "This is due to the fact that",
+        "the deadline has passed.",
+        "In the event that you disagree, you may appeal."
+      ],
+      "word_count": 95,
+      "words_head": [
+        "the",
+        "applicant",
+        "must",
+        "first",
+        "and",
+        "foremost",
+        "provide",
+        "full",
+        "and",
+        "complete",
+        "details",
+        "each",
+        "and",
+        "every",
+        "applicant",
+        "is",
+        "required",
+        "to",
+        "sign",
+        "the",
+        "declaration",
+        "the",
+        "terms",
+        "and",
+        "conditions",
+        "are",
+        "null",
+        "and",
+        "void",
+        "unless",
+        "the",
+        "form",
+        "is",
+        "properly",
+        "signed",
+        "we",
+        "will",
+        "consider",
+        "any",
+        "and"
+      ],
+      "words_sha256": "6b280f80993cabd770b2d887bf31705b51036ebc4dd9a0fe0007a8a418f1ccf2"
+    }
+  },
+  "input": {
+    "chars": 552,
+    "sha256": "7213a0b8785314942d80e11a90d04a14c888bccaf3aa1d1ee2314c83e7dca8cf"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 6.6\n  Fairly easy (approximately lower secondary level)\n\n  Text Statistics:\n    Words:               95\n    Sentences:           13\n    Avg Sentence Length:  7.3 words\n    Avg Word Length:      4.7 characters\n    Complex Words (3+ syl): 13\n\n  Readability Scores:\n    Flesch Reading Ease:        72.1\n      Fairly easy — plain English suitable for general audience.\n    Flesch-Kincaid Grade Level:  5.0\n    Gunning Fog Index:           8.4\n    SMOG Index:                  8.8\n    Automated Readability Index: 4.1\n\n  Found 20 readability issue(s) across 13 sentence(s): 10 warning(s), 10 suggestion(s).\n\n  Top issues:\n    [INFO] Complex Word: \"applicant\"\n           -> \"applicant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"provide\"\n           -> Consider using \"give\" instead. Direct.\n    [INFO] Redundant Pair: \"first and foremost\"\n           -> Use just \"first\". Use one word.\n    [WARNING] Passive Voice: \"is required\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"declaration\"\n           -> \"declaration\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"applicant\"\n           -> \"applicant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"required\"\n           -> Consider using \"need\" instead. A shorter, more direct word.\n    [INFO] Redundant Pair: \"each and every\"\n           -> Use just \"each\". Use one or the other, not both.\n    [INFO] Jargon / Formal Language: \"terms\"\n           -> Consider using \"length of cover\" instead. How long the insurance lasts.\n    [WARNING] Complex Word: \"conditions\"\n           -> \"conditions\" has 3 syllables. Is there a simpler word you could use?\n    ... and 10 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 22464,
+      "html_sha256": "fec34c4aefde71e364ee3d1628812381802d78ad1802e38b1b28d558bb00bb3b",
+      "json_report": {
+        "consensus": {
+          "description": "Fairly easy (approximately lower secondary level)",
+          "grade_level": 6.6
+        },
+        "readability_scores": {
+          "automated_readability_index": 4.1,
+          "coleman_liau_index": null,
+          "flesch_kincaid_grade": 5.0,
+          "flesch_reading_ease": 72.1,
+          "gunning_fog_index": 8.4,
+          "smog_index": 8.8
+        },
+        "simplification": {
+          "barriers": [
+            {
+              "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "applicant",
+              "sentence_context": "The applicant must first and foremost provide full and complete details.",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "provide",
+              "sentence_context": "The applicant must first and foremost provide full and complete details.",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "Consider using \"give\" instead. Direct.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Redundant word pairs add words without adding meaning.",
+              "matched_text": "first and foremost",
+              "sentence_context": "The applicant must first and foremost provide full and complete details.",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "Use just \"first\". Use one word.",
+              "type": "redundant_pair"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "is required",
+              "sentence_context": "Each and every applicant is required to sign the declaration.",
+              "sentence_index": 1,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"declaration\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "declaration",
+              "sentence_context": "Each and every applicant is required to sign the declaration.",
+              "sentence_index": 1,
+              "severity": "warning",
+              "suggestion": "\"declaration\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "applicant",
+              "sentence_context": "Each and every applicant is required to sign the declaration.",
+              "sentence_index": 1,
+              "severity": "info",
+              "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"required\" has 2 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "required",
+              "sentence_context": "Each and every applicant is required to sign the declaration.",
+              "sentence_index": 1,
+              "severity": "info",
+              "suggestion": "Consider using \"need\" instead. A shorter, more direct word.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Redundant word pairs add words without adding meaning.",
+              "matched_text": "each and every",
+              "sentence_context": "Each and every applicant is required to sign the declaration.",
+              "sentence_index": 1,
+              "severity": "info",
+              "suggestion": "Use just \"each\". Use one or the other, not both.",
+              "type": "redundant_pair"
+            },
+            {
+              "explanation": "\"terms\" can often be replaced with a simpler word.",
+              "matched_text": "terms",
+              "sentence_context": "The terms and",
+              "sentence_index": 2,
+              "severity": "info",
+              "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"conditions\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "conditions",
+              "sentence_context": "conditions are null and void unless the form is properly signed.",
+              "sentence_index": 3,
+              "severity": "warning",
+              "suggestion": "\"conditions\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"conclusive\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "conclusive",
+              "sentence_context": "The decision is final and conclusive.",
+              "sentence_index": 5,
+              "severity": "warning",
+              "suggestion": "\"conclusive\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "provide",
+              "sentence_context": "Please provide a true and accurate account of the events.",
+              "sentence_index": 6,
+              "severity": "info",
+              "suggestion": "Consider using \"give\" instead. Direct.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
+              "matched_text": "provide a true",
+              "sentence_context": "Please provide a true and accurate account of the events.",
+              "sentence_index": 6,
+              "severity": "info",
+              "suggestion": "Consider using \"true\" instead of \"provide a true\". This makes the action more direct.",
+              "type": "hidden_verb"
+            },
+            {
+              "explanation": "\"assistance\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "assistance",
+              "sentence_context": "Any aid and assistance",
+              "sentence_index": 7,
+              "severity": "warning",
+              "suggestion": "Consider using \"help\" instead. The shorter word means the same thing.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "be declared",
+              "sentence_context": "given must be declared.",
+              "sentence_index": 8,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "must be declared",
+              "sentence_context": "given must be declared.",
+              "sentence_index": 8,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"fundamental\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "fundamental",
+              "sentence_context": "The plan is basic and fundamental to the project.",
+              "sentence_index": 9,
+              "severity": "warning",
+              "suggestion": "Consider using \"basic\" instead. Or 'key' — a simpler word.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"due to the fact that\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "matched_text": "due to the fact that",
+              "sentence_context": "This is due to the fact that",
+              "sentence_index": 10,
+              "severity": "warning",
+              "suggestion": "Consider using \"because\" instead. Five words become one.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"in the event that\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "matched_text": "in the event that",
+              "sentence_context": "In the event that you disagree, you may appeal.",
+              "sentence_index": 12,
+              "severity": "warning",
+              "suggestion": "Consider using \"if\" instead. Legal padding — use a simpler conditional.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "may",
+              "sentence_context": "In the event that you disagree, you may appeal.",
+              "sentence_index": 12,
+              "severity": "info",
+              "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            }
+          ],
+          "critical_count": 0,
+          "info_count": 10,
+          "summary": "Found 20 readability issue(s) across 13 sentence(s): 10 warning(s), 10 suggestion(s).",
+          "total_barriers": 20,
+          "warning_count": 10
+        },
+        "statistics": {
+          "avg_sentence_length": 7.31,
+          "avg_syllables_per_word": 1.51,
+          "avg_word_length": 4.65,
+          "total_complex_words": 13,
+          "total_long_words": 23,
+          "total_sentences": 13,
+          "total_syllables": 143,
+          "total_words": 95
+        },
+        "text_preview": "The applicant must first and foremost provide full and complete details.\n\nEach and every applicant is required to sign the declaration. The terms and\nconditions are null and void unless the form is properly signed.\n\nWe will consider any and all evidence. The decision is final and conclusive.\n\nPlease provide a true and accurate account of the events. Any aid and assistance\ngiven must be declared.\n\nThe plan is basic and fundamental to the project. This is due to the fact that\nthe deadline has passed. In the event that you disagree, you may appeal.\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"terms\" can often be replaced with a simpler word.",
+              "label": "Jargon or formal language",
+              "matched_text": "terms",
+              "priority": "high",
+              "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts.",
+              "type": "jargon"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 2,
+          "sentence_text": "The terms and",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 3
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"due to the fact that\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "label": "Jargon or formal language",
+              "matched_text": "due to the fact that",
+              "priority": "high",
+              "suggestion": "Consider using \"because\" instead. Five words become one.",
+              "type": "jargon"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 10,
+          "sentence_text": "This is due to the fact that",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 7
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"in the event that\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "label": "Jargon or formal language",
+              "matched_text": "in the event that",
+              "priority": "high",
+              "suggestion": "Consider using \"if\" instead. Legal padding — use a simpler conditional.",
+              "type": "jargon"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 12,
+          "sentence_text": "In the event that you disagree, you may appeal.",
+          "total_issues": 2,
+          "unique_issue_types": 1,
+          "word_count": 9
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "applicant",
+              "priority": "consider",
+              "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Redundant word pairs add words without adding meaning.",
+              "label": "Redundant word pair",
+              "matched_text": "first and foremost",
+              "priority": "info",
+              "suggestion": "Use just \"first\". Use one word.",
+              "type": "redundant_pair"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 0,
+          "sentence_text": "The applicant must first and foremost provide full and complete details.",
+          "total_issues": 3,
+          "unique_issue_types": 2,
+          "word_count": 11
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "is required",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 3,
+              "explanation": "\"declaration\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "declaration",
+              "priority": "consider",
+              "suggestion": "\"declaration\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Redundant word pairs add words without adding meaning.",
+              "label": "Redundant word pair",
+              "matched_text": "each and every",
+              "priority": "info",
+              "suggestion": "Use just \"each\". Use one or the other, not both.",
+              "type": "redundant_pair"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 1,
+          "sentence_text": "Each and every applicant is required to sign the declaration.",
+          "total_issues": 5,
+          "unique_issue_types": 3,
+          "word_count": 10
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"conditions\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "conditions",
+              "priority": "consider",
+              "suggestion": "\"conditions\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 3,
+          "sentence_text": "conditions are null and void unless the form is properly signed.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 11
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"conclusive\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "conclusive",
+              "priority": "consider",
+              "suggestion": "\"conclusive\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 5,
+          "sentence_text": "The decision is final and conclusive.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 6
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "provide",
+              "priority": "consider",
+              "suggestion": "Consider using \"give\" instead. Direct.",
+              "type": "complex_word"
+            },
+            {
+              "confidence": "uncertain",
+              "count": 1,
+              "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
+              "label": "Hidden verb",
+              "matched_text": "provide a true",
+              "priority": "consider",
+              "suggestion": "Consider using \"true\" instead of \"provide a true\". This makes the action more direct.",
+              "type": "hidden_verb"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 6,
+          "sentence_text": "Please provide a true and accurate account of the events.",
+          "total_issues": 2,
+          "unique_issue_types": 2,
+          "word_count": 10
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"assistance\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "assistance",
+              "priority": "consider",
+              "suggestion": "Consider using \"help\" instead. The shorter word means the same thing.",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 7,
+          "sentence_text": "Any aid and assistance",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 4
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "be declared",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 8,
+          "sentence_text": "given must be declared.",
+          "total_issues": 2,
+          "unique_issue_types": 1,
+          "word_count": 4
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"fundamental\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "fundamental",
+              "priority": "consider",
+              "suggestion": "Consider using \"basic\" instead. Or 'key' — a simpler word.",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 9,
+          "sentence_text": "The plan is basic and fundamental to the project.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 9
+        }
+      ],
+      "replacement_count": 7,
+      "result": {
+        "barriers": [
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "applicant",
+            "sentence_index": 0,
+            "sentence_text": "The applicant must first and foremost provide full and complete details.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "provide",
+            "sentence_index": 0,
+            "sentence_text": "The applicant must first and foremost provide full and complete details.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"give\" instead. Direct."
+          },
+          {
+            "barrier_type": "redundant_pair",
+            "end_char": 37,
+            "explanation": "Redundant word pairs add words without adding meaning.",
+            "matched_text": "first and foremost",
+            "sentence_index": 0,
+            "sentence_text": "The applicant must first and foremost provide full and complete details.",
+            "severity": "info",
+            "start_char": 19,
+            "suggestion": "Use just \"first\". Use one word."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 36,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "is required",
+            "sentence_index": 1,
+            "sentence_text": "Each and every applicant is required to sign the declaration.",
+            "severity": "warning",
+            "start_char": 25,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"declaration\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "declaration",
+            "sentence_index": 1,
+            "sentence_text": "Each and every applicant is required to sign the declaration.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"declaration\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "applicant",
+            "sentence_index": 1,
+            "sentence_text": "Each and every applicant is required to sign the declaration.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"required\" has 2 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "required",
+            "sentence_index": 1,
+            "sentence_text": "Each and every applicant is required to sign the declaration.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"need\" instead. A shorter, more direct word."
+          },
+          {
+            "barrier_type": "redundant_pair",
+            "end_char": 14,
+            "explanation": "Redundant word pairs add words without adding meaning.",
+            "matched_text": "each and every",
+            "sentence_index": 1,
+            "sentence_text": "Each and every applicant is required to sign the declaration.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Use just \"each\". Use one or the other, not both."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"terms\" can often be replaced with a simpler word.",
+            "matched_text": "terms",
+            "sentence_index": 2,
+            "sentence_text": "The terms and",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"conditions\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "conditions",
+            "sentence_index": 3,
+            "sentence_text": "conditions are null and void unless the form is properly signed.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"conditions\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"conclusive\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "conclusive",
+            "sentence_index": 5,
+            "sentence_text": "The decision is final and conclusive.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"conclusive\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "provide",
+            "sentence_index": 6,
+            "sentence_text": "Please provide a true and accurate account of the events.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"give\" instead. Direct."
+          },
+          {
+            "barrier_type": "hidden_verb",
+            "end_char": 21,
+            "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
+            "matched_text": "provide a true",
+            "sentence_index": 6,
+            "sentence_text": "Please provide a true and accurate account of the events.",
+            "severity": "info",
+            "start_char": 7,
+            "suggestion": "Consider using \"true\" instead of \"provide a true\". This makes the action more direct."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"assistance\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "assistance",
+            "sentence_index": 7,
+            "sentence_text": "Any aid and assistance",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"help\" instead. The shorter word means the same thing."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 22,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "be declared",
+            "sentence_index": 8,
+            "sentence_text": "given must be declared.",
+            "severity": "warning",
+            "start_char": 11,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 22,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "must be declared",
+            "sentence_index": 8,
+            "sentence_text": "given must be declared.",
+            "severity": "warning",
+            "start_char": 6,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"fundamental\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "fundamental",
+            "sentence_index": 9,
+            "sentence_text": "The plan is basic and fundamental to the project.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"basic\" instead. Or 'key' — a simpler word."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 28,
+            "explanation": "\"due to the fact that\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+            "matched_text": "due to the fact that",
+            "sentence_index": 10,
+            "sentence_text": "This is due to the fact that",
+            "severity": "warning",
+            "start_char": 8,
+            "suggestion": "Consider using \"because\" instead. Five words become one."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 17,
+            "explanation": "\"in the event that\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+            "matched_text": "in the event that",
+            "sentence_index": 12,
+            "sentence_text": "In the event that you disagree, you may appeal.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"if\" instead. Legal padding — use a simpler conditional."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "may",
+            "sentence_index": 12,
+            "sentence_text": "In the event that you disagree, you may appeal.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use."
+          }
+        ],
+        "critical_count": 0,
+        "info_count": 10,
+        "original_text": "The applicant must first and foremost provide full and complete details.\n\nEach and every applicant is required to sign the declaration. The terms and\nconditions are null and void unless the form is properly signed.\n\nWe will consider any and all evidence. The decision is final and conclusive.\n\nPlease provide a true and accurate account of the events. Any aid and assistance\ngiven must be declared.\n\nThe plan is basic and fundamental to the project. This is due to the fact that\nthe deadline has passed. In the event that you disagree, you may appeal.\n",
+        "sentences": [
+          "The applicant must first and foremost provide full and complete details.",
+          "Each and every applicant is required to sign the declaration.",
+          "The terms and",
+          "conditions are null and void unless the form is properly signed.",
+          "We will consider any and all evidence.",
+          "The decision is final and conclusive.",
+          "Please provide a true and accurate account of the events.",
+          "Any aid and assistance",
+          "given must be declared.",
+          "The plan is basic and fundamental to the project.",
+          "This is due to the fact that",
+          "the deadline has passed.",
+          "In the event that you disagree, you may appeal."
+        ],
+        "summary": "Found 20 readability issue(s) across 13 sentence(s): 10 warning(s), 10 suggestion(s).",
+        "total_barriers": 20,
+        "warning_count": 10
+      },
+      "simplified_text": "The applicant must first and foremost **give** full and complete details.\n\nEach and every applicant is **need** to sign the declaration. The **length of cover** and\nconditions are null and void unless the form is properly signed.\n\nWe will consider any and all evidence. The decision is final and conclusive.\n\nPlease **give** a true and accurate account of the events. Any aid and **help**\ngiven must be declared.\n\nThe plan is basic and **basic** to the project. This is **because**\nthe deadline has passed. **if** you disagree, you may appeal.\n",
+      "top_improvements": [
+        {
+          "action": "Consider replacing with: Consider using \"length of cover\" instead. How long the insurance lasts.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'terms'",
+          "location": "Sentence 3",
+          "priority": "high"
+        },
+        {
+          "action": "Consider replacing with: Consider using \"because\" instead. Five words become one.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'due to the fact that'",
+          "location": "Sentence 11",
+          "priority": "high"
+        },
+        {
+          "action": "Consider replacing with: Consider using \"if\" instead. Legal padding — use a simpler conditional.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'in the event that'",
+          "location": "Sentence 13",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'applicant')",
+          "location": "Sentence 1",
+          "priority": "consider"
+        },
+        {
+          "action": "Rewrite in active voice: identify who is doing what.",
+          "impact": "Active voice is more direct and easier to follow.",
+          "issue": "Uses passive voice",
+          "location": "Sentence 2",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'declaration')",
+          "location": "Sentence 2",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'conditions')",
+          "location": "Sentence 4",
+          "priority": "consider"
+        }
+      ]
+    }
+  }
+}

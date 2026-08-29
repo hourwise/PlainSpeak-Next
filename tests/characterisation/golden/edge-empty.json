@@ -1,0 +1,35 @@
+{
+  "analyzer": {
+    "error_message": "Cannot analyze empty text",
+    "error_type": "ValueError",
+    "outcome": "error"
+  },
+  "input": {
+    "chars": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "reporter": {
+    "error_message": "Cannot analyze empty text",
+    "error_type": "ValueError",
+    "outcome": "error"
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [],
+      "replacement_count": 0,
+      "result": {
+        "barriers": [],
+        "critical_count": 0,
+        "info_count": 0,
+        "original_text": "",
+        "sentences": [],
+        "summary": "Found 0 readability issue(s) across 0 sentence(s): No significant readability barriers found.",
+        "total_barriers": 0,
+        "warning_count": 0
+      },
+      "simplified_text": "",
+      "top_improvements": []
+    }
+  }
+}

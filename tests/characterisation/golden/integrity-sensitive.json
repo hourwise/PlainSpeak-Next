@@ -1,0 +1,1283 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 2.342365,
+        "avg_sentence_length": 7.181818,
+        "avg_syllables_per_word": 1.56962,
+        "avg_word_length": 4.28481,
+        "coleman_liau_index": 5.273165,
+        "consensus_grade_level": 6.202742,
+        "difficulty_band": "Fairly Easy",
+        "difficulty_band_explanation": "Text at this level is generally accessible but may present difficulties for readers with lower literacy or non-native speakers. Consider whether your intended audience includes people who may struggle with this level.",
+        "difficulty_band_label": "Fairly easy (approximately lower secondary level)",
+        "flesch_kincaid_grade": 5.732428,
+        "flesch_reading_ease": 66.755581,
+        "grade_warnings": [],
+        "gunning_fog_index": 8.695512,
+        "metric_count": 5,
+        "metric_spread": 6.627874,
+        "reading_level_description": "Fairly easy (approximately lower secondary level)",
+        "short_text_warning": "This text is fairly short. Readability estimates may vary with small changes. For more reliable results, analyse a longer passage.",
+        "smog_index": 8.970239,
+        "total_complex_words": 23,
+        "total_long_words": 37,
+        "total_sentences": 22,
+        "total_syllables": 248,
+        "total_words": 158
+      },
+      "sentence_count": 22,
+      "sentences": [
+        "You must apply before 31 March 2027.",
+        "You must not apply more than once.",
+        "The dose is 0.5 mg taken twice daily.",
+        "Do not exceed 2.5 mg in any 24-hour",
+        "period.",
+        "A dose of 5 mg may cause serious harm.",
+        "Version 1.5.0 is affected by this issue.",
+        "Version 1.5.1 is unaffected.",
+        "The fee is £1,250.00 plus VAT at 20%, payable to Account 12345678, sort code",
+        "20-00-00.",
+        "Payments received after 17:00 GMT are treated as next-day.",
+        "Full guidance is at https://www.gov.uk/example-guidance/apply-online and",
+        "enquiries should go to casework.team@example.gov.uk.",
+        "Applicants shall provide evidence of residence.",
+        "Applicants may provide a utility",
+        "bill.",
+        "Applicants shall not provide originals.",
+        "The configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and",
+        "/etc/example/config.ini on Linux.",
+        "The checksum is 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08.",
+        "Your reference number is HB-2026-004417.",
+        "Approximately 68% of applications are decided within 15 working days."
+      ],
+      "word_count": 158,
+      "words_head": [
+        "you",
+        "must",
+        "apply",
+        "before",
+        "march",
+        "you",
+        "must",
+        "not",
+        "apply",
+        "more",
+        "than",
+        "once",
+        "the",
+        "dose",
+        "is",
+        "mg",
+        "taken",
+        "twice",
+        "daily",
+        "do",
+        "not",
+        "exceed",
+        "mg",
+        "in",
+        "any",
+        "hour",
+        "period",
+        "a",
+        "dose",
+        "of",
+        "mg",
+        "may",
+        "cause",
+        "serious",
+        "harm",
+        "version",
+        "is",
+        "affected",
+        "by",
+        "this"
+      ],
+      "words_sha256": "81a41bf1a7db5735dc3573072978f176167b48481d2ccc536654bb8dbd2506de"
+    }
+  },
+  "input": {
+    "chars": 975,
+    "sha256": "35c6d08161442b7a9ef8d6b17df0fe977dd7294891f3ed1a999f5179b7f705bb"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 6.2\n  Fairly easy (approximately lower secondary level)\n\n  Text Statistics:\n    Words:               158\n    Sentences:           22\n    Avg Sentence Length:  7.2 words\n    Avg Word Length:      4.3 characters\n    Complex Words (3+ syl): 23\n\n  Readability Scores:\n    Flesch Reading Ease:        66.8\n      Standard — understood by 13-15 year olds.\n    Flesch-Kincaid Grade Level:  5.7\n    Gunning Fog Index:           8.7\n    SMOG Index:                  9.0\n    Automated Readability Index: 2.3\n    Coleman-Liau Index:          5.3\n\n  Found 33 readability issue(s) across 22 sentence(s): 17 warning(s), 16 suggestion(s).\n\n  Top issues:\n    [INFO] Jargon / Formal Language: \"dose\"\n           -> \"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first u\n    [INFO] Jargon / Formal Language: \"dose\"\n           -> \"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first u\n    [INFO] Jargon / Formal Language: \"may\"\n           -> \"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.\n    [WARNING] Passive Voice: \"is affected\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [INFO] Nominalization: \"Version\"\n           -> \"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more dire\n    [WARNING] Passive Voice: \"is unaffected\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"unaffected\"\n           -> \"unaffected\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Nominalization: \"Version\"\n           -> \"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more dire\n    [WARNING] Passive Voice: \"are treated\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"is at\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    ... and 23 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 31812,
+      "html_sha256": "e285568ef4abcc8cb6808866ad53e02cf6c539f5742a84cd90db3394b59a0d68",
+      "json_report": {
+        "consensus": {
+          "description": "Fairly easy (approximately lower secondary level)",
+          "grade_level": 6.2
+        },
+        "readability_scores": {
+          "automated_readability_index": 2.3,
+          "coleman_liau_index": 5.3,
+          "flesch_kincaid_grade": 5.7,
+          "flesch_reading_ease": 66.8,
+          "gunning_fog_index": 8.7,
+          "smog_index": 9.0
+        },
+        "simplification": {
+          "barriers": [
+            {
+              "explanation": "\"dose\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "dose",
+              "sentence_context": "The dose is 0.5 mg taken twice daily.",
+              "sentence_index": 2,
+              "severity": "info",
+              "suggestion": "\"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"dose\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "dose",
+              "sentence_context": "A dose of 5 mg may cause serious harm.",
+              "sentence_index": 5,
+              "severity": "info",
+              "suggestion": "\"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "may",
+              "sentence_context": "A dose of 5 mg may cause serious harm.",
+              "sentence_index": 5,
+              "severity": "info",
+              "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "is affected",
+              "sentence_context": "Version 1.5.0 is affected by this issue.",
+              "sentence_index": 6,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "matched_text": "Version",
+              "sentence_context": "Version 1.5.0 is affected by this issue.",
+              "sentence_index": 6,
+              "severity": "info",
+              "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct.",
+              "type": "nominalization"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "is unaffected",
+              "sentence_context": "Version 1.5.1 is unaffected.",
+              "sentence_index": 7,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"unaffected\" has 4 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "unaffected",
+              "sentence_context": "Version 1.5.1 is unaffected.",
+              "sentence_index": 7,
+              "severity": "warning",
+              "suggestion": "\"unaffected\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "matched_text": "Version",
+              "sentence_context": "Version 1.5.1 is unaffected.",
+              "sentence_index": 7,
+              "severity": "info",
+              "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct.",
+              "type": "nominalization"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "are treated",
+              "sentence_context": "Payments received after 17:00 GMT are treated as next-day.",
+              "sentence_index": 10,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "is at",
+              "sentence_context": "Full guidance is at https://www.gov.uk/example-guidance/apply-online and",
+              "sentence_index": 11,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "matched_text": "guidance",
+              "sentence_context": "Full guidance is at https://www.gov.uk/example-guidance/apply-online and",
+              "sentence_index": 11,
+              "severity": "info",
+              "suggestion": "\"guidance\" is a nominalization. Consider using the verb \"guide\" instead to make the sentence more direct.",
+              "type": "nominalization"
+            },
+            {
+              "explanation": "\"enquiries\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "enquiries",
+              "sentence_context": "enquiries should go to casework.team@example.gov.uk.",
+              "sentence_index": 12,
+              "severity": "info",
+              "suggestion": "\"enquiries\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "applicants",
+              "sentence_context": "Applicants shall provide evidence of residence.",
+              "sentence_index": 13,
+              "severity": "warning",
+              "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "provide",
+              "sentence_context": "Applicants shall provide evidence of residence.",
+              "sentence_index": 13,
+              "severity": "info",
+              "suggestion": "Consider using \"give\" instead. Direct.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"residence\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "residence",
+              "sentence_context": "Applicants shall provide evidence of residence.",
+              "sentence_index": 13,
+              "severity": "info",
+              "suggestion": "\"residence\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"shall\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "shall",
+              "sentence_context": "Applicants shall provide evidence of residence.",
+              "sentence_index": 13,
+              "severity": "info",
+              "suggestion": "\"shall\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "applicants",
+              "sentence_context": "Applicants may provide a utility",
+              "sentence_index": 14,
+              "severity": "warning",
+              "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"utility\" has 4 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "utility",
+              "sentence_context": "Applicants may provide a utility",
+              "sentence_index": 14,
+              "severity": "warning",
+              "suggestion": "\"utility\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "provide",
+              "sentence_context": "Applicants may provide a utility",
+              "sentence_index": 14,
+              "severity": "info",
+              "suggestion": "Consider using \"give\" instead. Direct.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "may",
+              "sentence_context": "Applicants may provide a utility",
+              "sentence_index": 14,
+              "severity": "info",
+              "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
+              "matched_text": "provide a utility",
+              "sentence_context": "Applicants may provide a utility",
+              "sentence_index": 14,
+              "severity": "info",
+              "suggestion": "Consider using \"utility\" instead of \"provide a utility\". This makes the action more direct.",
+              "type": "hidden_verb"
+            },
+            {
+              "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "applicants",
+              "sentence_context": "Applicants shall not provide originals.",
+              "sentence_index": 16,
+              "severity": "warning",
+              "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"originals\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "originals",
+              "sentence_context": "Applicants shall not provide originals.",
+              "sentence_index": 16,
+              "severity": "warning",
+              "suggestion": "\"originals\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "provide",
+              "sentence_context": "Applicants shall not provide originals.",
+              "sentence_index": 16,
+              "severity": "info",
+              "suggestion": "Consider using \"give\" instead. Direct.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"shall\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "shall",
+              "sentence_context": "Applicants shall not provide originals.",
+              "sentence_index": 16,
+              "severity": "info",
+              "suggestion": "\"shall\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "is at",
+              "sentence_context": "The configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and",
+              "sentence_index": 17,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"configuration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "configuration",
+              "sentence_context": "The configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and",
+              "sentence_index": 17,
+              "severity": "warning",
+              "suggestion": "Consider using \"setup\" instead. A simpler word is available.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"programdata\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "programdata",
+              "sentence_context": "The configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and",
+              "sentence_index": 17,
+              "severity": "warning",
+              "suggestion": "\"programdata\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"etc\" has 4 syllables and 3 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "etc",
+              "sentence_context": "/etc/example/config.ini on Linux.",
+              "sentence_index": 18,
+              "severity": "warning",
+              "suggestion": "\"etc\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"reference\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "reference",
+              "sentence_context": "Your reference number is HB-2026-004417.",
+              "sentence_index": 20,
+              "severity": "info",
+              "suggestion": "\"reference\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "are decided",
+              "sentence_context": "Approximately 68% of applications are decided within 15 working days.",
+              "sentence_index": 21,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"approximately\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "approximately",
+              "sentence_context": "Approximately 68% of applications are decided within 15 working days.",
+              "sentence_index": 21,
+              "severity": "warning",
+              "suggestion": "Consider using \"about\" instead. Precision is rarely lost with 'about'.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"applications\" has 4 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "applications",
+              "sentence_context": "Approximately 68% of applications are decided within 15 working days.",
+              "sentence_index": 21,
+              "severity": "warning",
+              "suggestion": "\"applications\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "critical_count": 0,
+          "info_count": 16,
+          "summary": "Found 33 readability issue(s) across 22 sentence(s): 17 warning(s), 16 suggestion(s).",
+          "total_barriers": 33,
+          "warning_count": 17
+        },
+        "statistics": {
+          "avg_sentence_length": 7.18,
+          "avg_syllables_per_word": 1.57,
+          "avg_word_length": 4.28,
+          "total_complex_words": 23,
+          "total_long_words": 37,
+          "total_sentences": 22,
+          "total_syllables": 248,
+          "total_words": 158
+        },
+        "text_preview": "You must apply before 31 March 2027. You must not apply more than once.\n\nThe dose is 0.5 mg taken twice daily. Do not exceed 2.5 mg in any 24-hour\nperiod. A dose of 5 mg may cause serious harm.\n\nVersion 1.5.0 is affected by this issue. Version 1.5.1 is unaffected.\n\nThe fee is £1,250.00 plus VAT at 20%, payable to Account 12345678, sort code\n20-00-00. Payments received after 17:00 GMT are treated as next-day.\n\nFull guidance is at https://www.gov.uk/example-guidance/apply-online and\nenquiries should go to casework.team@example.gov.uk.\n\nApplicants shall provide evidence of residence. Applicants may provide a utility\nbill. Applicants shall not provide originals.\n\nThe configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and\n/etc/example/config.ini on Linux.\n\nThe checksum is 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08.\nYour reference number is HB-2026-004417.\n\nApproximately 68% of applications are decided within 15 working days.\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"dose\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "dose",
+              "priority": "high",
+              "suggestion": "\"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 2,
+          "sentence_text": "The dose is 0.5 mg taken twice daily.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 8
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"dose\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "dose",
+              "priority": "high",
+              "suggestion": "\"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 5,
+          "sentence_text": "A dose of 5 mg may cause serious harm.",
+          "total_issues": 2,
+          "unique_issue_types": 1,
+          "word_count": 9
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"shall\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "shall",
+              "priority": "high",
+              "suggestion": "\"shall\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 3,
+              "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "applicants",
+              "priority": "consider",
+              "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 13,
+          "sentence_text": "Applicants shall provide evidence of residence.",
+          "total_issues": 4,
+          "unique_issue_types": 2,
+          "word_count": 6
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "may",
+              "priority": "high",
+              "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 3,
+              "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "applicants",
+              "priority": "consider",
+              "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "confidence": "uncertain",
+              "count": 1,
+              "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
+              "label": "Hidden verb",
+              "matched_text": "provide a utility",
+              "priority": "consider",
+              "suggestion": "Consider using \"utility\" instead of \"provide a utility\". This makes the action more direct.",
+              "type": "hidden_verb"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 14,
+          "sentence_text": "Applicants may provide a utility",
+          "total_issues": 5,
+          "unique_issue_types": 3,
+          "word_count": 5
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"shall\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "shall",
+              "priority": "high",
+              "suggestion": "\"shall\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 3,
+              "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "applicants",
+              "priority": "consider",
+              "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 16,
+          "sentence_text": "Applicants shall not provide originals.",
+          "total_issues": 4,
+          "unique_issue_types": 2,
+          "word_count": 5
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "is affected",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "label": "Nominalization",
+              "matched_text": "Version",
+              "priority": "consider",
+              "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct.",
+              "type": "nominalization"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 6,
+          "sentence_text": "Version 1.5.0 is affected by this issue.",
+          "total_issues": 2,
+          "unique_issue_types": 2,
+          "word_count": 7
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "is unaffected",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"unaffected\" has 4 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "unaffected",
+              "priority": "consider",
+              "suggestion": "\"unaffected\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "label": "Nominalization",
+              "matched_text": "Version",
+              "priority": "consider",
+              "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct.",
+              "type": "nominalization"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 7,
+          "sentence_text": "Version 1.5.1 is unaffected.",
+          "total_issues": 3,
+          "unique_issue_types": 3,
+          "word_count": 4
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "are treated",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 10,
+          "sentence_text": "Payments received after 17:00 GMT are treated as next-day.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 9
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "is at",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "label": "Nominalization",
+              "matched_text": "guidance",
+              "priority": "consider",
+              "suggestion": "\"guidance\" is a nominalization. Consider using the verb \"guide\" instead to make the sentence more direct.",
+              "type": "nominalization"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 11,
+          "sentence_text": "Full guidance is at https://www.gov.uk/example-guidance/apply-online and",
+          "total_issues": 2,
+          "unique_issue_types": 2,
+          "word_count": 6
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"enquiries\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "enquiries",
+              "priority": "consider",
+              "suggestion": "\"enquiries\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 12,
+          "sentence_text": "enquiries should go to casework.team@example.gov.uk.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 5
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "is at",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"configuration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "configuration",
+              "priority": "consider",
+              "suggestion": "Consider using \"setup\" instead. A simpler word is available.",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 17,
+          "sentence_text": "The configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and",
+          "total_issues": 3,
+          "unique_issue_types": 2,
+          "word_count": 9
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"etc\" has 4 syllables and 3 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "etc",
+              "priority": "consider",
+              "suggestion": "\"etc\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 18,
+          "sentence_text": "/etc/example/config.ini on Linux.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 3
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"reference\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "reference",
+              "priority": "consider",
+              "suggestion": "\"reference\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 20,
+          "sentence_text": "Your reference number is HB-2026-004417.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 5
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "are decided",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"approximately\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "approximately",
+              "priority": "consider",
+              "suggestion": "Consider using \"about\" instead. Precision is rarely lost with 'about'.",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 21,
+          "sentence_text": "Approximately 68% of applications are decided within 15 working days.",
+          "total_issues": 3,
+          "unique_issue_types": 2,
+          "word_count": 10
+        }
+      ],
+      "replacement_count": 4,
+      "result": {
+        "barriers": [
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"dose\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "dose",
+            "sentence_index": 2,
+            "sentence_text": "The dose is 0.5 mg taken twice daily.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"dose\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "dose",
+            "sentence_index": 5,
+            "sentence_text": "A dose of 5 mg may cause serious harm.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "may",
+            "sentence_index": 5,
+            "sentence_text": "A dose of 5 mg may cause serious harm.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 25,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "is affected",
+            "sentence_index": 6,
+            "sentence_text": "Version 1.5.0 is affected by this issue.",
+            "severity": "warning",
+            "start_char": 14,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "nominalization",
+            "end_char": 7,
+            "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+            "matched_text": "Version",
+            "sentence_index": 6,
+            "sentence_text": "Version 1.5.0 is affected by this issue.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 27,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "is unaffected",
+            "sentence_index": 7,
+            "sentence_text": "Version 1.5.1 is unaffected.",
+            "severity": "warning",
+            "start_char": 14,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"unaffected\" has 4 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "unaffected",
+            "sentence_index": 7,
+            "sentence_text": "Version 1.5.1 is unaffected.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"unaffected\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "nominalization",
+            "end_char": 7,
+            "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+            "matched_text": "Version",
+            "sentence_index": 7,
+            "sentence_text": "Version 1.5.1 is unaffected.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 45,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "are treated",
+            "sentence_index": 10,
+            "sentence_text": "Payments received after 17:00 GMT are treated as next-day.",
+            "severity": "warning",
+            "start_char": 34,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 19,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "is at",
+            "sentence_index": 11,
+            "sentence_text": "Full guidance is at https://www.gov.uk/example-guidance/apply-online and",
+            "severity": "warning",
+            "start_char": 14,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "nominalization",
+            "end_char": 13,
+            "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+            "matched_text": "guidance",
+            "sentence_index": 11,
+            "sentence_text": "Full guidance is at https://www.gov.uk/example-guidance/apply-online and",
+            "severity": "info",
+            "start_char": 5,
+            "suggestion": "\"guidance\" is a nominalization. Consider using the verb \"guide\" instead to make the sentence more direct."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"enquiries\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "enquiries",
+            "sentence_index": 12,
+            "sentence_text": "enquiries should go to casework.team@example.gov.uk.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"enquiries\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "applicants",
+            "sentence_index": 13,
+            "sentence_text": "Applicants shall provide evidence of residence.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "provide",
+            "sentence_index": 13,
+            "sentence_text": "Applicants shall provide evidence of residence.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"give\" instead. Direct."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"residence\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "residence",
+            "sentence_index": 13,
+            "sentence_text": "Applicants shall provide evidence of residence.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"residence\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"shall\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "shall",
+            "sentence_index": 13,
+            "sentence_text": "Applicants shall provide evidence of residence.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"shall\" is a legal term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "applicants",
+            "sentence_index": 14,
+            "sentence_text": "Applicants may provide a utility",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"utility\" has 4 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "utility",
+            "sentence_index": 14,
+            "sentence_text": "Applicants may provide a utility",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"utility\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "provide",
+            "sentence_index": 14,
+            "sentence_text": "Applicants may provide a utility",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"give\" instead. Direct."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "may",
+            "sentence_index": 14,
+            "sentence_text": "Applicants may provide a utility",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "hidden_verb",
+            "end_char": 32,
+            "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
+            "matched_text": "provide a utility",
+            "sentence_index": 14,
+            "sentence_text": "Applicants may provide a utility",
+            "severity": "info",
+            "start_char": 15,
+            "suggestion": "Consider using \"utility\" instead of \"provide a utility\". This makes the action more direct."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "applicants",
+            "sentence_index": 16,
+            "sentence_text": "Applicants shall not provide originals.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"originals\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "originals",
+            "sentence_index": 16,
+            "sentence_text": "Applicants shall not provide originals.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"originals\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "provide",
+            "sentence_index": 16,
+            "sentence_text": "Applicants shall not provide originals.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"give\" instead. Direct."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"shall\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "shall",
+            "sentence_index": 16,
+            "sentence_text": "Applicants shall not provide originals.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"shall\" is a legal term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 28,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "is at",
+            "sentence_index": 17,
+            "sentence_text": "The configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and",
+            "severity": "warning",
+            "start_char": 23,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"configuration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "configuration",
+            "sentence_index": 17,
+            "sentence_text": "The configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"setup\" instead. A simpler word is available."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"programdata\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "programdata",
+            "sentence_index": 17,
+            "sentence_text": "The configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"programdata\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"etc\" has 4 syllables and 3 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "etc",
+            "sentence_index": 18,
+            "sentence_text": "/etc/example/config.ini on Linux.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"etc\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"reference\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "reference",
+            "sentence_index": 20,
+            "sentence_text": "Your reference number is HB-2026-004417.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"reference\" has 2 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 45,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "are decided",
+            "sentence_index": 21,
+            "sentence_text": "Approximately 68% of applications are decided within 15 working days.",
+            "severity": "warning",
+            "start_char": 34,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"approximately\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "approximately",
+            "sentence_index": 21,
+            "sentence_text": "Approximately 68% of applications are decided within 15 working days.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"about\" instead. Precision is rarely lost with 'about'."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"applications\" has 4 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "applications",
+            "sentence_index": 21,
+            "sentence_text": "Approximately 68% of applications are decided within 15 working days.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"applications\" has 4 syllables. Is there a simpler word you could use?"
+          }
+        ],
+        "critical_count": 0,
+        "info_count": 16,
+        "original_text": "You must apply before 31 March 2027. You must not apply more than once.\n\nThe dose is 0.5 mg taken twice daily. Do not exceed 2.5 mg in any 24-hour\nperiod. A dose of 5 mg may cause serious harm.\n\nVersion 1.5.0 is affected by this issue. Version 1.5.1 is unaffected.\n\nThe fee is £1,250.00 plus VAT at 20%, payable to Account 12345678, sort code\n20-00-00. Payments received after 17:00 GMT are treated as next-day.\n\nFull guidance is at https://www.gov.uk/example-guidance/apply-online and\nenquiries should go to casework.team@example.gov.uk.\n\nApplicants shall provide evidence of residence. Applicants may provide a utility\nbill. Applicants shall not provide originals.\n\nThe configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and\n/etc/example/config.ini on Linux.\n\nThe checksum is 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08.\nYour reference number is HB-2026-004417.\n\nApproximately 68% of applications are decided within 15 working days.\n",
+        "sentences": [
+          "You must apply before 31 March 2027.",
+          "You must not apply more than once.",
+          "The dose is 0.5 mg taken twice daily.",
+          "Do not exceed 2.5 mg in any 24-hour",
+          "period.",
+          "A dose of 5 mg may cause serious harm.",
+          "Version 1.5.0 is affected by this issue.",
+          "Version 1.5.1 is unaffected.",
+          "The fee is £1,250.00 plus VAT at 20%, payable to Account 12345678, sort code",
+          "20-00-00.",
+          "Payments received after 17:00 GMT are treated as next-day.",
+          "Full guidance is at https://www.gov.uk/example-guidance/apply-online and",
+          "enquiries should go to casework.team@example.gov.uk.",
+          "Applicants shall provide evidence of residence.",
+          "Applicants may provide a utility",
+          "bill.",
+          "Applicants shall not provide originals.",
+          "The configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and",
+          "/etc/example/config.ini on Linux.",
+          "The checksum is 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08.",
+          "Your reference number is HB-2026-004417.",
+          "Approximately 68% of applications are decided within 15 working days."
+        ],
+        "summary": "Found 33 readability issue(s) across 22 sentence(s): 17 warning(s), 16 suggestion(s).",
+        "total_barriers": 33,
+        "warning_count": 17
+      },
+      "simplified_text": "You must apply before 31 March 2027. You must not apply more than once.\n\nThe dose is 0.5 mg taken twice daily. Do not exceed 2.5 mg in any 24-hour\nperiod. A dose of 5 mg may cause serious harm.\n\nVersion 1.5.0 is affected by this issue. Version 1.5.1 is unaffected.\n\nThe fee is £1,250.00 plus VAT at 20%, payable to Account 12345678, sort code\n20-00-00. Payments received after 17:00 GMT are treated as next-day.\n\nFull guidance is at https://www.gov.uk/example-guidance/apply-online and\nenquiries should go to casework.team@example.gov.uk.\n\nApplicants **must** **give** evidence of residence. Applicants may **give** a utility\nbill. Applicants **must** not **give** originals.\n\nThe **setup** file is at C:\\ProgramData\\Example\\config.ini on Windows and\n/etc/example/config.ini on Linux.\n\nThe checksum is 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08.\nYour reference number is HB-2026-004417.\n\n**about** 68% of applications are decided within 15 working days.\n",
+      "top_improvements": [
+        {
+          "action": "Consider replacing with: \"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first use.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'dose'",
+          "location": "Sentence 3",
+          "priority": "high"
+        },
+        {
+          "action": "Consider replacing with: \"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first use.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'dose'",
+          "location": "Sentence 6",
+          "priority": "high"
+        },
+        {
+          "action": "Consider replacing with: \"shall\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'shall'",
+          "location": "Sentence 14",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'applicants')",
+          "location": "Sentence 14",
+          "priority": "consider"
+        },
+        {
+          "action": "Consider replacing with: \"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'may'",
+          "location": "Sentence 15",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'applicants')",
+          "location": "Sentence 15",
+          "priority": "consider"
+        },
+        {
+          "action": "Consider replacing with: \"shall\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'shall'",
+          "location": "Sentence 17",
+          "priority": "high"
+        }
+      ]
+    }
+  }
+}

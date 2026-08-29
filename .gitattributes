@@ -3,9 +3,12 @@
 # and CRLF drift in fixtures would silently break it.
 * text=auto eol=lf
 
-# Fixtures and corpora are byte-significant: never let git rewrite them.
-tests/fixtures/**  -text
-corpora/**         -text
+# Fixtures, goldens and corpora are byte-significant: the seal hashes their
+# exact bytes, so git must never rewrite a line ending inside them.
+tests/characterisation/corpus/**   -text
+tests/characterisation/formats/**  -text
+tests/characterisation/golden/**   -text
+corpora/**                         -text
 
 # Binary document formats.
 *.docx binary

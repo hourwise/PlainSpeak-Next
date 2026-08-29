@@ -1,0 +1,48 @@
+{
+  "<missing file>": {
+    "error_type": "FileNotFoundError",
+    "outcome": "error"
+  },
+  "sample.docx": {
+    "chars": 231,
+    "kind": "Word document",
+    "outcome": "read",
+    "sha256": "ecc4d0e5b8fd2c78b0a71d7e8667e10df2579a670c2b72b678902b0cf01e9506",
+    "text": "Sample document\n\nAn introductory paragraph with bold, italic and a link.\n\nRequirements\n\nYou must provide evidence.\n\nYou may provide a utility bill.\n\nA quoted passage that should not be rewritten.\n\nA closing paragraph. It ends here."
+  },
+  "sample.html": {
+    "chars": 223,
+    "kind": "HTML",
+    "outcome": "read",
+    "sha256": "fcc0f3c45f81a346a88c7a2738af619b03cf06dab53013e82bf7b4a608a3f739",
+    "text": "Sample HTML\n\n  An introductory paragraph with bold and a\n     link.\n\n  \n    You must provide evidence.\n\n    You may provide a utility bill.\n\n  \n  A quoted passage.\n  value = compute(0.5)\n  A closing paragraph. It ends here."
+  },
+  "sample.md": {
+    "chars": 399,
+    "kind": "plain text",
+    "outcome": "read",
+    "sha256": "540b450121bbefe9b81b8e19b3dcd85d5e6c0a62fe2f6ee0df5523b8784ce58f",
+    "text": "# Sample document\n\nAn introductory paragraph with **bold**, *italic* and a [link](https://example.org/guidance).\n\n## Requirements\n\n- You must provide evidence.\n- You may provide a utility bill.\n\n> A quoted passage that should not be rewritten.\n\n```python\nvalue = compute(0.5)  # code must never be treated as prose\n```\n\n| Field | Value |\n|---|---|\n| Fee | £250 |\n\nA closing paragraph. It ends here.\n"
+  },
+  "sample.pdf": {
+    "chars": 226,
+    "kind": "PDF",
+    "outcome": "read",
+    "sha256": "12d343a5b42b0f8abce65c4cc3cf6e617cf6b1bd545a85399bbd0fe23bb837fc",
+    "text": "Sample document\nAn introductory paragraph with bold, italic and a link.\nRequirements\nYou must provide evidence.\nYou may provide a utility bill.\nA quoted passage that should not be rewritten.\nA closing paragraph. It ends here.\n"
+  },
+  "sample.rtf": {
+    "chars": 31,
+    "kind": "plain text (unknown extension)",
+    "outcome": "read",
+    "sha256": "75c138f782982c8be50bb074af6db30a72a8ee5ef75f46f2677b41d37b098c97",
+    "text": "Unsupported extension content.\n"
+  },
+  "sample.txt": {
+    "chars": 96,
+    "kind": "plain text",
+    "outcome": "read",
+    "sha256": "f7ff2e2f0adec3312509746a479d8a4a915c40802bb506e5e866343a8abd8db4",
+    "text": "Plain text sample.\n\nThe committee was convened on 3 March 2026. It must report by 30 June 2026.\n"
+  }
+}

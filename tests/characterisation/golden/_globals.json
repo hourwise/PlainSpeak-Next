@@ -1,0 +1,713 @@
+{
+  "barrier_metadata": {
+    "complex_word": {
+      "confidence": "medium",
+      "label": "Complex word",
+      "priority": "consider"
+    },
+    "hidden_verb": {
+      "confidence": "uncertain",
+      "label": "Hidden verb",
+      "priority": "consider"
+    },
+    "jargon": {
+      "confidence": "medium",
+      "label": "Jargon or formal language",
+      "priority": "high"
+    },
+    "long_sentence": {
+      "confidence": "high",
+      "label": "Long sentence",
+      "priority": "high"
+    },
+    "nominalization": {
+      "confidence": "medium",
+      "label": "Nominalization",
+      "priority": "consider"
+    },
+    "passive_voice": {
+      "confidence": "medium",
+      "label": "Passive voice",
+      "priority": "consider"
+    },
+    "redundant_pair": {
+      "confidence": "medium",
+      "label": "Redundant word pair",
+      "priority": "info"
+    },
+    "unknown_type": {
+      "confidence": "medium",
+      "label": "Unknown Type",
+      "priority": "consider"
+    }
+  },
+  "data": {
+    "abbreviations": [
+      "a.d",
+      "a.m",
+      "adm",
+      "admin",
+      "aia",
+      "ak",
+      "al",
+      "am",
+      "approx",
+      "appt",
+      "apr",
+      "apt",
+      "ar",
+      "art",
+      "arts",
+      "assn",
+      "assoc",
+      "aug",
+      "ave",
+      "az",
+      "b.c",
+      "b.c.e",
+      "ba",
+      "bg",
+      "bldg",
+      "blvd",
+      "br",
+      "bros",
+      "bs",
+      "c.e",
+      "ca",
+      "capt",
+      "cf",
+      "cfa",
+      "ch",
+      "cm",
+      "cmdr",
+      "co",
+      "col",
+      "comdr",
+      "corp",
+      "cpa",
+      "cpl",
+      "cpt",
+      "ct",
+      "cu",
+      "dds",
+      "de",
+      "dec",
+      "dept",
+      "div",
+      "dr",
+      "dvm",
+      "e.g",
+      "e.u",
+      "ed",
+      "edd",
+      "eds",
+      "eq",
+      "eqs",
+      "esq",
+      "est",
+      "et al",
+      "et seq",
+      "etc",
+      "ext",
+      "fax",
+      "feb",
+      "fig",
+      "figs",
+      "fl",
+      "fl oz",
+      "fr",
+      "ft",
+      "ga",
+      "gal",
+      "gen",
+      "gov",
+      "hi",
+      "hon",
+      "hrh",
+      "hz",
+      "i.e",
+      "ia",
+      "ibid",
+      "id",
+      "il",
+      "in",
+      "inc",
+      "inst",
+      "jan",
+      "jd",
+      "jr",
+      "jul",
+      "jun",
+      "kg",
+      "khz",
+      "km",
+      "kph",
+      "ks",
+      "kw",
+      "ky",
+      "l",
+      "la",
+      "lb",
+      "lbs",
+      "lg",
+      "llb",
+      "llc",
+      "llm",
+      "llp",
+      "loc cit",
+      "lt",
+      "ltcol",
+      "ltd",
+      "m",
+      "ma",
+      "madam",
+      "maj",
+      "mar",
+      "mba",
+      "md",
+      "me",
+      "mfa",
+      "mg",
+      "mgr",
+      "mi",
+      "miss",
+      "ml",
+      "mm",
+      "mn",
+      "mo",
+      "mpa",
+      "mph",
+      "mr",
+      "mrs",
+      "ms",
+      "mt",
+      "mw",
+      "mx",
+      "n.b",
+      "n.z",
+      "nc",
+      "nd",
+      "ne",
+      "nh",
+      "nj",
+      "nm",
+      "no",
+      "nos",
+      "nov",
+      "nv",
+      "ny",
+      "oct",
+      "oh",
+      "ok",
+      "op cit",
+      "or",
+      "org",
+      "oz",
+      "p",
+      "p.m",
+      "pa",
+      "para",
+      "paras",
+      "pe",
+      "pfc",
+      "ph",
+      "ph.d",
+      "phd",
+      "plc",
+      "pm",
+      "po",
+      "pp",
+      "prof",
+      "psi",
+      "psyd",
+      "pt",
+      "pty",
+      "q.v",
+      "qt",
+      "ra",
+      "rd",
+      "ref",
+      "refs",
+      "reg",
+      "regs",
+      "rev",
+      "ri",
+      "rn",
+      "rpm",
+      "s.v",
+      "sc",
+      "sch",
+      "sched",
+      "sd",
+      "sec",
+      "secs",
+      "sep",
+      "sept",
+      "sgt",
+      "sir",
+      "soc",
+      "sq",
+      "sr",
+      "st",
+      "tel",
+      "temp",
+      "th",
+      "tn",
+      "tx",
+      "u.a.e",
+      "u.k",
+      "u.s",
+      "u.s.a",
+      "univ",
+      "ut",
+      "v",
+      "va",
+      "viz",
+      "vol",
+      "vols",
+      "vs",
+      "vt",
+      "w",
+      "wa",
+      "wi",
+      "wv",
+      "wy",
+      "yd"
+    ],
+    "glossary": {
+      "first_key": "ab initio",
+      "last_key": "yield",
+      "sample": {
+        "ab initio": [
+          "from the start",
+          "Latin phrase — translate to English."
+        ],
+        "accordingly": [
+          "so",
+          "A shorter, more direct word."
+        ],
+        "accrual": [
+          "buildup",
+          "Explain as 'amount built up over time'."
+        ],
+        "act of god": [
+          "natural disaster",
+          "An event outside human control — like a flood or earthquake."
+        ],
+        "actuarial": [
+          "statistical risk",
+          "Based on statistical calculation of risk."
+        ]
+      },
+      "sha256": "6f46eb799e64f85b1b400d24a38c820d6d7ea5eba89d10de25d2cb953b1ab5f1",
+      "size": 608
+    },
+    "max_credible_grade": 25.0,
+    "min_credible_grade": 0.0,
+    "protected_terms": {
+      "accrue": "financial",
+      "acute": "medical",
+      "administer": "medical",
+      "adverse": "medical",
+      "chronic": "medical",
+      "consideration": "legal",
+      "construe": "legal",
+      "contraindicated": "medical",
+      "covenant": "legal",
+      "damages": "legal",
+      "deemed": "legal",
+      "default": "financial",
+      "dosage": "medical",
+      "dose": "medical",
+      "estate": "legal",
+      "execute": "legal",
+      "expired": "medical",
+      "forthwith": "legal",
+      "frank": "medical",
+      "gross": "medical",
+      "guarded": "medical",
+      "hereby": "legal",
+      "herein": "legal",
+      "heretofore": "legal",
+      "hereunder": "legal",
+      "indemnify": "legal",
+      "indicated": "medical",
+      "instrument": "legal",
+      "interest": "financial",
+      "labile": "medical",
+      "liable": "legal",
+      "material": "legal",
+      "maturity": "financial",
+      "may": "legal",
+      "medication": "medical",
+      "negative": "medical",
+      "negligence": "legal",
+      "notice": "legal",
+      "notwithstanding": "legal",
+      "occult": "medical",
+      "party": "legal",
+      "positive": "medical",
+      "prejudice": "legal",
+      "principal": "financial",
+      "provision": "legal",
+      "refractory": "medical",
+      "remedy": "legal",
+      "securities": "financial",
+      "serve": "legal",
+      "shall": "legal",
+      "significant": "medical",
+      "stable": "medical",
+      "thereby": "legal",
+      "thereof": "legal",
+      "thereto": "legal",
+      "thereunder": "legal",
+      "titrate": "medical",
+      "waive": "legal",
+      "warrant": "legal"
+    },
+    "simple_word_map": {
+      "first_key": "accomplish",
+      "last_key": "visualize",
+      "sample": {
+        "accomplish": "do",
+        "accordingly": "so",
+        "accrue": "build up",
+        "acquiesce": "agree",
+        "acquire": "get"
+      },
+      "sha256": "0222c9034d0fc03cbfd23e9e48790ef93b4ca6b6c87b7f0327677a0fc63a0ff6",
+      "size": 153
+    }
+  },
+  "difficulty_bands": {
+    "-5": {
+      "band": "Very Easy",
+      "explanation": "Text at this level uses very short sentences and common words. It should be accessible to almost all adult readers, including those with lower literacy, non-native speakers, and people with cognitive disabilities. This is the target level for essential public information.",
+      "label": "Very easy (approximately early primary level)"
+    },
+    "0": {
+      "band": "Very Easy",
+      "explanation": "Text at this level uses very short sentences and common words. It should be accessible to almost all adult readers, including those with lower literacy, non-native speakers, and people with cognitive disabilities. This is the target level for essential public information.",
+      "label": "Very easy (approximately early primary level)"
+    },
+    "12": {
+      "band": "Fairly Difficult",
+      "explanation": "Text at this level requires a secondary-school reading ability. It is likely to exclude a significant portion of the general public. If this text is intended for a broad audience, substantial revision is recommended.",
+      "label": "Fairly difficult (approximately upper secondary level)"
+    },
+    "16": {
+      "band": "Difficult",
+      "explanation": "Text at this level is comparable to undergraduate textbooks and academic writing. It assumes significant reading skill and subject knowledge. Only appropriate for specialist or professional audiences. For general-public use, this text needs major simplification.",
+      "label": "Difficult (undergraduate university level)"
+    },
+    "20": {
+      "band": "Very Difficult",
+      "explanation": "Text at this level is comparable to graduate-level academic or professional writing. It is inaccessible to the majority of adults. If this text is intended for anyone other than subject-matter specialists, it requires fundamental rewriting. Even for specialist audiences, consider whether complexity is serving communication or habit.",
+      "label": "Very difficult (graduate/professional level)"
+    },
+    "25": {
+      "band": "Very Difficult",
+      "explanation": "Text at this level is comparable to graduate-level academic or professional writing. It is inaccessible to the majority of adults. If this text is intended for anyone other than subject-matter specialists, it requires fundamental rewriting. Even for specialist audiences, consider whether complexity is serving communication or habit.",
+      "label": "Very difficult (graduate/professional level)"
+    },
+    "3": {
+      "band": "Very Easy",
+      "explanation": "Text at this level uses very short sentences and common words. It should be accessible to almost all adult readers, including those with lower literacy, non-native speakers, and people with cognitive disabilities. This is the target level for essential public information.",
+      "label": "Very easy (approximately early primary level)"
+    },
+    "40": {
+      "band": "Very Difficult",
+      "explanation": "Text at this level is comparable to graduate-level academic or professional writing. It is inaccessible to the majority of adults. If this text is intended for anyone other than subject-matter specialists, it requires fundamental rewriting. Even for specialist audiences, consider whether complexity is serving communication or habit.",
+      "label": "Very difficult (graduate/professional level)"
+    },
+    "6": {
+      "band": "Easy",
+      "explanation": "Text at this level uses mostly short sentences and common words. It should be accessible to most adult readers. This is a good target for public-facing information, patient leaflets, and consumer communications.",
+      "label": "Easy (approximately upper primary level)"
+    },
+    "9": {
+      "band": "Standard",
+      "explanation": "Text at this level is typical of newspapers and general-interest writing. It may be challenging for readers with lower literacy, some non-native speakers, and people with cognitive fatigue. For public-service communication, consider simplification.",
+      "label": "Standard (approximately mid-secondary level)"
+    }
+  },
+  "flesch_descriptions": {
+    "-50": "Score out of range.",
+    "0": "Very difficult — university graduate level.",
+    "100": "Very easy — understood by an average 11-year-old.",
+    "120": "Very easy — understood by an average 11-year-old.",
+    "30": "Difficult — best understood by college graduates.",
+    "50": "Fairly difficult — some high school education helpful.",
+    "60": "Standard — understood by 13-15 year olds.",
+    "70": "Fairly easy — plain English suitable for general audience.",
+    "80": "Easy — conversational English.",
+    "90": "Very easy — understood by an average 11-year-old."
+  },
+  "glossary_matches": {
+    "": null,
+    "UTILISE": [
+      "use",
+      "The most common plain-language swap."
+    ],
+    "Utilise": [
+      "use",
+      "The most common plain-language swap."
+    ],
+    "aforementioned": [
+      "this",
+      "Archaic language creates distance from the reader."
+    ],
+    "cat": null,
+    "commence": [
+      "start",
+      "One of the most common plain-language substitutions."
+    ],
+    "consent": null,
+    "consideration": null,
+    "endeavour": [
+      "try",
+      "A simpler word is available."
+    ],
+    "heretofore": null,
+    "negligence": null,
+    "notwithstanding": null,
+    "prognosis": [
+      "outlook",
+      "The concept in plain language."
+    ],
+    "purchase": [
+      "buy",
+      "The word people actually say."
+    ],
+    "pursuant": null,
+    "remand": null,
+    "terminate": [
+      "end",
+      "A shorter, more direct word."
+    ],
+    "the": null,
+    "utilise": [
+      "use",
+      "The most common plain-language swap."
+    ],
+    "utilize": [
+      "use",
+      "The most common plain-language swap."
+    ]
+  },
+  "grade_descriptions": {
+    "0": "Very easy to read (approximately Grade 1 level or below)",
+    "12": "Difficult (approximately Grades 11-12)",
+    "17": "Extremely difficult (graduate/professional level)",
+    "30": "Extremely difficult (graduate/professional level)",
+    "5": "Fairly easy to read (approximately Grades 4-6)",
+    "8": "Plain English (approximately Grades 7-8). Suitable for general public."
+  },
+  "grammar": {
+    "": {
+      "fix_articles": "",
+      "fix_capitalization": "",
+      "post_process_simplified": ""
+    },
+    "a MP was elected": {
+      "fix_articles": "a MP was elected",
+      "fix_capitalization": "A MP was elected",
+      "post_process_simplified": "A MP was elected"
+    },
+    "a apple a day": {
+      "fix_articles": "an apple a day",
+      "fix_capitalization": "A apple a day",
+      "post_process_simplified": "An apple a day"
+    },
+    "a honest mistake": {
+      "fix_articles": "an honest mistake",
+      "fix_capitalization": "A honest mistake",
+      "post_process_simplified": "An honest mistake"
+    },
+    "a hour ago": {
+      "fix_articles": "an hour ago",
+      "fix_capitalization": "A hour ago",
+      "post_process_simplified": "An hour ago"
+    },
+    "a unique opportunity": {
+      "fix_articles": "a unique opportunity",
+      "fix_capitalization": "A unique opportunity",
+      "post_process_simplified": "A unique opportunity"
+    },
+    "an FBI agent": {
+      "fix_articles": "a FBI agent",
+      "fix_capitalization": "An FBI agent",
+      "post_process_simplified": "A FBI agent"
+    },
+    "an one-off payment": {
+      "fix_articles": "an one-off payment",
+      "fix_capitalization": "An one-off payment",
+      "post_process_simplified": "An one-off payment"
+    },
+    "an user account": {
+      "fix_articles": "a user account",
+      "fix_capitalization": "An user account",
+      "post_process_simplified": "A user account"
+    },
+    "first sentence. second sentence. third one": {
+      "fix_articles": "first sentence. second sentence. third one",
+      "fix_capitalization": "First sentence. Second sentence. Third one",
+      "post_process_simplified": "First sentence. Second sentence. Third one"
+    },
+    "i went to the shop. i came back": {
+      "fix_articles": "i went to the shop. i came back",
+      "fix_capitalization": "I went to the shop. I came back",
+      "post_process_simplified": "I went to the shop. I came back"
+    },
+    "the european union": {
+      "fix_articles": "the european union",
+      "fix_capitalization": "The european union",
+      "post_process_simplified": "The european union"
+    }
+  },
+  "protected_lookups": {
+    "": {
+      "domain": "",
+      "is_protected": false
+    },
+    "UTILISE": {
+      "domain": "",
+      "is_protected": false
+    },
+    "Utilise": {
+      "domain": "",
+      "is_protected": false
+    },
+    "aforementioned": {
+      "domain": "",
+      "is_protected": false
+    },
+    "cat": {
+      "domain": "",
+      "is_protected": false
+    },
+    "commence": {
+      "domain": "",
+      "is_protected": false
+    },
+    "consent": {
+      "domain": "",
+      "is_protected": false
+    },
+    "consideration": {
+      "domain": "legal",
+      "is_protected": true
+    },
+    "endeavour": {
+      "domain": "",
+      "is_protected": false
+    },
+    "heretofore": {
+      "domain": "legal",
+      "is_protected": true
+    },
+    "negligence": {
+      "domain": "legal",
+      "is_protected": true
+    },
+    "notwithstanding": {
+      "domain": "legal",
+      "is_protected": true
+    },
+    "prognosis": {
+      "domain": "",
+      "is_protected": false
+    },
+    "purchase": {
+      "domain": "",
+      "is_protected": false
+    },
+    "pursuant": {
+      "domain": "",
+      "is_protected": false
+    },
+    "remand": {
+      "domain": "",
+      "is_protected": false
+    },
+    "terminate": {
+      "domain": "",
+      "is_protected": false
+    },
+    "the": {
+      "domain": "",
+      "is_protected": false
+    },
+    "utilise": {
+      "domain": "",
+      "is_protected": false
+    },
+    "utilize": {
+      "domain": "",
+      "is_protected": false
+    }
+  },
+  "reader_extensions": {
+    ".doc": "Word document (legacy)",
+    ".docx": "Word document",
+    ".htm": "HTML document",
+    ".html": "HTML document",
+    ".log": "Log file",
+    ".md": "Markdown",
+    ".pdf": "PDF document",
+    ".rst": "reStructuredText",
+    ".text": "Plain text",
+    ".txt": "Plain text"
+  },
+  "stems": {
+    "": "",
+    "analysis": "analysis",
+    "applications": "applic",
+    "applied": "apply",
+    "applying": "apply",
+    "as": "as",
+    "bus": "bus",
+    "children": "children",
+    "companies": "company",
+    "considerations": "consider",
+    "damages": "damage",
+    "gas": "gas",
+    "is": "is",
+    "remands": "remand",
+    "running": "run",
+    "series": "series",
+    "stopped": "stop",
+    "utilised": "utilise",
+    "utilized": "utilize",
+    "was": "was"
+  },
+  "syllables": {
+    "": 0,
+    "1987": 0,
+    "COVID": 2,
+    "NASA": 2,
+    "a": 1,
+    "aforementioned": 4,
+    "apple": 2,
+    "beautiful": 3,
+    "business": 2,
+    "cat": 1,
+    "cholecystectomy": 6,
+    "co-operate": 0,
+    "consideration": 5,
+    "don't": 0,
+    "hyphen-ated": 0,
+    "laparoscopic": 4,
+    "notwithstanding": 4,
+    "o'clock": 0,
+    "queue": 1,
+    "readability": 5,
+    "rhythm": 2,
+    "science": 2,
+    "simple": 2,
+    "table": 2,
+    "the": 1,
+    "zzzzz": 1
+  },
+  "version": "0.3.0"
+}

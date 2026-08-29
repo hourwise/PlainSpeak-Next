@@ -1,0 +1,401 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 1.487815,
+        "avg_sentence_length": 5.769231,
+        "avg_syllables_per_word": 1.333333,
+        "avg_word_length": 4.253333,
+        "coleman_liau_index": null,
+        "consensus_grade_level": 3.881876,
+        "difficulty_band": "Easy",
+        "difficulty_band_explanation": "Text at this level uses mostly short sentences and common words. It should be accessible to most adult readers. This is a good target for public-facing information, patient leaflets, and consumer communications.",
+        "difficulty_band_label": "Easy (approximately upper primary level)",
+        "flesch_kincaid_grade": 2.393333,
+        "flesch_reading_ease": 88.179231,
+        "grade_warnings": [],
+        "gunning_fog_index": 4.974359,
+        "metric_count": 4,
+        "metric_spread": 5.184179,
+        "reading_level_description": "Easy (approximately upper primary level)",
+        "short_text_warning": "This text is very short. Readability formulas need at least 100 words and 3+ sentences to produce stable estimates. Treat these results as rough indicators, not precise measurements.",
+        "smog_index": 6.671995,
+        "total_complex_words": 5,
+        "total_long_words": 13,
+        "total_sentences": 13,
+        "total_syllables": 100,
+        "total_words": 75
+      },
+      "sentence_count": 13,
+      "sentences": [
+        "HOW TO APPLY",
+        "Read these notes before you start\n\n1. Collect your documents\n2. Fill in every section\n3. Sign and date the form",
+        "WHAT HAPPENS NEXT",
+        "- We check your form",
+        "- We may ask for more information",
+        "- We write to you with our decision",
+        "Contact us",
+        "Telephone 0300 123 4567",
+        "Monday to Friday, 9am to 5pm",
+        "A heading with no full stop",
+        "Some ordinary prose follows the heading, and this sentence does end with a full",
+        "stop.",
+        "So does this one."
+      ],
+      "word_count": 75,
+      "words_head": [
+        "how",
+        "to",
+        "apply",
+        "read",
+        "these",
+        "notes",
+        "before",
+        "you",
+        "start",
+        "collect",
+        "your",
+        "documents",
+        "fill",
+        "in",
+        "every",
+        "section",
+        "sign",
+        "and",
+        "date",
+        "the",
+        "form",
+        "what",
+        "happens",
+        "next",
+        "we",
+        "check",
+        "your",
+        "form",
+        "we",
+        "may",
+        "ask",
+        "for",
+        "more",
+        "information",
+        "we",
+        "write",
+        "to",
+        "you",
+        "with",
+        "our"
+      ],
+      "words_sha256": "9bd81434193bb2dfd653dcc5159b39895c7e8a5caa1248c88a859b87c8753cdb"
+    }
+  },
+  "input": {
+    "chars": 437,
+    "sha256": "2c56b2a18c9778752b9e11efd4b386b72db65bf0224761956469ea2943f9f052"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 3.9\n  Easy (approximately upper primary level)\n\n  Text Statistics:\n    Words:               75\n    Sentences:           13\n    Avg Sentence Length:  5.8 words\n    Avg Word Length:      4.3 characters\n    Complex Words (3+ syl): 5\n\n  Readability Scores:\n    Flesch Reading Ease:        88.2\n      Easy — conversational English.\n    Flesch-Kincaid Grade Level:  2.4\n    Gunning Fog Index:           5.0\n    SMOG Index:                  6.7\n    Automated Readability Index: 1.5\n\n  Found 5 readability issue(s) across 13 sentence(s): 2 warning(s), 3 suggestion(s).\n\n  Top issues:\n    [INFO] Complex Word: \"documents\"\n           -> \"documents\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"information\"\n           -> \"information\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Jargon / Formal Language: \"may\"\n           -> \"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.\n    [INFO] Complex Word: \"telephone\"\n           -> \"telephone\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"ordinary\"\n           -> \"ordinary\" has 4 syllables. Is there a simpler word you could use?\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 12663,
+      "html_sha256": "8e46a89e0544c5b387f3299062c5ad7b644f65e7831d297fbc5adf6622c06277",
+      "json_report": {
+        "consensus": {
+          "description": "Easy (approximately upper primary level)",
+          "grade_level": 3.9
+        },
+        "readability_scores": {
+          "automated_readability_index": 1.5,
+          "coleman_liau_index": null,
+          "flesch_kincaid_grade": 2.4,
+          "flesch_reading_ease": 88.2,
+          "gunning_fog_index": 5.0,
+          "smog_index": 6.7
+        },
+        "simplification": {
+          "barriers": [
+            {
+              "explanation": "\"documents\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "documents",
+              "sentence_context": "Read these notes before you start\n\n1. Collect your documents\n2. Fill in every section\n3. Sign and date the form",
+              "sentence_index": 1,
+              "severity": "info",
+              "suggestion": "\"documents\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"information\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "information",
+              "sentence_context": "- We may ask for more information",
+              "sentence_index": 4,
+              "severity": "warning",
+              "suggestion": "\"information\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "may",
+              "sentence_context": "- We may ask for more information",
+              "sentence_index": 4,
+              "severity": "info",
+              "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"telephone\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "telephone",
+              "sentence_context": "Telephone 0300 123 4567",
+              "sentence_index": 7,
+              "severity": "info",
+              "suggestion": "\"telephone\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"ordinary\" has 4 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "ordinary",
+              "sentence_context": "Some ordinary prose follows the heading, and this sentence does end with a full",
+              "sentence_index": 10,
+              "severity": "warning",
+              "suggestion": "\"ordinary\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "critical_count": 0,
+          "info_count": 3,
+          "summary": "Found 5 readability issue(s) across 13 sentence(s): 2 warning(s), 3 suggestion(s).",
+          "total_barriers": 5,
+          "warning_count": 2
+        },
+        "statistics": {
+          "avg_sentence_length": 5.77,
+          "avg_syllables_per_word": 1.33,
+          "avg_word_length": 4.25,
+          "total_complex_words": 5,
+          "total_long_words": 13,
+          "total_sentences": 13,
+          "total_syllables": 100,
+          "total_words": 75
+        },
+        "text_preview": "HOW TO APPLY\n\nRead these notes before you start\n\n1. Collect your documents\n2. Fill in every section\n3. Sign and date the form\n\nWHAT HAPPENS NEXT\n\n- We check your form\n- We may ask for more information\n- We write to you with our decision\n\nContact us\n\nTelephone 0300 123 4567\nMonday to Friday, 9am to 5pm\n\nA heading with no full stop\n\nSome ordinary prose follows the heading, and this sentence does end with a full\nstop. So does this one.\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "may",
+              "priority": "high",
+              "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"information\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "information",
+              "priority": "consider",
+              "suggestion": "\"information\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 4,
+          "sentence_text": "- We may ask for more information",
+          "total_issues": 2,
+          "unique_issue_types": 2,
+          "word_count": 7
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"documents\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "documents",
+              "priority": "consider",
+              "suggestion": "\"documents\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 1,
+          "sentence_text": "Read these notes before you start\n\n1. Collect your documents\n2. Fill in every section\n3. Sign and date the form",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 21
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"telephone\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "telephone",
+              "priority": "consider",
+              "suggestion": "\"telephone\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 7,
+          "sentence_text": "Telephone 0300 123 4567",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 4
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"ordinary\" has 4 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "ordinary",
+              "priority": "consider",
+              "suggestion": "\"ordinary\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 10,
+          "sentence_text": "Some ordinary prose follows the heading, and this sentence does end with a full",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 14
+        }
+      ],
+      "replacement_count": 0,
+      "result": {
+        "barriers": [
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"documents\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "documents",
+            "sentence_index": 1,
+            "sentence_text": "Read these notes before you start\n\n1. Collect your documents\n2. Fill in every section\n3. Sign and date the form",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"documents\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"information\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "information",
+            "sentence_index": 4,
+            "sentence_text": "- We may ask for more information",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"information\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "may",
+            "sentence_index": 4,
+            "sentence_text": "- We may ask for more information",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"telephone\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "telephone",
+            "sentence_index": 7,
+            "sentence_text": "Telephone 0300 123 4567",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"telephone\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"ordinary\" has 4 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "ordinary",
+            "sentence_index": 10,
+            "sentence_text": "Some ordinary prose follows the heading, and this sentence does end with a full",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"ordinary\" has 4 syllables. Is there a simpler word you could use?"
+          }
+        ],
+        "critical_count": 0,
+        "info_count": 3,
+        "original_text": "HOW TO APPLY\n\nRead these notes before you start\n\n1. Collect your documents\n2. Fill in every section\n3. Sign and date the form\n\nWHAT HAPPENS NEXT\n\n- We check your form\n- We may ask for more information\n- We write to you with our decision\n\nContact us\n\nTelephone 0300 123 4567\nMonday to Friday, 9am to 5pm\n\nA heading with no full stop\n\nSome ordinary prose follows the heading, and this sentence does end with a full\nstop. So does this one.\n",
+        "sentences": [
+          "HOW TO APPLY",
+          "Read these notes before you start\n\n1. Collect your documents\n2. Fill in every section\n3. Sign and date the form",
+          "WHAT HAPPENS NEXT",
+          "- We check your form",
+          "- We may ask for more information",
+          "- We write to you with our decision",
+          "Contact us",
+          "Telephone 0300 123 4567",
+          "Monday to Friday, 9am to 5pm",
+          "A heading with no full stop",
+          "Some ordinary prose follows the heading, and this sentence does end with a full",
+          "stop.",
+          "So does this one."
+        ],
+        "summary": "Found 5 readability issue(s) across 13 sentence(s): 2 warning(s), 3 suggestion(s).",
+        "total_barriers": 5,
+        "warning_count": 2
+      },
+      "simplified_text": "HOW TO APPLY\n\nRead these notes before you start\n\n1. Collect your documents\n2. Fill in every section\n3. Sign and date the form\n\nWHAT HAPPENS NEXT\n\n- We check your form\n- We may ask for more information\n- We write to you with our decision\n\nContact us\n\nTelephone 0300 123 4567\nMonday to Friday, 9am to 5pm\n\nA heading with no full stop\n\nSome ordinary prose follows the heading, and this sentence does end with a full\nstop. So does this one.\n",
+      "top_improvements": [
+        {
+          "action": "Consider replacing with: \"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'may'",
+          "location": "Sentence 5",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'information')",
+          "location": "Sentence 5",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'documents')",
+          "location": "Sentence 2",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'telephone')",
+          "location": "Sentence 8",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'ordinary')",
+          "location": "Sentence 11",
+          "priority": "consider"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1213 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 8.802799,
+        "avg_sentence_length": 8.833333,
+        "avg_syllables_per_word": 1.943396,
+        "avg_word_length": 5.481132,
+        "coleman_liau_index": 13.078113,
+        "consensus_grade_level": 11.830928,
+        "difficulty_band": "Fairly Difficult",
+        "difficulty_band_explanation": "Text at this level requires a secondary-school reading ability. It is likely to exclude a significant portion of the general public. If this text is intended for a broad audience, substantial revision is recommended.",
+        "difficulty_band_label": "Fairly difficult (approximately upper secondary level)",
+        "flesch_kincaid_grade": 10.787075,
+        "flesch_reading_ease": 33.457846,
+        "grade_warnings": [],
+        "gunning_fog_index": 14.47673,
+        "metric_count": 5,
+        "metric_spread": 5.673931,
+        "reading_level_description": "Fairly difficult (approximately upper secondary level)",
+        "short_text_warning": "This text is fairly short. Readability estimates may vary with small changes. For more reliable results, analyse a longer passage.",
+        "smog_index": 12.009925,
+        "total_complex_words": 29,
+        "total_long_words": 42,
+        "total_sentences": 12,
+        "total_syllables": 206,
+        "total_words": 106
+      },
+      "sentence_count": 12,
+      "sentences": [
+        "The court will remand the case for further consideration of the damages award.",
+        "Consideration is an essential element of any valid contract, and without it the",
+        "agreement fails.",
+        "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
+        "The patient presented with an acute abdomen and was admitted for observation.",
+        "Informed consent was obtained prior to the procedure.",
+        "The trustee holds the property subject to an equitable interest in favour of the",
+        "beneficiaries.",
+        "Consideration of the beneficiaries' interests must precede any distribution.",
+        "The security interest was perfected by filing.",
+        "The negligence claim was barred by",
+        "the statute of limitations."
+      ],
+      "word_count": 106,
+      "words_head": [
+        "the",
+        "court",
+        "will",
+        "remand",
+        "the",
+        "case",
+        "for",
+        "further",
+        "consideration",
+        "of",
+        "the",
+        "damages",
+        "award",
+        "consideration",
+        "is",
+        "an",
+        "essential",
+        "element",
+        "of",
+        "any",
+        "valid",
+        "contract",
+        "and",
+        "without",
+        "it",
+        "the",
+        "agreement",
+        "fails",
+        "the",
+        "defendant",
+        "filed",
+        "a",
+        "motion",
+        "for",
+        "summary",
+        "judgment",
+        "arguing",
+        "that",
+        "no",
+        "genuine"
+      ],
+      "words_sha256": "eda8e934d8b881ac5ab38db9ad8947c4c9991427c4492e76414acd71dc311270"
+    }
+  },
+  "input": {
+    "chars": 703,
+    "sha256": "153f7e5bc47d438bf40fb0f4dcab02e65f757e92b7395b909940bdde976ed5be"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 11.8\n  Fairly difficult (approximately upper secondary level)\n\n  Text Statistics:\n    Words:               106\n    Sentences:           12\n    Avg Sentence Length:  8.8 words\n    Avg Word Length:      5.5 characters\n    Complex Words (3+ syl): 29\n\n  Readability Scores:\n    Flesch Reading Ease:        33.5\n      Difficult — best understood by college graduates.\n    Flesch-Kincaid Grade Level:  10.8\n    Gunning Fog Index:           14.5\n    SMOG Index:                  12.0\n    Automated Readability Index: 8.8\n    Coleman-Liau Index:          13.1\n\n  Found 32 readability issue(s) across 12 sentence(s): 16 warning(s), 16 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"consideration\"\n           -> \"consideration\" has 5 syllables. Is there a simpler word you could use?\n    [INFO] Jargon / Formal Language: \"damages\"\n           -> \"damages\" is a legal term of art with specific meaning. Consider defining or explaining it on first \n    [WARNING] Complex Word: \"consideration\"\n           -> \"consideration\" has 5 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"essential\"\n           -> \"essential\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"agreement\"\n           -> \"agreement\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"material\"\n           -> \"material\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"defendant\"\n           -> \"defendant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Nominalization: \"motion\"\n           -> \"motion\" is a nominalization. Consider using the verb \"moe\" instead to make the sentence more direct\n    [INFO] Jargon / Formal Language: \"material fact\"\n           -> \"material fact\" is a domain term of art. Consider defining or explaining it on first use rather than\n    [WARNING] Passive Voice: \"was admitted\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    ... and 22 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 31460,
+      "html_sha256": "766d01dc00859fc3f9ca3667ca521ffd02f9d1dbbeccb03f8bed6ae71a51b3af",
+      "json_report": {
+        "consensus": {
+          "description": "Fairly difficult (approximately upper secondary level)",
+          "grade_level": 11.8
+        },
+        "readability_scores": {
+          "automated_readability_index": 8.8,
+          "coleman_liau_index": 13.1,
+          "flesch_kincaid_grade": 10.8,
+          "flesch_reading_ease": 33.5,
+          "gunning_fog_index": 14.5,
+          "smog_index": 12.0
+        },
+        "simplification": {
+          "barriers": [
+            {
+              "explanation": "\"consideration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "consideration",
+              "sentence_context": "The court will remand the case for further consideration of the damages award.",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "\"consideration\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"damages\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "damages",
+              "sentence_context": "The court will remand the case for further consideration of the damages award.",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "\"damages\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"consideration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "consideration",
+              "sentence_context": "Consideration is an essential element of any valid contract, and without it the",
+              "sentence_index": 1,
+              "severity": "warning",
+              "suggestion": "\"consideration\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"essential\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "essential",
+              "sentence_context": "Consideration is an essential element of any valid contract, and without it the",
+              "sentence_index": 1,
+              "severity": "info",
+              "suggestion": "\"essential\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"agreement\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "agreement",
+              "sentence_context": "agreement fails.",
+              "sentence_index": 2,
+              "severity": "info",
+              "suggestion": "\"agreement\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"material\" has 4 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "material",
+              "sentence_context": "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
+              "sentence_index": 3,
+              "severity": "warning",
+              "suggestion": "\"material\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"defendant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "defendant",
+              "sentence_context": "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
+              "sentence_index": 3,
+              "severity": "info",
+              "suggestion": "\"defendant\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "matched_text": "motion",
+              "sentence_context": "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
+              "sentence_index": 3,
+              "severity": "info",
+              "suggestion": "\"motion\" is a nominalization. Consider using the verb \"moe\" instead to make the sentence more direct.",
+              "type": "nominalization"
+            },
+            {
+              "explanation": "\"material fact\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "matched_text": "material fact",
+              "sentence_context": "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
+              "sentence_index": 3,
+              "severity": "info",
+              "suggestion": "\"material fact\" is a domain term of art. Consider defining or explaining it on first use rather than replacing it.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "was admitted",
+              "sentence_context": "The patient presented with an acute abdomen and was admitted for observation.",
+              "sentence_index": 4,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"observation\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "observation",
+              "sentence_context": "The patient presented with an acute abdomen and was admitted for observation.",
+              "sentence_index": 4,
+              "severity": "warning",
+              "suggestion": "\"observation\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"presented\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "presented",
+              "sentence_context": "The patient presented with an acute abdomen and was admitted for observation.",
+              "sentence_index": 4,
+              "severity": "info",
+              "suggestion": "\"presented\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"acute\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "acute",
+              "sentence_context": "The patient presented with an acute abdomen and was admitted for observation.",
+              "sentence_index": 4,
+              "severity": "info",
+              "suggestion": "\"acute\" is a medical term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "was obtained",
+              "sentence_context": "Informed consent was obtained prior to the procedure.",
+              "sentence_index": 5,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"obtained\" has 2 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "obtained",
+              "sentence_context": "Informed consent was obtained prior to the procedure.",
+              "sentence_index": 5,
+              "severity": "info",
+              "suggestion": "Consider using \"get\" instead. The simplest word.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"procedure\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "procedure",
+              "sentence_context": "Informed consent was obtained prior to the procedure.",
+              "sentence_index": 5,
+              "severity": "info",
+              "suggestion": "\"procedure\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"prior to\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "matched_text": "prior to",
+              "sentence_context": "Informed consent was obtained prior to the procedure.",
+              "sentence_index": 5,
+              "severity": "info",
+              "suggestion": "Consider using \"before\" instead. Two words to one.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"equitable\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "equitable",
+              "sentence_context": "The trustee holds the property subject to an equitable interest in favour of the",
+              "sentence_index": 6,
+              "severity": "warning",
+              "suggestion": "\"equitable\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"interest\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "interest",
+              "sentence_context": "The trustee holds the property subject to an equitable interest in favour of the",
+              "sentence_index": 6,
+              "severity": "info",
+              "suggestion": "\"interest\" is a financial term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"beneficiaries\" has 6 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "beneficiaries",
+              "sentence_context": "beneficiaries.",
+              "sentence_index": 7,
+              "severity": "warning",
+              "suggestion": "Consider using \"person who receives the benefit\" instead. The person named to receive money or benefits.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"consideration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "consideration",
+              "sentence_context": "Consideration of the beneficiaries' interests must precede any distribution.",
+              "sentence_index": 8,
+              "severity": "warning",
+              "suggestion": "\"consideration\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"beneficiaries\" has 6 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "beneficiaries",
+              "sentence_context": "Consideration of the beneficiaries' interests must precede any distribution.",
+              "sentence_index": 8,
+              "severity": "warning",
+              "suggestion": "Consider using \"person who receives the benefit\" instead. The person named to receive money or benefits.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"distribution\" has 4 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "distribution",
+              "sentence_context": "Consideration of the beneficiaries' interests must precede any distribution.",
+              "sentence_index": 8,
+              "severity": "warning",
+              "suggestion": "\"distribution\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"interests\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "interests",
+              "sentence_context": "Consideration of the beneficiaries' interests must precede any distribution.",
+              "sentence_index": 8,
+              "severity": "info",
+              "suggestion": "\"interests\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "was perfected",
+              "sentence_context": "The security interest was perfected by filing.",
+              "sentence_index": 9,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"security\" has 4 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "security",
+              "sentence_context": "The security interest was perfected by filing.",
+              "sentence_index": 9,
+              "severity": "warning",
+              "suggestion": "\"security\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"perfected\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "perfected",
+              "sentence_context": "The security interest was perfected by filing.",
+              "sentence_index": 9,
+              "severity": "info",
+              "suggestion": "\"perfected\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"interest\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "interest",
+              "sentence_context": "The security interest was perfected by filing.",
+              "sentence_index": 9,
+              "severity": "info",
+              "suggestion": "\"interest\" is a financial term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "was barred",
+              "sentence_context": "The negligence claim was barred by",
+              "sentence_index": 10,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"negligence\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "negligence",
+              "sentence_context": "The negligence claim was barred by",
+              "sentence_index": 10,
+              "severity": "warning",
+              "suggestion": "\"negligence\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"limitations\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "limitations",
+              "sentence_context": "the statute of limitations.",
+              "sentence_index": 11,
+              "severity": "warning",
+              "suggestion": "\"limitations\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"statute\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "statute",
+              "sentence_context": "the statute of limitations.",
+              "sentence_index": 11,
+              "severity": "info",
+              "suggestion": "Consider using \"law\" instead. The simpler term.",
+              "type": "complex_word"
+            }
+          ],
+          "critical_count": 0,
+          "info_count": 16,
+          "summary": "Found 32 readability issue(s) across 12 sentence(s): 16 warning(s), 16 suggestion(s).",
+          "total_barriers": 32,
+          "warning_count": 16
+        },
+        "statistics": {
+          "avg_sentence_length": 8.83,
+          "avg_syllables_per_word": 1.94,
+          "avg_word_length": 5.48,
+          "total_complex_words": 29,
+          "total_long_words": 42,
+          "total_sentences": 12,
+          "total_syllables": 206,
+          "total_words": 106
+        },
+        "text_preview": "The court will remand the case for further consideration of the damages award.\n\nConsideration is an essential element of any valid contract, and without it the\nagreement fails. The defendant filed a motion for summary judgment, arguing that\nno genuine issue of material fact remained.\n\nThe patient presented with an acute abdomen and was admitted for observation.\nInformed consent was obtained prior to the procedure.\n\nThe trustee holds the property subject to an equitable interest in favour of the\nbeneficiaries. Consideration of the beneficiaries' interests must precede any\ndistribution.\n\nThe security interest was perfected by filing. The negligence claim was barred by\nthe statute of limitations.\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"damages\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "damages",
+              "priority": "high",
+              "suggestion": "\"damages\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"consideration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "consideration",
+              "priority": "consider",
+              "suggestion": "\"consideration\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 0,
+          "sentence_text": "The court will remand the case for further consideration of the damages award.",
+          "total_issues": 2,
+          "unique_issue_types": 2,
+          "word_count": 13
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"material fact\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "label": "Jargon or formal language",
+              "matched_text": "material fact",
+              "priority": "high",
+              "suggestion": "\"material fact\" is a domain term of art. Consider defining or explaining it on first use rather than replacing it.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"material\" has 4 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "material",
+              "priority": "consider",
+              "suggestion": "\"material\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "label": "Nominalization",
+              "matched_text": "motion",
+              "priority": "consider",
+              "suggestion": "\"motion\" is a nominalization. Consider using the verb \"moe\" instead to make the sentence more direct.",
+              "type": "nominalization"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 3,
+          "sentence_text": "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
+          "total_issues": 4,
+          "unique_issue_types": 3,
+          "word_count": 17
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"acute\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "acute",
+              "priority": "high",
+              "suggestion": "\"acute\" is a medical term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "was admitted",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"observation\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "observation",
+              "priority": "consider",
+              "suggestion": "\"observation\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 4,
+          "sentence_text": "The patient presented with an acute abdomen and was admitted for observation.",
+          "total_issues": 4,
+          "unique_issue_types": 3,
+          "word_count": 12
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"prior to\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+              "label": "Jargon or formal language",
+              "matched_text": "prior to",
+              "priority": "high",
+              "suggestion": "Consider using \"before\" instead. Two words to one.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "was obtained",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"obtained\" has 2 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "obtained",
+              "priority": "consider",
+              "suggestion": "Consider using \"get\" instead. The simplest word.",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 5,
+          "sentence_text": "Informed consent was obtained prior to the procedure.",
+          "total_issues": 4,
+          "unique_issue_types": 3,
+          "word_count": 8
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"interest\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "interest",
+              "priority": "high",
+              "suggestion": "\"interest\" is a financial term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"equitable\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "equitable",
+              "priority": "consider",
+              "suggestion": "\"equitable\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 6,
+          "sentence_text": "The trustee holds the property subject to an equitable interest in favour of the",
+          "total_issues": 2,
+          "unique_issue_types": 2,
+          "word_count": 14
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"interest\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "interest",
+              "priority": "high",
+              "suggestion": "\"interest\" is a financial term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "was perfected",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"security\" has 4 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "security",
+              "priority": "consider",
+              "suggestion": "\"security\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 9,
+          "sentence_text": "The security interest was perfected by filing.",
+          "total_issues": 4,
+          "unique_issue_types": 3,
+          "word_count": 7
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"consideration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "consideration",
+              "priority": "consider",
+              "suggestion": "\"consideration\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 1,
+          "sentence_text": "Consideration is an essential element of any valid contract, and without it the",
+          "total_issues": 2,
+          "unique_issue_types": 1,
+          "word_count": 13
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"agreement\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "agreement",
+              "priority": "consider",
+              "suggestion": "\"agreement\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 2,
+          "sentence_text": "agreement fails.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 2
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"beneficiaries\" has 6 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "beneficiaries",
+              "priority": "consider",
+              "suggestion": "Consider using \"person who receives the benefit\" instead. The person named to receive money or benefits.",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 7,
+          "sentence_text": "beneficiaries.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 1
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 4,
+              "explanation": "\"consideration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "consideration",
+              "priority": "consider",
+              "suggestion": "\"consideration\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 8,
+          "sentence_text": "Consideration of the beneficiaries' interests must precede any distribution.",
+          "total_issues": 4,
+          "unique_issue_types": 1,
+          "word_count": 9
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "was barred",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"negligence\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "negligence",
+              "priority": "consider",
+              "suggestion": "\"negligence\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 10,
+          "sentence_text": "The negligence claim was barred by",
+          "total_issues": 2,
+          "unique_issue_types": 2,
+          "word_count": 6
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"limitations\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "limitations",
+              "priority": "consider",
+              "suggestion": "\"limitations\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 11,
+          "sentence_text": "the statute of limitations.",
+          "total_issues": 2,
+          "unique_issue_types": 1,
+          "word_count": 4
+        }
+      ],
+      "replacement_count": 5,
+      "result": {
+        "barriers": [
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"consideration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "consideration",
+            "sentence_index": 0,
+            "sentence_text": "The court will remand the case for further consideration of the damages award.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"consideration\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"damages\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "damages",
+            "sentence_index": 0,
+            "sentence_text": "The court will remand the case for further consideration of the damages award.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"damages\" is a legal term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"consideration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "consideration",
+            "sentence_index": 1,
+            "sentence_text": "Consideration is an essential element of any valid contract, and without it the",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"consideration\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"essential\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "essential",
+            "sentence_index": 1,
+            "sentence_text": "Consideration is an essential element of any valid contract, and without it the",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"essential\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"agreement\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "agreement",
+            "sentence_index": 2,
+            "sentence_text": "agreement fails.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"agreement\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"material\" has 4 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "material",
+            "sentence_index": 3,
+            "sentence_text": "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"material\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"defendant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "defendant",
+            "sentence_index": 3,
+            "sentence_text": "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"defendant\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "nominalization",
+            "end_char": 28,
+            "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+            "matched_text": "motion",
+            "sentence_index": 3,
+            "sentence_text": "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
+            "severity": "info",
+            "start_char": 22,
+            "suggestion": "\"motion\" is a nominalization. Consider using the verb \"moe\" instead to make the sentence more direct."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 97,
+            "explanation": "\"material fact\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+            "matched_text": "material fact",
+            "sentence_index": 3,
+            "sentence_text": "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
+            "severity": "info",
+            "start_char": 84,
+            "suggestion": "\"material fact\" is a domain term of art. Consider defining or explaining it on first use rather than replacing it."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 60,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "was admitted",
+            "sentence_index": 4,
+            "sentence_text": "The patient presented with an acute abdomen and was admitted for observation.",
+            "severity": "warning",
+            "start_char": 48,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"observation\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "observation",
+            "sentence_index": 4,
+            "sentence_text": "The patient presented with an acute abdomen and was admitted for observation.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"observation\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"presented\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "presented",
+            "sentence_index": 4,
+            "sentence_text": "The patient presented with an acute abdomen and was admitted for observation.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"presented\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"acute\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "acute",
+            "sentence_index": 4,
+            "sentence_text": "The patient presented with an acute abdomen and was admitted for observation.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"acute\" is a medical term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 29,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "was obtained",
+            "sentence_index": 5,
+            "sentence_text": "Informed consent was obtained prior to the procedure.",
+            "severity": "warning",
+            "start_char": 17,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"obtained\" has 2 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "obtained",
+            "sentence_index": 5,
+            "sentence_text": "Informed consent was obtained prior to the procedure.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"get\" instead. The simplest word."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"procedure\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "procedure",
+            "sentence_index": 5,
+            "sentence_text": "Informed consent was obtained prior to the procedure.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"procedure\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 38,
+            "explanation": "\"prior to\" is bureaucratic or formal language. Using plain alternatives makes text more accessible.",
+            "matched_text": "prior to",
+            "sentence_index": 5,
+            "sentence_text": "Informed consent was obtained prior to the procedure.",
+            "severity": "info",
+            "start_char": 30,
+            "suggestion": "Consider using \"before\" instead. Two words to one."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"equitable\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "equitable",
+            "sentence_index": 6,
+            "sentence_text": "The trustee holds the property subject to an equitable interest in favour of the",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"equitable\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"interest\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "interest",
+            "sentence_index": 6,
+            "sentence_text": "The trustee holds the property subject to an equitable interest in favour of the",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"interest\" is a financial term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"beneficiaries\" has 6 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "beneficiaries",
+            "sentence_index": 7,
+            "sentence_text": "beneficiaries.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"person who receives the benefit\" instead. The person named to receive money or benefits."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"consideration\" has 5 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "consideration",
+            "sentence_index": 8,
+            "sentence_text": "Consideration of the beneficiaries' interests must precede any distribution.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"consideration\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"beneficiaries\" has 6 syllables and 13 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "beneficiaries",
+            "sentence_index": 8,
+            "sentence_text": "Consideration of the beneficiaries' interests must precede any distribution.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"person who receives the benefit\" instead. The person named to receive money or benefits."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"distribution\" has 4 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "distribution",
+            "sentence_index": 8,
+            "sentence_text": "Consideration of the beneficiaries' interests must precede any distribution.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"distribution\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"interests\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "interests",
+            "sentence_index": 8,
+            "sentence_text": "Consideration of the beneficiaries' interests must precede any distribution.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"interests\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 35,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "was perfected",
+            "sentence_index": 9,
+            "sentence_text": "The security interest was perfected by filing.",
+            "severity": "warning",
+            "start_char": 22,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"security\" has 4 syllables and 8 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "security",
+            "sentence_index": 9,
+            "sentence_text": "The security interest was perfected by filing.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"security\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"perfected\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "perfected",
+            "sentence_index": 9,
+            "sentence_text": "The security interest was perfected by filing.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"perfected\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"interest\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "interest",
+            "sentence_index": 9,
+            "sentence_text": "The security interest was perfected by filing.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"interest\" is a financial term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 31,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "was barred",
+            "sentence_index": 10,
+            "sentence_text": "The negligence claim was barred by",
+            "severity": "warning",
+            "start_char": 21,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"negligence\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "negligence",
+            "sentence_index": 10,
+            "sentence_text": "The negligence claim was barred by",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"negligence\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"limitations\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "limitations",
+            "sentence_index": 11,
+            "sentence_text": "the statute of limitations.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"limitations\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"statute\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "statute",
+            "sentence_index": 11,
+            "sentence_text": "the statute of limitations.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"law\" instead. The simpler term."
+          }
+        ],
+        "critical_count": 0,
+        "info_count": 16,
+        "original_text": "The court will remand the case for further consideration of the damages award.\n\nConsideration is an essential element of any valid contract, and without it the\nagreement fails. The defendant filed a motion for summary judgment, arguing that\nno genuine issue of material fact remained.\n\nThe patient presented with an acute abdomen and was admitted for observation.\nInformed consent was obtained prior to the procedure.\n\nThe trustee holds the property subject to an equitable interest in favour of the\nbeneficiaries. Consideration of the beneficiaries' interests must precede any\ndistribution.\n\nThe security interest was perfected by filing. The negligence claim was barred by\nthe statute of limitations.\n",
+        "sentences": [
+          "The court will remand the case for further consideration of the damages award.",
+          "Consideration is an essential element of any valid contract, and without it the",
+          "agreement fails.",
+          "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
+          "The patient presented with an acute abdomen and was admitted for observation.",
+          "Informed consent was obtained prior to the procedure.",
+          "The trustee holds the property subject to an equitable interest in favour of the",
+          "beneficiaries.",
+          "Consideration of the beneficiaries' interests must precede any distribution.",
+          "The security interest was perfected by filing.",
+          "The negligence claim was barred by",
+          "the statute of limitations."
+        ],
+        "summary": "Found 32 readability issue(s) across 12 sentence(s): 16 warning(s), 16 suggestion(s).",
+        "total_barriers": 32,
+        "warning_count": 16
+      },
+      "simplified_text": "The court will remand the case for further consideration of the damages award.\n\nConsideration is an essential element of any valid contract, and without it the\nagreement fails. The defendant filed a motion for summary judgment, arguing that\nno genuine issue of **important information** remained.\n\nThe patient presented with an acute abdomen and was admitted for observation.\nInformed consent was **get** **before** the procedure.\n\nThe trustee holds the property subject to an equitable interest in favour of the\n**person who receives the benefit**. Consideration of the **person who receives the benefit**' interests must precede any\ndistribution.\n\nThe security interest was perfected by filing. The negligence claim was barred by\nthe **law** of limitations.\n",
+      "top_improvements": [
+        {
+          "action": "Consider replacing with: \"damages\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'damages'",
+          "location": "Sentence 1",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'consideration')",
+          "location": "Sentence 1",
+          "priority": "consider"
+        },
+        {
+          "action": "Consider replacing with: \"material fact\" is a domain term of art. Consider defining or explaining it on first use rather than replacing it.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'material fact'",
+          "location": "Sentence 4",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'material')",
+          "location": "Sentence 4",
+          "priority": "consider"
+        },
+        {
+          "action": "Rewrite using active verbs instead of abstract nouns.",
+          "impact": "Active verbs make writing more direct and easier to process.",
+          "issue": "Uses nominalizations (verbs turned into nouns)",
+          "location": "Sentence 4",
+          "priority": "consider"
+        },
+        {
+          "action": "Consider replacing with: \"acute\" is a medical term of art with specific meaning. Consider defining or explaining it on first use.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'acute'",
+          "location": "Sentence 5",
+          "priority": "high"
+        },
+        {
+          "action": "Rewrite in active voice: identify who is doing what.",
+          "impact": "Active voice is more direct and easier to follow.",
+          "issue": "Uses passive voice",
+          "location": "Sentence 5",
+          "priority": "consider"
+        }
+      ]
+    }
+  }
+}

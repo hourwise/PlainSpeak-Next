@@ -1,0 +1,577 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 2.064167,
+        "avg_sentence_length": 8.0,
+        "avg_syllables_per_word": 1.444444,
+        "avg_word_length": 4.138889,
+        "coleman_liau_index": null,
+        "consensus_grade_level": 6.348625,
+        "difficulty_band": "Fairly Easy",
+        "difficulty_band_explanation": "Text at this level is generally accessible but may present difficulties for readers with lower literacy or non-native speakers. Consider whether your intended audience includes people who may struggle with this level.",
+        "difficulty_band_label": "Fairly easy (approximately lower secondary level)",
+        "flesch_kincaid_grade": 4.574444,
+        "flesch_reading_ease": 76.515,
+        "grade_warnings": [],
+        "gunning_fog_index": 9.311111,
+        "metric_count": 4,
+        "metric_spread": 7.380612,
+        "reading_level_description": "Fairly easy (approximately lower secondary level)",
+        "short_text_warning": "This text is very short. Readability formulas need at least 100 words and 3+ sentences to produce stable estimates. Treat these results as rough indicators, not precise measurements.",
+        "smog_index": 9.444779,
+        "total_complex_words": 11,
+        "total_long_words": 15,
+        "total_sentences": 9,
+        "total_syllables": 104,
+        "total_words": 72
+      },
+      "sentence_count": 9,
+      "sentences": [
+        "The Minister said the policy was “a considerable improvement” — though critics",
+        "disagreed.",
+        "Applicants who don’t provide evidence can’t be assessed; they’ll be written to",
+        "within 10 days.",
+        "The café’s naïve résumé policy affected 250 employees … or so it seemed.",
+        "“We must act,” she said, “and we must act now.”",
+        "The range is 10–20 per cent (see § 4.2).",
+        "Temperatures reached 21 °C.",
+        "Ünlü, Müller and Añez co-authored the paper."
+      ],
+      "word_count": 72,
+      "words_head": [
+        "the",
+        "minister",
+        "said",
+        "the",
+        "policy",
+        "was",
+        "a",
+        "considerable",
+        "improvement",
+        "though",
+        "critics",
+        "disagreed",
+        "applicants",
+        "who",
+        "don",
+        "t",
+        "provide",
+        "evidence",
+        "can",
+        "t",
+        "be",
+        "assessed",
+        "they",
+        "ll",
+        "be",
+        "written",
+        "to",
+        "within",
+        "days",
+        "the",
+        "caf",
+        "s",
+        "na",
+        "ve",
+        "r",
+        "sum",
+        "policy",
+        "affected",
+        "employees",
+        "or"
+      ],
+      "words_sha256": "1c18c62a0fca9288c828cd48b17747098b6ca91382be16f535304e1c5110a0f2"
+    }
+  },
+  "input": {
+    "chars": 425,
+    "sha256": "7acfb451fb72b3edf9c5e85e1cbdd0222fc7dc28252cf5faa4593c5f7b2c726b"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 6.3\n  Fairly easy (approximately lower secondary level)\n\n  Text Statistics:\n    Words:               72\n    Sentences:           9\n    Avg Sentence Length:  8.0 words\n    Avg Word Length:      4.1 characters\n    Complex Words (3+ syl): 11\n\n  Readability Scores:\n    Flesch Reading Ease:        76.5\n      Fairly easy — plain English suitable for general audience.\n    Flesch-Kincaid Grade Level:  4.6\n    Gunning Fog Index:           9.3\n    SMOG Index:                  9.4\n    Automated Readability Index: 2.1\n\n  Found 11 readability issue(s) across 9 sentence(s): 6 warning(s), 5 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"considerable\"\n           -> Consider using \"large\" instead. Or 'big' — a shorter word.\n    [WARNING] Complex Word: \"improvement\"\n           -> \"improvement\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Jargon / Formal Language: \"said\"\n           -> Consider using \"the\" instead. Legal reference word — replace.\n    [INFO] Complex Word: \"disagreed\"\n           -> \"disagreed\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Passive Voice: \"be assessed\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"be written\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"applicants\"\n           -> \"applicants\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"provide\"\n           -> Consider using \"give\" instead. Direct.\n    [INFO] Complex Word: \"employees\"\n           -> \"employees\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Jargon / Formal Language: \"said\"\n           -> Consider using \"the\" instead. Legal reference word — replace.\n    ... and 1 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 16676,
+      "html_sha256": "463ce7c3465b228a1278bff155ba2d8f0508eea101f003a6dac5a50ea6d58eb2",
+      "json_report": {
+        "consensus": {
+          "description": "Fairly easy (approximately lower secondary level)",
+          "grade_level": 6.3
+        },
+        "readability_scores": {
+          "automated_readability_index": 2.1,
+          "coleman_liau_index": null,
+          "flesch_kincaid_grade": 4.6,
+          "flesch_reading_ease": 76.5,
+          "gunning_fog_index": 9.3,
+          "smog_index": 9.4
+        },
+        "simplification": {
+          "barriers": [
+            {
+              "explanation": "\"considerable\" has 5 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "considerable",
+              "sentence_context": "The Minister said the policy was “a considerable improvement” — though critics",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "Consider using \"large\" instead. Or 'big' — a shorter word.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"improvement\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "improvement",
+              "sentence_context": "The Minister said the policy was “a considerable improvement” — though critics",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "\"improvement\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"said\" can often be replaced with a simpler word.",
+              "matched_text": "said",
+              "sentence_context": "The Minister said the policy was “a considerable improvement” — though critics",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "Consider using \"the\" instead. Legal reference word — replace.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"disagreed\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "disagreed",
+              "sentence_context": "disagreed.",
+              "sentence_index": 1,
+              "severity": "info",
+              "suggestion": "\"disagreed\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "be assessed",
+              "sentence_context": "Applicants who don’t provide evidence can’t be assessed; they’ll be written to",
+              "sentence_index": 2,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "be written",
+              "sentence_context": "Applicants who don’t provide evidence can’t be assessed; they’ll be written to",
+              "sentence_index": 2,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "applicants",
+              "sentence_context": "Applicants who don’t provide evidence can’t be assessed; they’ll be written to",
+              "sentence_index": 2,
+              "severity": "warning",
+              "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "provide",
+              "sentence_context": "Applicants who don’t provide evidence can’t be assessed; they’ll be written to",
+              "sentence_index": 2,
+              "severity": "info",
+              "suggestion": "Consider using \"give\" instead. Direct.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"employees\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "employees",
+              "sentence_context": "The café’s naïve résumé policy affected 250 employees … or so it seemed.",
+              "sentence_index": 4,
+              "severity": "info",
+              "suggestion": "\"employees\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"said\" can often be replaced with a simpler word.",
+              "matched_text": "said",
+              "sentence_context": "“We must act,” she said, “and we must act now.”",
+              "sentence_index": 5,
+              "severity": "info",
+              "suggestion": "Consider using \"the\" instead. Legal reference word — replace.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"temperatures\" has 4 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "temperatures",
+              "sentence_context": "Temperatures reached 21 °C.",
+              "sentence_index": 7,
+              "severity": "warning",
+              "suggestion": "\"temperatures\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "critical_count": 0,
+          "info_count": 5,
+          "summary": "Found 11 readability issue(s) across 9 sentence(s): 6 warning(s), 5 suggestion(s).",
+          "total_barriers": 11,
+          "warning_count": 6
+        },
+        "statistics": {
+          "avg_sentence_length": 8.0,
+          "avg_syllables_per_word": 1.44,
+          "avg_word_length": 4.14,
+          "total_complex_words": 11,
+          "total_long_words": 15,
+          "total_sentences": 9,
+          "total_syllables": 104,
+          "total_words": 72
+        },
+        "text_preview": "The Minister said the policy was “a considerable improvement” — though critics\ndisagreed.\n\nApplicants who don’t provide evidence can’t be assessed; they’ll be written to\nwithin 10 days.\n\nThe café’s naïve résumé policy affected 250 employees … or so it seemed.\n\n“We must act,” she said, “and we must act now.”\n\nThe range is 10–20 per cent (see § 4.2). Temperatures reached 21 °C.\n\nÜnlü, Müller and Añez co-authored the paper.\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"said\" can often be replaced with a simpler word.",
+              "label": "Jargon or formal language",
+              "matched_text": "said",
+              "priority": "high",
+              "suggestion": "Consider using \"the\" instead. Legal reference word — replace.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"considerable\" has 5 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "considerable",
+              "priority": "consider",
+              "suggestion": "Consider using \"large\" instead. Or 'big' — a shorter word.",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 0,
+          "sentence_text": "The Minister said the policy was “a considerable improvement” — though critics",
+          "total_issues": 3,
+          "unique_issue_types": 2,
+          "word_count": 12
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"said\" can often be replaced with a simpler word.",
+              "label": "Jargon or formal language",
+              "matched_text": "said",
+              "priority": "high",
+              "suggestion": "Consider using \"the\" instead. Legal reference word — replace.",
+              "type": "jargon"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 5,
+          "sentence_text": "“We must act,” she said, “and we must act now.”",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 10
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"disagreed\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "disagreed",
+              "priority": "consider",
+              "suggestion": "\"disagreed\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 1,
+          "sentence_text": "disagreed.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 1
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "be assessed",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "applicants",
+              "priority": "consider",
+              "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 2,
+          "sentence_text": "Applicants who don’t provide evidence can’t be assessed; they’ll be written to",
+          "total_issues": 4,
+          "unique_issue_types": 2,
+          "word_count": 12
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"employees\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "employees",
+              "priority": "consider",
+              "suggestion": "\"employees\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 4,
+          "sentence_text": "The café’s naïve résumé policy affected 250 employees … or so it seemed.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 13
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"temperatures\" has 4 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "temperatures",
+              "priority": "consider",
+              "suggestion": "\"temperatures\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 7,
+          "sentence_text": "Temperatures reached 21 °C.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 4
+        }
+      ],
+      "replacement_count": 3,
+      "result": {
+        "barriers": [
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"considerable\" has 5 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "considerable",
+            "sentence_index": 0,
+            "sentence_text": "The Minister said the policy was “a considerable improvement” — though critics",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"large\" instead. Or 'big' — a shorter word."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"improvement\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "improvement",
+            "sentence_index": 0,
+            "sentence_text": "The Minister said the policy was “a considerable improvement” — though critics",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"improvement\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"said\" can often be replaced with a simpler word.",
+            "matched_text": "said",
+            "sentence_index": 0,
+            "sentence_text": "The Minister said the policy was “a considerable improvement” — though critics",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"the\" instead. Legal reference word — replace."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"disagreed\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "disagreed",
+            "sentence_index": 1,
+            "sentence_text": "disagreed.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"disagreed\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 55,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "be assessed",
+            "sentence_index": 2,
+            "sentence_text": "Applicants who don’t provide evidence can’t be assessed; they’ll be written to",
+            "severity": "warning",
+            "start_char": 44,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 75,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "be written",
+            "sentence_index": 2,
+            "sentence_text": "Applicants who don’t provide evidence can’t be assessed; they’ll be written to",
+            "severity": "warning",
+            "start_char": 65,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "applicants",
+            "sentence_index": 2,
+            "sentence_text": "Applicants who don’t provide evidence can’t be assessed; they’ll be written to",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"provide\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "provide",
+            "sentence_index": 2,
+            "sentence_text": "Applicants who don’t provide evidence can’t be assessed; they’ll be written to",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"give\" instead. Direct."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"employees\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "employees",
+            "sentence_index": 4,
+            "sentence_text": "The café’s naïve résumé policy affected 250 employees … or so it seemed.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"employees\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"said\" can often be replaced with a simpler word.",
+            "matched_text": "said",
+            "sentence_index": 5,
+            "sentence_text": "“We must act,” she said, “and we must act now.”",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"the\" instead. Legal reference word — replace."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"temperatures\" has 4 syllables and 12 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "temperatures",
+            "sentence_index": 7,
+            "sentence_text": "Temperatures reached 21 °C.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"temperatures\" has 4 syllables. Is there a simpler word you could use?"
+          }
+        ],
+        "critical_count": 0,
+        "info_count": 5,
+        "original_text": "The Minister said the policy was “a considerable improvement” — though critics\ndisagreed.\n\nApplicants who don’t provide evidence can’t be assessed; they’ll be written to\nwithin 10 days.\n\nThe café’s naïve résumé policy affected 250 employees … or so it seemed.\n\n“We must act,” she said, “and we must act now.”\n\nThe range is 10–20 per cent (see § 4.2). Temperatures reached 21 °C.\n\nÜnlü, Müller and Añez co-authored the paper.\n",
+        "sentences": [
+          "The Minister said the policy was “a considerable improvement” — though critics",
+          "disagreed.",
+          "Applicants who don’t provide evidence can’t be assessed; they’ll be written to",
+          "within 10 days.",
+          "The café’s naïve résumé policy affected 250 employees … or so it seemed.",
+          "“We must act,” she said, “and we must act now.”",
+          "The range is 10–20 per cent (see § 4.2).",
+          "Temperatures reached 21 °C.",
+          "Ünlü, Müller and Añez co-authored the paper."
+        ],
+        "summary": "Found 11 readability issue(s) across 9 sentence(s): 6 warning(s), 5 suggestion(s).",
+        "total_barriers": 11,
+        "warning_count": 6
+      },
+      "simplified_text": "The Minister **the** the policy was “a **large** improvement” — though critics\ndisagreed.\n\nApplicants who don’t **give** evidence can’t be assessed; they’ll be written to\nwithin 10 days.\n\nThe café’s naïve résumé policy affected 250 employees … or so it seemed.\n\n“We must act,” she **the**, “and we must act now.”\n\nThe range is 10–20 per cent (see § 4.2). Temperatures reached 21 °C.\n\nÜnlü, Müller and Añez co-authored the paper.\n",
+      "top_improvements": [
+        {
+          "action": "Consider replacing with: Consider using \"the\" instead. Legal reference word — replace.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'said'",
+          "location": "Sentence 1",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'considerable')",
+          "location": "Sentence 1",
+          "priority": "consider"
+        },
+        {
+          "action": "Consider replacing with: Consider using \"the\" instead. Legal reference word — replace.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'said'",
+          "location": "Sentence 6",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'disagreed')",
+          "location": "Sentence 2",
+          "priority": "consider"
+        },
+        {
+          "action": "Rewrite in active voice: identify who is doing what.",
+          "impact": "Active voice is more direct and easier to follow.",
+          "issue": "Uses passive voice",
+          "location": "Sentence 3",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'applicants')",
+          "location": "Sentence 3",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'employees')",
+          "location": "Sentence 5",
+          "priority": "consider"
+        }
+      ]
+    }
+  }
+}

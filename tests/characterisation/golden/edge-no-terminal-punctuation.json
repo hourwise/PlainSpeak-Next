@@ -1,0 +1,163 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 10.0075,
+        "avg_sentence_length": 4.0,
+        "avg_syllables_per_word": 2.25,
+        "avg_word_length": 6.25,
+        "coleman_liau_index": null,
+        "consensus_grade_level": 13.833911,
+        "difficulty_band": "Difficult",
+        "difficulty_band_explanation": "Text at this level is comparable to undergraduate textbooks and academic writing. It assumes significant reading skill and subject knowledge. Only appropriate for specialist or professional audiences. For general-public use, this text needs major simplification.",
+        "difficulty_band_label": "Difficult (undergraduate university level)",
+        "flesch_kincaid_grade": 12.52,
+        "flesch_reading_ease": 12.425,
+        "grade_warnings": [],
+        "gunning_fog_index": 21.6,
+        "metric_count": 4,
+        "metric_spread": 11.5925,
+        "reading_level_description": "Difficult (undergraduate university level)",
+        "short_text_warning": "This text is very short. Readability formulas need at least 100 words and 3+ sentences to produce stable estimates. Treat these results as rough indicators, not precise measurements.",
+        "smog_index": 11.208143,
+        "total_complex_words": 2,
+        "total_long_words": 2,
+        "total_sentences": 1,
+        "total_syllables": 9,
+        "total_words": 4
+      },
+      "sentence_count": 1,
+      "sentences": [
+        "No terminal punctuation here"
+      ],
+      "word_count": 4,
+      "words_head": [
+        "no",
+        "terminal",
+        "punctuation",
+        "here"
+      ],
+      "words_sha256": "1ee936deec01294df0e6c3a9727c88a037494c93e1108affd5ceadf5a81535c1"
+    }
+  },
+  "input": {
+    "chars": 29,
+    "sha256": "847dca1545d2049d970c01d1761e358beb5d8792ec1504f0e34b5e1f9685bd71"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 13.8\n  Difficult (undergraduate university level)\n\n  Text Statistics:\n    Words:               4\n    Sentences:           1\n    Avg Sentence Length:  4.0 words\n    Avg Word Length:      6.2 characters\n    Complex Words (3+ syl): 2\n\n  Readability Scores:\n    Flesch Reading Ease:        12.4\n      Very difficult — university graduate level.\n    Flesch-Kincaid Grade Level:  12.5\n    Gunning Fog Index:           21.6\n    SMOG Index:                  11.2\n    Automated Readability Index: 10.0\n\n  Found 1 readability issue(s) across 1 sentence(s): 1 warning(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"punctuation\"\n           -> \"punctuation\" has 4 syllables. Is there a simpler word you could use?\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 9616,
+      "html_sha256": "762b31d9d603941fa2cc9ca9e27dc6fffcaca36f7877f5c5a04c2dd843b8c0e4",
+      "json_report": {
+        "consensus": {
+          "description": "Difficult (undergraduate university level)",
+          "grade_level": 13.8
+        },
+        "readability_scores": {
+          "automated_readability_index": 10.0,
+          "coleman_liau_index": null,
+          "flesch_kincaid_grade": 12.5,
+          "flesch_reading_ease": 12.4,
+          "gunning_fog_index": 21.6,
+          "smog_index": 11.2
+        },
+        "simplification": {
+          "barriers": [
+            {
+              "explanation": "\"punctuation\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "punctuation",
+              "sentence_context": "No terminal punctuation here",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "\"punctuation\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "critical_count": 0,
+          "info_count": 0,
+          "summary": "Found 1 readability issue(s) across 1 sentence(s): 1 warning(s).",
+          "total_barriers": 1,
+          "warning_count": 1
+        },
+        "statistics": {
+          "avg_sentence_length": 4.0,
+          "avg_syllables_per_word": 2.25,
+          "avg_word_length": 6.25,
+          "total_complex_words": 2,
+          "total_long_words": 2,
+          "total_sentences": 1,
+          "total_syllables": 9,
+          "total_words": 4
+        },
+        "text_preview": "No terminal punctuation here\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"punctuation\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "punctuation",
+              "priority": "consider",
+              "suggestion": "\"punctuation\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 0,
+          "sentence_text": "No terminal punctuation here",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 4
+        }
+      ],
+      "replacement_count": 0,
+      "result": {
+        "barriers": [
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"punctuation\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "punctuation",
+            "sentence_index": 0,
+            "sentence_text": "No terminal punctuation here",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"punctuation\" has 4 syllables. Is there a simpler word you could use?"
+          }
+        ],
+        "critical_count": 0,
+        "info_count": 0,
+        "original_text": "No terminal punctuation here\n",
+        "sentences": [
+          "No terminal punctuation here"
+        ],
+        "summary": "Found 1 readability issue(s) across 1 sentence(s): 1 warning(s).",
+        "total_barriers": 1,
+        "warning_count": 1
+      },
+      "simplified_text": "No terminal punctuation here\n",
+      "top_improvements": [
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'punctuation')",
+          "location": "Sentence 1",
+          "priority": "consider"
+        }
+      ]
+    }
+  }
+}

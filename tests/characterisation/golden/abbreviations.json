@@ -1,0 +1,282 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 1.002094,
+        "avg_sentence_length": 10.555556,
+        "avg_syllables_per_word": 1.315789,
+        "avg_word_length": 3.642105,
+        "coleman_liau_index": null,
+        "consensus_grade_level": 4.241953,
+        "difficulty_band": "Easy",
+        "difficulty_band_explanation": "Text at this level uses mostly short sentences and common words. It should be accessible to most adult readers. This is a good target for public-facing information, patient leaflets, and consumer communications.",
+        "difficulty_band_label": "Easy (approximately upper primary level)",
+        "flesch_kincaid_grade": 4.052982,
+        "flesch_reading_ease": 84.805322,
+        "grade_warnings": [],
+        "gunning_fog_index": 5.48538,
+        "metric_count": 4,
+        "metric_spread": 5.425262,
+        "reading_level_description": "Easy (approximately upper primary level)",
+        "short_text_warning": "This text is very short. Readability formulas need at least 100 words and 3+ sentences to produce stable estimates. Treat these results as rough indicators, not precise measurements.",
+        "smog_index": 6.427356,
+        "total_complex_words": 3,
+        "total_long_words": 11,
+        "total_sentences": 9,
+        "total_syllables": 125,
+        "total_words": 95
+      },
+      "sentence_count": 9,
+      "sentences": [
+        "dr. Smith met mr. Jones and mrs. Patel at 3 p.m. on Tuesday.",
+        "The report covers the u.s. and the u.k. markets, e.g. New York and London.",
+        "It",
+        "does not cover other regions, i.e. Asia and Africa.",
+        "prof. Alan Bird (ph.d., st. Andrews) will chair the panel.",
+        "The Rt. hon. Member for Bristol will respond.",
+        "The company was founded in 1987 by J. R. Hartley and is based at 14 st. James's",
+        "Square. approx. 400 people work there, incl. contractors.",
+        "See fig. 3 and Table 2 for details, or refer to vol. 4, no. 2, pp. 118-­130."
+      ],
+      "word_count": 95,
+      "words_head": [
+        "dr",
+        "smith",
+        "met",
+        "mr",
+        "jones",
+        "and",
+        "mrs",
+        "patel",
+        "at",
+        "p",
+        "m",
+        "on",
+        "tuesday",
+        "the",
+        "report",
+        "covers",
+        "the",
+        "u",
+        "s",
+        "and",
+        "the",
+        "u",
+        "k",
+        "markets",
+        "e",
+        "g",
+        "new",
+        "york",
+        "and",
+        "london",
+        "it",
+        "does",
+        "not",
+        "cover",
+        "other",
+        "regions",
+        "i",
+        "e",
+        "asia",
+        "and"
+      ],
+      "words_sha256": "2ad115497406b3978c67647fa6abc2928412dd99c5eba7875a0a19007f805af9"
+    }
+  },
+  "input": {
+    "chars": 515,
+    "sha256": "f7e0b52d2a95ef5f1fab025eb13b55b4d8ed1e89849b2f4ca7d388b8fd7eb7f7"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 4.2\n  Easy (approximately upper primary level)\n\n  Text Statistics:\n    Words:               95\n    Sentences:           9\n    Avg Sentence Length:  10.6 words\n    Avg Word Length:      3.6 characters\n    Complex Words (3+ syl): 3\n\n  Readability Scores:\n    Flesch Reading Ease:        84.8\n      Easy — conversational English.\n    Flesch-Kincaid Grade Level:  4.1\n    Gunning Fog Index:           5.5\n    SMOG Index:                  6.4\n    Automated Readability Index: 1.0\n\n  Found 3 readability issue(s) across 9 sentence(s): 3 warning(s).\n\n  Top issues:\n    [WARNING] Passive Voice: \"was founded\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"is based\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"contractors\"\n           -> \"contractors\" has 3 syllables. Is there a simpler word you could use?\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 11573,
+      "html_sha256": "a5b1d763ea138d0d60ec925966e9405634150d3a6e80b7c00ff845ba226898ee",
+      "json_report": {
+        "consensus": {
+          "description": "Easy (approximately upper primary level)",
+          "grade_level": 4.2
+        },
+        "readability_scores": {
+          "automated_readability_index": 1.0,
+          "coleman_liau_index": null,
+          "flesch_kincaid_grade": 4.1,
+          "flesch_reading_ease": 84.8,
+          "gunning_fog_index": 5.5,
+          "smog_index": 6.4
+        },
+        "simplification": {
+          "barriers": [
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "was founded",
+              "sentence_context": "The company was founded in 1987 by J. R. Hartley and is based at 14 st. James's",
+              "sentence_index": 6,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "is based",
+              "sentence_context": "The company was founded in 1987 by J. R. Hartley and is based at 14 st. James's",
+              "sentence_index": 6,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"contractors\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "contractors",
+              "sentence_context": "Square. approx. 400 people work there, incl. contractors.",
+              "sentence_index": 7,
+              "severity": "warning",
+              "suggestion": "\"contractors\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "critical_count": 0,
+          "info_count": 0,
+          "summary": "Found 3 readability issue(s) across 9 sentence(s): 3 warning(s).",
+          "total_barriers": 3,
+          "warning_count": 3
+        },
+        "statistics": {
+          "avg_sentence_length": 10.56,
+          "avg_syllables_per_word": 1.32,
+          "avg_word_length": 3.64,
+          "total_complex_words": 3,
+          "total_long_words": 11,
+          "total_sentences": 9,
+          "total_syllables": 125,
+          "total_words": 95
+        },
+        "text_preview": "Dr. Smith met Mr. Jones and Mrs. Patel at 3 p.m. on Tuesday.\n\nThe report covers the U.S. and the U.K. markets, e.g. New York and London. It\ndoes not cover other regions, i.e. Asia and Africa.\n\nProf. Alan Bird (Ph.D., St. Andrews) will chair the panel. The Rt. Hon. Member\nfor Bristol will respond.\n\nThe company was founded in 1987 by J. R. Hartley and is based at 14 St. James's\nSquare. Approx. 400 people work there, incl. contractors.\n\nSee Fig. 3 and Table 2 for details, or refer to vol. 4, no. 2, pp. 118-­130.\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "was founded",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 6,
+          "sentence_text": "The company was founded in 1987 by J. R. Hartley and is based at 14 st. James's",
+          "total_issues": 2,
+          "unique_issue_types": 1,
+          "word_count": 17
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"contractors\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "contractors",
+              "priority": "consider",
+              "suggestion": "\"contractors\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 7,
+          "sentence_text": "Square. approx. 400 people work there, incl. contractors.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 8
+        }
+      ],
+      "replacement_count": 0,
+      "result": {
+        "barriers": [
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 23,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "was founded",
+            "sentence_index": 6,
+            "sentence_text": "The company was founded in 1987 by J. R. Hartley and is based at 14 st. James's",
+            "severity": "warning",
+            "start_char": 12,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 61,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "is based",
+            "sentence_index": 6,
+            "sentence_text": "The company was founded in 1987 by J. R. Hartley and is based at 14 st. James's",
+            "severity": "warning",
+            "start_char": 53,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"contractors\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "contractors",
+            "sentence_index": 7,
+            "sentence_text": "Square. approx. 400 people work there, incl. contractors.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"contractors\" has 3 syllables. Is there a simpler word you could use?"
+          }
+        ],
+        "critical_count": 0,
+        "info_count": 0,
+        "original_text": "Dr. Smith met Mr. Jones and Mrs. Patel at 3 p.m. on Tuesday.\n\nThe report covers the U.S. and the U.K. markets, e.g. New York and London. It\ndoes not cover other regions, i.e. Asia and Africa.\n\nProf. Alan Bird (Ph.D., St. Andrews) will chair the panel. The Rt. Hon. Member\nfor Bristol will respond.\n\nThe company was founded in 1987 by J. R. Hartley and is based at 14 St. James's\nSquare. Approx. 400 people work there, incl. contractors.\n\nSee Fig. 3 and Table 2 for details, or refer to vol. 4, no. 2, pp. 118-­130.\n",
+        "sentences": [
+          "dr. Smith met mr. Jones and mrs. Patel at 3 p.m. on Tuesday.",
+          "The report covers the u.s. and the u.k. markets, e.g. New York and London.",
+          "It",
+          "does not cover other regions, i.e. Asia and Africa.",
+          "prof. Alan Bird (ph.d., st. Andrews) will chair the panel.",
+          "The Rt. hon. Member for Bristol will respond.",
+          "The company was founded in 1987 by J. R. Hartley and is based at 14 st. James's",
+          "Square. approx. 400 people work there, incl. contractors.",
+          "See fig. 3 and Table 2 for details, or refer to vol. 4, no. 2, pp. 118-­130."
+        ],
+        "summary": "Found 3 readability issue(s) across 9 sentence(s): 3 warning(s).",
+        "total_barriers": 3,
+        "warning_count": 3
+      },
+      "simplified_text": "Dr. Smith met Mr. Jones and Mrs. Patel at 3 p.m. on Tuesday.\n\nThe report covers the U.S. and the U.K. markets, e.g. New York and London. It\ndoes not cover other regions, i.e. Asia and Africa.\n\nProf. Alan Bird (Ph.D., St. Andrews) will chair the panel. The Rt. Hon. Member\nfor Bristol will respond.\n\nThe company was founded in 1987 by J. R. Hartley and is based at 14 St. James's\nSquare. Approx. 400 people work there, incl. contractors.\n\nSee Fig. 3 and Table 2 for details, or refer to vol. 4, no. 2, pp. 118-­130.\n",
+      "top_improvements": [
+        {
+          "action": "Rewrite in active voice: identify who is doing what.",
+          "impact": "Active voice is more direct and easier to follow.",
+          "issue": "Uses passive voice",
+          "location": "Sentence 7",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'contractors')",
+          "location": "Sentence 8",
+          "priority": "consider"
+        }
+      ]
+    }
+  }
+}

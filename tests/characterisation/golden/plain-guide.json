@@ -1,0 +1,1057 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 3.60559,
+        "avg_sentence_length": 8.333333,
+        "avg_syllables_per_word": 1.363077,
+        "avg_word_length": 4.430769,
+        "coleman_liau_index": 6.700923,
+        "consensus_grade_level": 5.632807,
+        "difficulty_band": "Easy",
+        "difficulty_band_explanation": "Text at this level uses mostly short sentences and common words. It should be accessible to most adult readers. This is a good target for public-facing information, patient leaflets, and consumer communications.",
+        "difficulty_band_label": "Easy (approximately upper primary level)",
+        "flesch_kincaid_grade": 3.744308,
+        "flesch_reading_ease": 83.060359,
+        "grade_warnings": [],
+        "gunning_fog_index": 6.410256,
+        "metric_count": 5,
+        "metric_spread": 4.097368,
+        "reading_level_description": "Easy (approximately upper primary level)",
+        "short_text_warning": "",
+        "smog_index": 7.702958,
+        "total_complex_words": 25,
+        "total_long_words": 50,
+        "total_sentences": 39,
+        "total_syllables": 443,
+        "total_words": 325
+      },
+      "sentence_count": 39,
+      "sentences": [
+        "HOW TO USE THIS TOOL",
+        "PlainSpeak is a tool that helps you check how easy your writing is to read.",
+        "WHAT IT DOES",
+        "- It measures how readable your text is using several standard tests.",
+        "- It finds words and sentences that might be hard for some readers.",
+        "- It suggests simpler words you could use instead.",
+        "- It creates a report that you can view in your web browser.",
+        "WHO IT HELPS",
+        "PlainSpeak helps anyone who writes for the public.",
+        "This includes people who write government forms, health information, educational materials, and legal documents.",
+        "It also helps teachers, editors, and people who check content for clarity.",
+        "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html",
+        "WHAT THE SCORES MEAN",
+        "The tool gives you several scores.",
+        "The main one is the grade level.",
+        "A lower grade level means the text is easier to read.",
+        "Here is a simple guide:",
+        "- Grade 6 or below: Easy to read.",
+        "Most adults can understand it.",
+        "- Grade 7 to 8: Plain English.",
+        "Suitable for the general public.",
+        "- Grade 9 to 12: Harder to read.",
+        "Some readers may struggle.",
+        "- Above Grade 12: Very hard.",
+        "Best for expert readers only.",
+        "TIPS FOR CLEAR WRITING",
+        "Keep sentences short.",
+        "Aim for 15 to 20 words per sentence.",
+        "Use common words that most people know.",
+        "Write in active voice — say who does what.",
+        "Avoid jargon and technical terms when you can.",
+        "If you must use a hard word, explain it the first time.",
+        "LIMITATIONS",
+        "The scores are not perfect.",
+        "They count things like word length and sentence length.",
+        "They cannot tell if your text makes sense or if it is well organized.",
+        "A text with a low score can still be confusing.",
+        "A text with a high score can still be clear.",
+        "Use your judgment along with the scores."
+      ],
+      "word_count": 325,
+      "words_head": [
+        "how",
+        "to",
+        "use",
+        "this",
+        "tool",
+        "plainspeak",
+        "is",
+        "a",
+        "tool",
+        "that",
+        "helps",
+        "you",
+        "check",
+        "how",
+        "easy",
+        "your",
+        "writing",
+        "is",
+        "to",
+        "read",
+        "what",
+        "it",
+        "does",
+        "it",
+        "measures",
+        "how",
+        "readable",
+        "your",
+        "text",
+        "is",
+        "using",
+        "several",
+        "standard",
+        "tests",
+        "it",
+        "finds",
+        "words",
+        "and",
+        "sentences",
+        "that"
+      ],
+      "words_sha256": "52a10157c14468d2bba7e2638e26773a1b0d4be04c68039d846dba3d1869885c"
+    }
+  },
+  "input": {
+    "chars": 1883,
+    "sha256": "3b0066a5481276cc392466f9f372f87d5af857fafb99369d25c684413082fe90"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 5.6\n  Easy (approximately upper primary level)\n\n  Text Statistics:\n    Words:               325\n    Sentences:           39\n    Avg Sentence Length:  8.3 words\n    Avg Word Length:      4.4 characters\n    Complex Words (3+ syl): 25\n\n  Readability Scores:\n    Flesch Reading Ease:        83.1\n      Easy — conversational English.\n    Flesch-Kincaid Grade Level:  3.7\n    Gunning Fog Index:           6.4\n    SMOG Index:                  7.7\n    Automated Readability Index: 3.6\n    Coleman-Liau Index:          6.7\n\n  Found 23 readability issue(s) across 39 sentence(s): 1 critical issue(s), 12 warning(s), 10 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"plainspeak\"\n           -> \"plainspeak\" has 2 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"sentences\"\n           -> \"sentences\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"plainspeak\"\n           -> \"plainspeak\" has 2 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"government\"\n           -> \"government\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"information\"\n           -> \"information\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"educational\"\n           -> \"educational\" has 5 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"materials\"\n           -> \"materials\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"documents\"\n           -> \"documents\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Nominalization: \"clarity\"\n           -> \"clarity\" is a nominalization. Consider using the verb \"clare\" instead to make the sentence more dir\n    [CRITICAL] Long Sentence: \"HOW TO USE IT\n\n1. Write your text in any text editor and sav\"\n           -> This sentence has 47 words. Consider splitting it into two or more shorter sentences.\n    ... and 13 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 26808,
+      "html_sha256": "13c2a5bae46cd7a427cee3f3c3b98525147e6b9ed051e56f2c245d68cfbd5b64",
+      "json_report": {
+        "consensus": {
+          "description": "Easy (approximately upper primary level)",
+          "grade_level": 5.6
+        },
+        "readability_scores": {
+          "automated_readability_index": 3.6,
+          "coleman_liau_index": 6.7,
+          "flesch_kincaid_grade": 3.7,
+          "flesch_reading_ease": 83.1,
+          "gunning_fog_index": 6.4,
+          "smog_index": 7.7
+        },
+        "simplification": {
+          "barriers": [
+            {
+              "explanation": "\"plainspeak\" has 2 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "plainspeak",
+              "sentence_context": "PlainSpeak is a tool that helps you check how easy your writing is to read.",
+              "sentence_index": 1,
+              "severity": "warning",
+              "suggestion": "\"plainspeak\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"sentences\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "sentences",
+              "sentence_context": "- It finds words and sentences that might be hard for some readers.",
+              "sentence_index": 4,
+              "severity": "info",
+              "suggestion": "\"sentences\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"plainspeak\" has 2 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "plainspeak",
+              "sentence_context": "PlainSpeak helps anyone who writes for the public.",
+              "sentence_index": 8,
+              "severity": "warning",
+              "suggestion": "\"plainspeak\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"government\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "government",
+              "sentence_context": "This includes people who write government forms, health information, educational materials, and legal documents.",
+              "sentence_index": 9,
+              "severity": "warning",
+              "suggestion": "\"government\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"information\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "information",
+              "sentence_context": "This includes people who write government forms, health information, educational materials, and legal documents.",
+              "sentence_index": 9,
+              "severity": "warning",
+              "suggestion": "\"information\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"educational\" has 5 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "educational",
+              "sentence_context": "This includes people who write government forms, health information, educational materials, and legal documents.",
+              "sentence_index": 9,
+              "severity": "warning",
+              "suggestion": "\"educational\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"materials\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "materials",
+              "sentence_context": "This includes people who write government forms, health information, educational materials, and legal documents.",
+              "sentence_index": 9,
+              "severity": "warning",
+              "suggestion": "\"materials\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"documents\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "documents",
+              "sentence_context": "This includes people who write government forms, health information, educational materials, and legal documents.",
+              "sentence_index": 9,
+              "severity": "info",
+              "suggestion": "\"documents\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "matched_text": "clarity",
+              "sentence_context": "It also helps teachers, editors, and people who check content for clarity.",
+              "sentence_index": 10,
+              "severity": "info",
+              "suggestion": "\"clarity\" is a nominalization. Consider using the verb \"clare\" instead to make the sentence more direct.",
+              "type": "nominalization"
+            },
+            {
+              "explanation": "Sentences over 25 words are harder to follow. This one has 47 words. Try breaking it at natural pause points.",
+              "matched_text": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal ...",
+              "sentence_context": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability sc...",
+              "sentence_index": 11,
+              "severity": "critical",
+              "suggestion": "This sentence has 47 words. Consider splitting it into two or more shorter sentences.",
+              "type": "long_sentence"
+            },
+            {
+              "explanation": "\"plainspeak\" has 2 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "plainspeak",
+              "sentence_context": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability sc...",
+              "sentence_index": 11,
+              "severity": "warning",
+              "suggestion": "\"plainspeak\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"readability\" has 5 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "readability",
+              "sentence_context": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability sc...",
+              "sentence_index": 11,
+              "severity": "warning",
+              "suggestion": "\"readability\" has 5 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"suggestions\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "suggestions",
+              "sentence_context": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability sc...",
+              "sentence_index": 11,
+              "severity": "warning",
+              "suggestion": "\"suggestions\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"understand\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "understand",
+              "sentence_context": "Most adults can understand it.",
+              "sentence_index": 18,
+              "severity": "warning",
+              "suggestion": "\"understand\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Redundant word pairs add words without adding meaning.",
+              "matched_text": "general public",
+              "sentence_context": "Suitable for the general public.",
+              "sentence_index": 20,
+              "severity": "info",
+              "suggestion": "Use just \"public\". The public is general.",
+              "type": "redundant_pair"
+            },
+            {
+              "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "may",
+              "sentence_context": "Some readers may struggle.",
+              "sentence_index": 22,
+              "severity": "info",
+              "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"sentences\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "sentences",
+              "sentence_context": "Keep sentences short.",
+              "sentence_index": 26,
+              "severity": "info",
+              "suggestion": "\"sentences\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"technical\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "technical",
+              "sentence_context": "Avoid jargon and technical terms when you can.",
+              "sentence_index": 30,
+              "severity": "info",
+              "suggestion": "\"technical\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"terms\" can often be replaced with a simpler word.",
+              "matched_text": "terms",
+              "sentence_context": "Avoid jargon and technical terms when you can.",
+              "sentence_index": 30,
+              "severity": "info",
+              "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "\"limitations\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "limitations",
+              "sentence_context": "LIMITATIONS",
+              "sentence_index": 32,
+              "severity": "warning",
+              "suggestion": "\"limitations\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "are not",
+              "sentence_context": "The scores are not perfect.",
+              "sentence_index": 33,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"organized\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "organized",
+              "sentence_context": "They cannot tell if your text makes sense or if it is well organized.",
+              "sentence_index": 35,
+              "severity": "info",
+              "suggestion": "\"organized\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"confusing\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "confusing",
+              "sentence_context": "A text with a low score can still be confusing.",
+              "sentence_index": 36,
+              "severity": "info",
+              "suggestion": "\"confusing\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "critical_count": 1,
+          "info_count": 10,
+          "summary": "Found 23 readability issue(s) across 39 sentence(s): 1 critical issue(s), 12 warning(s), 10 suggestion(s).",
+          "total_barriers": 23,
+          "warning_count": 12
+        },
+        "statistics": {
+          "avg_sentence_length": 8.33,
+          "avg_syllables_per_word": 1.36,
+          "avg_word_length": 4.43,
+          "total_complex_words": 25,
+          "total_long_words": 50,
+          "total_sentences": 39,
+          "total_syllables": 443,
+          "total_words": 325
+        },
+        "text_preview": "HOW TO USE THIS TOOL\n\nPlainSpeak is a tool that helps you check how easy your writing is to read.\n\nWHAT IT DOES\n\n- It measures how readable your text is using several standard tests.\n- It finds words and sentences that might be hard for some readers.\n- It suggests simpler words you could use instead.\n- It creates a report that you can view in your web browser.\n\nWHO IT HELPS\n\nPlainSpeak helps anyone who writes for the public. This includes people who write government forms, health information, educational materials, and legal documents. It also helps teachers, editors, and people who check content for clarity.\n\nHOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html\n\nWHAT THE SCORES MEAN\n\nThe tool gives you several scores. The main one is the grade level. A lower grade level means the text is easier to read. Here is a simple guide:\n\n- Grade 6 or below: Easy to read. Most adults can understand it.\n- Grade 7 to 8: Plain English. Suitable for the general public.\n- Grade 9 to 12: Harder to read. Some readers may struggle.\n- Above Grade 12: Very hard. Best for expert readers only.\n\nTIPS FOR CLEAR WRITING\n\nKeep sentences short. Aim for 15 to 20 words per sentence. Use common words that most people know. Write in active voice — say who does what. Avoid jargon and technical terms when you can. If you must use a hard word, explain it the first time.\n\nLIMITATIONS\n\nThe scores are not perfect. They count things like word length and sentence length. They cannot tell if your text makes sense or if it is well organized. A text with a low score can still be confusing. A text with a high score can still be clear. Use your judgment along with the scores.\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [
+        {
+          "issues": [
+            {
+              "confidence": "high",
+              "count": 1,
+              "explanation": "Sentences over 25 words are harder to follow. This one has 47 words. Try breaking it at natural pause points.",
+              "label": "Long sentence",
+              "matched_text": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal ...",
+              "priority": "high",
+              "suggestion": "This sentence has 47 words. Consider splitting it into two or more shorter sentences.",
+              "type": "long_sentence"
+            },
+            {
+              "confidence": "medium",
+              "count": 3,
+              "explanation": "\"plainspeak\" has 2 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "plainspeak",
+              "priority": "consider",
+              "suggestion": "\"plainspeak\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 11,
+          "sentence_text": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html",
+          "total_issues": 4,
+          "unique_issue_types": 2,
+          "word_count": 50
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "may",
+              "priority": "high",
+              "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 22,
+          "sentence_text": "Some readers may struggle.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 4
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"terms\" can often be replaced with a simpler word.",
+              "label": "Jargon or formal language",
+              "matched_text": "terms",
+              "priority": "high",
+              "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"technical\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "technical",
+              "priority": "consider",
+              "suggestion": "\"technical\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 30,
+          "sentence_text": "Avoid jargon and technical terms when you can.",
+          "total_issues": 2,
+          "unique_issue_types": 2,
+          "word_count": 8
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"plainspeak\" has 2 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "plainspeak",
+              "priority": "consider",
+              "suggestion": "\"plainspeak\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 1,
+          "sentence_text": "PlainSpeak is a tool that helps you check how easy your writing is to read.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 15
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"sentences\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "sentences",
+              "priority": "consider",
+              "suggestion": "\"sentences\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 4,
+          "sentence_text": "- It finds words and sentences that might be hard for some readers.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 13
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"plainspeak\" has 2 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "plainspeak",
+              "priority": "consider",
+              "suggestion": "\"plainspeak\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 8,
+          "sentence_text": "PlainSpeak helps anyone who writes for the public.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 8
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 5,
+              "explanation": "\"government\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "government",
+              "priority": "consider",
+              "suggestion": "\"government\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 9,
+          "sentence_text": "This includes people who write government forms, health information, educational materials, and legal documents.",
+          "total_issues": 5,
+          "unique_issue_types": 1,
+          "word_count": 14
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "label": "Nominalization",
+              "matched_text": "clarity",
+              "priority": "consider",
+              "suggestion": "\"clarity\" is a nominalization. Consider using the verb \"clare\" instead to make the sentence more direct.",
+              "type": "nominalization"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 10,
+          "sentence_text": "It also helps teachers, editors, and people who check content for clarity.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 12
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"understand\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "understand",
+              "priority": "consider",
+              "suggestion": "\"understand\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 18,
+          "sentence_text": "Most adults can understand it.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 5
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"sentences\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "sentences",
+              "priority": "consider",
+              "suggestion": "\"sentences\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 26,
+          "sentence_text": "Keep sentences short.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 3
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"limitations\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "limitations",
+              "priority": "consider",
+              "suggestion": "\"limitations\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 32,
+          "sentence_text": "LIMITATIONS",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 1
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "are not",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 33,
+          "sentence_text": "The scores are not perfect.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 5
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"organized\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "organized",
+              "priority": "consider",
+              "suggestion": "\"organized\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 35,
+          "sentence_text": "They cannot tell if your text makes sense or if it is well organized.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 14
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"confusing\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "confusing",
+              "priority": "consider",
+              "suggestion": "\"confusing\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 36,
+          "sentence_text": "A text with a low score can still be confusing.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 10
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Redundant word pairs add words without adding meaning.",
+              "label": "Redundant word pair",
+              "matched_text": "general public",
+              "priority": "info",
+              "suggestion": "Use just \"public\". The public is general.",
+              "type": "redundant_pair"
+            }
+          ],
+          "priority": "info",
+          "sentence_index": 20,
+          "sentence_text": "Suitable for the general public.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 5
+        }
+      ],
+      "replacement_count": 2,
+      "result": {
+        "barriers": [
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"plainspeak\" has 2 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "plainspeak",
+            "sentence_index": 1,
+            "sentence_text": "PlainSpeak is a tool that helps you check how easy your writing is to read.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"plainspeak\" has 2 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"sentences\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "sentences",
+            "sentence_index": 4,
+            "sentence_text": "- It finds words and sentences that might be hard for some readers.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"sentences\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"plainspeak\" has 2 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "plainspeak",
+            "sentence_index": 8,
+            "sentence_text": "PlainSpeak helps anyone who writes for the public.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"plainspeak\" has 2 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"government\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "government",
+            "sentence_index": 9,
+            "sentence_text": "This includes people who write government forms, health information, educational materials, and legal documents.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"government\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"information\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "information",
+            "sentence_index": 9,
+            "sentence_text": "This includes people who write government forms, health information, educational materials, and legal documents.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"information\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"educational\" has 5 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "educational",
+            "sentence_index": 9,
+            "sentence_text": "This includes people who write government forms, health information, educational materials, and legal documents.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"educational\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"materials\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "materials",
+            "sentence_index": 9,
+            "sentence_text": "This includes people who write government forms, health information, educational materials, and legal documents.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"materials\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"documents\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "documents",
+            "sentence_index": 9,
+            "sentence_text": "This includes people who write government forms, health information, educational materials, and legal documents.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"documents\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "nominalization",
+            "end_char": 73,
+            "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+            "matched_text": "clarity",
+            "sentence_index": 10,
+            "sentence_text": "It also helps teachers, editors, and people who check content for clarity.",
+            "severity": "info",
+            "start_char": 66,
+            "suggestion": "\"clarity\" is a nominalization. Consider using the verb \"clare\" instead to make the sentence more direct."
+          },
+          {
+            "barrier_type": "long_sentence",
+            "end_char": 0,
+            "explanation": "Sentences over 25 words are harder to follow. This one has 47 words. Try breaking it at natural pause points.",
+            "matched_text": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal ...",
+            "sentence_index": 11,
+            "sentence_text": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html",
+            "severity": "critical",
+            "start_char": 0,
+            "suggestion": "This sentence has 47 words. Consider splitting it into two or more shorter sentences."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"plainspeak\" has 2 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "plainspeak",
+            "sentence_index": 11,
+            "sentence_text": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"plainspeak\" has 2 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"readability\" has 5 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "readability",
+            "sentence_index": 11,
+            "sentence_text": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"readability\" has 5 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"suggestions\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "suggestions",
+            "sentence_index": 11,
+            "sentence_text": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"suggestions\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"understand\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "understand",
+            "sentence_index": 18,
+            "sentence_text": "Most adults can understand it.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"understand\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "redundant_pair",
+            "end_char": 31,
+            "explanation": "Redundant word pairs add words without adding meaning.",
+            "matched_text": "general public",
+            "sentence_index": 20,
+            "sentence_text": "Suitable for the general public.",
+            "severity": "info",
+            "start_char": 17,
+            "suggestion": "Use just \"public\". The public is general."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "may",
+            "sentence_index": 22,
+            "sentence_text": "Some readers may struggle.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"sentences\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "sentences",
+            "sentence_index": 26,
+            "sentence_text": "Keep sentences short.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"sentences\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"technical\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "technical",
+            "sentence_index": 30,
+            "sentence_text": "Avoid jargon and technical terms when you can.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"technical\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"terms\" can often be replaced with a simpler word.",
+            "matched_text": "terms",
+            "sentence_index": 30,
+            "sentence_text": "Avoid jargon and technical terms when you can.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"limitations\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "limitations",
+            "sentence_index": 32,
+            "sentence_text": "LIMITATIONS",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"limitations\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 18,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "are not",
+            "sentence_index": 33,
+            "sentence_text": "The scores are not perfect.",
+            "severity": "warning",
+            "start_char": 11,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"organized\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "organized",
+            "sentence_index": 35,
+            "sentence_text": "They cannot tell if your text makes sense or if it is well organized.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"organized\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"confusing\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "confusing",
+            "sentence_index": 36,
+            "sentence_text": "A text with a low score can still be confusing.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"confusing\" has 3 syllables. Is there a simpler word you could use?"
+          }
+        ],
+        "critical_count": 1,
+        "info_count": 10,
+        "original_text": "HOW TO USE THIS TOOL\n\nPlainSpeak is a tool that helps you check how easy your writing is to read.\n\nWHAT IT DOES\n\n- It measures how readable your text is using several standard tests.\n- It finds words and sentences that might be hard for some readers.\n- It suggests simpler words you could use instead.\n- It creates a report that you can view in your web browser.\n\nWHO IT HELPS\n\nPlainSpeak helps anyone who writes for the public. This includes people who write government forms, health information, educational materials, and legal documents. It also helps teachers, editors, and people who check content for clarity.\n\nHOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html\n\nWHAT THE SCORES MEAN\n\nThe tool gives you several scores. The main one is the grade level. A lower grade level means the text is easier to read. Here is a simple guide:\n\n- Grade 6 or below: Easy to read. Most adults can understand it.\n- Grade 7 to 8: Plain English. Suitable for the general public.\n- Grade 9 to 12: Harder to read. Some readers may struggle.\n- Above Grade 12: Very hard. Best for expert readers only.\n\nTIPS FOR CLEAR WRITING\n\nKeep sentences short. Aim for 15 to 20 words per sentence. Use common words that most people know. Write in active voice — say who does what. Avoid jargon and technical terms when you can. If you must use a hard word, explain it the first time.\n\nLIMITATIONS\n\nThe scores are not perfect. They count things like word length and sentence length. They cannot tell if your text makes sense or if it is well organized. A text with a low score can still be confusing. A text with a high score can still be clear. Use your judgment along with the scores.\n",
+        "sentences": [
+          "HOW TO USE THIS TOOL",
+          "PlainSpeak is a tool that helps you check how easy your writing is to read.",
+          "WHAT IT DOES",
+          "- It measures how readable your text is using several standard tests.",
+          "- It finds words and sentences that might be hard for some readers.",
+          "- It suggests simpler words you could use instead.",
+          "- It creates a report that you can view in your web browser.",
+          "WHO IT HELPS",
+          "PlainSpeak helps anyone who writes for the public.",
+          "This includes people who write government forms, health information, educational materials, and legal documents.",
+          "It also helps teachers, editors, and people who check content for clarity.",
+          "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html",
+          "WHAT THE SCORES MEAN",
+          "The tool gives you several scores.",
+          "The main one is the grade level.",
+          "A lower grade level means the text is easier to read.",
+          "Here is a simple guide:",
+          "- Grade 6 or below: Easy to read.",
+          "Most adults can understand it.",
+          "- Grade 7 to 8: Plain English.",
+          "Suitable for the general public.",
+          "- Grade 9 to 12: Harder to read.",
+          "Some readers may struggle.",
+          "- Above Grade 12: Very hard.",
+          "Best for expert readers only.",
+          "TIPS FOR CLEAR WRITING",
+          "Keep sentences short.",
+          "Aim for 15 to 20 words per sentence.",
+          "Use common words that most people know.",
+          "Write in active voice — say who does what.",
+          "Avoid jargon and technical terms when you can.",
+          "If you must use a hard word, explain it the first time.",
+          "LIMITATIONS",
+          "The scores are not perfect.",
+          "They count things like word length and sentence length.",
+          "They cannot tell if your text makes sense or if it is well organized.",
+          "A text with a low score can still be confusing.",
+          "A text with a high score can still be clear.",
+          "Use your judgment along with the scores."
+        ],
+        "summary": "Found 23 readability issue(s) across 39 sentence(s): 1 critical issue(s), 12 warning(s), 10 suggestion(s).",
+        "total_barriers": 23,
+        "warning_count": 12
+      },
+      "simplified_text": "HOW TO USE THIS TOOL\n\nPlainSpeak is a tool that helps you check how easy your writing is to read.\n\nWHAT IT DOES\n\n- It measures how readable your text is using several standard tests.\n- It finds words and sentences that might be hard for some readers.\n- It suggests simpler words you could use instead.\n- It creates a report that you can view in your web browser.\n\nWHO IT HELPS\n\nPlainSpeak helps anyone who writes for the public. This includes people who write government forms, health information, educational **important**, and legal documents. It also helps teachers, editors, and people who check content for clarity.\n\nHOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html\n\nWHAT THE SCORES MEAN\n\nThe tool gives you several scores. The main one is the grade level. A lower grade level means the text is easier to read. Here is a simple guide:\n\n- Grade 6 or below: Easy to read. Most adults can understand it.\n- Grade 7 to 8: Plain English. Suitable for the general public.\n- Grade 9 to 12: Harder to read. Some readers may struggle.\n- Above Grade 12: Very hard. Best for expert readers only.\n\nTIPS FOR CLEAR WRITING\n\nKeep sentences short. Aim for 15 to 20 words per sentence. Use common words that most people know. Write in active voice — say who does what. Avoid jargon and technical **length of cover** when you can. If you must use a hard word, explain it the first time.\n\nLIMITATIONS\n\nThe scores are not perfect. They count things like word length and sentence length. They cannot tell if your text makes sense or if it is well organized. A text with a low score can still be confusing. A text with a high score can still be clear. Use your judgment along with the scores.\n",
+      "top_improvements": [
+        {
+          "action": "Break into 2-3 shorter sentences. Aim for 15-25 words per sentence.",
+          "impact": "Shorter sentences are the single most effective way to improve readability.",
+          "issue": "This sentence is 50 words long",
+          "location": "Sentence 12",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'plainspeak')",
+          "location": "Sentence 12",
+          "priority": "consider"
+        },
+        {
+          "action": "Consider replacing with: \"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'may'",
+          "location": "Sentence 23",
+          "priority": "high"
+        },
+        {
+          "action": "Consider replacing with: Consider using \"length of cover\" instead. How long the insurance lasts.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'terms'",
+          "location": "Sentence 31",
+          "priority": "high"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'technical')",
+          "location": "Sentence 31",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'plainspeak')",
+          "location": "Sentence 2",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'sentences')",
+          "location": "Sentence 5",
+          "priority": "consider"
+        }
+      ]
+    }
+  }
+}

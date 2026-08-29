@@ -1,0 +1,1135 @@
+{
+  "analyzer": {
+    "outcome": "ok",
+    "value": {
+      "scores": {
+        "automated_readability_index": 5.600863,
+        "avg_sentence_length": 7.538462,
+        "avg_syllables_per_word": 1.5,
+        "avg_word_length": 4.938776,
+        "coleman_liau_index": null,
+        "consensus_grade_level": 6.953554,
+        "difficulty_band": "Fairly Easy",
+        "difficulty_band_explanation": "Text at this level is generally accessible but may present difficulties for readers with lower literacy or non-native speakers. Consider whether your intended audience includes people who may struggle with this level.",
+        "difficulty_band_label": "Fairly easy (approximately lower secondary level)",
+        "flesch_kincaid_grade": 5.05,
+        "flesch_reading_ease": 72.283462,
+        "grade_warnings": [],
+        "gunning_fog_index": 8.321507,
+        "metric_count": 4,
+        "metric_spread": 3.791846,
+        "reading_level_description": "Fairly easy (approximately lower secondary level)",
+        "short_text_warning": "This text is very short. Readability formulas need at least 100 words and 3+ sentences to produce stable estimates. Treat these results as rough indicators, not precise measurements.",
+        "smog_index": 8.841846,
+        "total_complex_words": 13,
+        "total_long_words": 27,
+        "total_sentences": 13,
+        "total_syllables": 147,
+        "total_words": 98
+      },
+      "sentence_count": 13,
+      "sentences": [
+        "The application was reviewed by the committee last Tuesday.",
+        "Decisions are made by the panel after all submissions have been received.",
+        "The",
+        "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+        "It was determined that the request could not be granted.",
+        "The applicant was",
+        "informed that an appeal may be lodged within twenty-eight days.",
+        "The building is being renovated.",
+        "The work will be finished by March.",
+        "She reviewed the application.",
+        "The committee met on Tuesday.",
+        "Staff processed the",
+        "forms."
+      ],
+      "word_count": 98,
+      "words_head": [
+        "the",
+        "application",
+        "was",
+        "reviewed",
+        "by",
+        "the",
+        "committee",
+        "last",
+        "tuesday",
+        "decisions",
+        "are",
+        "made",
+        "by",
+        "the",
+        "panel",
+        "after",
+        "all",
+        "submissions",
+        "have",
+        "been",
+        "received",
+        "the",
+        "forms",
+        "were",
+        "completed",
+        "by",
+        "the",
+        "applicant",
+        "and",
+        "were",
+        "then",
+        "forwarded",
+        "to",
+        "the",
+        "regional",
+        "office",
+        "where",
+        "they",
+        "were",
+        "processed"
+      ],
+      "words_sha256": "dc2b352b4fb4d23361c049a21010f36a2968381bdadee2c18923fd35ee0a6ebd"
+    }
+  },
+  "input": {
+    "chars": 597,
+    "sha256": "2d1f2762571719ba61d1b6ad62eec3d01a1bdb6f1ee5f22850877d026bf110a4"
+  },
+  "reporter": {
+    "outcome": "ok",
+    "value": {
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 7.0\n  Fairly easy (approximately lower secondary level)\n\n  Text Statistics:\n    Words:               98\n    Sentences:           13\n    Avg Sentence Length:  7.5 words\n    Avg Word Length:      4.9 characters\n    Complex Words (3+ syl): 13\n\n  Readability Scores:\n    Flesch Reading Ease:        72.3\n      Fairly easy — plain English suitable for general audience.\n    Flesch-Kincaid Grade Level:  5.1\n    Gunning Fog Index:           8.3\n    SMOG Index:                  8.8\n    Automated Readability Index: 5.6\n\n  Found 31 readability issue(s) across 13 sentence(s): 19 warning(s), 12 suggestion(s).\n\n  Top issues:\n    [WARNING] Passive Voice: \"was reviewed\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"application\"\n           -> \"application\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"committee\"\n           -> \"committee\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Passive Voice: \"been received\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"have been received\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"submissions\"\n           -> \"submissions\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"decisions\"\n           -> \"decisions\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Passive Voice: \"were completed\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"were then\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"were processed\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    ... and 21 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 31475,
+      "html_sha256": "5aed67947cbe0d437cfe252ebfecc5608761eca7bfd3383676b92a1a7b392bce",
+      "json_report": {
+        "consensus": {
+          "description": "Fairly easy (approximately lower secondary level)",
+          "grade_level": 7.0
+        },
+        "readability_scores": {
+          "automated_readability_index": 5.6,
+          "coleman_liau_index": null,
+          "flesch_kincaid_grade": 5.1,
+          "flesch_reading_ease": 72.3,
+          "gunning_fog_index": 8.3,
+          "smog_index": 8.8
+        },
+        "simplification": {
+          "barriers": [
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "was reviewed",
+              "sentence_context": "The application was reviewed by the committee last Tuesday.",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"application\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "application",
+              "sentence_context": "The application was reviewed by the committee last Tuesday.",
+              "sentence_index": 0,
+              "severity": "warning",
+              "suggestion": "\"application\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"committee\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "committee",
+              "sentence_context": "The application was reviewed by the committee last Tuesday.",
+              "sentence_index": 0,
+              "severity": "info",
+              "suggestion": "\"committee\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "been received",
+              "sentence_context": "Decisions are made by the panel after all submissions have been received.",
+              "sentence_index": 1,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "have been received",
+              "sentence_context": "Decisions are made by the panel after all submissions have been received.",
+              "sentence_index": 1,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"submissions\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "submissions",
+              "sentence_context": "Decisions are made by the panel after all submissions have been received.",
+              "sentence_index": 1,
+              "severity": "warning",
+              "suggestion": "\"submissions\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"decisions\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "decisions",
+              "sentence_context": "Decisions are made by the panel after all submissions have been received.",
+              "sentence_index": 1,
+              "severity": "info",
+              "suggestion": "\"decisions\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "were completed",
+              "sentence_context": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+              "sentence_index": 3,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "were then",
+              "sentence_context": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+              "sentence_index": 3,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "were processed",
+              "sentence_context": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+              "sentence_index": 3,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "been trained",
+              "sentence_context": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+              "sentence_index": 3,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "had been trained",
+              "sentence_context": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+              "sentence_index": 3,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"completed\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "completed",
+              "sentence_context": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+              "sentence_index": 3,
+              "severity": "info",
+              "suggestion": "\"completed\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "applicant",
+              "sentence_context": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+              "sentence_index": 3,
+              "severity": "info",
+              "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"forwarded\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "forwarded",
+              "sentence_context": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+              "sentence_index": 3,
+              "severity": "info",
+              "suggestion": "\"forwarded\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"processed\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "processed",
+              "sentence_context": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+              "sentence_index": 3,
+              "severity": "info",
+              "suggestion": "\"processed\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "This sentence is 27 words long. Sentences over 25 words begin to strain working memory.",
+              "matched_text": "forms were completed by the applicant and were then forwarded to the regional office, where they wer...",
+              "sentence_context": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+              "sentence_index": 3,
+              "severity": "info",
+              "suggestion": "Consider shortening this 27-word sentence or splitting it.",
+              "type": "long_sentence"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "be granted",
+              "sentence_context": "It was determined that the request could not be granted.",
+              "sentence_index": 4,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"determined\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "determined",
+              "sentence_context": "It was determined that the request could not be granted.",
+              "sentence_index": 4,
+              "severity": "warning",
+              "suggestion": "Consider using \"decide\" instead. Decision words should be clear.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"request\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "request",
+              "sentence_context": "It was determined that the request could not be granted.",
+              "sentence_index": 4,
+              "severity": "info",
+              "suggestion": "Consider using \"ask\" instead. Direct communication.",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "applicant",
+              "sentence_context": "The applicant was",
+              "sentence_index": 5,
+              "severity": "info",
+              "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "be lodged",
+              "sentence_context": "informed that an appeal may be lodged within twenty-eight days.",
+              "sentence_index": 6,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "may be lodged",
+              "sentence_context": "informed that an appeal may be lodged within twenty-eight days.",
+              "sentence_index": 6,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+              "matched_text": "may",
+              "sentence_context": "informed that an appeal may be lodged within twenty-eight days.",
+              "sentence_index": 6,
+              "severity": "info",
+              "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "being renovated",
+              "sentence_context": "The building is being renovated.",
+              "sentence_index": 7,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"renovated\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "renovated",
+              "sentence_context": "The building is being renovated.",
+              "sentence_index": 7,
+              "severity": "warning",
+              "suggestion": "\"renovated\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "be finished",
+              "sentence_context": "The work will be finished by March.",
+              "sentence_index": 8,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "matched_text": "will be finished",
+              "sentence_context": "The work will be finished by March.",
+              "sentence_index": 8,
+              "severity": "warning",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "explanation": "\"application\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "application",
+              "sentence_context": "She reviewed the application.",
+              "sentence_index": 9,
+              "severity": "warning",
+              "suggestion": "\"application\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"committee\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "committee",
+              "sentence_context": "The committee met on Tuesday.",
+              "sentence_index": 10,
+              "severity": "info",
+              "suggestion": "\"committee\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            },
+            {
+              "explanation": "\"processed\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "matched_text": "processed",
+              "sentence_context": "Staff processed the",
+              "sentence_index": 11,
+              "severity": "info",
+              "suggestion": "\"processed\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "critical_count": 0,
+          "info_count": 12,
+          "summary": "Found 31 readability issue(s) across 13 sentence(s): 19 warning(s), 12 suggestion(s).",
+          "total_barriers": 31,
+          "warning_count": 19
+        },
+        "statistics": {
+          "avg_sentence_length": 7.54,
+          "avg_syllables_per_word": 1.5,
+          "avg_word_length": 4.94,
+          "total_complex_words": 13,
+          "total_long_words": 27,
+          "total_sentences": 13,
+          "total_syllables": 147,
+          "total_words": 98
+        },
+        "text_preview": "The application was reviewed by the committee last Tuesday.\n\nDecisions are made by the panel after all submissions have been received. The\nforms were completed by the applicant and were then forwarded to the regional\noffice, where they were processed by staff who had been trained for that\npurpose.\n\nIt was determined that the request could not be granted. The applicant was\ninformed that an appeal may be lodged within twenty-eight days.\n\nThe building is being renovated. The work will be finished by March.\n\nShe reviewed the application. The committee met on Tuesday. Staff processed the\nforms.\n",
+        "tool": "PlainSpeak",
+        "version": "0.3.0"
+      }
+    }
+  },
+  "simplifier": {
+    "outcome": "ok",
+    "value": {
+      "grouped_barriers": [
+        {
+          "issues": [
+            {
+              "confidence": "high",
+              "count": 1,
+              "explanation": "This sentence is 27 words long. Sentences over 25 words begin to strain working memory.",
+              "label": "Long sentence",
+              "matched_text": "forms were completed by the applicant and were then forwarded to the regional office, where they wer...",
+              "priority": "high",
+              "suggestion": "Consider shortening this 27-word sentence or splitting it.",
+              "type": "long_sentence"
+            },
+            {
+              "confidence": "medium",
+              "count": 5,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "were completed",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 4,
+              "explanation": "\"completed\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "completed",
+              "priority": "consider",
+              "suggestion": "\"completed\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 3,
+          "sentence_text": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+          "total_issues": 10,
+          "unique_issue_types": 3,
+          "word_count": 27
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+              "label": "Jargon or formal language",
+              "matched_text": "may",
+              "priority": "high",
+              "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+              "type": "jargon"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "be lodged",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            }
+          ],
+          "priority": "high",
+          "sentence_index": 6,
+          "sentence_text": "informed that an appeal may be lodged within twenty-eight days.",
+          "total_issues": 3,
+          "unique_issue_types": 2,
+          "word_count": 10
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "was reviewed",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"application\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "application",
+              "priority": "consider",
+              "suggestion": "\"application\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 0,
+          "sentence_text": "The application was reviewed by the committee last Tuesday.",
+          "total_issues": 3,
+          "unique_issue_types": 2,
+          "word_count": 9
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "been received",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"submissions\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "submissions",
+              "priority": "consider",
+              "suggestion": "\"submissions\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 1,
+          "sentence_text": "Decisions are made by the panel after all submissions have been received.",
+          "total_issues": 4,
+          "unique_issue_types": 2,
+          "word_count": 12
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "be granted",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "\"determined\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "determined",
+              "priority": "consider",
+              "suggestion": "Consider using \"decide\" instead. Decision words should be clear.",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 4,
+          "sentence_text": "It was determined that the request could not be granted.",
+          "total_issues": 3,
+          "unique_issue_types": 2,
+          "word_count": 10
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "applicant",
+              "priority": "consider",
+              "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 5,
+          "sentence_text": "The applicant was",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 3
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "being renovated",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            },
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"renovated\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "renovated",
+              "priority": "consider",
+              "suggestion": "\"renovated\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 7,
+          "sentence_text": "The building is being renovated.",
+          "total_issues": 2,
+          "unique_issue_types": 2,
+          "word_count": 5
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 2,
+              "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+              "label": "Passive voice",
+              "matched_text": "be finished",
+              "priority": "consider",
+              "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
+              "type": "passive_voice"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 8,
+          "sentence_text": "The work will be finished by March.",
+          "total_issues": 2,
+          "unique_issue_types": 1,
+          "word_count": 7
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"application\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "application",
+              "priority": "consider",
+              "suggestion": "\"application\" has 4 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 9,
+          "sentence_text": "She reviewed the application.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 4
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"committee\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "committee",
+              "priority": "consider",
+              "suggestion": "\"committee\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 10,
+          "sentence_text": "The committee met on Tuesday.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 5
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"processed\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "processed",
+              "priority": "consider",
+              "suggestion": "\"processed\" has 2 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 11,
+          "sentence_text": "Staff processed the",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 3
+        }
+      ],
+      "replacement_count": 2,
+      "result": {
+        "barriers": [
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 28,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "was reviewed",
+            "sentence_index": 0,
+            "sentence_text": "The application was reviewed by the committee last Tuesday.",
+            "severity": "warning",
+            "start_char": 16,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"application\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "application",
+            "sentence_index": 0,
+            "sentence_text": "The application was reviewed by the committee last Tuesday.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"application\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"committee\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "committee",
+            "sentence_index": 0,
+            "sentence_text": "The application was reviewed by the committee last Tuesday.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"committee\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 72,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "been received",
+            "sentence_index": 1,
+            "sentence_text": "Decisions are made by the panel after all submissions have been received.",
+            "severity": "warning",
+            "start_char": 59,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 72,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "have been received",
+            "sentence_index": 1,
+            "sentence_text": "Decisions are made by the panel after all submissions have been received.",
+            "severity": "warning",
+            "start_char": 54,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"submissions\" has 3 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "submissions",
+            "sentence_index": 1,
+            "sentence_text": "Decisions are made by the panel after all submissions have been received.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"submissions\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"decisions\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "decisions",
+            "sentence_index": 1,
+            "sentence_text": "Decisions are made by the panel after all submissions have been received.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"decisions\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 20,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "were completed",
+            "sentence_index": 3,
+            "sentence_text": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+            "severity": "warning",
+            "start_char": 6,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 51,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "were then",
+            "sentence_index": 3,
+            "sentence_text": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+            "severity": "warning",
+            "start_char": 42,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 111,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "were processed",
+            "sentence_index": 3,
+            "sentence_text": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+            "severity": "warning",
+            "start_char": 97,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 141,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "been trained",
+            "sentence_index": 3,
+            "sentence_text": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+            "severity": "warning",
+            "start_char": 129,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 141,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "had been trained",
+            "sentence_index": 3,
+            "sentence_text": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+            "severity": "warning",
+            "start_char": 125,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"completed\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "completed",
+            "sentence_index": 3,
+            "sentence_text": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"completed\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "applicant",
+            "sentence_index": 3,
+            "sentence_text": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"forwarded\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "forwarded",
+            "sentence_index": 3,
+            "sentence_text": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"forwarded\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"processed\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "processed",
+            "sentence_index": 3,
+            "sentence_text": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"processed\" has 2 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "long_sentence",
+            "end_char": 0,
+            "explanation": "This sentence is 27 words long. Sentences over 25 words begin to strain working memory.",
+            "matched_text": "forms were completed by the applicant and were then forwarded to the regional office, where they wer...",
+            "sentence_index": 3,
+            "sentence_text": "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider shortening this 27-word sentence or splitting it."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 55,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "be granted",
+            "sentence_index": 4,
+            "sentence_text": "It was determined that the request could not be granted.",
+            "severity": "warning",
+            "start_char": 45,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"determined\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "determined",
+            "sentence_index": 4,
+            "sentence_text": "It was determined that the request could not be granted.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "Consider using \"decide\" instead. Decision words should be clear."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"request\" has 2 syllables and 7 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "request",
+            "sentence_index": 4,
+            "sentence_text": "It was determined that the request could not be granted.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "Consider using \"ask\" instead. Direct communication."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"applicant\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "applicant",
+            "sentence_index": 5,
+            "sentence_text": "The applicant was",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"applicant\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 37,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "be lodged",
+            "sentence_index": 6,
+            "sentence_text": "informed that an appeal may be lodged within twenty-eight days.",
+            "severity": "warning",
+            "start_char": 28,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 37,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "may be lodged",
+            "sentence_index": 6,
+            "sentence_text": "informed that an appeal may be lodged within twenty-eight days.",
+            "severity": "warning",
+            "start_char": 24,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "jargon",
+            "end_char": 0,
+            "explanation": "\"may\" is a domain-specific term that may be unfamiliar to some readers.",
+            "matched_text": "may",
+            "sentence_index": 6,
+            "sentence_text": "informed that an appeal may be lodged within twenty-eight days.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 31,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "being renovated",
+            "sentence_index": 7,
+            "sentence_text": "The building is being renovated.",
+            "severity": "warning",
+            "start_char": 16,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"renovated\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "renovated",
+            "sentence_index": 7,
+            "sentence_text": "The building is being renovated.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"renovated\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 25,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "be finished",
+            "sentence_index": 8,
+            "sentence_text": "The work will be finished by March.",
+            "severity": "warning",
+            "start_char": 14,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "passive_voice",
+            "end_char": 25,
+            "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
+            "matched_text": "will be finished",
+            "sentence_index": 8,
+            "sentence_text": "The work will be finished by March.",
+            "severity": "warning",
+            "start_char": 9,
+            "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"application\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "application",
+            "sentence_index": 9,
+            "sentence_text": "She reviewed the application.",
+            "severity": "warning",
+            "start_char": 0,
+            "suggestion": "\"application\" has 4 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"committee\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "committee",
+            "sentence_index": 10,
+            "sentence_text": "The committee met on Tuesday.",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"committee\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "complex_word",
+            "end_char": 0,
+            "explanation": "\"processed\" has 2 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+            "matched_text": "processed",
+            "sentence_index": 11,
+            "sentence_text": "Staff processed the",
+            "severity": "info",
+            "start_char": 0,
+            "suggestion": "\"processed\" has 2 syllables. Is there a simpler word you could use?"
+          }
+        ],
+        "critical_count": 0,
+        "info_count": 12,
+        "original_text": "The application was reviewed by the committee last Tuesday.\n\nDecisions are made by the panel after all submissions have been received. The\nforms were completed by the applicant and were then forwarded to the regional\noffice, where they were processed by staff who had been trained for that\npurpose.\n\nIt was determined that the request could not be granted. The applicant was\ninformed that an appeal may be lodged within twenty-eight days.\n\nThe building is being renovated. The work will be finished by March.\n\nShe reviewed the application. The committee met on Tuesday. Staff processed the\nforms.\n",
+        "sentences": [
+          "The application was reviewed by the committee last Tuesday.",
+          "Decisions are made by the panel after all submissions have been received.",
+          "The",
+          "forms were completed by the applicant and were then forwarded to the regional office, where they were processed by staff who had been trained for that purpose.",
+          "It was determined that the request could not be granted.",
+          "The applicant was",
+          "informed that an appeal may be lodged within twenty-eight days.",
+          "The building is being renovated.",
+          "The work will be finished by March.",
+          "She reviewed the application.",
+          "The committee met on Tuesday.",
+          "Staff processed the",
+          "forms."
+        ],
+        "summary": "Found 31 readability issue(s) across 13 sentence(s): 19 warning(s), 12 suggestion(s).",
+        "total_barriers": 31,
+        "warning_count": 19
+      },
+      "simplified_text": "The application was reviewed by the committee last Tuesday.\n\nDecisions are made by the panel after all submissions have been received. The\nforms were completed by the applicant and were then forwarded to the regional\noffice, where they were processed by staff who had been trained for that\npurpose.\n\nIt was **decide** that the **ask** could not be granted. The applicant was\ninformed that an appeal may be lodged within twenty-eight days.\n\nThe building is being renovated. The work will be finished by March.\n\nShe reviewed the application. The committee met on Tuesday. Staff processed the\nforms.\n",
+      "top_improvements": [
+        {
+          "action": "Break into 2-3 shorter sentences. Aim for 15-25 words per sentence.",
+          "impact": "Shorter sentences are the single most effective way to improve readability.",
+          "issue": "This sentence is 27 words long",
+          "location": "Sentence 4",
+          "priority": "high"
+        },
+        {
+          "action": "Rewrite in active voice: identify who is doing what.",
+          "impact": "Active voice is more direct and easier to follow.",
+          "issue": "Uses passive voice",
+          "location": "Sentence 4",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'completed')",
+          "location": "Sentence 4",
+          "priority": "consider"
+        },
+        {
+          "action": "Consider replacing with: \"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
+          "impact": "Jargon is the most common barrier for non-specialist readers.",
+          "issue": "Contains jargon or formal language: 'may'",
+          "location": "Sentence 7",
+          "priority": "high"
+        },
+        {
+          "action": "Rewrite in active voice: identify who is doing what.",
+          "impact": "Active voice is more direct and easier to follow.",
+          "issue": "Uses passive voice",
+          "location": "Sentence 7",
+          "priority": "consider"
+        },
+        {
+          "action": "Rewrite in active voice: identify who is doing what.",
+          "impact": "Active voice is more direct and easier to follow.",
+          "issue": "Uses passive voice",
+          "location": "Sentence 1",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'application')",
+          "location": "Sentence 1",
+          "priority": "consider"
+        }
+      ]
+    }
+  }
+}
