@@ -82,6 +82,8 @@ class DocumentAnalysis:
         if finding.analysis_span is None:
             return ProposedChange(
                 rule_id=rule_id,
+                rule_version=0,
+                mode="",
                 analysis_span=Span(0, 0),
                 source_spans=(),
                 document_path=(),

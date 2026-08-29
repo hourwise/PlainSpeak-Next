@@ -332,6 +332,31 @@ class HtmlBlock(Block):
         self.mark_unanalyzable(REASON_RAW)
 
 
+# ── Structural scopes ──────────────────────────────────────────────────────
+
+#: The structural names a rule may target. A segment carries every scope that
+#: applies to it, gathered from its ancestors — prose inside a list item is both
+#: "prose" and "list", so a rule may opt into one and out of the other.
+#:
+#: Headings and link text count as prose as well as themselves, so that the
+#: default `include: [prose]` reaches them and a rule has to opt out explicitly
+#: rather than discovering it never matched a heading.
+SCOPE_BY_NODE: dict[str, tuple[str, ...]] = {
+    "Paragraph": ("prose",),
+    "Heading": ("prose", "heading"),
+    "ListBlock": ("list",),
+    "ListItem": ("list",),
+    "Quote": ("quote",),
+    "CodeBlock": ("code",),
+    "Table": ("table",),
+    "Link": ("link",),
+}
+
+
+def _scopes_of(node: "Node") -> tuple[str, ...]:
+    return SCOPE_BY_NODE.get(type(node).__name__, ())
+
+
 # ── The structural contract ────────────────────────────────────────────────
 
 
@@ -364,6 +389,10 @@ class ProseSegment:
     span: Span
     kind: str
     text: str
+    #: Every structural scope that applies, gathered from this segment's
+    #: ancestors and sorted. Prose in a list item inside a quote carries all
+    #: three, so a rule can include or exclude any of them.
+    scopes: tuple[str, ...]
     path: tuple[int, ...]
     #: Path of the enclosing block. A consumer that has to know where one unit
     #: of prose ends and the next begins cannot recover this from `path` alone,
@@ -435,6 +464,7 @@ class Document:
             analysis_refusal: str,
             edit_refusal: str,
             block_path: tuple[int, ...],
+            scopes: tuple[str, ...],
         ) -> None:
             if not node.analyzable:
                 analysis_refusal = analysis_refusal or node.unanalyzable_reason
@@ -442,6 +472,9 @@ class Document:
                 edit_refusal = edit_refusal or node.untransformable_reason
             if isinstance(node, Block):
                 block_path = node.path
+            scopes = scopes + tuple(
+                name for name in _scopes_of(node) if name not in scopes
+            )
 
             if isinstance(node, (Text, Literal, LineBreak)) and len(node.span):
                 segments.append(
@@ -449,6 +482,7 @@ class Document:
                         span=node.span,
                         kind=_segment_kind(node),
                         text=getattr(node, "text", ""),
+                        scopes=tuple(sorted(scopes)),
                         path=node.path,
                         block_path=block_path,
                         provenance=node.provenance,
@@ -460,10 +494,10 @@ class Document:
                 )
 
             for child in node.children():
-                visit(child, analysis_refusal, edit_refusal, block_path)
+                visit(child, analysis_refusal, edit_refusal, block_path, scopes)
 
         for block in self.blocks:
-            visit(block, "", "", block.path)
+            visit(block, "", "", block.path, ())
         return segments
 
     def prose_spans(self) -> list[Span]:

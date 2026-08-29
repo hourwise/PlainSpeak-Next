@@ -39,8 +39,16 @@ class ProposedChange:
     prevent.
     """
 
-    #: Which rule proposed it. Empty until the rule engine exists.
+    #: Which rule proposed it, and which version of that rule. The pair is the
+    #: audit identity: a rule's meaning may be revised under a new version, and
+    #: a change record that named only the ID could not say which meaning
+    #: applied when it was made.
     rule_id: str
+    rule_version: int
+    #: The rule's mode — "safe-fix", "diagnostic" or "protected". Carried so an
+    #: audit record can distinguish "this was refused" from "this never
+    #: proposed anything in the first place".
+    mode: str
     #: Where the finding was made, in projection coordinates.
     analysis_span: Span
     #: The source characters it covers. Empty when nothing could be located.
@@ -86,6 +94,8 @@ def propose_change(
     analysis_span: Span,
     replacement: str = "",
     rule_id: str = "",
+    rule_version: int = 0,
+    mode: str = "",
 ) -> ProposedChange:
     """Turn a finding in analysis coordinates into a proposal against the source.
 
@@ -95,11 +105,17 @@ def propose_change(
     is worth more than a finding that quietly disappeared.
     """
     mapping: SourceMapping = projection.map_to_source(analysis_span)
-    span = mapping.source_span
+    # The text is recorded whenever the source could be located contiguously,
+    # even for a refused proposal. A refusal a reader cannot see the text of is
+    # a refusal they cannot judge, and `source_span` below stays gated on
+    # applicability so nothing can act on it.
+    span = _contiguous_union(mapping.source_spans)
     original = span.text(document.source) if span is not None else ""
 
     return ProposedChange(
         rule_id=rule_id,
+        rule_version=rule_version,
+        mode=mode,
         analysis_span=analysis_span,
         source_spans=mapping.source_spans,
         document_path=_block_path(mapping),
@@ -110,6 +126,22 @@ def propose_change(
         applicable=mapping.applicable,
         reason=mapping.reason,
     )
+
+
+def _contiguous_union(spans: tuple[Span, ...]) -> Optional[Span]:
+    """The single range covering `spans`, when they form one unbroken run.
+
+    Returns `None` when they do not. A union across a gap would name characters
+    that lie between the matched pieces — markup, usually — and reporting that
+    as "the original text" would be a small lie in exactly the place where
+    precision matters.
+    """
+    if not spans:
+        return None
+    for earlier, later in zip(spans, spans[1:]):
+        if earlier.end != later.start:
+            return None
+    return Span(spans[0].start, spans[-1].end)
 
 
 def _block_path(mapping: SourceMapping) -> tuple[int, ...]:

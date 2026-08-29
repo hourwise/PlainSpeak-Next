@@ -73,6 +73,8 @@ class ProjectedSegment:
     #: Path of the IR node this came from, and of its enclosing block.
     path: tuple[int, ...]
     block_path: tuple[int, ...]
+    #: Structural scopes that apply here, for rules that target or avoid them.
+    scopes: tuple[str, ...]
     provenance: str
     original_hash: str
     analyzable: bool
@@ -215,6 +217,7 @@ def _build(
                     synthetic=True,
                     path=segment.block_path,
                     block_path=segment.block_path,
+                    scopes=(),
                     provenance="pipeline.projection",
                     original_hash="",
                     analyzable=True,
@@ -241,6 +244,7 @@ def _build(
                 synthetic=False,
                 path=segment.path,
                 block_path=segment.block_path,
+                scopes=segment.scopes,
                 provenance=segment.provenance,
                 original_hash=segment.original_hash,
                 analyzable=segment.analyzable,
