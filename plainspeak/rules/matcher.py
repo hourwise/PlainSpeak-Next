@@ -95,14 +95,16 @@ def find_matches(text: str, rules: Iterable[Rule]) -> tuple[RuleMatch, ...]:
 
 def _matches_for(text: str, rule: Rule) -> list[RuleMatch]:
     if rule.match.type == MATCH_REGEX:
-        spans = _regex_spans(text, rule)
+        spans = [(start, end, "") for start, end in _regex_spans(text, rule)]
     else:
         spans = _literal_spans(text, rule)
 
     found = []
-    for start, end in spans:
+    for start, end, form_replacement in spans:
         matched = text[start:end]
-        replacement, refusal = _resolve_edit(text, rule, start, end, matched)
+        replacement, refusal = _resolve_edit(
+            text, rule, start, end, matched, form_replacement
+        )
         found.append(
             RuleMatch(
                 rule_id=rule.id,
@@ -123,26 +125,35 @@ def _matches_for(text: str, rule: Rule) -> list[RuleMatch]:
 # ── Locating text ──────────────────────────────────────────────────────────
 
 
-def _literal_spans(text: str, rule: Rule) -> list[tuple[int, int]]:
-    """Find every occurrence of a rule's literal text or word forms.
+def _literal_spans(text: str, rule: Rule) -> list[tuple[int, int, str]]:
+    """Find every occurrence of a rule's literal forms, with its replacement.
 
     Word boundaries are always enforced at an edge that is a letter or digit,
     for both phrase and word matches. Without that a rule for `utilise` would
     rewrite the middle of `utiliser`, and a rule for `in order to` would fire
     inside `join order token`.
+
+    An inflected rule carries a different replacement for each surface —
+    `utilised` becomes `used`, not `use` — so the pair travels with the span.
     """
     flags = re.IGNORECASE if rule.match.case == CASE_INSENSITIVE else 0
-    spans: list[tuple[int, int]] = []
+    found: dict[tuple[int, int], str] = {}
 
-    for literal in rule.match.literals:
+    if rule.match.inflections:
+        candidates = rule.match.inflections
+    else:
+        candidates = tuple((literal, "") for literal in rule.match.literals)
+
+    for literal, form_replacement in candidates:
         pattern = _bounded_pattern(literal)
-        for found in re.finditer(pattern, text, flags):
-            spans.append((found.start(), found.end()))
+        for hit in re.finditer(pattern, text, flags):
+            key = (hit.start(), hit.end())
+            # Two forms of one rule can find the same characters. Keeping the
+            # first keeps a rule from conflicting with itself.
+            if key not in found:
+                found[key] = form_replacement
 
-    # Two forms of the same rule can find the same characters — "utilise" and a
-    # form list containing it would, if the schema allowed it. Deduplicate so a
-    # rule never conflicts with itself.
-    return sorted(set(spans))
+    return [(start, end, value) for (start, end), value in sorted(found.items())]
 
 
 def _bounded_pattern(literal: str) -> str:
@@ -171,24 +182,28 @@ def _regex_spans(text: str, rule: Rule) -> list[tuple[int, int]]:
 
 
 def _resolve_edit(
-    text: str, rule: Rule, start: int, end: int, matched: str
+    text: str, rule: Rule, start: int, end: int, matched: str, form_replacement: str = ""
 ) -> tuple[str, str]:
     """Work out the replacement for one match, or why there cannot be one."""
     if rule.action.type == ACTION_REPLACE:
-        return _cased_replacement(rule, matched)
+        return _cased_replacement(rule, matched, form_replacement)
     if rule.action.type == ACTION_DELETE:
         return _deletion(text, rule, start, end, matched)
     return "", ""
 
 
-def _cased_replacement(rule: Rule, matched: str) -> tuple[str, str]:
+def _cased_replacement(
+    rule: Rule, matched: str, form_replacement: str = ""
+) -> tuple[str, str]:
     """Adapt the authored replacement to the casing of what was matched.
 
     Refusing is a real outcome here. A rule that lower-cased whatever it found
     would turn `In order to` at the start of a sentence into `to`, and a rule
     that guessed at `iN OrDeR tO` would be guessing.
     """
-    replacement = rule.action.replacement
+    # An inflected rule supplies the replacement for the form that matched;
+    # a plain rule has one replacement for all of its literals.
+    replacement = form_replacement or rule.action.replacement
 
     if rule.case_policy == CASE_EXACT:
         if matched != rule.match.text and matched not in rule.match.forms:

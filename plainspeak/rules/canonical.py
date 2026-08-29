@@ -51,10 +51,18 @@ def canonical_rule(rule: Rule) -> dict[str, Any]:
             "forms": list(rule.match.forms),
             "pattern": rule.match.pattern,
             "case": rule.match.case,
+            "lemma": rule.match.lemma,
+            "part_of_speech": rule.match.part_of_speech,
+            "form_classes": list(rule.match.form_classes),
+            # The expanded surfaces, not just the lemma that produced them. A
+            # morphology change alters what the ruleset matches, and the ruleset
+            # identity has to move when that happens.
+            "inflections": [list(pair) for pair in rule.match.inflections],
         },
         "action": {
             "type": rule.action.type,
             "replacement": rule.action.replacement,
+            "lemma": rule.action.lemma,
             "recapitalize": rule.action.recapitalize,
         },
         "scope": {

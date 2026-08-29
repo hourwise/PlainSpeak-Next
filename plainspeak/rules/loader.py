@@ -18,14 +18,24 @@ that follows are the same on every machine.
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Iterable, Iterator, Optional, Sequence
 
 import yaml
 
+from ..morphology import MORPHOLOGY_VERSION, MorphologyError, inflected_pairs
+from ..morphology import policy_hash as morphology_hash
 from .canonical import ruleset_hash
-from .schema import MODE_DIAGNOSTIC, MODE_PROTECTED, MODE_SAFE_FIX, Rule, RuleError, build_rule
+from .schema import (
+    MATCH_LEMMA,
+    MODE_DIAGNOSTIC,
+    MODE_PROTECTED,
+    MODE_SAFE_FIX,
+    Rule,
+    RuleError,
+    build_rule,
+)
 
 BUNDLED_ROOT = Path(__file__).parent / "bundled"
 MANIFEST_NAME = "RULESET.yaml"
@@ -53,6 +63,11 @@ class Ruleset:
     version: str
     hash: str
     rules: tuple[Rule, ...]
+    #: The morphology that generated any inflected surfaces in these rules.
+    #: Recorded so a plan can name it, the way it names the integrity policy.
+    #: The ruleset hash already covers the generated surfaces themselves.
+    morphology_version: str = ""
+    morphology_hash: str = ""
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "rules", tuple(self.rules))
@@ -104,7 +119,13 @@ def load_ruleset(root: Optional[Path] = None) -> Ruleset:
     _check_collection(rules)
 
     ordered = tuple(sorted(rules, key=lambda rule: (rule.id, rule.version)))
-    return Ruleset(version=version, hash=ruleset_hash(ordered, version), rules=ordered)
+    return Ruleset(
+        version=version,
+        hash=ruleset_hash(ordered, version),
+        rules=ordered,
+        morphology_version=MORPHOLOGY_VERSION,
+        morphology_hash=morphology_hash(),
+    )
 
 
 def _read_manifest(root: Path) -> str:
@@ -173,10 +194,34 @@ def _load_file(path: Path, root: Path) -> list[Rule]:
         if document is None:
             continue
         label = source if len(documents) == 1 else f"{source}#{index}"
-        loaded.append(build_rule(document, label, family=family))
+        loaded.append(_expand(build_rule(document, label, family=family), label))
     if not loaded:
         raise RuleError("", source, "file contains no rules")
     return loaded
+
+
+def _expand(rule: Rule, source: str) -> Rule:
+    """Turn a declared lemma into the explicit surfaces the matcher will use.
+
+    Expansion happens once, at load time, and the result is stored on the rule.
+    That keeps three things true at once: the matcher only ever sees literals, a
+    reviewer can read the exact forms in `explain_rule`, and the ruleset hash
+    covers the generated surfaces rather than only the lemma that produced them.
+    """
+    if rule.match.type != MATCH_LEMMA:
+        return rule
+
+    target = rule.action.lemma or rule.match.lemma
+    classes = rule.match.form_classes or None
+    try:
+        pairs = inflected_pairs(rule.match.lemma, target, rule.match.part_of_speech, classes)
+    except MorphologyError as exc:
+        raise RuleError(rule.id, source, f"morphology could not expand this rule: {exc}") from exc
+
+    if not pairs:
+        raise RuleError(rule.id, source, "the declared lemma produced no surface forms")
+
+    return replace(rule, match=replace(rule.match, inflections=pairs))
 
 
 def _relative_source(path: Path, root: Path) -> str:

@@ -44,7 +44,11 @@ MODE_STYLE_FIX_RESERVED = "style-fix"
 MATCH_PHRASE = "phrase"
 MATCH_WORD = "word"
 MATCH_REGEX = "regex"
-MATCH_TYPES = frozenset({MATCH_PHRASE, MATCH_WORD, MATCH_REGEX})
+#: A lemma plus a part of speech. The loader expands it into explicit
+#: surface forms through `plainspeak.morphology`, so the matcher still only
+#: ever sees literals — there is no stemming anywhere in this path.
+MATCH_LEMMA = "lemma"
+MATCH_TYPES = frozenset({MATCH_PHRASE, MATCH_WORD, MATCH_REGEX, MATCH_LEMMA})
 
 ACTION_NONE = "none"
 ACTION_REPLACE = "replace"
@@ -128,9 +132,22 @@ class Match:
     #: The expression, for `regex`.
     pattern: str = ""
     case: str = CASE_INSENSITIVE
+    #: For a `lemma` match: the declared lemma and its part of speech.
+    lemma: str = ""
+    part_of_speech: str = ""
+    #: Which inflections to generate. Empty means every form the part of speech
+    #: has.
+    form_classes: tuple[str, ...] = ()
+    #: `(surface, replacement)` pairs, filled in by the loader from the declared
+    #: lemma. Present on the rule itself so that a reviewer, an explanation and
+    #: the ruleset hash all see the exact surfaces the rule will match — the
+    #: morphology is inspectable rather than implied.
+    inflections: tuple[tuple[str, str], ...] = ()
 
     @property
     def literals(self) -> tuple[str, ...]:
+        if self.inflections:
+            return tuple(surface for surface, _ in self.inflections)
         return (self.text,) + self.forms if self.text else self.forms
 
 
@@ -140,6 +157,9 @@ class Action:
 
     type: str
     replacement: str = ""
+    #: For a `lemma` match: the lemma to replace it with. The loader inflects
+    #: both sides together, so a past tense is never paired with a gerund.
+    lemma: str = ""
     #: For `delete`: capitalise the following word when the deletion leaves a
     #: sentence starting in lower case. Refused when that cannot be done
     #: mechanically — see `plainspeak.rules.matcher`.
@@ -326,7 +346,9 @@ def _check_reason(rule_id: str, raw: Any, source: str) -> str:
 def _check_match(rule_id: str, raw: Any, source: str) -> Match:
     if not isinstance(raw, dict):
         raise RuleError(rule_id, source, "match must be a mapping")
-    unknown = sorted(set(raw) - {"type", "text", "forms", "pattern", "case"})
+    unknown = sorted(
+        set(raw) - {"type", "text", "forms", "pattern", "case", "lemma", "pos", "classes"}
+    )
     if unknown:
         raise RuleError(rule_id, source, f"unknown match field(s): {', '.join(unknown)}")
 
@@ -341,6 +363,14 @@ def _check_match(rule_id: str, raw: Any, source: str) -> Match:
         raise RuleError(
             rule_id, source,
             f"match.case must be one of {sorted(CASE_SENSITIVITIES)}, found {case!r}",
+        )
+
+    if match_type == MATCH_LEMMA:
+        return _check_lemma_match(rule_id, raw, case, source)
+
+    if "lemma" in raw or "pos" in raw or "classes" in raw:
+        raise RuleError(
+            rule_id, source, f"a {match_type} match takes 'text', not 'lemma'/'pos'/'classes'"
         )
 
     if match_type == MATCH_REGEX:
@@ -383,6 +413,57 @@ def _check_match(rule_id: str, raw: Any, source: str) -> Match:
     return Match(type=match_type, text=text, forms=tuple(forms_raw), case=case)
 
 
+def _check_lemma_match(rule_id: str, raw: dict, case: str, source: str) -> Match:
+    """Validate a lemma match without inflecting it.
+
+    Expansion happens in the loader, which is the only place that may import
+    morphology. Keeping the two apart means a schema error reads as a schema
+    error rather than as a morphology failure.
+    """
+    from ..morphology import FORM_CLASSES, PARTS_OF_SPEECH
+
+    for forbidden in ("text", "forms", "pattern"):
+        if forbidden in raw:
+            raise RuleError(rule_id, source, f"a lemma match takes 'lemma', not {forbidden!r}")
+
+    lemma = raw.get("lemma")
+    if not isinstance(lemma, str) or not lemma.strip():
+        raise RuleError(rule_id, source, "match.lemma must be a non-empty string")
+    if len(lemma) > MAX_PHRASE_LENGTH:
+        raise RuleError(
+            rule_id, source, f"match.lemma is {len(lemma)} characters, limit is {MAX_PHRASE_LENGTH}"
+        )
+
+    part_of_speech = raw.get("pos")
+    if part_of_speech not in PARTS_OF_SPEECH:
+        raise RuleError(
+            rule_id, source,
+            f"match.pos must be one of {sorted(PARTS_OF_SPEECH)}, found {part_of_speech!r}",
+        )
+
+    classes = raw.get("classes", [])
+    if not isinstance(classes, list) or any(not isinstance(name, str) for name in classes):
+        raise RuleError(rule_id, source, "match.classes must be a list of strings")
+    available = FORM_CLASSES[part_of_speech]
+    unknown = sorted(set(classes) - set(available))
+    if unknown:
+        raise RuleError(
+            rule_id, source,
+            f"match.classes names form(s) a {part_of_speech} does not have: {unknown}; "
+            f"available: {list(available)}",
+        )
+    if len(classes) != len(set(classes)):
+        raise RuleError(rule_id, source, "match.classes contains duplicates")
+
+    return Match(
+        type=MATCH_LEMMA,
+        case=case,
+        lemma=lemma.strip(),
+        part_of_speech=part_of_speech,
+        form_classes=tuple(classes),
+    )
+
+
 def _check_regex(rule_id: str, pattern: Any, source: str) -> None:
     if not isinstance(pattern, str) or not pattern:
         raise RuleError(rule_id, source, "match.pattern must be a non-empty string")
@@ -411,7 +492,7 @@ def _check_action(rule_id: str, raw: Any, mode: str, source: str) -> Action:
         raw = {"type": ACTION_NONE if mode == MODE_DIAGNOSTIC else ""}
     if not isinstance(raw, dict):
         raise RuleError(rule_id, source, "action must be a mapping")
-    unknown = sorted(set(raw) - {"type", "replacement", "recapitalize"})
+    unknown = sorted(set(raw) - {"type", "replacement", "recapitalize", "lemma"})
     if unknown:
         raise RuleError(rule_id, source, f"unknown action field(s): {', '.join(unknown)}")
 
@@ -429,9 +510,19 @@ def _check_action(rule_id: str, raw: Any, mode: str, source: str) -> Action:
             f"a {mode} rule may only use action {sorted(allowed)}, found {action_type!r}",
         )
 
+    target_lemma = raw.get("lemma", "")
+    if not isinstance(target_lemma, str):
+        raise RuleError(rule_id, source, "action.lemma must be a string")
+
     replacement = raw.get("replacement", "")
     if action_type == ACTION_REPLACE:
-        if not isinstance(replacement, str) or not replacement:
+        if replacement and target_lemma:
+            raise RuleError(
+                rule_id, source,
+                "action takes either 'replacement' or 'lemma', not both: a lemma is "
+                "inflected to match each form, a replacement is used verbatim",
+            )
+        if not replacement and not target_lemma:
             raise RuleError(rule_id, source, "action.replacement is required for a replace action")
         if len(replacement) > MAX_REPLACEMENT_LENGTH:
             raise RuleError(
@@ -450,7 +541,12 @@ def _check_action(rule_id: str, raw: Any, mode: str, source: str) -> Action:
     if recapitalize and action_type != ACTION_DELETE:
         raise RuleError(rule_id, source, "action.recapitalize only applies to a delete action")
 
-    return Action(type=action_type, replacement=replacement, recapitalize=recapitalize)
+    return Action(
+        type=action_type,
+        replacement=replacement,
+        lemma=target_lemma,
+        recapitalize=recapitalize,
+    )
 
 
 def _check_scope(rule_id: str, raw: Any, source: str) -> Scope:
@@ -590,6 +686,18 @@ def _check_combination(
     rule_id: str, mode: str, match: Match, action: Action, case_policy: str, source: str
 ) -> None:
     """Reject matcher/action pairings that cannot mean anything sensible."""
+    if match.type == MATCH_LEMMA and mode == MODE_SAFE_FIX and not action.lemma:
+        raise RuleError(
+            rule_id, source,
+            "a lemma match driving a safe fix needs action.lemma: a fixed replacement "
+            "would put the same word in every tense",
+        )
+    if action.lemma and match.type != MATCH_LEMMA:
+        raise RuleError(rule_id, source, "action.lemma only applies to a lemma match")
+    if match.type == MATCH_LEMMA and action.type == ACTION_DELETE:
+        raise RuleError(
+            rule_id, source, "deleting an inflected word leaves the surrounding grammar undefined"
+        )
     if action.type == ACTION_DELETE and match.type == MATCH_WORD:
         raise RuleError(
             rule_id, source,
