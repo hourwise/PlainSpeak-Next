@@ -1,0 +1,242 @@
+# Reviewed classification decisions for the inherited PlainSpeak glossary.
+#
+# The inherited glossary is SOURCE MATERIAL, not a transformation policy. No
+# entry becomes an automatic fix because upstream suggested it; every entry in
+# `safe_fix` below was read individually and judged against four questions:
+#
+#   1. Does the word have one sense in ordinary prose? "Employ" means both "use"
+#      and "hire"; "elect" means both "choose" and "vote for". Those are
+#      diagnostics.
+#   2. Is the replacement an equivalent, or a definition? "Beneficiary → person
+#      who receives the benefit" is a gloss. It explains; it does not substitute.
+#   3. Does it fit the same grammatical slot in every form the rule generates?
+#   4. Does the replacement introduce a fact the integrity firewall protects?
+#      "Solely → only" introduces a comparator and would be vetoed, so it is a
+#      diagnostic rather than a rule that can never fire.
+#
+# Anything not listed here takes the default classification described in
+# `tools/build_glossary_inventory.py` and reconciled in GLOSSARY_MIGRATION.md.
+
+# ── Verbs, inflected through morphology ────────────────────────────────────
+#
+# `lemma` is the inherited term, `target` the replacement. Both are inflected
+# together, so `utilised` becomes `used` rather than `use`.
+safe_fix_verbs:
+  - {term: utilise, target: use}
+  - {term: utilize, target: use}
+  - {term: commence, target: start}
+  - {term: ascertain, target: find out}
+  - {term: facilitate, target: help}
+  - {term: endeavour, target: try}
+  - {term: endeavor, target: try}
+  - {term: alter, target: change}
+  - {term: modify, target: change}
+  - {term: obtain, target: get}
+  - {term: acquire, target: get}
+  - {term: procure, target: get}
+  - {term: cease, target: stop}
+  - {term: discontinue, target: stop}
+  - {term: demonstrate, target: show}
+  - {term: depict, target: show}
+  - {term: elucidate, target: explain}
+  - {term: enumerate, target: list}
+  - {term: expedite, target: speed up}
+  - {term: disburse, target: pay out}
+  - {term: reimburse, target: pay back}
+  - {term: relinquish, target: give up}
+  - {term: notify, target: tell}
+  - {term: apprise, target: tell}
+  - {term: concur, target: agree}
+  - {term: corroborate, target: support}
+  - {term: substantiate, target: back up}
+  - {term: mitigate, target: reduce}
+  - {term: alleviate, target: reduce}
+  - {term: ameliorate, target: improve}
+  - {term: enhance, target: improve}
+  - {term: exacerbate, target: worsen}
+  - {term: necessitate, target: require}
+  - {term: prohibit, target: ban}
+  - {term: rescind, target: cancel}
+  - {term: replicate, target: copy}
+  - {term: relocate, target: move}
+  - {term: scrutinize, target: examine}
+  - {term: transcribe, target: write down}
+  - {term: verify, target: check}
+  - {term: validate, target: confirm}
+  - {term: formulate, target: create}
+  - {term: consolidate, target: combine}
+  - {term: synthesise, target: combine}
+  - {term: synthesize, target: combine}
+  - {term: incorporate, target: include}
+  - {term: collaborate, target: work with}
+  - {term: liaise, target: work with}
+  - {term: intervene, target: step in}
+  - {term: originate, target: start}
+  - {term: initiate, target: start}
+  - {term: possess, target: have}
+  - {term: retain, target: keep}
+  - {term: preserve, target: keep}
+  - {term: reside, target: live}
+  - {term: attain, target: reach}
+  - {term: augment, target: add to}
+  - {term: append, target: add}
+  - {term: expend, target: spend}
+  - {term: furnish, target: give}
+  - {term: compensate, target: pay}
+  - {term: finalize, target: finish}
+  - {term: designate, target: choose}
+  - {term: contemplate, target: think about}
+  - {term: anticipate, target: expect}
+  - {term: comprise, target: make up}
+  - {term: constitute, target: make up}
+  - {term: impair, target: harm}
+  - {term: inhibit, target: prevent}
+  - {term: perpetuate, target: continue}
+  - {term: disseminate, target: spread}
+  - {term: promulgate, target: announce}
+  - {term: delineate, target: outline}
+  - {term: effectuate, target: carry out}
+  - {term: accomplish, target: do}
+  - {term: undertake, target: do}
+  - {term: manufacture, target: make}
+  - {term: construct, target: build}
+  - {term: convene, target: meet}
+  - {term: transmit, target: send}
+  - {term: request, target: ask}
+  - {term: signify, target: mean}
+  - {term: quash, target: overturn}
+
+# ── Nouns, inflected for number ────────────────────────────────────────────
+safe_fix_nouns:
+  - {term: modification, target: change}
+  - {term: revision, target: change}
+  - {term: methodology, target: method}
+  - {term: magnitude, target: size}
+  - {term: portion, target: part}
+  - {term: component, target: part}
+  - {term: occurrence, target: event}
+  - {term: obligation, target: duty}
+  - {term: remainder, target: rest}
+  - {term: threshold, target: limit}
+  - {term: objective, target: goal}
+  - {term: paradigm, target: model}
+  - {term: trajectory, target: path}
+  - {term: laceration, target: cut}
+  - {term: contusion, target: bruise}
+  - {term: fatality, target: death}
+  - {term: specification, target: detail}
+
+# ── Words with a single form ───────────────────────────────────────────────
+#
+# Adjectives and adverbs, matched and replaced as written. No inflection: the
+# engine does not generate comparatives, because none was needed and an
+# untested form class is a liability.
+safe_fix_words:
+  - {term: advantageous, target: helpful}
+  - {term: beneficial, target: helpful}
+  - {term: ambiguous, target: unclear}
+  - {term: erroneous, target: wrong}
+  - {term: feasible, target: workable}
+  - {term: viable, target: workable}
+  - {term: numerous, target: many}
+  - {term: considerable, target: large}
+  - {term: comprehensive, target: full}
+  - {term: fundamental, target: basic}
+  - {term: identical, target: same}
+  - {term: obsolete, target: outdated}
+  - {term: deprecated, target: outdated}
+  - {term: negligible, target: tiny}
+  - {term: inordinate, target: excessive}
+  - {term: permissible, target: allowed}
+  - {term: requisite, target: required}
+  - {term: preliminary, target: early}
+  - {term: contemporary, target: modern}
+  - {term: transitory, target: temporary}
+  - {term: heterogeneous, target: varied}
+  - {term: homogeneous, target: uniform}
+  - {term: optimal, target: best}
+  - {term: optimum, target: best}
+  - {term: predominant, target: main}
+  - {term: detrimental, target: harmful}
+  - {term: deficient, target: lacking}
+  - {term: definitive, target: final}
+  - {term: resilient, target: strong}
+  - {term: ubiquitous, target: everywhere}
+  - {term: unilateral, target: one-sided}
+  - {term: empirical, target: observed}
+  - {term: qualitative, target: descriptive}
+  - {term: quantitative, target: numerical}
+  - {term: gratuitous, target: free}
+  - {term: innovative, target: new}
+  - {term: additionally, target: also}
+  - {term: furthermore, target: also}
+  - {term: moreover, target: also}
+  - {term: accordingly, target: so}
+  - {term: consequently, target: so}
+  - {term: frequently, target: often}
+  - {term: predominantly, target: mainly}
+  - {term: henceforth, target: from now on}
+  - {term: hereafter, target: from now on}
+
+# ── Reported, not rewritten ────────────────────────────────────────────────
+#
+# Each of these is worth flagging and cannot be substituted mechanically. The
+# reason is the whole point of the entry: it records why somebody said no.
+diagnostic:
+  - {term: employ, reason: "means both 'use' and 'hire'; the sense depends on the object"}
+  - {term: elect, reason: "means both 'choose' and 'vote for'"}
+  - {term: perform, reason: "means both 'do' and 'present publicly'"}
+  - {term: maintain, reason: "means both 'keep' and 'assert'"}
+  - {term: terminate, reason: "a settled sense in contract and employment law"}
+  - {term: remit, reason: "a settled financial sense; also means 'refer back'"}
+  - {term: advise, reason: "'tell' loses the sense of recommending"}
+  - {term: acquiesce, reason: "'agree' loses the sense of agreeing reluctantly"}
+  - {term: aforementioned, reason: "no substitution fits: 'the aforementioned document' is not 'the this document'"}
+  - {term: solely, reason: "'only' is a protected comparator; the firewall would veto the change"}
+  - {term: exclusively, reason: "'only' is a protected comparator; the firewall would veto the change"}
+  - {term: previously, reason: "'before' is a protected comparator; the firewall would veto the change"}
+  - {term: subsequent, reason: "'later' shifts an ordering the firewall protects"}
+  - {term: preceding, reason: "'earlier' shifts an ordering the firewall protects"}
+  - {term: prospective, reason: "'future' shifts a time reference the firewall protects"}
+  - {term: obligated, reason: "'must' is a protected modal; the firewall would veto the change"}
+  - {term: however, reason: "a sentence connective whose punctuation depends on position"}
+  - {term: nevertheless, reason: "a sentence connective whose punctuation depends on position"}
+  - {term: mortality, reason: "means both 'death' and 'death rate'"}
+  - {term: capacity, reason: "the inherited gloss is a legal definition, not a substitution"}
+  - {term: premium, reason: "the inherited gloss is an insurance definition, not a substitution"}
+  - {term: return, reason: "the inherited gloss is a tax definition, not a substitution"}
+  - {term: yield, reason: "means both 'give way' and 'financial return'"}
+  - {term: substantial, reason: "carries a legal threshold in some documents"}
+  - {term: appropriate, reason: "means both 'proper' and 'to take'"}
+  - {term: critical, reason: "means both 'vital' and 'finding fault'"}
+  - {term: intimate, reason: "means both 'hint' and 'close'"}
+  - {term: prescribe, reason: "a settled clinical sense distinct from 'set'"}
+  - {term: sustain, reason: "means both 'support' and 'suffer' (an injury)"}
+  - {term: render, reason: "means both 'make' and 'provide' and 'depict'"}
+  - {term: levy, reason: "a settled tax sense as both noun and verb"}
+  - {term: lapse, reason: "a settled insurance and legal sense"}
+  - {term: exclude, reason: "'leave out' loses the sense of formal exclusion"}
+  - {term: said, reason: "the inherited suggestion 'the' is a legal-drafting convention, not a synonym"}
+  - {term: providing, reason: "'giving' misreads the conditional sense of 'providing that'"}
+  - {term: witnessed, reason: "'saw' loses the formal sense of attesting"}
+  - {term: specified, reason: "'given' loses the sense of being set out in a document"}
+
+# ── Demonstrably wrong, not carried forward ────────────────────────────────
+#
+# The inherited path stays sealed and keeps these; the declarative engine does
+# not have to reproduce upstream's mistakes.
+rejected:
+  - {term: certiorari, reason: "'review' names the wrong thing: it is a specific appellate writ"}
+  - {term: estoppel, reason: "'barred from denying' is a definition fragment, not a replacement"}
+  - {term: laches, reason: "'unreasonable delay' is a definition, and the doctrine is more than delay"}
+  - {term: scienter, reason: "'knowledge of wrongdoing' is a definition, not a substitution"}
+  - {term: demurrer, reason: "'challenge to claim' is a definition and loses the procedural meaning"}
+  - {term: supersedeas, reason: "'order to pause' is an approximation of a specific writ"}
+  - {term: subrogation, reason: "'stepping into another's shoes' is a metaphor, not a replacement"}
+  - {term: gravamen, reason: "'main complaint' loses the technical sense"}
+  - {term: dispositive, reason: "'deciding the case' is a gloss that does not fit the adjective slot"}
+  - {term: probative, reason: "'tends to prove' does not fit the adjective slot"}
+  - {term: executory, reason: "'not yet performed' does not fit the adjective slot"}
+  - {term: meritorious, reason: "'has legal merit' does not fit the adjective slot"}
+  - {term: benign, reason: "'not cancerous' introduces a negation the firewall protects"}
+  - {term: hmrc, reason: "an organisation's name is not a synonym for 'tax office'"}
