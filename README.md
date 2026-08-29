@@ -1,4 +1,14 @@
-﻿# PlainSpeak
+# PlainSpeak Next
+
+> This is a **descendant** of [hourwise/Project-PlainSpeak](https://github.com/hourwise/Project-PlainSpeak),
+> created from commit `74ecd51` with its full history preserved. Development here is
+> independent and nothing syncs in either direction — see [UPSTREAM.md](UPSTREAM.md).
+>
+> It is being rebuilt from a readability *analyser* into a deterministic prose
+> transformation and review engine. See [ARCHITECTURE.md](ARCHITECTURE.md) for the
+> current shape of the code, including what is deliberately not built yet.
+
+The description below is inherited, and still accurate for what the engine does today.
 
 **A diagnostic and review assistant for plain-language communication.**
 
