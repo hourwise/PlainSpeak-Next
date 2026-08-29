@@ -1,0 +1,10 @@
+ruleset_version: "2026.1"
+description: >
+  The rules PlainSpeak Next ships with. A deliberately small, conservative
+  starter set whose purpose is to prove the rule platform rather than to cover
+  English. Every rule states what it matches, what it would do, why, where it
+  came from, and the cases where it must stay quiet.
+
+  The bias throughout is towards refusing. Being able to detect a phrase is not
+  the same as being able to rewrite it safely, and where grammar or meaning
+  could depend on context the rule is a diagnostic.

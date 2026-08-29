@@ -1,0 +1,183 @@
+# Phrases whose settled meaning must survive any transformation.
+#
+# These are multi-word terms of art. The individual words are ordinary English
+# and some of them are things other rules would happily replace — which is the
+# point. "Additional insured" is a defined role in an insurance policy, and
+# "extra insured" is not a thing; PS.LEXICAL.009 would make that substitution
+# and this rule stops it.
+#
+# Declarative protection sits *on top of* the inherited protected-term
+# register in `plainspeak.integrity.protected`, which remains authoritative and
+# is checked independently. Nothing here can weaken it: these rules can only
+# protect more, never less.
+
+id: PS.PROTECT.001
+version: 1
+name: informed-consent
+mode: protected
+description: >
+  A specific legal and clinical standard: the patient was told the risks,
+  understood them, and agreed. "Told consent" or "agreement" would name
+  something weaker, in exactly the documents where the difference decides
+  whether a procedure was lawful.
+match:
+  type: phrase
+  text: "informed consent"
+action:
+  type: protect
+scope:
+  include: [prose, quote, heading, list]
+priority: 900
+reason:
+  short: "A defined clinical and legal standard, not a description"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "Informed consent was obtained before the procedure."
+  negative:
+    - "The patient was informed of the risks."
+
+---
+id: PS.PROTECT.002
+version: 1
+name: additional-insured
+mode: protected
+description: >
+  A named party with defined cover under a policy. PS.LEXICAL.009 replaces
+  "additional" with "extra" in ordinary prose; here it must not, because
+  "extra insured" names nobody.
+match:
+  type: phrase
+  text: "additional insured"
+action:
+  type: protect
+scope:
+  include: [prose, quote, heading, list]
+priority: 900
+reason:
+  short: "A defined party under an insurance policy"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "The contractor must be named as an additional insured."
+  negative:
+    - "Please send additional documents."
+
+---
+id: PS.PROTECT.003
+version: 1
+name: force-majeure
+mode: protected
+description: >
+  A contractual allocation of risk for events outside either party's control.
+  The term is doing legal work that no paraphrase carries.
+match:
+  type: phrase
+  text: "force majeure"
+action:
+  type: protect
+scope:
+  include: [prose, quote, heading, list]
+priority: 900
+reason:
+  short: "A contractual term with a settled legal meaning"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "Delivery is suspended during a force majeure event."
+  negative:
+    - "The delay was outside our control."
+
+---
+id: PS.PROTECT.004
+version: 1
+name: without-prejudice
+mode: protected
+description: >
+  Marks a communication as inadmissible in later proceedings. Rewording it
+  could strip a document of that protection, which is a consequence far larger
+  than any readability gain.
+match:
+  type: phrase
+  text: "without prejudice"
+action:
+  type: protect
+scope:
+  include: [prose, quote, heading, list]
+priority: 900
+reason:
+  short: "A term that changes a document's legal status"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "This letter is written without prejudice."
+  negative:
+    - "The decision was made without delay."
+
+---
+id: PS.PROTECT.005
+version: 1
+name: due-diligence
+mode: protected
+description: >
+  A defined standard of investigation, frequently with a contractual or
+  statutory definition attached. "Proper checks" is not the same undertaking.
+match:
+  type: phrase
+  text: "due diligence"
+action:
+  type: protect
+scope:
+  include: [prose, quote, heading, list]
+priority: 900
+reason:
+  short: "A defined standard of investigation"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "The buyer completed due diligence in June."
+  negative:
+    - "The payment is due in June."
+
+---
+id: PS.PROTECT.006
+version: 1
+name: reasonable-doubt
+mode: protected
+description: >
+  The criminal standard of proof. Any rewording invites a reader to apply a
+  different threshold than the one the law sets.
+match:
+  type: phrase
+  text: "reasonable doubt"
+action:
+  type: protect
+scope:
+  include: [prose, quote, heading, list]
+priority: 900
+reason:
+  short: "The criminal standard of proof"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "The jury must be satisfied beyond reasonable doubt."
+  negative:
+    - "There is reasonable cause to investigate."

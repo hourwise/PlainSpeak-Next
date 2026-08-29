@@ -1,0 +1,347 @@
+# Wordy phrases with a shorter equivalent that carries the same proposition.
+#
+# Every rule here is a safe-fix, which is a strong claim, so the bar is
+# correspondingly high: the replacement has to work in every grammatical
+# position the phrase can occupy, and it must not be a phrase any other rule
+# then matches. Where a shorter form would be *usually* right, the rule belongs
+# in a diagnostic family instead.
+
+id: PS.CLARITY.001
+version: 1
+name: in-order-to
+mode: safe-fix
+description: >
+  "In order to" is "to" with three extra words. The infinitive that follows
+  carries the purpose on its own.
+match:
+  type: phrase
+  text: "in order to"
+action:
+  type: replace
+  replacement: "to"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"in order to\" is a longer way of writing \"to\""
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "You must register in order to vote."
+    - "In order to apply, complete the form."
+  negative:
+    - "Please keep the files in order."
+  transform:
+    - before: "You must register in order to vote."
+      after: "You must register to vote."
+
+---
+id: PS.CLARITY.002
+version: 1
+name: due-to-the-fact-that
+mode: safe-fix
+description: >
+  "Due to the fact that" is a five-word way of writing "because", with no
+  difference in meaning or register that survives reading aloud.
+match:
+  type: phrase
+  text: "due to the fact that"
+action:
+  type: replace
+  replacement: "because"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"due to the fact that\" means \"because\""
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "The hearing was adjourned due to the fact that the witness was absent."
+  negative:
+    - "The delay was due to staff shortages."
+  transform:
+    - before: "The hearing was adjourned due to the fact that the witness was absent."
+      after: "The hearing was adjourned because the witness was absent."
+
+---
+id: PS.CLARITY.003
+version: 1
+name: at-this-point-in-time
+mode: safe-fix
+description: >
+  "At this point in time" is "now". The longer form is a stock phrase rather
+  than a more precise one.
+match:
+  type: phrase
+  text: "at this point in time"
+action:
+  type: replace
+  replacement: "now"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"at this point in time\" means \"now\""
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "We have no further information at this point in time."
+  negative:
+    - "The graph shows the value at this point in the cycle."
+  transform:
+    - before: "We have no further information at this point in time."
+      after: "We have no further information now."
+
+---
+id: PS.CLARITY.004
+version: 1
+name: in-the-event-that
+mode: safe-fix
+description: >
+  "In the event that" introduces a condition, which is what "if" does in three
+  fewer words.
+match:
+  type: phrase
+  text: "in the event that"
+action:
+  type: replace
+  replacement: "if"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"in the event that\" means \"if\""
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "In the event that you disagree, you may appeal."
+  negative:
+    - "She spoke at the event that closed the conference."
+  transform:
+    - before: "In the event that you disagree, you may appeal."
+      after: "If you disagree, you may appeal."
+
+---
+id: PS.CLARITY.005
+version: 1
+name: for-the-purpose-of
+mode: safe-fix
+description: >
+  "For the purpose of" is "for". The noun adds a syllable count, not a
+  distinction.
+match:
+  type: phrase
+  text: "for the purpose of"
+action:
+  type: replace
+  replacement: "for"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"for the purpose of\" means \"for\""
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "The data is held for the purpose of processing your claim."
+  negative:
+    - "She asked about the purpose of the meeting."
+  transform:
+    - before: "The data is held for the purpose of processing your claim."
+      after: "The data is held for processing your claim."
+
+---
+id: PS.CLARITY.006
+version: 1
+name: in-spite-of-the-fact-that
+mode: safe-fix
+description: >
+  "In spite of the fact that" is a six-word concessive that "although" states
+  in one.
+match:
+  type: phrase
+  text: "in spite of the fact that"
+action:
+  type: replace
+  replacement: "although"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"in spite of the fact that\" means \"although\""
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "In spite of the fact that the deadline passed, we accepted the form."
+  negative:
+    - "He continued in spite of the weather."
+  transform:
+    - before: "In spite of the fact that the deadline passed, we accepted the form."
+      after: "Although the deadline passed, we accepted the form."
+
+---
+id: PS.CLARITY.007
+version: 1
+name: a-large-number-of
+mode: safe-fix
+description: >
+  "A large number of" counts nothing more precisely than "many" does.
+match:
+  type: phrase
+  text: "a large number of"
+action:
+  type: replace
+  replacement: "many"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"a large number of\" means \"many\""
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "A large number of applications were received."
+  negative:
+    - "The form asks for a large number."
+  transform:
+    - before: "A large number of applications were received."
+      after: "Many applications were received."
+
+---
+id: PS.CLARITY.008
+version: 1
+name: in-the-near-future
+mode: safe-fix
+description: >
+  "In the near future" is "soon". Neither commits to a date, so nothing
+  measurable is lost.
+match:
+  type: phrase
+  text: "in the near future"
+action:
+  type: replace
+  replacement: "soon"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"in the near future\" means \"soon\""
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "We will write to you in the near future."
+  negative:
+    - "The report looks at demand in the near and far future."
+  transform:
+    - before: "We will write to you in the near future."
+      after: "We will write to you soon."
+
+---
+id: PS.CLARITY.009
+version: 1
+name: prior-to
+mode: safe-fix
+description: >
+  "Prior to" is "before" used as a preposition. The adjectival sense — "prior
+  agreement", "prior art" — is a different construction and is not matched,
+  because the word boundary requires the following "to".
+match:
+  type: phrase
+  text: "prior to"
+action:
+  type: replace
+  replacement: "before"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"prior to\" means \"before\""
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "Verification is required prior to the assessment."
+  negative:
+    - "There was no prior agreement between the parties."
+  transform:
+    - before: "Verification is required prior to the assessment."
+      after: "Verification is required before the assessment."
+
+---
+id: PS.CLARITY.010
+version: 1
+name: on-a-regular-basis
+mode: safe-fix
+description: >
+  "On a regular basis" is an adverbial phrase standing in for the adverb
+  "regularly".
+match:
+  type: phrase
+  text: "on a regular basis"
+action:
+  type: replace
+  replacement: "regularly"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"on a regular basis\" means \"regularly\""
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "Staff review the register on a regular basis."
+  negative:
+    - "Payments are made on a regular schedule."
+  transform:
+    - before: "Staff review the register on a regular basis."
+      after: "Staff review the register regularly."

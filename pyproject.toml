@@ -33,6 +33,9 @@ dependencies = [
     # range for every block token, which is what makes exact source
     # offsets — and therefore safe editing — possible at all.
     "markdown-it-py>=3.0",
+    # Declarative rules are YAML, parsed with safe_load only. Rules are data:
+    # nothing in a rule file can reach the interpreter.
+    "PyYAML>=6.0",
 ]
 
 [project.optional-dependencies]
@@ -68,6 +71,10 @@ include = ["plainspeak*"]
 # silently falls back to the heuristic.
 [tool.setuptools.package-data]
 "plainspeak.core" = ["*.bin"]
+# The bundled ruleset. Without this the engine installs with no rules at all and
+# silently proposes nothing, which is the same shape of defect the syllable
+# dictionary had before Phase 2.
+"plainspeak.rules" = ["bundled/*.yaml", "bundled/**/*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

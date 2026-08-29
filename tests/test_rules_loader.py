@@ -1,0 +1,242 @@
+"""Ruleset identity and load-order independence.
+
+Two machines holding the same rules must compute the same ruleset hash. The
+obvious implementation — hash the files — fails that, because it makes the
+identity depend on directory traversal order, path separators, YAML formatting
+and which folder a rule happens to be filed under. None of those change what a
+rule does.
+
+These tests attack the hash from each of those directions in turn. If any of
+them can move it, the hash is not an identity for the rules; it is an identity
+for one machine's filesystem.
+"""
+from __future__ import annotations
+
+import random
+from pathlib import Path
+
+import pytest
+
+from plainspeak.rules import (
+    BUNDLED_ROOT,
+    Ruleset,
+    canonical_json,
+    load_ruleset,
+    ruleset_hash,
+)
+from plainspeak.rules.canonical import CANONICAL_FORM_VERSION, canonical_rule, ruleset_document
+from plainspeak.rules.loader import _rule_files
+
+from .conftest import MANIFEST, VALID_RULE
+
+SECOND_RULE = VALID_RULE.replace("PS.TEST.001", "PS.TEST.002").replace(
+    "name: example-rule", "name: second-rule"
+)
+THIRD_RULE = VALID_RULE.replace("PS.TEST.001", "PS.TEST.003").replace(
+    "name: example-rule", "name: third-rule"
+)
+
+
+# ── Identity is a property of the rules ────────────────────────────────────
+
+
+def test_the_same_rules_hash_the_same(ruleset_from) -> None:
+    first = ruleset_from({"a.yaml": VALID_RULE, "b.yaml": SECOND_RULE})
+    second = ruleset_from({"a.yaml": VALID_RULE, "b.yaml": SECOND_RULE})
+    assert first.hash == second.hash
+
+
+def test_file_layout_does_not_change_the_hash(ruleset_from) -> None:
+    """Moving a rule between files and folders must not rename the ruleset."""
+    together = ruleset_from({"all/rules.yaml": VALID_RULE + "\n---\n" + SECOND_RULE})
+    apart = ruleset_from({"clarity/one.yaml": VALID_RULE, "voice/two.yaml": SECOND_RULE})
+    assert together.hash == apart.hash
+
+
+def test_yaml_formatting_does_not_change_the_hash(ruleset_from) -> None:
+    """Key order, quoting and comments are presentation, not semantics."""
+    reordered = "\n".join(
+        [
+            "# a comment that means nothing to the engine",
+            "version: 1",
+            "mode: safe-fix",
+            "id: PS.TEST.001",
+            "name: example-rule",
+            "description: >",
+            "  A rule used by the test suite.",
+            "priority: 100",
+            "action:",
+            "  replacement: to",
+            "  type: replace",
+            "match:",
+            "  text: in order to",
+            "  type: phrase",
+            "scope:",
+            "  include: [prose]",
+            "case:",
+            "  policy: preserve",
+            "reason:",
+            "  short: A shorter phrase means the same thing",
+            "provenance:",
+            "  licence: project-authored",
+            "  reference: ''",
+            "  source: PlainSpeak test suite",
+            "examples:",
+            "  negative:",
+            "    - The items arrived in order.",
+            "  positive:",
+            "    - Register in order to vote.",
+            "  transform:",
+            "    - after: Register to vote.",
+            "      before: Register in order to vote.",
+            "",
+        ]
+    )
+    assert ruleset_from(reordered).hash == ruleset_from(VALID_RULE).hash
+
+
+def test_changing_a_rule_changes_the_hash(ruleset_from) -> None:
+    original = ruleset_from(VALID_RULE)
+    altered = ruleset_from(VALID_RULE.replace('replacement: "to"', 'replacement: "so as to"'))
+    assert original.hash != altered.hash
+
+
+def test_changing_published_wording_changes_the_hash(ruleset_from) -> None:
+    """Reasons and descriptions are shown to users, so they are part of identity."""
+    original = ruleset_from(VALID_RULE)
+    altered = ruleset_from(
+        VALID_RULE.replace("A shorter phrase means the same thing", "Different wording entirely")
+    )
+    assert original.hash != altered.hash
+
+
+def test_the_ruleset_version_is_part_of_the_identity(ruleset_from) -> None:
+    original = ruleset_from(VALID_RULE)
+    renamed = ruleset_from(VALID_RULE, manifest='ruleset_version: "test.2"\n')
+    assert original.hash != renamed.hash
+
+
+def test_the_family_directory_is_not_part_of_the_identity(ruleset_from) -> None:
+    here = ruleset_from({"clarity/r.yaml": VALID_RULE})
+    there = ruleset_from({"voice/r.yaml": VALID_RULE})
+    assert here.hash == there.hash
+    # ...but it is still recorded, for reports and for `explain_rule`.
+    assert here.by_id("PS.TEST.001").family == "clarity"
+    assert there.by_id("PS.TEST.001").family == "voice"
+
+
+# ── Load order ─────────────────────────────────────────────────────────────
+
+
+def test_shuffling_the_file_order_changes_nothing(ruleset_from, monkeypatch) -> None:
+    """Deliberately randomise what the filesystem hands back.
+
+    The loader does not sort its file list, on purpose: sorting there would
+    conceal an order dependency rather than remove one. The ruleset is sorted by
+    rule identity afterwards, and this proves that is enough.
+    """
+    files = {
+        "a/one.yaml": VALID_RULE,
+        "b/two.yaml": SECOND_RULE,
+        "c/three.yaml": THIRD_RULE,
+    }
+    baseline = ruleset_from(files)
+
+    seen = set()
+    for seed in range(12):
+        rng = random.Random(seed)
+
+        def shuffled(root: Path, _rng=rng):
+            paths = [p for p in root.rglob("*.yaml") if p.name != "RULESET.yaml"]
+            _rng.shuffle(paths)
+            return paths
+
+        monkeypatch.setattr("plainspeak.rules.loader._rule_files", shuffled)
+        ruleset = ruleset_from(files)
+        seen.add((ruleset.hash, ruleset.ids))
+
+    assert len(seen) == 1, f"load order changed the ruleset: {seen}"
+    assert seen == {(baseline.hash, baseline.ids)}
+
+
+def test_rules_are_always_ordered_by_identity(ruleset_from) -> None:
+    ruleset = ruleset_from({"z/last.yaml": THIRD_RULE, "a/first.yaml": SECOND_RULE})
+    assert ruleset.ids == ("PS.TEST.002", "PS.TEST.003")
+
+
+def test_the_bundled_ruleset_hash_is_stable(bundled: Ruleset) -> None:
+    """Loading twice must not produce two different identities."""
+    again = load_ruleset()
+    assert bundled.hash == again.hash
+    assert bundled.ids == again.ids
+
+
+# ── Canonical form ─────────────────────────────────────────────────────────
+
+
+def test_canonical_json_is_sorted_and_newline_terminated() -> None:
+    rendered = canonical_json({"b": 1, "a": {"d": 2, "c": 3}})
+    assert rendered == '{"a":{"c":3,"d":2},"b":1}\n'
+
+
+def test_canonical_json_keeps_unicode_rather_than_escaping_it() -> None:
+    """Escaped output would still be deterministic but far harder to read."""
+    assert canonical_json({"x": "café — 21 °C"}) == '{"x":"café — 21 °C"}\n'
+
+
+def test_the_canonical_form_carries_a_version(bundled: Ruleset) -> None:
+    """A hash computed under an older layout must not look like a current one."""
+    document = ruleset_document(bundled.rules, bundled.version)
+    assert document["canonical_form"] == CANONICAL_FORM_VERSION
+
+
+def test_the_canonical_rule_excludes_its_file_location(ruleset_from) -> None:
+    ruleset = ruleset_from({"clarity/r.yaml": VALID_RULE})
+    rendered = canonical_rule(ruleset.by_id("PS.TEST.001"))
+    assert "family" not in rendered
+    assert "clarity" not in canonical_json(rendered)
+
+
+def test_the_load_location_does_not_change_the_identity(bundled: Ruleset, tmp_path) -> None:
+    """Copy the bundled tree elsewhere; the ruleset must be the same ruleset.
+
+    This is the property that string-sniffing for path separators only gestures
+    at. Provenance fields legitimately contain repo-relative paths an author
+    wrote, and descriptions legitimately contain escaped quotes, so the only
+    honest check is whether the identity actually moves when the files do.
+    """
+    import shutil
+
+    elsewhere = tmp_path / "somewhere" / "quite" / "different"
+    shutil.copytree(BUNDLED_ROOT, elsewhere)
+    relocated = load_ruleset(elsewhere)
+
+    assert relocated.hash == bundled.hash
+    assert relocated.ids == bundled.ids
+    assert canonical_json(ruleset_document(relocated.rules, relocated.version)) == canonical_json(
+        ruleset_document(bundled.rules, bundled.version)
+    )
+
+
+def test_hashing_is_a_pure_function_of_rules_and_version(bundled: Ruleset) -> None:
+    assert ruleset_hash(bundled.rules, bundled.version) == bundled.hash
+    assert ruleset_hash(reversed(list(bundled.rules)), bundled.version) == bundled.hash
+
+
+# ── The ruleset object ─────────────────────────────────────────────────────
+
+
+def test_a_ruleset_is_immutable(bundled: Ruleset) -> None:
+    with pytest.raises(Exception):
+        bundled.rules = ()  # type: ignore[misc]
+    assert isinstance(bundled.rules, tuple)
+
+
+def test_lookup_by_id(bundled: Ruleset) -> None:
+    assert bundled.by_id("PS.CLARITY.001") is not None
+    assert bundled.by_id("PS.NOSUCH.999") is None
+
+
+def test_mode_partitions_cover_every_rule(bundled: Ruleset) -> None:
+    total = len(bundled.safe_fixes) + len(bundled.diagnostics) + len(bundled.protections)
+    assert total == len(bundled)

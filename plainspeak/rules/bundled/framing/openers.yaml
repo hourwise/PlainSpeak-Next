@@ -1,0 +1,201 @@
+# Introductory framing that announces a statement without adding to it.
+#
+# The three deletions here are the most aggressive thing this ruleset does, and
+# the conditions are correspondingly narrow. A deletion is proposed only when it
+# starts a sentence, the phrase owns its own trailing space, and the word that
+# follows can be mechanically capitalised. Anywhere else the match is refused —
+# see `plainspeak.rules.matcher`, which decides this and records why.
+#
+# The remaining three are diagnostics. They mark prose that is doing no work,
+# but there is no single deletion that is right in every context, and a rule
+# that guessed would be trading a small stylistic gain for the risk of mangling
+# a sentence.
+
+id: PS.FRAMING.001
+version: 1
+name: it-is-important-to-note-that
+mode: safe-fix
+description: >
+  "It is important to note that X" asserts X and separately asserts that X is
+  worth noting. Deleting the frame leaves the proposition untouched; the reader
+  can decide for themselves whether it was important.
+match:
+  type: phrase
+  text: "it is important to note that "
+action:
+  type: delete
+  recapitalize: true
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 120
+reason:
+  short: "Introductory framing that does not change the statement"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "It is important to note that registration closes on Friday."
+  negative:
+    - "The report repeats the words it is important to note that, three times."
+  transform:
+    - before: "It is important to note that registration closes on Friday."
+      after: "Registration closes on Friday."
+
+---
+id: PS.FRAMING.002
+version: 1
+name: it-is-worth-noting-that
+mode: safe-fix
+description: >
+  The same shape as PS.FRAMING.001. The frame tells the reader to pay
+  attention; the sentence that follows is what actually says something.
+match:
+  type: phrase
+  text: "it is worth noting that "
+action:
+  type: delete
+  recapitalize: true
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 120
+reason:
+  short: "Introductory framing that does not change the statement"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "It is worth noting that the deadline has moved."
+  negative:
+    - "It is worth reading the full guidance."
+  transform:
+    - before: "It is worth noting that the deadline has moved."
+      after: "The deadline has moved."
+
+---
+id: PS.FRAMING.003
+version: 1
+name: it-should-be-noted-that
+mode: safe-fix
+description: >
+  A passive variant of the same frame. Deleting it removes an instruction to
+  the reader, not a claim about the world.
+match:
+  type: phrase
+  text: "it should be noted that "
+action:
+  type: delete
+  recapitalize: true
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 120
+reason:
+  short: "Introductory framing that does not change the statement"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "It should be noted that the fee is non-refundable."
+  negative:
+    - "It should be signed before Friday."
+  transform:
+    - before: "It should be noted that the fee is non-refundable."
+      after: "The fee is non-refundable."
+
+---
+id: PS.FRAMING.004
+version: 1
+name: needless-to-say
+mode: diagnostic
+description: >
+  If it is needless to say, the sentence can go; if it is not, the phrase is
+  wrong. Which of those applies depends on the surrounding argument, so this
+  reports rather than edits.
+match:
+  type: phrase
+  text: "needless to say"
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 60
+reason:
+  short: "Either the point is needed or the sentence is"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "Needless to say, the application was refused."
+  negative:
+    - "There was little need to say anything further."
+
+---
+id: PS.FRAMING.005
+version: 1
+name: at-the-end-of-the-day
+mode: diagnostic
+description: >
+  A filler that usually precedes the actual point. Removing it often improves
+  the sentence, but what remains sometimes needs rewording, so the decision
+  belongs to a person.
+
+  Known limitation: this cannot distinguish the idiom from a literal reference
+  to the end of a day. That is part of why it reports rather than edits.
+match:
+  type: phrase
+  text: "at the end of the day"
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 60
+reason:
+  short: "Filler phrase; the point usually follows it"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "At the end of the day, the decision rests with the panel."
+  negative:
+    - "The office closes at the end of each working day."
+
+---
+id: PS.FRAMING.006
+version: 1
+name: in-todays-world
+mode: diagnostic
+description: >
+  A stock opening that dates the text without informing the reader. It usually
+  wants deleting along with the rest of its clause, which is more than a
+  mechanical rule should attempt.
+
+  Known limitation: a literal use — "art in today's world cities" — matches too.
+  Reporting rather than editing keeps that harmless.
+match:
+  type: phrase
+  text: "in today's world"
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 60
+reason:
+  short: "Stock opening that carries no information"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "In today's world, applications are made online."
+  negative:
+    - "Today's world record stood for a decade."

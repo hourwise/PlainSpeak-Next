@@ -1,0 +1,418 @@
+# Single-word substitutions.
+#
+# One rule per inflected form, on purpose. The inherited engine derived forms by
+# stripping suffixes and produced non-words — "clarity" suggesting the verb
+# "clare" — and the lesson taken from that is that a rule must match exactly
+# what it says it matches. There is no stemmer here and no hidden morphology: if
+# a form is not written down, it is not matched.
+#
+# Words whose meaning shifts between noun and verb, or that carry a settled
+# sense in law or medicine, are diagnostics. "Purchase" and "provide" are the
+# obvious traps: "the purchase price" is not "the buy price", and "provide
+# evidence" is not quite "give evidence".
+
+id: PS.LEXICAL.001
+version: 1
+name: utilise-to-use
+mode: safe-fix
+description: >
+  "Utilise" and "use" are interchangeable in ordinary prose. Where the two do
+  differ — "utilise" implying making practical use of something not designed
+  for it — the distinction is not one most readers draw.
+match:
+  type: word
+  text: "utilise"
+  forms: ["utilize"]
+action:
+  type: replace
+  replacement: "use"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"use\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a rule"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "Staff utilise the register daily."
+    - "Please utilize the online form."
+  negative:
+    - "The utiliser of the service must register."
+  transform:
+    - before: "Staff utilise the register daily."
+      after: "Staff use the register daily."
+
+---
+id: PS.LEXICAL.002
+version: 1
+name: utilises-to-uses
+mode: safe-fix
+description: >
+  The third-person form of PS.LEXICAL.001, written out separately because this
+  engine does not infer inflections.
+match:
+  type: word
+  text: "utilises"
+  forms: ["utilizes"]
+action:
+  type: replace
+  replacement: "uses"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"uses\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a rule"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The department utilises three systems."
+  negative:
+    - "The utiliser registered yesterday."
+  transform:
+    - before: "The department utilises three systems."
+      after: "The department uses three systems."
+
+---
+id: PS.LEXICAL.003
+version: 1
+name: utilised-to-used
+mode: safe-fix
+description: >
+  The past form of PS.LEXICAL.001.
+match:
+  type: word
+  text: "utilised"
+  forms: ["utilized"]
+action:
+  type: replace
+  replacement: "used"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"used\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a rule"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The form was utilised for three years."
+  negative:
+    - "The utiliser was notified."
+  transform:
+    - before: "The form was utilised for three years."
+      after: "The form was used for three years."
+
+---
+id: PS.LEXICAL.004
+version: 1
+name: utilising-to-using
+mode: safe-fix
+description: >
+  The participle form of PS.LEXICAL.001.
+match:
+  type: word
+  text: "utilising"
+  forms: ["utilizing"]
+action:
+  type: replace
+  replacement: "using"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"using\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a rule"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "We are utilising the new process."
+  negative:
+    - "The utiliser of the system must register."
+  transform:
+    - before: "We are utilising the new process."
+      after: "We are using the new process."
+
+---
+id: PS.LEXICAL.005
+version: 1
+name: commence-to-start
+mode: safe-fix
+description: >
+  "Commence" is "start" in a formal register. The formality is the only
+  difference, and it is the thing plain language is trying to remove.
+match:
+  type: word
+  text: "commence"
+action:
+  type: replace
+  replacement: "start"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"start\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a rule"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The hearing will commence at ten."
+  negative:
+    - "The commencement of the term is in September."
+  transform:
+    - before: "The hearing will commence at ten."
+      after: "The hearing will start at ten."
+
+---
+id: PS.LEXICAL.006
+version: 1
+name: commenced-to-started
+mode: safe-fix
+description: >
+  The past form of PS.LEXICAL.005.
+match:
+  type: word
+  text: "commenced"
+action:
+  type: replace
+  replacement: "started"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"started\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a rule"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "Work commenced in March."
+  negative:
+    - "The commencement date has moved."
+  transform:
+    - before: "Work commenced in March."
+      after: "Work started in March."
+
+---
+id: PS.LEXICAL.007
+version: 1
+name: approximately-to-about
+mode: safe-fix
+description: >
+  Both words mark an estimate. The number they qualify is untouched, which is
+  what matters: this rule must never change a figure, only the hedge in front
+  of it.
+match:
+  type: word
+  text: "approximately"
+action:
+  type: replace
+  replacement: "about"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"about\" marks an estimate just as well"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a rule"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The journey takes approximately 40 minutes."
+  negative:
+    - "The approximation was close enough."
+  transform:
+    - before: "The journey takes approximately 40 minutes."
+      after: "The journey takes about 40 minutes."
+
+---
+id: PS.LEXICAL.008
+version: 1
+name: sufficient-to-enough
+mode: safe-fix
+description: >
+  "Sufficient" and "enough" are the same quantity in different registers.
+match:
+  type: word
+  text: "sufficient"
+action:
+  type: replace
+  replacement: "enough"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"enough\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a rule"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "You have not provided sufficient evidence."
+  negative:
+    - "The evidence was sufficiently clear."
+  transform:
+    - before: "You have not provided sufficient evidence."
+      after: "You have not provided enough evidence."
+
+---
+id: PS.LEXICAL.009
+version: 1
+name: additional-to-extra
+mode: safe-fix
+description: >
+  "Additional" is "extra". The phrase "additional insured" is a term of art and
+  is protected separately by PS.PROTECT.002, which takes precedence over this
+  rule wherever the two overlap.
+match:
+  type: word
+  text: "additional"
+action:
+  type: replace
+  replacement: "extra"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"extra\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a rule"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "Please send additional documents."
+  negative:
+    - "Additions to the register are published monthly."
+  transform:
+    - before: "Please send additional documents."
+      after: "Please send extra documents."
+
+---
+id: PS.LEXICAL.010
+version: 1
+name: ascertain-to-find-out
+mode: safe-fix
+description: >
+  A Latinate verb with a plain phrasal equivalent. The replacement is two words
+  rather than one, which the engine handles as an ordinary span replacement.
+match:
+  type: word
+  text: "ascertain"
+action:
+  type: replace
+  replacement: "find out"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"find out\" is the everyday phrase"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a rule"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "We will ascertain whether the claim is valid."
+  negative:
+    - "The ascertainment of facts took two weeks."
+  transform:
+    - before: "We will ascertain whether the claim is valid."
+      after: "We will find out whether the claim is valid."
+
+---
+id: PS.LEXICAL.011
+version: 1
+name: demonstrate-to-show
+mode: safe-fix
+description: >
+  "Demonstrate" in the sense of showing evidence. The protest sense takes a
+  different grammatical frame — "demonstrate against" — and would read oddly
+  rather than wrongly, which is the level of risk this rule accepts.
+match:
+  type: word
+  text: "demonstrate"
+action:
+  type: replace
+  replacement: "show"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"show\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a rule"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "You must demonstrate that you live in the area."
+  negative:
+    - "A demonstration was held outside."
+  transform:
+    - before: "You must demonstrate that you live in the area."
+      after: "You must show that you live in the area."
+
+---
+id: PS.LEXICAL.012
+version: 1
+name: aforementioned
+mode: diagnostic
+description: >
+  Archaic and worth removing, but not by substitution. "The aforementioned
+  document" does not become "the this document"; it becomes "that document" or
+  simply "it", and which one depends on what was mentioned. A person has to
+  choose.
+match:
+  type: word
+  text: "aforementioned"
+scope:
+  include: [prose]
+priority: 80
+reason:
+  short: "Archaic; name the thing instead"
+provenance:
+  source: "PlainSpeak inherited glossary, re-authored as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The aforementioned document is enclosed."
+  negative:
+    - "The document mentioned above is enclosed."
