@@ -29,7 +29,17 @@ def main() -> int:
         print("this check no longer distinguishes dictionary from heuristic", file=sys.stderr)
         return 1
 
-    print(f"installed package loads {len(counts)} syllable entries")
+    from plainspeak.rules import load_ruleset
+
+    ruleset = load_ruleset()
+    if len(ruleset) < 20:
+        print(f"only {len(ruleset)} rules loaded from the installed package", file=sys.stderr)
+        return 1
+
+    print(
+        f"installed package loads {len(counts)} syllable entries "
+        f"and {len(ruleset)} rules (ruleset {ruleset.version})"
+    )
     return 0
 
 

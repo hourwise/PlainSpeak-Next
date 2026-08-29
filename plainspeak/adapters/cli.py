@@ -18,7 +18,13 @@ from ..core.morphology import post_process_simplified
 from ..core.transform import generate_simplified_text
 from ..reporting.console import format_console_report
 from ..reporting.html import generate_report
+from ..pipeline import rules_api
 from ..reporting.json import generate_json
+
+
+#: A leading blank line. Written via chr() rather than as an escape so the
+#: literal survives any tooling that rewrites escape sequences in source.
+BLANK = chr(10)
 
 
 @click.group()
@@ -320,6 +326,69 @@ def web(host: str, port: int, no_open: bool):
         webbrowser.open(f"http://{host}:{port}")
 
     app.run(host=host, port=port, debug=False)
+
+
+@main.group()
+def rules():
+    """Inspect the declarative ruleset.
+
+    Read-only. Applying rules to a document is not exposed here yet: the engine
+    is new, and a destructive command should wait until it has been used in
+    anger. Tests drive the pipeline directly in the meantime.
+    """
+
+
+@rules.command("list")
+@click.option("--mode", type=click.Choice(["safe-fix", "diagnostic", "protected"]), default=None,
+              help="Show only rules of one mode.")
+def rules_list(mode: Optional[str]):
+    """List the bundled rules."""
+    loaded = rules_api.ruleset()
+    described = [item for item in rules_api.all_rules(loaded) if mode is None or item.mode == mode]
+
+    click.echo(f"Ruleset {loaded.version}  ({loaded.hash[:12]})")
+    click.echo(f"{len(described)} of {len(loaded)} rules" + BLANK)
+    for item in described:
+        click.echo(f"  {item.id:18} {item.mode:11} {item.name}")
+        click.echo(f"  {'':18} {item.reason}")
+
+
+@rules.command("explain")
+@click.argument("rule_id")
+def rules_explain(rule_id: str):
+    """Explain one rule, by ID. For example: PS.CLARITY.001"""
+    try:
+        item = rules_api.rule(rule_id.upper())
+    except KeyError:
+        raise click.ClickException(
+            f"No rule with ID {rule_id!r}. Run 'plainspeak rules list' to see them all."
+        )
+
+    click.echo(f"{item.id} v{item.version}  {item.name}")
+    click.echo(f"  Mode        {item.mode}")
+    click.echo(f"  Family      {item.family}")
+    click.echo(f"  Matches     {item.matches}")
+    click.echo(f"  Proposes    {item.proposes}")
+    click.echo(f"  Where       {', '.join(item.scope_include)}"
+               + (f" (not {', '.join(item.scope_exclude)})" if item.scope_exclude else ""))
+    click.echo(f"  Priority    {item.priority}")
+    click.echo(f"  Why         {item.reason}")
+    click.echo(f"  {item.description}")
+    click.echo(BLANK + "  Should match:")
+    for example in item.examples_positive:
+        click.echo(f"    + {example}")
+    click.echo("  Should not match:")
+    for example in item.examples_negative:
+        click.echo(f"    - {example}")
+    if item.examples_transform:
+        click.echo("  Produces:")
+        for before, after in item.examples_transform:
+            click.echo(f"    {before}")
+            click.echo(f"      -> {after}")
+    click.echo(f"  Source      {item.provenance_source}")
+    if item.provenance_reference:
+        click.echo(f"  Reference   {item.provenance_reference}")
+    click.echo(f"  Licence     {item.provenance_licence}")
 
 
 @main.command()

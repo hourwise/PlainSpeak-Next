@@ -24,30 +24,51 @@ REQUIRED = "plainspeak/core/syllable_data.bin"
 #: would satisfy a mere presence check while behaving like no dictionary.
 MINIMUM_BYTES = 1_000_000
 
+#: The ruleset manifest, and how many rule files must accompany it. An engine
+#: installed without its rules proposes nothing and says nothing about why.
+RULESET_MANIFEST = "plainspeak/rules/bundled/RULESET.yaml"
+MINIMUM_RULE_FILES = 4
+
+
+def _check_contents(label: str, sizes: dict[str, int]) -> list[str]:
+    """Both artefact kinds are checked the same way, once unpacked to a mapping."""
+    problems = []
+    if REQUIRED not in sizes:
+        problems.append(f"{label} does not contain {REQUIRED}")
+    elif sizes[REQUIRED] < MINIMUM_BYTES:
+        problems.append(f"{label} contains {REQUIRED} but it is only {sizes[REQUIRED]} bytes")
+
+    if RULESET_MANIFEST not in sizes:
+        problems.append(f"{label} does not contain {RULESET_MANIFEST}")
+    rule_files = [
+        name
+        for name in sizes
+        if name.startswith("plainspeak/rules/bundled/")
+        and name.endswith(".yaml")
+        and not name.endswith("RULESET.yaml")
+    ]
+    if len(rule_files) < MINIMUM_RULE_FILES:
+        problems.append(
+            f"{label} contains only {len(rule_files)} rule file(s), expected at least "
+            f"{MINIMUM_RULE_FILES}"
+        )
+    return problems
+
 
 def check_wheel(path: Path) -> list[str]:
     with zipfile.ZipFile(path) as archive:
-        names = archive.namelist()
-        if REQUIRED not in names:
-            return [f"{path.name} does not contain {REQUIRED}"]
-        size = archive.getinfo(REQUIRED).file_size
-    if size < MINIMUM_BYTES:
-        return [f"{path.name} contains {REQUIRED} but it is only {size} bytes"]
-    return []
+        sizes = {item.filename: item.file_size for item in archive.infolist()}
+    return _check_contents(path.name, sizes)
 
 
 def check_sdist(path: Path) -> list[str]:
     with tarfile.open(path) as archive:
         # An sdist nests everything under a "<name>-<version>/" directory.
-        entries = {
+        sizes = {
             "/".join(member.name.split("/")[1:]): member.size
             for member in archive.getmembers()
         }
-    if REQUIRED not in entries:
-        return [f"{path.name} does not contain {REQUIRED}"]
-    if entries[REQUIRED] < MINIMUM_BYTES:
-        return [f"{path.name} contains {REQUIRED} but it is only {entries[REQUIRED]} bytes"]
-    return []
+    return _check_contents(path.name, sizes)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -76,7 +97,7 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     checked = ", ".join(path.name for path in wheels + sdists)
-    print(f"{REQUIRED} present in {checked}")
+    print(f"syllable dictionary and bundled ruleset present in {checked}")
     return 0
 
 
