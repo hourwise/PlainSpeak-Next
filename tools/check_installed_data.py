@@ -81,7 +81,7 @@ def main() -> int:
     print(
         f"installed package loads {len(counts)} syllable entries, "
         f"{len(ruleset)} rules (ruleset {ruleset.version} {ruleset.hash[:12]}), "
-        f"integrity policy {POLICY_VERSION} ({policy_hash()[:12]}) and "
+        f"integrity policy {POLICY_VERSION} ({policy_hash()[:12]}), "
         f"morphology {MORPHOLOGY_VERSION} ({morphology_hash()[:12]}) and "
         f"style policy {STYLE_POLICY_VERSION} ({style_hash()[:12]})"
     )
