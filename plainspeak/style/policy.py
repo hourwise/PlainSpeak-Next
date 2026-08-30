@@ -313,8 +313,21 @@ OVERLAP_MINIMUM_TOKENS = 20
 #: tokens, found through an inverted index. Without a filter the comparison is
 #: all-pairs and a long document becomes quadratic.
 OVERLAP_CANDIDATE_TOKENS = 5
-#: An upper bound on comparisons, so a pathological document cannot run away.
+#: An upper bound on scored comparisons, so a pathological document cannot run
+#: away.
 OVERLAP_MAX_COMPARISONS = 20000
+#: A bound on building the candidate set, which is the part that was actually
+#: quadratic. `OVERLAP_MAX_COMPARISONS` caps the Jaccard scoring, but the
+#: scoring runs over a candidate set the inverted index had already built by
+#: counting every co-occurring pair — so the cap bounded the cheap half and
+#: measured pairs grew as 3n² in paragraphs regardless.
+#:
+#: Tokens are now visited rarest first and pair counting stops when this budget
+#: is spent. Rarest first is what makes it safe to stop: a token appearing in
+#: two paragraphs says those two are related, and one appearing in a third of
+#: them says almost nothing, so the work that is dropped is the least
+#: informative work available.
+OVERLAP_MAX_PAIR_UPDATES = 200000
 
 
 # ── Identity ───────────────────────────────────────────────────────────────
@@ -364,6 +377,7 @@ def policy_document() -> dict[str, Any]:
             "overlap_minimum_tokens": OVERLAP_MINIMUM_TOKENS,
             "overlap_candidate_tokens": OVERLAP_CANDIDATE_TOKENS,
             "overlap_max_comparisons": OVERLAP_MAX_COMPARISONS,
+            "overlap_max_pair_updates": OVERLAP_MAX_PAIR_UPDATES,
         },
     }
 

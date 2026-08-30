@@ -717,6 +717,31 @@ document has, and the first symptom would be a style report contradicting a
 lexical finding. `tests/test_architecture.py` narrows the permitted crossing to
 that one module, so the allowance cannot widen into the simplifier.
 
+### Bounded, and honest about what the bound costs
+
+Two places could run away on a long document: n-gram counting and paragraph
+comparison. Both bounds are policy rather than implementation detail, because
+both can change what is reported.
+
+Lexical overlap had the more interesting failure. It looked bounded —
+`OVERLAP_MAX_COMPARISONS` caps the scored comparisons — but the candidate set it
+scores was built first by counting every co-occurring pair through an inverted
+index, and that counting was quadratic: measured pair counts grew as 3n² in
+paragraphs, 76,240 at 160 paragraphs and around 75 million at 5,000. The cap
+bounded the cheap half.
+
+Tokens are now visited rarest first and counting stops at
+`OVERLAP_MAX_PAIR_UPDATES`. The ordering is total, so truncation is
+deterministic and monotonic — a larger budget never loses a pair a smaller one
+found — and the work dropped is the least informative available. Past roughly
+320 comparable paragraphs the diagnostic can go quiet where it would previously
+have spoken; that cost is measured in [STYLE_CALIBRATION.md](STYLE_CALIBRATION.md)
+rather than left to be discovered.
+
+Bounded work is asserted by counting pair updates rather than by timing, for the
+reason Phase 6 gave: a test that measures seconds goes flaky on a loaded machine
+and then gets deleted.
+
 ### Identity and calibration
 
 The style policy is versioned product behaviour, like the ruleset, the integrity

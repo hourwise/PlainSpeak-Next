@@ -172,6 +172,37 @@ would therefore be useless as calibration evidence. `tests/test_style_corpus.py`
 names these two as the permitted exceptions, so a third one cannot be added
 quietly.
 
+## The one bound that changes an answer
+
+`OVERLAP_MAX_PAIR_UPDATES` is a threshold in a different sense from the rest,
+and it is in the policy hash for the same reason they are: it can change what a
+reader is told.
+
+Lexical overlap finds candidate pairs through an inverted index, counting how
+many content tokens each pair of paragraphs shares. That counting was quadratic
+in paragraphs — measured pair counts grew as 3n², so 160 paragraphs cost 76,240
+pair updates and 5,000 would have cost around 75 million. The existing
+`OVERLAP_MAX_COMPARISONS` cap did not help, because it bounds the Jaccard
+scoring that runs *after* the candidate set is built.
+
+Tokens are now visited rarest first and counting stops when the budget of
+200,000 updates is spent. Rarest first is what makes stopping safe rather than
+arbitrary: a token in two paragraphs says those two are related, a token in a
+third of them says almost nothing, so the work that gets dropped is the least
+informative available. The ordering is total — frequency, then the token itself
+— so the result never depends on dictionary iteration order, and a larger budget
+never loses a pair a smaller one found. Both properties are tested.
+
+**What it costs.** The budget starts binding at around 320 comparable
+paragraphs. Past that, lexical overlap can go quiet on a document where it would
+previously have spoken. Measured on a synthetic worst case — the same nine
+paragraphs repeated — the finding survives to 2,304 paragraphs and is lost at
+4,608. Real documents of that length have far more vocabulary diversity, so
+their tokens are rarer and the budget stretches much further, but the failure is
+real and it is silence rather than a wrong answer. That is the intended
+direction for this project, and it is recorded here rather than left for
+somebody to discover.
+
 ## What the calibration is worth, stated plainly
 
 Six natural documents, zero false positives. Eight repetitive documents, zero
@@ -192,6 +223,8 @@ sounds, and these are the reasons:
 5. **The documents are short.** The longest is 352 words. Real reports run to
    thousands, and several of these measurements behave differently at length —
    a repeated opener that is 18% of a page may be 4% of a chapter.
+6. **Nothing in the corpus is long enough to reach the overlap budget.** The
+   behaviour past 320 paragraphs is tested synthetically, not calibrated.
 
 Every one of these is a reason the output is phrased as an observation with its
 arithmetic attached rather than as a verdict. A reader who disagrees with a

@@ -39,6 +39,7 @@ from .policy import (
     OPENER_SIZES,
     OVERLAP_CANDIDATE_TOKENS,
     OVERLAP_MAX_COMPARISONS,
+    OVERLAP_MAX_PAIR_UPDATES,
     OVERLAP_MINIMUM_TOKENS,
     PARAGRAPH_UNIFORMITY,
     REPEATED_PARAGRAPH_OPENER,
@@ -548,6 +549,63 @@ def repeated_phrase(text: str) -> Optional[StyleFinding]:
 # ── Lexical overlap ────────────────────────────────────────────────────────
 
 
+def shared_token_counts(
+    paragraphs: Sequence[frozenset], budget: int = OVERLAP_MAX_PAIR_UPDATES
+) -> tuple[Counter, int]:
+    """How many content tokens each pair of paragraphs shares, within a budget.
+
+    Returns the pair counts and the number of pair updates actually performed,
+    so the bound can be asserted by counting work rather than by timing it. A
+    test that measures seconds goes flaky on a loaded machine; a test that
+    measures updates does not.
+
+    The naive version of this was quadratic and looked bounded. It skipped
+    tokens appearing in more than half the paragraphs, capped the number of
+    scored comparisons at `OVERLAP_MAX_COMPARISONS`, and still built the whole
+    candidate set first — so the cap bounded the cheap half and measured pair
+    counts grew as 3n² in paragraphs. 160 paragraphs produced 76,240 pairs;
+    5,000 would have produced 75 million.
+
+    Two things make stopping safe. Tokens are visited rarest first, so the work
+    that is dropped is the least informative available: a token in two
+    paragraphs says those two are related, and one in a third of them says
+    almost nothing. And the order is total — frequency, then the token itself —
+    so the result never depends on dictionary iteration order.
+
+    Exhausting the budget makes the diagnostic go quiet rather than wrong. On a
+    document of several thousand near-identical paragraphs it will stop
+    reporting overlap; that is the intended failure direction, and it is
+    recorded in STYLE_CALIBRATION.md rather than hidden.
+    """
+    index: dict[str, list[int]] = defaultdict(list)
+    for position, tokens in enumerate(paragraphs):
+        for token in tokens:
+            index[token].append(position)
+
+    # A token appearing in more than half the paragraphs tells us nothing and
+    # would dominate the candidate set.
+    spread = max(2, len(paragraphs) // 2)
+    ordered = sorted(index.items(), key=lambda item: (len(item[1]), item[0]))
+
+    shared: Counter = Counter()
+    updates = 0
+    for _, positions in ordered:
+        if len(positions) > spread:
+            continue
+        # Rarest first, so once one token costs more than the budget has left,
+        # every token after it costs at least as much: stopping is correct as
+        # well as cheaper than skipping.
+        pairs = len(positions) * (len(positions) - 1) // 2
+        if updates + pairs > budget:
+            break
+        updates += pairs
+        for i, left in enumerate(positions):
+            for right in positions[i + 1 :]:
+                shared[(left, right)] += 1
+
+    return shared, updates
+
+
 def lexical_overlap(structure: DocumentStructure) -> Optional[StyleFinding]:
     """Two paragraphs sharing most of their content words.
 
@@ -559,7 +617,8 @@ def lexical_overlap(structure: DocumentStructure) -> Optional[StyleFinding]:
 
     Comparison is filtered through an inverted index rather than run over all
     pairs: a long report has hundreds of paragraphs, and all-pairs is quadratic
-    for a diagnostic that only cares about the strongest few.
+    for a diagnostic that only cares about the strongest few. The bounded part
+    is `shared_token_counts`, which is where the work actually is.
     """
     paragraphs = [
         (block, frozenset(content_words(block.text)))
@@ -569,20 +628,7 @@ def lexical_overlap(structure: DocumentStructure) -> Optional[StyleFinding]:
     if len(paragraphs) < 2:
         return None
 
-    index: dict[str, list[int]] = defaultdict(list)
-    for position, (_, tokens) in enumerate(paragraphs):
-        for token in tokens:
-            index[token].append(position)
-
-    shared: Counter = Counter()
-    for positions in index.values():
-        # A token appearing in almost every paragraph tells us nothing and would
-        # dominate the candidate set, so very common tokens are skipped.
-        if len(positions) > max(2, len(paragraphs) // 2):
-            continue
-        for i, left in enumerate(positions):
-            for right in positions[i + 1 :]:
-                shared[(left, right)] += 1
+    shared, _ = shared_token_counts([tokens for _, tokens in paragraphs])
 
     candidates = [
         pair for pair, count in shared.items() if count >= OVERLAP_CANDIDATE_TOKENS

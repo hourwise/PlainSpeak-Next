@@ -36,7 +36,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 #: The style policy as it currently ships. Pinned so the Windows, Linux and
 #: macOS jobs all assert the same number rather than each comparing itself to
 #: itself, and so that a threshold cannot move without a reviewer seeing it.
-STYLE_POLICY_HASH = "ecb8b5d8f0dfde3cc4a7f7332052d449eba0616616058465ceb9e49be1007aa0"
+STYLE_POLICY_HASH = "bedae926205a22cd6f2e9421d652c9d7fd7fa2f502e124210b29afbf773f421c"
 
 
 # ── Identity ───────────────────────────────────────────────────────────────
@@ -90,6 +90,8 @@ def test_moving_a_minimum_sample_changes_the_identity(monkeypatch, diagnostic: s
         ("CONTRACTIONS", lambda v: v + ("ain't",)),
         ("NGRAM_SIZES", lambda v: v + (6,)),
         ("OVERLAP_MINIMUM_TOKENS", lambda v: v + 5),
+        ("OVERLAP_MAX_PAIR_UPDATES", lambda v: v * 2),
+        ("NGRAM_MAX_RETAINED", lambda v: v + 10),
         ("STYLE_POLICY_VERSION", lambda v: "9999.1"),
         ("INVERTED", lambda v: frozenset(v | {"PS.STYLE.LIST_DOMINANCE"})),
     ],
