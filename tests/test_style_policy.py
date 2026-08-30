@@ -269,8 +269,48 @@ def test_the_style_layer_proposes_no_edits() -> None:
     assert not offences, "the style layer must not transform text: " + "; ".join(offences)
 
 
-def test_no_style_fix_mode_was_introduced() -> None:
-    """`style-fix` stays reserved until profiles exist to make it meaningful."""
-    from plainspeak.rules.schema import MODES
+def test_style_fixes_can_never_be_automatic() -> None:
+    """`style-fix` was activated in Phase 9. This is what replaced the ban.
 
-    assert "style-fix" not in MODES
+    The Phase 7 guarantee was that no style transformation existed. That was the
+    right guarantee while there was nothing for a style fix to be relative to.
+    Now that profiles exist, the guarantee that matters is the stronger one: a
+    style fix exists, and it can never enter an accepted set.
+
+    Asserted three ways, because one of them is a comment away from being wrong:
+    the mode is absent from `AUTOMATIC_MODES`; every shipped style rule declares
+    `review.required`; and `StylePlan` has no `accepted` attribute for a planner
+    to put one in.
+    """
+    from plainspeak.pipeline.style_plan import StylePlan
+    from plainspeak.rules import load_ruleset
+    from plainspeak.rules.schema import AUTOMATIC_MODES, MODE_STYLE_FIX, MODES
+
+    assert MODE_STYLE_FIX in MODES
+    assert MODE_STYLE_FIX not in AUTOMATIC_MODES
+
+    style_fixes = load_ruleset().style_fixes
+    assert style_fixes
+    assert all(rule.review.required for rule in style_fixes)
+
+    assert "accepted" not in StylePlan.__dataclass_fields__
+
+
+def test_the_style_layer_still_proposes_nothing_itself() -> None:
+    """Phase 9 put the transformations in `rules`, not in `style`.
+
+    The measurement layer stayed diagnostic. A style fix is a rule, planned by
+    the pipeline, and nothing in `plainspeak/style/` gained the ability to
+    rewrite anything.
+    """
+    import ast
+
+    forbidden = {"replacement", "replace", "apply", "fix", "rewrite"}
+    offences = []
+    for path in sorted((REPO_ROOT / "plainspeak" / "style").rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                if any(word == node.name.lower().strip("_") for word in forbidden):
+                    offences.append(f"{path.name}:{node.lineno} defines `{node.name}`")
+    assert not offences, "; ".join(offences)

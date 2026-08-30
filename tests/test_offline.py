@@ -20,6 +20,9 @@ import pytest
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
+#: Spelled out rather than escaped inline, so the fixtures below stay legible.
+NL = chr(10)
+
 
 class NetworkDenied(AssertionError):
     """Raised if anything attempts to open a connection."""
@@ -150,6 +153,43 @@ def test_style_profiles_load_and_apply_offline(no_network) -> None:
     results = compare_style_profiles(parse_markdown.parse(source))
     assert set(results) == set(profile_ids())
     assert all(analysis.profile_hash for analysis in results.values())
+
+
+def test_style_planning_and_review_work_offline(no_network) -> None:
+    """No external synonym service, no telemetry, no model.
+
+    The whole profile-governed path runs with sockets denied: plan, approve,
+    apply. A style suggestion is an exact replacement written into a bundled YAML
+    rule and reviewed by a person, and nothing about that needs a network.
+    """
+    from plainspeak.document import parse_markdown
+    from plainspeak.pipeline.style_plan import plan_style_changes
+    from plainspeak.pipeline.style_review import (
+        accept_all,
+        apply_style_changes,
+        approve_style_changes,
+    )
+
+    source = (
+        "The pilot ran for eleven months. Attendance was lower than forecast." + NL + NL
+        + "Nevertheless, the scheme met its objective. The rate rose to 78%." + NL + NL
+        + "Nevertheless, the cost stayed high. Staff time explains most of it." + NL + NL
+        + "Site A did best. It also had the most experienced team." + NL + NL
+        + "Nevertheless, the smaller sites improved too. It surprised the panel." + NL + NL
+        + "Nevertheless, none reached the target. Three came close." + NL + NL
+        + "Nevertheless, the panel recommends another year. The board decides." + NL + NL
+        + "Nevertheless, the funding is not yet agreed. March is the deadline." + NL
+    )
+    document = parse_markdown.parse(source)
+    plan = plan_style_changes(document, "natural")
+
+    assert plan.review_required, "the offline fixture should produce suggestions"
+    assert all(item.status == "review_required" for item in plan.review_required)
+
+    approval = approve_style_changes(plan, accept_all(plan))
+    result = apply_style_changes(document, approval)
+    assert result.changed
+    assert "Even so," in result.output
 
 
 def test_the_syllable_dictionary_loads_offline(no_network) -> None:

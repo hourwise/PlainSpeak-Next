@@ -101,6 +101,22 @@ def main() -> int:
             print(f"profile {profile.id} has no usable hash", file=sys.stderr)
             return 1
 
+    # Phase 9 activated the `style-fix` mode. An installed package whose style
+    # rules were missing would silently offer no style suggestions at all, and a
+    # style rule that loaded as automatic would be a far worse failure — so both
+    # the presence and the review classification are asserted here.
+    style_fixes = ruleset.style_fixes
+    if len(style_fixes) < 5:
+        print(f"only {len(style_fixes)} style-fix rules installed", file=sys.stderr)
+        return 1
+    for rule in style_fixes:
+        if rule.is_automatic or rule.review is None or not rule.review.required:
+            print(f"style rule {rule.id} is not review-required", file=sys.stderr)
+            return 1
+        if rule.trigger is None:
+            print(f"style rule {rule.id} declares no diagnostic trigger", file=sys.stderr)
+            return 1
+
     print(
         f"installed package loads {len(counts)} syllable entries, "
         f"{len(ruleset)} rules (ruleset {ruleset.version} {ruleset.hash[:12]}), "
@@ -109,6 +125,7 @@ def main() -> int:
         f"style policy {STYLE_POLICY_VERSION} ({style_hash()[:12]}), "
         f"profile pack {PROFILE_PACK_VERSION} ({pack_hash(pack)[:12]}): "
         + ", ".join(f"{profile.id} {profile.hash[:8]}" for profile in pack)
+        + f"; {len(style_fixes)} style-fix rules, all review-required"
     )
     return 0
 

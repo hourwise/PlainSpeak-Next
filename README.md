@@ -62,7 +62,8 @@ PlainSpeak gives writers and advocates a free, offline tool to check whether tex
 - [x] CLI interface (analyze, score, simplify, web, version commands)
 - [x] **Document-level style diagnostics** — cadence, repetition, transition and vocabulary patterns, each reported with the arithmetic behind it. Diagnostic only: no authorship claim, no aggregate score, no automatic fixes (see [STYLE_CALIBRATION.md](STYLE_CALIBRATION.md))
 - [x] **Style profiles** — five calibrated interpretations (Natural, Plain, Technical, Government, Academic) of the same measurements, so a specification and an essay are not judged against identical expectations. `plainspeak profiles list` (see [STYLE_PROFILES.md](STYLE_PROFILES.md))
-- [x] Test suite (**3,715 tests**, all passing)
+- [x] **Profile-governed style suggestions** — eight exact phrase substitutions that a chosen profile can trigger, every one requiring human review before it changes anything. `plainspeak style preview --profile natural` (see [STYLE_TRANSFORMATIONS.md](STYLE_TRANSFORMATIONS.md))
+- [x] Test suite (**3,862 tests**, all passing)
 
 ## How to run it
 
@@ -110,6 +111,7 @@ See [LIMITATIONS.md](LIMITATIONS.md) for a full accounting of known gaps. Key it
 - [ARCHITECTURE.md](ARCHITECTURE.md) — the layers, and what each may depend on
 - [STYLE_CALIBRATION.md](STYLE_CALIBRATION.md) — where the baseline style thresholds came from, and which are not yet supported by evidence
 - [STYLE_PROFILES.md](STYLE_PROFILES.md) — the five profiles, their margins, and the three baseline thresholds this calibration showed to be wrong
+- [STYLE_TRANSFORMATIONS.md](STYLE_TRANSFORMATIONS.md) — what a style fix may propose, what it may never do, and why four of them were deleted
 - [GLOSSARY_MIGRATION.md](GLOSSARY_MIGRATION.md) — how 706 inherited terms were reconciled
 - [UPSTREAM.md](UPSTREAM.md) — lineage, and why nothing syncs
 - [MISSION.md](MISSION.md) — problem, beneficiaries, ethical boundaries

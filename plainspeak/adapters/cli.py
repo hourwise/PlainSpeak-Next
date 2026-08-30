@@ -20,6 +20,8 @@ from ..reporting.console import format_console_report
 from ..reporting.html import generate_report
 from ..pipeline import rules_api
 from ..pipeline import explain_profile as profile_detail
+from ..pipeline import plan_style_changes
+from ..pipeline.sources import load_document
 from ..pipeline import list_profiles
 from ..reporting.json import generate_json
 
@@ -466,6 +468,71 @@ def profiles_explain(profile_id: str):
         click.echo(BLANK + "  Weakly calibrated — no document on one side of the line:")
         for key in item["weakly_calibrated"]:
             click.echo(f"    {key}")
+
+
+@main.group()
+def style():
+    """Preview profile-governed style suggestions.
+
+    Read-only. Every suggestion here requires human review by design, and there
+    is deliberately no command that applies one — `plainspeak style fix` does not
+    exist. A style preference becoming an automatic edit is exactly what this
+    part of the engine is built to prevent, and a CLI flag would be the easiest
+    place to lose that.
+    """
+
+
+@style.command("preview")
+@click.argument("path", type=click.Path(exists=True, dir_okay=False))
+@click.option("--profile", "profile_id", required=True,
+              help="Which style profile to read the document against. No default.")
+def style_preview(path: str, profile_id: str):
+    """Show the style changes a profile would suggest, and change nothing."""
+    try:
+        document = load_document(Path(path))
+        plan = plan_style_changes(document, profile_id.lower())
+    except ValueError as error:
+        raise click.ClickException(str(error))
+
+    click.echo(f"{Path(path).name}  profile {plan.profile_id} v{plan.profile_version}")
+    click.echo(f"  ruleset {plan.ruleset_version} ({plan.ruleset_hash[:12]})")
+    click.echo(f"  plan    {plan.plan_hash[:16]}" + BLANK)
+
+    if plan.findings:
+        click.echo("  Style findings under this profile:")
+        for finding in plan.findings:
+            click.echo(
+                f"    {finding['id'].split('.')[-1]:28} {finding['severity']:8} "
+                f"{finding['value']} (line {finding['threshold']})"
+            )
+        click.echo("")
+
+    reviewable = plan.review_required
+    if not reviewable:
+        click.echo("  No style changes suggested.")
+    else:
+        click.echo(f"  {len(reviewable)} suggestion(s), all requiring review:" + BLANK)
+        for item in reviewable:
+            click.echo(f"    {item.proposal_id}  {item.rule_id}")
+            click.echo(f"      before   {item.before!r}")
+            click.echo(f"      after    {item.after!r}")
+            click.echo(f"      because  {item.reason}")
+            click.echo(f"      trigger  {item.trigger_diagnostic} ({item.trigger_severity})")
+            click.echo(f"      integrity {'checked' if item.integrity_checked else 'not checked'}")
+            click.echo("")
+
+    if plan.refused:
+        click.echo(f"  {len(plan.refused)} suggestion(s) refused:")
+        for item in plan.refused:
+            click.echo(f"    {item.rule_id} at {item.location}: {item.refusal}")
+
+    if plan.truncated:
+        click.echo(BLANK + "  Some suggestions were not shown:")
+        for key, count in sorted(plan.truncated.items()):
+            click.echo(f"    {key}: {count} beyond the per-diagnostic cap")
+
+    click.echo(BLANK + "  Nothing was changed. Applying a style suggestion needs an "
+                       "explicit review decision, which this command cannot make.")
 
 
 @main.command()

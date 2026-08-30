@@ -10,6 +10,8 @@ metadata, rendered, with no decisions of its own.
 """
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 from click.testing import CliRunner
 
@@ -149,4 +151,51 @@ def test_an_unknown_profile_is_an_error_not_a_default(run) -> None:
 
 def test_the_cli_offers_no_command_that_changes_a_document_by_profile(run) -> None:
     for attempt in (("profiles", "fix"), ("profiles", "apply"), ("fix",)):
+        assert run(*attempt).exit_code != 0, attempt
+
+
+# ── Style preview ──────────────────────────────────────────────────────────
+#
+# Read-only, and the absence of anything else is the point. Phase 9 makes style
+# transformation possible and keeps it behind an explicit human decision, and a
+# CLI flag would be the easiest place in the whole system to lose that.
+
+
+def test_style_preview_requires_a_profile(run, tmp_path) -> None:
+    path = tmp_path / "doc.md"
+    path.write_text("Nevertheless, the scheme continued.\n", encoding="utf-8")
+    assert run("style", "preview", str(path)).exit_code != 0
+
+
+def test_style_preview_rejects_an_unknown_profile(run, tmp_path) -> None:
+    path = tmp_path / "doc.md"
+    path.write_text("Nevertheless, the scheme continued.\n", encoding="utf-8")
+    result = run("style", "preview", str(path), "--profile", "natrual")
+
+    assert result.exit_code != 0
+    assert "natrual" in result.output
+
+
+def test_style_preview_shows_suggestions_and_changes_nothing(run) -> None:
+    source = Path(__file__).resolve().parent / "style" / "stylefix" / "concessive-heavy.md"
+    before = source.read_bytes()
+    result = run("style", "preview", str(source), "--profile", "natural")
+
+    assert result.exit_code == 0
+    assert "PS.STYLEFIX.001" in result.output
+    assert "requiring review" in result.output
+    assert "Nothing was changed" in result.output
+    assert source.read_bytes() == before
+
+
+def test_style_preview_is_quiet_where_the_profile_is(run) -> None:
+    source = Path(__file__).resolve().parent / "style" / "stylefix" / "signposted.md"
+    result = run("style", "preview", str(source), "--profile", "natural")
+
+    assert result.exit_code == 0
+    assert "No style changes suggested" in result.output
+
+
+def test_there_is_no_command_that_applies_a_style_change(run) -> None:
+    for attempt in (("style", "fix"), ("style", "apply"), ("fix",), ("style", "apply-all")):
         assert run(*attempt).exit_code != 0, attempt

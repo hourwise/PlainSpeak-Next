@@ -867,16 +867,119 @@ disagreement is itself pinned by a test, so it cannot quietly disappear, and
 [STYLE_PROFILES.md](STYLE_PROFILES.md) states it plainly: a caller on the
 unprofiled path gets those false positives.
 
+## Profile-governed style transformations
+
+Phase 9 activates the `style-fix` mode. A style fix is a preference relative to a
+chosen profile, and the distinction from a safe fix is the whole design:
+
+```
+safe-fix     mechanically safe          may enter the accepted plan automatically
+style-fix    deterministic              REVIEW REQUIRED, always
+             profile-relative
+             integrity-checked
+```
+
+Eight rules ship, all substitutions of one exact phrase for one exact phrase of
+the same discourse class — `Nevertheless,` for `Even so,`, `In addition,` for
+`Also,`. Nothing is deleted, nothing is reordered, no sentence changes shape.
+[STYLE_TRANSFORMATIONS.md](STYLE_TRANSFORMATIONS.md) lists them, and lists at
+greater length what was deliberately left out.
+
+### The gate
+
+A style fix may propose something only when a profile was named *explicitly*,
+the rule's trigger diagnostic fired under that profile, and the finding named the
+rule's evidence label. The Phase 7 baseline cannot authorise a style change: it
+measures, it represents nobody's intent, and it carries three known sealed false
+positives.
+
+A style rule holds a phrase, a replacement, a trigger and a reason — no
+threshold, no minimum sample, no measurement. There is therefore nothing in it
+that *could* disagree with the style layer, which is the point: a rule that
+recomputed the document-level condition would be a second style detector hiding
+inside the transformation engine. Where the planner needs the connective
+distribution to size the change, it calls `style.patterns.transition_hits`, the
+same function the diagnostic used.
+
+### How many changes, and which
+
+Simulated, never estimated. For each *k* the resulting distribution is built and
+measured against the profile's own line, and the first *k* below it is the
+answer. Six of seven at a line of 0.70 resolves at *k*=4. The **last** four in
+source order are proposed: the earliest uses established the connective, the
+later ones are the repetition, and source order is a total order over a fixed
+document.
+
+One budget per finding, shared across rules — two rules each independently
+deciding they need one change would ask a reviewer to approve an edit that was
+not needed. Where no *k* resolves the finding, there are no proposals at all: a
+handful of changes that would not settle anything is worse than none.
+
+### Nothing is applied without a person
+
+`StylePlan` has no `accepted` field. That is the guarantee expressed as a missing
+attribute rather than a rule somebody has to remember — there is nowhere in the
+object to put an automatically applicable style change, and the transformation
+planner ignores style rules entirely, so `apply_plan` has nothing to apply.
+
+A proposal becomes an edit through `approve_style_changes` and
+`apply_style_changes`, and only those. Proposal identifiers derive from content
+alone — rule, span, text, trigger, profile — so a stored decision means the same
+thing on every platform, and two profiles produce different identifiers for the
+same edit. The plan hash covers every authority, approval re-derives all of them
+from live state, and any drift refuses the submission. Batches are atomic.
+
+`review_required` is a first-class state and emphatically not `applicable =
+false`: a valid suggestion awaiting judgement and one the engine rejected are
+different things.
+
+### Safety is unchanged by any of it
+
+Integrity runs twice — per proposal in the planner, so a reviewer is never shown
+a change the firewall would refuse, and over the whole finished document before
+anything is written, because two individually harmless edits can combine. A
+person approving a change does not overrule it, and there is no
+`ignore_integrity` anywhere.
+
+Protected terms outrank profile preference, enforced by running the
+transformation planner's own protection helpers rather than a second
+implementation that agrees today.
+
+Mode precedence is explicit and priority is never consulted across modes:
+
+```
+protected  >  safe-fix  >  style-fix  >  diagnostic
+```
+
+A style rule cannot displace a safe fix by declaring a bigger priority number.
+That is not hypothetical: four rules in the first draft of this family targeted
+"furthermore", "moreover", "additionally" and "consequently", all of which Phase
+6 already replaces automatically. Every one was permanently superseded, could
+never have produced a review item, and was deleted rather than shipped.
+
+### A defect this phase exposed
+
+`load_ruleset()` was uncached at about 520 ms a call. Nothing noticed, because
+the transformation planner takes a ruleset once per document. Style planning
+takes one per document *per profile*, so comparing five profiles paid two and a
+half seconds of YAML parsing for an answer the first load already had. The
+bundled tree is now loaded once per process — it is a pure function of an
+immutable directory, and an explicit `root` is still never cached. The full suite
+went from 241 seconds to 48.
+
 ## What is deliberately not here yet
 
 The build plan describes several layers that this codebase has not earned the
 right to yet. They are absent rather than stubbed, because an empty package
 implies a decision that has not been made:
 
-- **Style fixes.** Nothing in `style/` proposes an edit. `style-fix` remains a
-  mode the schema recognises only in order to reject it. Phase 8 built the
-  reference frame such a fix would need; designing the fix itself is separate
-  work.
+- **Syntax-sensitive style rewrites.** The eight shipped style fixes are exact
+  phrase substitutions. Nothing splits a sentence, moves one between paragraphs,
+  rewrites a repeated opener or picks between synonyms, because none of those can
+  be done from a document-level measurement without guessing.
+- **Deterministic alternatives.** A style fix offers one replacement. Presenting
+  several for a reviewer to choose between needs its own contract and is not in
+  this phase.
 - **Custom and personal profiles.** No `plainspeak profile ./my-writing/`. That
   needs its own contract for trusted corpus admission, sample sufficiency,
   local-only extraction and provenance, and the built-ins had to be proven

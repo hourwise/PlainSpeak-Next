@@ -445,11 +445,23 @@ def test_the_identities_do_not_vary_by_profile() -> None:
     assert packs == {pack_hash(load_pack())}
 
 
-def test_style_fix_is_still_rejected() -> None:
-    """Phase 8 defines the reference frame. It does not grant edit authority."""
-    from plainspeak.rules.schema import MODES
+def test_a_profile_still_cannot_grant_edit_authority() -> None:
+    """Phase 9 activated `style-fix`. Profiles gained nothing by it.
 
-    assert "style-fix" not in MODES
+    A style fix is a rule with an exact replacement, reviewed by a person. The
+    profile still only decides whether the pattern is undesirable for the target
+    style; it holds no replacement text and cannot be made to.
+    """
+    from plainspeak.rules import load_ruleset
+    from plainspeak.rules.schema import AUTOMATIC_MODES, MODE_STYLE_FIX
+
+    assert MODE_STYLE_FIX not in AUTOMATIC_MODES
+    assert load_ruleset().style_fixes
+
+    for profile in load_pack():
+        rendered = json.dumps(profile.as_dict())
+        for word in ("replacement", "rewrite", "synonym", "substitut", "also", "even so"):
+            assert word not in rendered.lower(), f"{profile.id} carries replacement text"
 
 
 def test_no_profile_can_be_turned_into_an_edit() -> None:
