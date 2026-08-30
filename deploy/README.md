@@ -56,6 +56,12 @@ to inspect when somebody wants to know what is inside it.
 application has no use for either, and shipping a browser inside a review tool
 would be a large attack surface in exchange for nothing.
 
+**`--assume-yes-for-downloads`** is required on Windows. A standalone build
+there needs Nuitka's dependency walker, which Nuitka fetches on first use and
+will not fetch without consent — so an unattended build fails with `Nuitka does
+not work in '--mode=standalone' on Windows without dependency walker` and no
+hint that the problem is a prompt nobody answered.
+
 **`--nofollow-import-to`** on flask, docx, pypdf and pytest. The desktop reviews
 text and Markdown only, so a DOCX or PDF reader would be dead weight, and a web
 framework has no business inside a native application.
