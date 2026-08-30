@@ -192,6 +192,78 @@ def test_style_planning_and_review_work_offline(no_network) -> None:
     assert "Even so," in result.output
 
 
+def test_the_desktop_review_path_works_offline(no_network) -> None:
+    """The application needs no network on any path a person can reach.
+
+    No update check, no analytics, no crash upload, no remote fonts, no web
+    content and no telemetry. The whole review workflow — open, analyse, decide,
+    materialise — runs with sockets denied.
+    """
+    from plainspeak.desktop.session import ReviewSession, save_revised
+    from plainspeak.pipeline import build_review_bundle, parse_source
+
+    source = (
+        "The team utilise the register." + NL + NL
+        + "Nevertheless, the panel agreed. Nevertheless, the cost rose." + NL + NL
+        + "Nevertheless, attendance fell. Nevertheless, nobody minded." + NL + NL
+        + "Nevertheless, the report went out. Nevertheless, March is the deadline." + NL
+    )
+    document = parse_source(source)
+    session = ReviewSession("natural")
+    session.load(REPO_ROOT / "offline.md", document.source)
+    generation = session.begin_analysis()
+
+    assert session.accept_analysis(build_review_bundle(document, "natural"), generation)
+    snapshot = session.snapshot()
+    assert snapshot.changes
+    assert snapshot.identities["profile_id"] == "natural"
+
+    if session.bundle.reviewable:
+        session.accept(session.bundle.reviewable[0].proposal_id)
+        assert session.snapshot().preview.revised_text
+
+
+def test_the_desktop_self_test_runs_offline(no_network) -> None:
+    """The packaged verification path is offline too."""
+    from plainspeak.desktop.selftest import run_self_test
+
+    assert run_self_test([]) == 0
+
+
+def test_the_desktop_contains_no_network_code() -> None:
+    """A static check to go with the runtime one.
+
+    An update checker added later would most likely arrive as an import at the
+    top of a widget module, which this catches even if nobody ever calls it.
+    """
+    import ast
+
+    forbidden = {
+        "urllib", "http", "requests", "httpx", "socket", "ftplib", "smtplib",
+        "xmlrpc", "aiohttp", "webbrowser",
+    }
+    offences = []
+    for path in sorted((REPO_ROOT / "plainspeak" / "desktop").rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            names = []
+            if isinstance(node, ast.Import):
+                names = [alias.name.split(".")[0] for alias in node.names]
+            elif isinstance(node, ast.ImportFrom) and node.module and not node.level:
+                names = [node.module.split(".")[0]]
+            for name in names:
+                if name in forbidden:
+                    offences.append(f"{path.name}:{node.lineno} imports {name}")
+
+    assert not offences, "networking in the desktop: " + "; ".join(offences)
+
+    # And no Qt module that can fetch or render remote content.
+    for path in sorted((REPO_ROOT / "plainspeak" / "desktop").rglob("*.py")):
+        source = path.read_text(encoding="utf-8")
+        for module in ("QtNetwork", "QtWebEngine", "QtWebView", "QtWebSockets"):
+            assert module not in source, f"{path.name} uses {module}"
+
+
 def test_the_syllable_dictionary_loads_offline(no_network) -> None:
     from plainspeak.core.syllables import get_syllable_count
 
