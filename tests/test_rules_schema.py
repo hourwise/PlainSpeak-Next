@@ -126,10 +126,51 @@ def test_an_unknown_mode_is_rejected(ruleset_from) -> None:
         ruleset_from(replace_line("mode:", "mode: rewrite"))
 
 
-def test_style_fix_is_reserved_and_says_so(ruleset_from) -> None:
-    """A reserved mode should fail with an explanation, not a generic error."""
-    with pytest.raises(RuleError, match="reserved for style profiles"):
+def test_a_style_fix_without_a_trigger_is_rejected(ruleset_from) -> None:
+    """Activated in Phase 9, and never loadable on its own terms.
+
+    A style fix may propose nothing until the style layer has produced the
+    finding that justifies it. A rule that declared no trigger would be deciding
+    for itself that a document is repetitive, which is the second style detector
+    this design exists to prevent.
+    """
+    with pytest.raises(RuleError, match="must declare requires_diagnostic"):
         ruleset_from(replace_line("mode:", "mode: style-fix"))
+
+
+def test_a_style_fix_cannot_declare_itself_automatic(ruleset_from) -> None:
+    """`review.required: false` is not expressible."""
+    source = replace_line("mode:", "mode: style-fix") + (
+        "\nrequires_diagnostic:\n"
+        "  id: PS.STYLE.REPEATED_TRANSITION\n"
+        "  evidence_label: \"however\"\n"
+        "review:\n"
+        "  required: false\n"
+    )
+    with pytest.raises(RuleError, match="review.required must be true"):
+        ruleset_from(source)
+
+
+def test_an_unknown_trigger_diagnostic_is_rejected(ruleset_from) -> None:
+    source = replace_line("mode:", "mode: style-fix") + (
+        "\nrequires_diagnostic:\n"
+        "  id: PS.STYLE.SENTENCE_UNIFORMITY\n"
+        "  evidence_label: \"lengths\"\n"
+        "review:\n"
+        "  required: true\n"
+    )
+    with pytest.raises(RuleError, match="not a diagnostic a style fix may act on"):
+        ruleset_from(source)
+
+
+def test_only_a_style_fix_may_carry_a_trigger(ruleset_from) -> None:
+    source = VALID_RULE + (
+        "\nrequires_diagnostic:\n"
+        "  id: PS.STYLE.REPEATED_TRANSITION\n"
+        "  evidence_label: \"however\"\n"
+    )
+    with pytest.raises(RuleError, match="applies only to a style-fix rule"):
+        ruleset_from(source)
 
 
 def test_a_diagnostic_may_not_carry_an_action(ruleset_from) -> None:

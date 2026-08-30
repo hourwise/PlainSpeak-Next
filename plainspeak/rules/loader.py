@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import os
 from dataclasses import dataclass, replace
+from functools import lru_cache
 from pathlib import Path
 from typing import Iterable, Iterator, Optional, Sequence
 
@@ -32,6 +33,7 @@ from .schema import (
     MODE_DIAGNOSTIC,
     MODE_PROTECTED,
     MODE_SAFE_FIX,
+    MODE_STYLE_FIX,
     Rule,
     RuleError,
     build_rule,
@@ -100,6 +102,16 @@ class Ruleset:
         return self.of_mode(MODE_DIAGNOSTIC)
 
     @property
+    def style_fixes(self) -> tuple[Rule, ...]:
+        """Rules that propose a profile-relative change requiring review.
+
+        Deliberately a separate partition from `safe_fixes`. A caller iterating
+        "the rules that propose edits" and getting both would be one refactor
+        away from applying a style preference automatically.
+        """
+        return self.of_mode(MODE_STYLE_FIX)
+
+    @property
     def protections(self) -> tuple[Rule, ...]:
         return self.of_mode(MODE_PROTECTED)
 
@@ -109,8 +121,30 @@ def load_ruleset(root: Optional[Path] = None) -> Ruleset:
 
     Defaults to the rules bundled with the package. Raises `RuleError` for a
     bad rule and `RulesetError` for a bad collection of otherwise-valid rules.
+
+    The bundled ruleset is loaded once per process and reused. Parsing and
+    validating 222 rules costs about half a second, and until Phase 9 nothing
+    called this often enough for that to show: the transformation planner takes
+    a ruleset once per document. Style planning takes one per document *per
+    profile*, so comparing five profiles was paying two and a half seconds of
+    YAML parsing to answer a question the first load had already answered.
+
+    Safe because it is pure: the same directory yields the same validated rules,
+    and the result is immutable. A caller passing an explicit `root` — every test
+    that builds a ruleset in a temporary directory — is never cached, because
+    that directory's contents genuinely can change between calls.
     """
-    root = Path(root) if root is not None else BUNDLED_ROOT
+    if root is None:
+        return _load_bundled()
+    return _load_from(Path(root))
+
+
+@lru_cache(maxsize=1)
+def _load_bundled() -> Ruleset:
+    return _load_from(BUNDLED_ROOT)
+
+
+def _load_from(root: Path) -> Ruleset:
     if not root.is_dir():
         raise RulesetError(f"ruleset directory not found: {root}")
 

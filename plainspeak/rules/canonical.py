@@ -84,6 +84,21 @@ def canonical_rule(rule: Rule) -> dict[str, Any]:
                 {"before": item.before, "after": item.after} for item in rule.examples.transform
             ],
         },
+        # Style-fix rules only. Emitted when present rather than as nulls
+        # everywhere, so the canonical form of a rule describes what that rule
+        # actually declares. Both fields decide when a proposal may exist and
+        # whether it may be applied automatically, so both are in the identity.
+        **(
+            {
+                "requires_diagnostic": {
+                    "id": rule.trigger.diagnostic,
+                    "evidence_label": rule.trigger.evidence_label,
+                }
+            }
+            if rule.trigger is not None
+            else {}
+        ),
+        **({"review": {"required": rule.review.required}} if rule.review is not None else {}),
     }
 
 

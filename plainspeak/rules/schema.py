@@ -33,13 +33,35 @@ MODE_SAFE_FIX = "safe-fix"
 #: Declare text that other rules may not alter.
 MODE_PROTECTED = "protected"
 
-MODES = frozenset({MODE_DIAGNOSTIC, MODE_SAFE_FIX, MODE_PROTECTED})
+#: Detect and propose a deterministic replacement that is *not* mechanically
+#: safe in the safe-fix sense — it is a stylistic preference, valid only
+#: relative to a chosen style profile, and it always requires human review.
+#:
+#: The distinction from `safe-fix` is the whole point of this mode. A safe fix
+#: is a change the engine believes preserves meaning under stated conditions and
+#: may enter the accepted set on its own. A style fix is a change a *profile*
+#: considers preferable for a kind of prose, and a preference must never become
+#: an automatic edit merely because a threshold was crossed. Every style fix
+#: goes to review, and the planner has no path that puts one anywhere else.
+MODE_STYLE_FIX = "style-fix"
 
-#: Reserved for Phase 8. Recognised by the schema so that a rule file using it
-#: fails with a clear message rather than an obscure one, but never loadable —
-#: style profiles do not exist yet, so a style fix has nothing to be relative
-#: to.
-MODE_STYLE_FIX_RESERVED = "style-fix"
+MODES = frozenset({MODE_DIAGNOSTIC, MODE_SAFE_FIX, MODE_PROTECTED, MODE_STYLE_FIX})
+
+#: Modes whose proposals may be applied without a human deciding. Deliberately
+#: not "everything that produces a replacement": `style-fix` produces one and is
+#: absent from this set, which is where that guarantee lives.
+AUTOMATIC_MODES = frozenset({MODE_SAFE_FIX})
+
+#: Mode precedence when two proposals cover the same characters. Protection
+#: outranks everything; a mechanically safe transformation outranks a stylistic
+#: preference. Rule priority is only consulted *within* a mode, so a style rule
+#: can never displace a safe fix by declaring a bigger number.
+MODE_PRECEDENCE = {
+    MODE_PROTECTED: 0,
+    MODE_SAFE_FIX: 1,
+    MODE_STYLE_FIX: 2,
+    MODE_DIAGNOSTIC: 3,
+}
 
 MATCH_PHRASE = "phrase"
 MATCH_WORD = "word"
@@ -62,6 +84,10 @@ ACTIONS_FOR_MODE = {
     MODE_DIAGNOSTIC: frozenset({ACTION_NONE}),
     MODE_SAFE_FIX: frozenset({ACTION_REPLACE, ACTION_DELETE}),
     MODE_PROTECTED: frozenset({ACTION_PROTECT}),
+    # Replacement only. A deletion promotes a subordinate clause to a main one
+    # and changes sentence structure, which Phase 4 accepted for three exact
+    # reviewed phrases and which a stylistic preference has not earned.
+    MODE_STYLE_FIX: frozenset({ACTION_REPLACE}),
 }
 
 CASE_SENSITIVE = "sensitive"
@@ -101,6 +127,19 @@ FORBIDDEN_REGEX_CONSTRUCTS = (
 #: A quantifier applied to a group that itself contains a quantifier — `(a+)+`
 #: and friends. The classic shape of catastrophic backtracking.
 NESTED_QUANTIFIER = re.compile(r"\([^)]*[+*}][^)]*\)\s*[+*]")
+
+
+#: Style diagnostics a style-fix rule may name as its trigger. Restricted to the
+#: two the initial transformations can actually act on: a rule that named
+#: `SENTENCE_UNIFORMITY` would be claiming an exact replacement could fix
+#: cadence, which nothing in this phase can do.
+TRIGGERABLE_DIAGNOSTICS = frozenset({
+    "PS.STYLE.REPEATED_TRANSITION",
+    "PS.STYLE.TRANSITION_DENSITY",
+})
+
+#: Length bound on the evidence label a style-fix rule keys off.
+MAX_EVIDENCE_LABEL = 60
 
 
 class RuleError(ValueError):
@@ -167,6 +206,41 @@ class Action:
 
 
 @dataclass(frozen=True)
+class Trigger:
+    """The style diagnostic a style-fix rule depends on.
+
+    A style fix may only propose anything when the style layer, reading the
+    document under the selected profile, has actually produced this finding and
+    named this evidence label. The rule does not decide whether the document is
+    repetitive; it is told, and it may then act on the occurrences.
+
+    That is the separation the whole phase turns on. A rule that recomputed the
+    document-level condition would be a second style detector hiding inside the
+    transformation engine, free to disagree with the first.
+    """
+
+    diagnostic: str
+    #: The evidence label the finding must name — "furthermore", "in addition".
+    #: Without it, a rule for one transition would fire on a finding about a
+    #: different one.
+    evidence_label: str
+
+
+@dataclass(frozen=True)
+class Review:
+    """Whether a proposal from this rule requires human judgement.
+
+    Only ever `True`, and validated as such. The field exists so that a rule
+    file states the classification explicitly rather than relying on the reader
+    to know what `style-fix` implies, and so that an attempt to declare
+    `required: false` fails loudly at load rather than quietly producing an
+    automatic edit.
+    """
+
+    required: bool
+
+
+@dataclass(frozen=True)
 class Scope:
     include: tuple[str, ...] = ("prose",)
     exclude: tuple[str, ...] = ()
@@ -221,6 +295,11 @@ class Rule:
     #: Which bundled family the rule was loaded from. Not part of its identity —
     #: moving a file between directories must not change the ruleset hash.
     family: str = ""
+    #: Style-fix rules only. The diagnostic that must be present, under the
+    #: selected profile, before this rule may propose anything.
+    trigger: Optional[Trigger] = None
+    #: Style-fix rules only, and always `required=True`.
+    review: Optional[Review] = None
 
     @property
     def identity(self) -> tuple[str, int]:
@@ -234,12 +313,23 @@ class Rule:
     def is_protected(self) -> bool:
         return self.mode == MODE_PROTECTED
 
+    @property
+    def is_style_fix(self) -> bool:
+        return self.mode == MODE_STYLE_FIX
+
+    @property
+    def is_automatic(self) -> bool:
+        """Whether a proposal from this rule may be applied without review."""
+        return self.mode in AUTOMATIC_MODES
+
 
 # ── Validation ─────────────────────────────────────────────────────────────
 
 REQUIRED_TOP_LEVEL = ("id", "version", "name", "mode", "description", "match", "reason",
                       "provenance", "examples")
-ALLOWED_TOP_LEVEL = frozenset(REQUIRED_TOP_LEVEL) | {"action", "scope", "case", "priority"}
+ALLOWED_TOP_LEVEL = frozenset(REQUIRED_TOP_LEVEL) | {
+    "action", "scope", "case", "priority", "requires_diagnostic", "review",
+}
 
 
 def build_rule(data: Any, source: str, family: str = "") -> Rule:
@@ -276,6 +366,9 @@ def build_rule(data: Any, source: str, family: str = "") -> Rule:
     provenance = _check_provenance(rule_id, data["provenance"], source)
     examples = _check_examples(rule_id, data["examples"], mode, source)
 
+    trigger = _check_trigger(rule_id, data.get("requires_diagnostic"), mode, source)
+    review = _check_review(rule_id, data.get("review"), mode, source)
+
     _check_combination(rule_id, mode, match, action, case_policy, source)
 
     return Rule(
@@ -293,7 +386,87 @@ def build_rule(data: Any, source: str, family: str = "") -> Rule:
         provenance=provenance,
         examples=examples,
         family=family,
+        trigger=trigger,
+        review=review,
     )
+
+
+def _check_trigger(rule_id: str, raw: Any, mode: str, source: str) -> Optional["Trigger"]:
+    """Validate `requires_diagnostic`, which only a style fix may carry."""
+    if mode != MODE_STYLE_FIX:
+        if raw is not None:
+            raise RuleError(
+                rule_id, source,
+                "requires_diagnostic applies only to a style-fix rule; a rule of any "
+                "other mode does not depend on a style diagnostic",
+            )
+        return None
+
+    if not isinstance(raw, dict):
+        raise RuleError(
+            rule_id, source,
+            "a style-fix rule must declare requires_diagnostic: it may propose nothing "
+            "until the style layer has produced the finding that justifies it",
+        )
+    unknown = sorted(set(raw) - {"id", "evidence_label"})
+    if unknown:
+        raise RuleError(rule_id, source, f"requires_diagnostic: unknown field(s): {unknown}")
+
+    identifier = raw.get("id")
+    if identifier not in TRIGGERABLE_DIAGNOSTICS:
+        raise RuleError(
+            rule_id, source,
+            f"requires_diagnostic.id {identifier!r} is not a diagnostic a style fix may act "
+            f"on; available: {sorted(TRIGGERABLE_DIAGNOSTICS)}",
+        )
+
+    label = raw.get("evidence_label")
+    if not isinstance(label, str) or not label.strip():
+        raise RuleError(
+            rule_id, source,
+            "requires_diagnostic.evidence_label is required: without it a rule for one "
+            "transition would fire on a finding about a different one",
+        )
+    if len(label) > MAX_EVIDENCE_LABEL:
+        raise RuleError(rule_id, source, "requires_diagnostic.evidence_label is too long")
+    if label != label.strip().lower():
+        raise RuleError(
+            rule_id, source,
+            "requires_diagnostic.evidence_label must be lower case and unpadded, because "
+            "that is the form the style layer produces",
+        )
+
+    return Trigger(diagnostic=identifier, evidence_label=label)
+
+
+def _check_review(rule_id: str, raw: Any, mode: str, source: str) -> Optional["Review"]:
+    """Validate `review`, which only a style fix may carry and may only be true."""
+    if mode != MODE_STYLE_FIX:
+        if raw is not None:
+            raise RuleError(
+                rule_id, source,
+                "review applies only to a style-fix rule; every other mode's review "
+                "status follows from its mode",
+            )
+        return None
+
+    if not isinstance(raw, dict):
+        raise RuleError(
+            rule_id, source, "a style-fix rule must declare review: {required: true}"
+        )
+    unknown = sorted(set(raw) - {"required"})
+    if unknown:
+        raise RuleError(rule_id, source, f"review: unknown field(s): {unknown}")
+
+    required = raw.get("required")
+    if required is not True:
+        raise RuleError(
+            rule_id, source,
+            "review.required must be true. A style fix is a preference relative to a "
+            "chosen profile, and a preference does not become an automatic edit because "
+            "a threshold was crossed. There is no way to declare otherwise.",
+        )
+    return Review(required=True)
 
 
 def _check_id(rule_id: str, raw: Any, source: str) -> None:
@@ -311,12 +484,6 @@ def _check_version(rule_id: str, raw: Any, source: str) -> int:
 
 
 def _check_mode(rule_id: str, raw: Any, source: str) -> str:
-    if raw == MODE_STYLE_FIX_RESERVED:
-        raise RuleError(
-            rule_id, source,
-            "mode 'style-fix' is reserved for style profiles, which do not exist yet; "
-            "use 'diagnostic' until there is a profile for a fix to be relative to",
-        )
     if raw not in MODES:
         raise RuleError(
             rule_id, source, f"mode must be one of {sorted(MODES)}, found {raw!r}"
@@ -668,13 +835,13 @@ def _check_examples(rule_id: str, raw: Any, mode: str, source: str) -> Examples:
             raise RuleError(rule_id, source, "examples.transform values must be strings")
         transforms.append(Transformation(before=entry["before"], after=entry["after"]))
 
-    if mode == MODE_SAFE_FIX and not transforms:
+    if mode in (MODE_SAFE_FIX, MODE_STYLE_FIX) and not transforms:
         raise RuleError(
             rule_id, source,
-            "a safe-fix rule must state at least one examples.transform pair; a fix whose "
-            "expected output is not written down is not a fix anybody can review",
+            f"a {mode} rule must state at least one examples.transform pair; a change whose "
+            f"expected output is not written down is not a change anybody can review",
         )
-    if mode != MODE_SAFE_FIX and transforms:
+    if mode not in (MODE_SAFE_FIX, MODE_STYLE_FIX) and transforms:
         raise RuleError(
             rule_id, source, f"a {mode} rule proposes no edit, so examples.transform is meaningless"
         )
@@ -709,6 +876,17 @@ def _check_combination(
             rule_id, source,
             "a regex match may not drive a replacement in this phase: the matched text "
             "varies with the input, so the replacement cannot be reviewed in advance",
+        )
+    if mode == MODE_STYLE_FIX and match.type != MATCH_PHRASE:
+        raise RuleError(
+            rule_id, source,
+            "a style fix must match an exact phrase. A word or lemma match would let one "
+            "stylistic preference apply to surfaces nobody reviewed, and a regex match "
+            "cannot be reviewed in advance at all",
+        )
+    if mode == MODE_STYLE_FIX and not action.replacement:
+        raise RuleError(
+            rule_id, source, "a style fix must state the exact text it would propose"
         )
     if case_policy == CASE_EXACT and match.case == CASE_INSENSITIVE and mode == MODE_SAFE_FIX:
         raise RuleError(
