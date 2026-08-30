@@ -21,12 +21,15 @@ alongside later, outside the hashed content.
 """
 from __future__ import annotations
 
+import hashlib
 from typing import Any, Optional
 
 from ..rules import canonical_json, sha256_text
 from .apply import ApplicationResult
 from .plan import ProposedChange
 from .planner import Conflict, TransformationPlan
+from .style_plan import StylePlan
+from .style_review import ApprovedStylePlan, StyleApplicationResult
 
 STATUS_ACCEPTED = "accepted"
 STATUS_REFUSED = "refused"
@@ -187,3 +190,34 @@ def _conflict_entry(conflict: Conflict) -> dict[str, Any]:
         "rule_ids": list(conflict.rule_ids),
         "winner": conflict.winner,
     }
+
+
+# ── Style plans ────────────────────────────────────────────────────────────
+
+
+def style_plan_to_dict(plan: "StylePlan") -> dict[str, Any]:
+    return plan.as_dict()
+
+
+def style_plan_to_json(plan: "StylePlan") -> str:
+    """Canonical JSON for a reviewable style plan.
+
+    Every proposal carries its status explicitly rather than being sorted into
+    buckets a reader has to interpret. `review_required`, `refused`, `approved`
+    and `applied` are distinct states and a record that collapsed any two of
+    them would lose the distinction the whole phase is built on: a valid
+    suggestion awaiting judgement is not a rejected one.
+    """
+    return canonical_json(plan.as_dict())
+
+
+def style_plan_digest(plan: "StylePlan") -> str:
+    return hashlib.sha256(style_plan_to_json(plan).encode("utf-8")).hexdigest()
+
+
+def approval_to_json(approval: "ApprovedStylePlan") -> str:
+    return canonical_json(approval.as_dict())
+
+
+def style_result_to_json(result: "StyleApplicationResult") -> str:
+    return canonical_json(result.as_dict())

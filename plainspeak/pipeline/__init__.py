@@ -38,6 +38,17 @@ from .projection import (
     project_block,
     project_document,
 )
+from .style_plan import StylePlan, StylePlanError, StyleProposal, plan_style_changes
+from .style_review import (
+    ApprovedStylePlan,
+    ReviewDecision,
+    ReviewError,
+    ReviewSubmission,
+    StyleApplicationError,
+    StyleApplicationResult,
+    apply_style_changes,
+    approve_style_changes,
+)
 from .styling import (
     analyze_style,
     analyze_style_with_profile,
@@ -56,7 +67,19 @@ __all__ = [
     "Projection",
     "ProposedChange",
     "SourceMapping",
+    "ApprovedStylePlan",
+    "ReviewDecision",
+    "ReviewError",
+    "ReviewSubmission",
+    "StyleApplicationError",
+    "StyleApplicationResult",
+    "StylePlan",
+    "StylePlanError",
+    "StyleProposal",
     "analyze_document",
+    "apply_style_changes",
+    "approve_style_changes",
+    "plan_style_changes",
     "analyze_style",
     "analyze_style_with_profile",
     "compare_style_profiles",
