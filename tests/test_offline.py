@@ -123,6 +123,35 @@ def test_style_diagnostics_run_offline(no_network) -> None:
     assert analysis_to_json(analysis)
 
 
+def test_style_profiles_load_and_apply_offline(no_network) -> None:
+    """No remote profile service, no online calibration lookup, no telemetry.
+
+    The profile pack is bundled YAML validated at load. Nothing about
+    interpretation needs the network, and this is where that is demonstrated
+    rather than assumed — including the comparison path, which is the one a
+    desktop profile selector would use.
+    """
+    from plainspeak.document import parse_markdown
+    from plainspeak.pipeline.styling import compare_style_profiles
+    from plainspeak.style.profiles import load_pack, load_profile, pack_hash, profile_ids
+
+    pack = load_pack()
+    assert len(pack) == 5
+    assert profile_ids() == ("natural", "plain", "technical", "government", "academic")
+    assert len(pack_hash(pack)) == 64
+    assert load_profile("technical").id == "technical"
+
+    source = (
+        "The consumer reads a message. The consumer applies the transform. "
+        "The consumer writes the result. The consumer acknowledges the message.\n\n"
+        "- validate the envelope\n- verify the digest\n- load the revision\n"
+        "- apply the pipeline\n- write the result\n- acknowledge\n"
+    )
+    results = compare_style_profiles(parse_markdown.parse(source))
+    assert set(results) == set(profile_ids())
+    assert all(analysis.profile_hash for analysis in results.values())
+
+
 def test_the_syllable_dictionary_loads_offline(no_network) -> None:
     from plainspeak.core.syllables import get_syllable_count
 

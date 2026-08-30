@@ -49,7 +49,7 @@ Arrows are the *only* permitted directions.
 | `reporting` | Rendering results for a human or a machine | `reporting`, `core`, `integrity` |
 | `morphology` | Bounded English inflection, one way only | `morphology` |
 | `rules` | Declarative prose rules and deterministic matching | `rules`, `morphology` |
-| `style` | Document-level style diagnostics, measured not judged | `style`, `core` |
+| `style` | Document-level style diagnostics, and the profiles that interpret them | `style`, `core` |
 | `pipeline` | Orchestration between documents, rules and analysis | `pipeline`, `core`, `document`, `integrity`, `rules`, `style` |
 | `adapters` | Interfaces onto the engine | `adapters`, `pipeline`, `core`, `integrity`, `reporting` |
 
@@ -762,23 +762,136 @@ each of those numbers and, more usefully, the three thresholds that no natural
 document currently tests and the two diagnostics that no corpus document
 exercises at all.
 
+## Style profiles
+
+`plainspeak/style/profiles/` decides how a valid measurement should be read for
+the kind of prose the writer is aiming at. Five bundled profiles — natural,
+plain, technical, government, academic — as declarative YAML, validated and
+frozen at load.
+
+A profile may change thresholds, minimum samples (upwards only), whether a
+diagnostic is enabled, target metric ranges and the prose explaining any of it.
+It may not change document parsing, source mapping, ruleset semantics, protected
+terminology, the integrity policy, morphology, or any authority to edit text.
+
+### Measure once, interpret many
+
+The architecture is one seam:
+
+```
+observe(text, structure)            expensive: segmentation, n-grams,
+        |                           paragraph comparison
+        v
+StyleObservations                   raw values, samples, evidence
+        |
+        +--> interpret_baseline()   -> Phase 7 answer, byte-identical
+        +--> interpret(natural)     cheap: compare, band, sort
+        +--> interpret(technical)
+        +--> ...
+```
+
+Comparing five profiles costs one measurement and five comparisons.
+`compare_profiles` takes observations rather than a document precisely so that a
+caller cannot measure once per profile without noticing, and the reuse is
+asserted by counting calls to `measure` rather than by timing anything.
+
+That split is also what makes the central invariant structural rather than
+aspirational: **a profile cannot change a metric, because interpretation never
+has the text.** The same document under five profiles produces byte-identical
+metrics, checked over all thirty calibration documents, and where a diagnostic
+speaks under two profiles it quotes the same occurrences — severity may differ,
+evidence may not.
+
+### Interpretation cannot reach measurement
+
+`style/profiles` may import `style` and nothing else. Not `core` — the
+measurement half of `style` is allowed exactly one crossing there for sentence
+segmentation, and a profile never sees text, so it has nothing to segment.
+
+Adding it exposed a gap in the Phase 7 architecture test, which enumerated
+top-level packages only: a nested package would have been constrained by its
+layer's rules but invisible to the "every package appears in the policy" check.
+`NESTED_PACKAGES` now declares them, in both directions.
+
+### There is no integrity override
+
+A profile holds numbers and prose. No number reaches the firewall, so there is
+nothing to override. The loader nonetheless rejects a bundled profile that names
+`ignore_integrity`, `unsafe`, `protected_terms` or `ruleset` at any depth — not
+because those keys would do anything, but so that an attempt fails loudly rather
+than sitting in the tree looking as though the mechanism exists.
+
+Transformation fields are rejected the same way. A profile may say "repeated
+transition threshold: 0.7"; it may not say "replace furthermore with also".
+`style-fix` remains a mode the schema recognises only in order to reject it —
+Phase 8 defines the reference frame a style fix will need and grants no
+authority to make one.
+
+### Minimum samples are floors, not preferences
+
+The Phase 7 minimums exist because a ratio over four paragraphs is arithmetic
+rather than evidence, and `government.md` proved it by producing a false positive
+at five. A profile may demand *more* evidence; the loader refuses any profile
+that demands less. The academic profile uses this: rather than guess at a lower
+paragraph-uniformity threshold to reflect that scholarly paragraphs are regular
+by convention, it raises the minimum sample from 8 to 12.
+
+### Identity
+
+The pack is a **fifth** independent identity, not part of the fourth. Measurement
+semantics and interpretation semantics change for different reasons, and folding
+them together would mean adding a profile moved the hash that says how sentence
+uniformity is computed. Each profile carries its own hash as well, and both are
+pinned cross-platform.
+
+The hash covers thresholds, minimum samples, enablement, target ranges, version
+and provenance. It excludes `name`, `description`, `target_use` and every
+per-override `reason`, so a typo fix in a description does not invalidate a
+pinned identity — a decision tested in both directions rather than assumed.
+Provenance is *in* the hash despite no finding depending on it, because
+`weakly-calibrated` is the field that admits a threshold has no data behind it,
+and quietly upgrading that admission should not pass unnoticed.
+
+### What closing the calibration gaps found
+
+Phase 7 recorded that three thresholds had no natural document testing them from
+the quiet side and two diagnostics had no calibration document at all. Closing
+those gaps was a Phase 8 requirement, and it showed three of those thresholds to
+be **wrong**: repeated transition fires on three ordinary natural documents, and
+rhetorical and triadic repetition fire on two and three occurrences respectively
+across sixty-five sentences.
+
+The corrections are in all five profiles rather than in the base policy, because
+the Phase 7 identity is accepted and its output is pinned byte-for-byte. The
+disagreement is itself pinned by a test, so it cannot quietly disappear, and
+[STYLE_PROFILES.md](STYLE_PROFILES.md) states it plainly: a caller on the
+unprofiled path gets those false positives.
+
 ## What is deliberately not here yet
 
 The build plan describes several layers that this codebase has not earned the
 right to yet. They are absent rather than stubbed, because an empty package
 implies a decision that has not been made:
 
-- **Style profiles.** `style/` diagnoses; it does not adapt. There is currently
-  one set of thresholds, not a choice between several, so a report cannot yet
-  say "uniform *for a technical specification*" — which is the distinction that
-  would make several of these findings useful rather than merely true.
 - **Style fixes.** Nothing in `style/` proposes an edit. `style-fix` remains a
-  mode the schema recognises only in order to reject it, since a style fix has
-  nothing to be relative to until profiles exist.
-- **Three style thresholds have no natural document testing them.** Repeated
-  transition and list dominance have none at all; paragraph uniformity has one.
-  They have not produced a false positive because nothing in the corpus has
-  reached their minimum sample from the quiet side.
+  mode the schema recognises only in order to reject it. Phase 8 built the
+  reference frame such a fix would need; designing the fix itself is separate
+  work.
+- **Custom and personal profiles.** No `plainspeak profile ./my-writing/`. That
+  needs its own contract for trusted corpus admission, sample sufficiency,
+  local-only extraction and provenance, and the built-ins had to be proven
+  first.
+- **Deterministic variation.** No hash-selected alternatives ("Also", "And", "At
+  the same time"). That belongs to style transformation, after profile semantics
+  have been accepted.
+- **The base style policy is known to be over-sensitive on three diagnostics.**
+  Repeated transition, rhetorical repetition and triadic repetition produce false
+  positives on ordinary prose. Every profile corrects them; the unprofiled
+  baseline does not, because its identity is sealed.
+- **Canned framing and vocabulary overuse are weakly calibrated in every
+  profile.** No document in either corpus, in any register, produces a
+  measurement for either outside the two synthetic documents built to trip
+  them.
 - **477 glossary entries are still deferred.** Each needs individual review;
   until it has one, the engine says nothing about it. The inherited flat path
   still uses all 706 and remains sealed.

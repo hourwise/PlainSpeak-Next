@@ -75,6 +75,10 @@ include = ["plainspeak*"]
 # silently proposes nothing, which is the same shape of defect the syllable
 # dictionary had before Phase 2.
 "plainspeak.rules" = ["bundled/*.yaml", "bundled/**/*.yaml"]
+# The bundled style profiles. Same defect shape as the two above: without
+# this the pack is absent from wheels and every profile lookup fails, while
+# editable installs keep working perfectly.
+"plainspeak.style.profiles" = ["bundled/*.yaml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -113,3 +113,27 @@ def test_packaging_declares_the_data_file() -> None:
         "pyproject.toml no longer ships plainspeak.core data files; the syllable "
         f"dictionary would be dropped from built wheels. Found: {package_data}"
     )
+
+
+def test_packaging_declares_the_bundled_profiles() -> None:
+    """The same defect shape, one layer up.
+
+    `plainspeak/style/profiles/bundled/*.yaml` is packaged data. Omit it from
+    `package-data` and every wheel installs a style layer that cannot load a
+    single profile, while editable installs keep working perfectly — which is
+    exactly how the syllable dictionary shipped broken before Phase 2.
+    """
+    package_data = _package_data()
+    patterns = package_data.get("plainspeak.style.profiles", [])
+
+    assert any("yaml" in pattern or pattern == "*" for pattern in patterns), (
+        "pyproject.toml no longer ships plainspeak.style.profiles data files; the "
+        f"bundled profiles would be dropped from built wheels. Found: {package_data}"
+    )
+
+
+def test_the_bundled_profiles_are_present() -> None:
+    from plainspeak.style.profiles import BUNDLED, profile_ids
+
+    for identifier in profile_ids():
+        assert (BUNDLED / f"{identifier}.yaml").exists()

@@ -78,12 +78,37 @@ def main() -> int:
         print("the installed style policy speaks below its minimum sample", file=sys.stderr)
         return 1
 
+    # The bundled style profiles are packaged YAML, so they can go missing from a
+    # wheel exactly as the syllable dictionary once did. A profile lookup that
+    # failed would at least be loud; a pack that loaded with four of five
+    # profiles would not be.
+    from plainspeak.style.profiles import (
+        PROFILE_PACK_VERSION,
+        load_pack,
+        pack_hash,
+        profile_ids,
+    )
+
+    pack = load_pack()
+    if len(pack) != 5:
+        print(f"the installed profile pack holds {len(pack)} profiles", file=sys.stderr)
+        return 1
+    if profile_ids() != ("natural", "plain", "technical", "government", "academic"):
+        print(f"unexpected installed profiles: {profile_ids()}", file=sys.stderr)
+        return 1
+    for profile in pack:
+        if len(profile.hash) != 64:
+            print(f"profile {profile.id} has no usable hash", file=sys.stderr)
+            return 1
+
     print(
         f"installed package loads {len(counts)} syllable entries, "
         f"{len(ruleset)} rules (ruleset {ruleset.version} {ruleset.hash[:12]}), "
         f"integrity policy {POLICY_VERSION} ({policy_hash()[:12]}), "
         f"morphology {MORPHOLOGY_VERSION} ({morphology_hash()[:12]}) and "
-        f"style policy {STYLE_POLICY_VERSION} ({style_hash()[:12]})"
+        f"style policy {STYLE_POLICY_VERSION} ({style_hash()[:12]}), "
+        f"profile pack {PROFILE_PACK_VERSION} ({pack_hash(pack)[:12]}): "
+        + ", ".join(f"{profile.id} {profile.hash[:8]}" for profile in pack)
     )
     return 0
 

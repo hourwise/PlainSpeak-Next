@@ -61,6 +61,17 @@ ALLOWED_IMPORTS: dict[str, set[str]] = {
     "adapters": {"adapters", "pipeline", "core", "integrity", "reporting"},
 }
 
+
+# Packages nested inside a layer, and what each may reach. The enclosing layer's
+# rules still apply; these are additional and narrower.
+NESTED_PACKAGES: dict[str, set[str]] = {
+    # Interpretation. Reads the base style policy — the diagnostics it interprets,
+    # their identities and their sample floors — and nothing else. Notably not
+    # `core`: `style` is allowed one crossing there for sentence segmentation, and
+    # a profile never sees text, so it has nothing to segment.
+    "style/profiles": {"style"},
+}
+
 #: The layer that joins documents to analysis. Exactly one may do so.
 ORCHESTRATION_LAYER = "pipeline"
 
@@ -168,6 +179,45 @@ def test_every_package_appears_in_the_policy() -> None:
     )
     stale = set(ALLOWED_IMPORTS) - packages
     assert not stale, f"the policy names layers that do not exist: {sorted(stale)}"
+
+    # Nested packages are covered by their layer's rglob, so they are already
+    # constrained — but only if somebody noticed they existed. `style.profiles`
+    # arrived in Phase 8 and this is what makes the next one visible too.
+    nested = {
+        str(path.parent.relative_to(PACKAGE_ROOT)).replace("\\", "/")
+        for path in PACKAGE_ROOT.glob("*/*/__init__.py")
+        if not path.parent.name.startswith("_")
+    }
+    assert nested <= set(NESTED_PACKAGES), (
+        f"undeclared nested package(s): {sorted(nested - set(NESTED_PACKAGES))}; "
+        f"add them to NESTED_PACKAGES with a note on what they may import"
+    )
+    assert set(NESTED_PACKAGES) <= nested, (
+        f"NESTED_PACKAGES names packages that do not exist: "
+        f"{sorted(set(NESTED_PACKAGES) - nested)}"
+    )
+
+
+@pytest.mark.parametrize("package", sorted(NESTED_PACKAGES))
+def test_a_nested_package_only_imports_what_it_may(package: str) -> None:
+    """Sub-layers get their own policy, because they have their own reasons.
+
+    `style/profiles` may reach the base style policy — it interprets those
+    diagnostics and needs their identities and floors — and nothing else. In
+    particular it may not reach `core`: the measurement half of `style` is
+    allowed one crossing for sentence segmentation, and interpretation has no
+    business with text at all.
+    """
+    allowed = NESTED_PACKAGES[package]
+    directory = PACKAGE_ROOT / package
+    violations = []
+    for path in sorted(directory.rglob("*.py")):
+        for target, line in _imported_targets(path):
+            if target in ALLOWED_IMPORTS and target not in allowed:
+                violations.append(f"{path.relative_to(PACKAGE_ROOT.parent)}:{line} -> {target}")
+    assert not violations, (
+        f"`{package}` may import {sorted(allowed)}, but:\n  " + "\n  ".join(violations)
+    )
 
 
 def test_no_analysis_lives_outside_core() -> None:
