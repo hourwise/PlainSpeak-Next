@@ -22,23 +22,21 @@ it fails the build.
                               │
                               ▼
                           pipeline
-         projection · analysis · planner · apply · audit
+    projection · analysis · planner · apply · audit · styling
                               │
-       ┌───────────┬──────────┼──────────┬───────────┐
-       │           │          │          │           │
-       ▼           ▼          ▼          ▼           ▼
-   document      rules    reporting    core      integrity
-                 morphology
-   model         schema   html · json  tokenize  protected
-                                                 policy
-                                                 extract
-                                                 compare
-   load          loader   console      metrics
-   parse_text    matcher  labels       barriers
-   parse_markdown canonical            transform
-   text · html   explain               lexicon
-   docx · pdf    bundled/              glossary
-   detect                              morphology
+       ┌───────┬───────┬───────┼───────┬────────┐
+       │       │       │       │       │        │
+       ▼       ▼       ▼       ▼       ▼        ▼
+   document   rules   reporting  style    core    integrity
+              morphology           │        ▲
+   model      schema  html·json  policy   └──────┘   protected
+   load       loader  console    metrics  tokenize   policy
+   parse_text matcher labels     patterns metrics    extract
+   parse_markdown canonical      analyze  barriers   compare
+   text · html explain           model    transform
+   docx · pdf  bundled/          report   lexicon
+   detect                                 glossary
+                                          morphology
 ```
 
 Arrows are the *only* permitted directions.
@@ -51,7 +49,8 @@ Arrows are the *only* permitted directions.
 | `reporting` | Rendering results for a human or a machine | `reporting`, `core`, `integrity` |
 | `morphology` | Bounded English inflection, one way only | `morphology` |
 | `rules` | Declarative prose rules and deterministic matching | `rules`, `morphology` |
-| `pipeline` | Orchestration between documents, rules and analysis | `pipeline`, `core`, `document`, `integrity`, `rules` |
+| `style` | Document-level style diagnostics, measured not judged | `style`, `core` |
+| `pipeline` | Orchestration between documents, rules and analysis | `pipeline`, `core`, `document`, `integrity`, `rules`, `style` |
 | `adapters` | Interfaces onto the engine | `adapters`, `pipeline`, `core`, `integrity`, `reporting` |
 
 That table is not a description. `tests/test_architecture.py` parses it out of
@@ -643,15 +642,118 @@ over every corpus document, every match the real ruleset makes, and every
 single-character range. Bounded work is asserted by counting lookups rather than
 seconds, so it cannot go flaky on a loaded machine.
 
+## Style diagnostics
+
+`plainspeak/style/` measures a whole document: cadence, repetition, transition
+habits, vocabulary concentration, structural balance. Thirteen diagnostics, each
+answering one question with arithmetic and reporting the arithmetic alongside
+the answer.
+
+It is **diagnostic only**. It proposes no edits, so it never reaches the
+planner and has nothing for the integrity firewall to check. `style-fix` remains
+a mode the schema recognises solely in order to reject it, because a style fix
+has nothing to be relative to until profiles exist.
+
+### What it will not do
+
+This is the layer that could most easily turn into an AI detector. The demand is
+real, the output superficially resembles what such a claim would need, and the
+method cannot support it. So the prohibitions are enforced by tests rather than
+stated in a comment:
+
+- **No authorship claim.** `tests/test_style_policy.py` parses every
+  non-docstring string literal in the package and fails on `authorship`,
+  `probability`, `likely ai`, `human score`, `detector` and eleven other
+  phrasings. Nothing that reaches a reader may say who wrote the text.
+- **No aggregate score.** `StyleAnalysis` is asserted to have no field whose
+  name contains `score`, `rating`, `probability`, `confidence` or `likelihood`.
+  One number would hide the evidence that produced it, and one number is what
+  gets pasted into a disciplinary email.
+- **No edits.** No function in the layer may be named `apply`, `fix`,
+  `replace`, `rewrite` or `replacement`.
+
+What comes out instead is `analysis.profile`: a band per diagnostic, each
+traceable to a single measurement and a single threshold. Uniform sentence
+lengths are a property of text, not a confession.
+
+### Repetition, not existence
+
+An em dash is a punctuation mark. "Not only X but also Y" is ordinary English. A
+document containing one of either is a document containing one of either.
+
+Every diagnostic measures how often something happens relative to how much text
+there is. `_punctuation_metrics` reports em-dash and semicolon *rates* precisely
+so that a future profile can care about distribution rather than presence, and
+no threshold anywhere in the layer fires on a single occurrence.
+
+### Silence below the sample
+
+A ratio over four sentences is arithmetic, not evidence. Each diagnostic
+declares the smallest sample it will speak about and returns nothing beneath it,
+and in this corpus the minimums do more work than the thresholds.
+
+The eight-paragraph minimum on `PARAGRAPH_UNIFORMITY` exists because at five it
+produced a false positive on `government.md` — a plain-English public-service
+document whose paragraphs are a similar length because the register calls for
+it. That is the failure mode the whole layer has to avoid, and it took two more
+corpus documents to establish that the threshold still separated anything once
+the minimum had been raised.
+
+### Two authorities, again
+
+Style measures prose; finding the prose is the pipeline's job.
+`pipeline/styling.py` walks the document IR once and hands `style` a
+`DocumentStructure` — blocks of text with a kind attached. The style layer never
+sees markup, which is why the same thirteen diagnostics run unchanged over plain
+text, Markdown and a .docx.
+
+Quoted material is excluded from the prose it measures. A document that quotes a
+repetitive source at length is not itself repetitive, and the block kinds
+(`paragraph`, `heading`, `list_item`, `quote`) carry enough to say so.
+
+It reaches `core` for exactly one thing: `split_sentences`. A second segmenter
+here would eventually disagree with the analyser about how many sentences a
+document has, and the first symptom would be a style report contradicting a
+lexical finding. `tests/test_architecture.py` narrows the permitted crossing to
+that one module, so the allowance cannot widen into the simplifier.
+
+### Identity and calibration
+
+The style policy is versioned product behaviour, like the ruleset, the integrity
+policy and morphology. `policy_hash()` covers every threshold, every minimum
+sample, every vocabulary and every bound, and is pinned and asserted on all
+three platforms — 5% becoming 8% changes what a reader is told and fails the
+build until somebody says so deliberately.
+
+The thresholds were set against `tests/style/corpus/`: fourteen project-authored
+documents, six of them ordinary prose whose only job is to stay quiet. Nothing is
+trained on them; they are regression data, and
+`tests/style/corpus-findings.json` records what each document currently
+produces so a threshold change names the documents it moved.
+
+Six natural documents, zero false positives; eight repetitive documents, zero
+misses. [STYLE_CALIBRATION.md](STYLE_CALIBRATION.md) records the margin behind
+each of those numbers and, more usefully, the three thresholds that no natural
+document currently tests and the two diagnostics that no corpus document
+exercises at all.
+
 ## What is deliberately not here yet
 
 The build plan describes several layers that this codebase has not earned the
 right to yet. They are absent rather than stubbed, because an empty package
 implies a decision that has not been made:
 
-- **`style/`** — style profiles. There is currently one behaviour, not a choice
-  between several. The schema recognises `style-fix` only in order to reject it
-  with an explanation, since a style fix has nothing to be relative to yet.
+- **Style profiles.** `style/` diagnoses; it does not adapt. There is currently
+  one set of thresholds, not a choice between several, so a report cannot yet
+  say "uniform *for a technical specification*" — which is the distinction that
+  would make several of these findings useful rather than merely true.
+- **Style fixes.** Nothing in `style/` proposes an edit. `style-fix` remains a
+  mode the schema recognises only in order to reject it, since a style fix has
+  nothing to be relative to until profiles exist.
+- **Three style thresholds have no natural document testing them.** Repeated
+  transition and list dominance have none at all; paragraph uniformity has one.
+  They have not produced a false positive because nothing in the corpus has
+  reached their minimum sample from the quiet side.
 - **477 glossary entries are still deferred.** Each needs individual review;
   until it has one, the engine says nothing about it. The inherited flat path
   still uses all 706 and remains sealed.

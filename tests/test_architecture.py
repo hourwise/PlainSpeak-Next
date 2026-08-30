@@ -44,12 +44,19 @@ ALLOWED_IMPORTS: dict[str, set[str]] = {
     # `integrity`, and for the same reason — it is consulted by the layer above
     # and must never be able to reach back.
     "morphology": {"morphology"},
+    # Document-level style diagnostics. Nearly a leaf: it reaches `core` for one
+    # thing only, sentence segmentation, because a second splitter here would
+    # eventually disagree with the analyser about how many sentences a document
+    # has. It may not import `document` — it is handed a structure and never
+    # parses one — and it may not import `rules` or `integrity`, because it
+    # proposes no edits and so has nothing for the firewall to check.
+    "style": {"style", "core"},
     # Rendering consumes results; it must not compute them.
     "reporting": {"reporting", "core", "integrity"},
     # Orchestration, and the only layer permitted to depend on both `document`
     # and `core`. It notably may not import `reporting`: deciding how to render
     # a result is not part of producing one.
-    "pipeline": {"pipeline", "core", "document", "integrity", "rules"},
+    "pipeline": {"pipeline", "core", "document", "integrity", "rules", "style"},
     # Adapters are the only layer allowed to reach across the whole system.
     "adapters": {"adapters", "pipeline", "core", "integrity", "reporting"},
 }
@@ -138,6 +145,29 @@ def test_no_layer_imports_a_deprecated_shim(layer: str, path: Path) -> None:
         if target in DEPRECATED_MODULES
     ]
     assert not violations, "\n  ".join(["shims are for external callers only:"] + violations)
+
+
+def test_every_package_appears_in_the_policy() -> None:
+    """A layer nobody listed is a layer nobody is enforcing.
+
+    Found while adding `style`: the import check reads
+    `if target in ALLOWED_IMPORTS and target not in allowed`, so until a new
+    package is written into the table it is neither constrained nor able to
+    constrain anyone. It passes silently, which is the worst way for an
+    architectural test to behave. This is the test that would have caught it.
+    """
+    packages = {
+        path.parent.name
+        for path in PACKAGE_ROOT.glob("*/__init__.py")
+        if not path.parent.name.startswith("_")
+    }
+    missing = packages - set(ALLOWED_IMPORTS)
+    assert not missing, (
+        f"these packages are subject to no import policy at all: {sorted(missing)}; "
+        f"add them to ALLOWED_IMPORTS and to the table in ARCHITECTURE.md"
+    )
+    stale = set(ALLOWED_IMPORTS) - packages
+    assert not stale, f"the policy names layers that do not exist: {sorted(stale)}"
 
 
 def test_no_analysis_lives_outside_core() -> None:
@@ -355,6 +385,64 @@ def test_morphology_never_runs_backwards() -> None:
                         f"defines `{node.name}`"
                     )
     assert not offences, "; ".join(offences)
+
+
+# -- The style layer -------------------------------------------------------
+
+
+def test_style_does_not_parse_documents() -> None:
+    """Style measures prose. Finding the prose is the pipeline's job.
+
+    `plainspeak.style` is handed a `DocumentStructure` — blocks of text with a
+    kind attached — and never sees markup. That is what lets the same
+    diagnostics run over plain text, Markdown and a .docx without any of them
+    needing a different code path.
+    """
+    for path in sorted((PACKAGE_ROOT / "style").rglob("*.py")):
+        targets = {target for target, _ in _imported_targets(path)}
+        assert "document" not in targets, (
+            f"{path.relative_to(PACKAGE_ROOT.parent)} imports `document`; "
+            f"style is given a structure and must not build one"
+        )
+
+
+def test_style_reaches_core_only_for_sentence_segmentation() -> None:
+    """The single permitted crossing, narrowed to the module it exists for.
+
+    Allowing `core` wholesale would let a diagnostic reach the simplifier and
+    start forming opinions about individual words, which is the other layer's
+    work and subject to the integrity firewall. Sentence splitting is shared
+    because two splitters would disagree, and for no other reason.
+    """
+    offenders = []
+    for path in sorted((PACKAGE_ROOT / "style").rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if not isinstance(node, ast.ImportFrom) or not node.level:
+                continue
+            module = node.module or ""
+            if module.split(".")[0] == "core" and module != "core.tokenize":
+                offenders.append(
+                    f"{path.relative_to(PACKAGE_ROOT.parent)}:{node.lineno} imports `{module}`"
+                )
+    assert not offenders, (
+        "style may import core.tokenize and nothing else from core: " + "; ".join(offenders)
+    )
+
+
+def test_style_cannot_reach_the_firewall_or_the_rule_engine() -> None:
+    """A layer that proposes no changes has nothing to submit for checking.
+
+    If style ever imported `integrity`, it would be because something in it had
+    started producing edits — and those edits would be arriving through a side
+    door rather than through the planner the firewall actually guards.
+    """
+    for path in sorted((PACKAGE_ROOT / "style").rglob("*.py")):
+        targets = {target for target, _ in _imported_targets(path)}
+        assert not targets & {"integrity", "rules", "pipeline", "adapters", "reporting"}, (
+            f"{path.relative_to(PACKAGE_ROOT.parent)} reaches "
+            f"{sorted(targets & {'integrity', 'rules', 'pipeline', 'adapters', 'reporting'})}"
+        )
 
 
 def test_no_rule_module_can_evaluate_code() -> None:
