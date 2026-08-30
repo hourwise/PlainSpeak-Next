@@ -1,0 +1,218 @@
+# Natural — general prose that should read as though a person wrote it.
+#
+# Every threshold below is stated explicitly, including the ones identical to
+# the baseline. There is no inheritance: a reader should be able to see what a
+# number is without knowing where it came from.
+#
+# Calibration evidence is in STYLE_PROFILES.md. Where a value differs from the
+# baseline, the reason says which documents moved it.
+id: natural
+version: 1
+name: Natural
+provenance: project-calibration
+
+description: >
+  General-purpose prose with varied cadence, restrained rhetorical repetition and
+  no particular formality. Contractions are permitted and not required; lists are
+  permitted and should not dominate.
+
+target_use: >
+  Essays, explanatory articles, newsletters, blog posts, internal writing meant to
+  read as though a person wrote it rather than assembled it. Not intended for
+  specifications, statutory guidance or scholarly argument, each of which has its
+  own profile.
+
+diagnostics:
+  PS.STYLE.SENTENCE_UNIFORMITY:
+    enabled: true
+    notice: 0.44
+    strong: 0.30
+    minimum_sample: 8
+    provenance: project-calibration
+    reason: >
+      Stricter than baseline. Sentence variation is the priority this profile
+      exists for, and natural prose has room to spare: the five natural
+      calibration documents measure 0.651 to 0.856, so a line at 0.44 leaves
+      0.21 of headroom. It also makes list_heavy.md (0.342) a notice under this
+      profile, which is correct — a list-shaped document read as natural prose
+      does have monotonous cadence.
+
+  PS.STYLE.PARAGRAPH_UNIFORMITY:
+    enabled: true
+    notice: 0.20
+    strong: 0.12
+    minimum_sample: 8
+    provenance: baseline-derived
+    reason: >
+      The corpus gives no reason to move this. Every calibration document that
+      clears the eight-paragraph minimum measures between 0.31 and 0.58, so
+      nothing in the evidence distinguishes natural prose here.
+
+  PS.STYLE.REPEATED_SENTENCE_OPENER:
+    enabled: true
+    notice: 0.35
+    strong: 0.50
+    minimum_sample: 6
+    provenance: baseline-derived
+    reason: >
+      Natural documents measure 0.109 to 0.155 against a line at 0.35. Comfortable
+      at the baseline value, so it is kept.
+
+  PS.STYLE.REPEATED_PARAGRAPH_OPENER:
+    enabled: true
+    notice: 0.36
+    strong: 0.58
+    minimum_sample: 4
+    provenance: project-calibration
+    reason: >
+      Slightly stricter than baseline. Natural documents top out at 0.25, and a
+      repeated paragraph opening is one of the clearest signals this profile is
+      meant to catch. 0.36 keeps 0.11 of headroom and leaves the technical
+      calibration sample (0.333) quiet.
+
+  PS.STYLE.TRANSITION_DENSITY:
+    enabled: true
+    notice: 0.24
+    strong: 0.38
+    minimum_sample: 8
+    provenance: project-calibration
+    reason: >
+      Looser than baseline. long_natural.md measures 0.167 against a baseline
+      line at 0.20 — the second-tightest margin Phase 7 recorded. Moving to 0.24
+      restores headroom without reaching transition_heavy.md at 0.471.
+
+  PS.STYLE.REPEATED_TRANSITION:
+    enabled: true
+    notice: 0.70
+    strong: 0.88
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      Much looser than baseline, and the clearest correction this phase made.
+      Three ordinary natural documents measure 0.50, 0.571 and 0.60 and all three
+      produced a false positive at the baseline line of 0.50. Phase 7 recorded
+      that no natural document reached this diagnostic's minimum sample; four now
+      do, and they show the baseline is too tight. transition_heavy.md at 1.0 is
+      still strong.
+
+  PS.STYLE.CANNED_FRAMING:
+    enabled: true
+    notice: 0.25
+    strong: 0.50
+    minimum_sample: 4
+    provenance: weakly-calibrated
+    reason: >
+      No calibration document in either corpus produces a framing measurement
+      other than framing_heavy.md. Nothing here justifies moving the line.
+
+  PS.STYLE.VOCABULARY_OVERUSE:
+    enabled: true
+    notice: 3.0
+    strong: 6.0
+    minimum_sample: 200
+    provenance: weakly-calibrated
+    reason: >
+      No document outside vocabulary_heavy.md registers a flagged word often
+      enough to measure. Unmoved for want of evidence either way.
+
+  PS.STYLE.RHETORICAL_REPETITION:
+    enabled: true
+    notice: 0.50
+    strong: 0.90
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      Looser than baseline, and a correction rather than a preference. The
+      baseline rate is occurrences × 10 ÷ sentences, so two uses of one
+      construction in 65 sentences reached 0.308 and fired. Two "whether … or"
+      constructions in a thousand words is ordinary English.
+      controls/ordinary-rhetoric.md is the document that showed this.
+
+  PS.STYLE.TRIADIC_REPETITION:
+    enabled: true
+    notice: 0.65
+    strong: 1.10
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      Looser than baseline, for the same reason. Three three-item lists in 65
+      sentences measured 0.462 and fired at the baseline line of 0.30.
+      Three-item lists are among the most natural constructions in English.
+
+  PS.STYLE.REPEATED_PHRASE:
+    enabled: true
+    notice: 0.60
+    strong: 1.20
+    minimum_sample: 8
+    provenance: weakly-calibrated
+    reason: >
+      No natural calibration document repeats any phrase often enough to produce
+      a measurement, so there is nothing to move the line with. Repeated
+      terminology is less desirable in this register than in the technical one,
+      which argues against loosening in any case.
+
+  PS.STYLE.LEXICAL_OVERLAP:
+    enabled: true
+    notice: 0.60
+    strong: 0.75
+    minimum_sample: 4
+    provenance: baseline-derived
+    reason: >
+      Natural documents measure 0.119 to 0.148 against a line at 0.60. Nowhere
+      near it, in either direction.
+
+  PS.STYLE.LIST_DOMINANCE:
+    enabled: true
+    notice: 0.38
+    strong: 0.60
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      Stricter than baseline. packing-for-the-hills.md is natural prose with
+      genuine lists and measures 0.233, so 0.38 leaves 0.147 of headroom while
+      making a list-dominated technical document (queue-consumer.md, 0.395) a
+      notice when it is read as natural prose. That contrast is the point of the
+      profile.
+
+targets:
+  sentence_words_mean:
+    min: 9
+    max: 18
+    provenance: project-calibration
+    reason: >
+      Four natural documents measure 9.04 to 11.73. The range is widened upwards
+      because essayistic natural prose sits higher than the conversational end,
+      and a document above it is longer-sentenced rather than wrong.
+
+  short_sentence_rate:
+    min: 0.30
+    max: 0.62
+    provenance: project-calibration
+    reason: Natural documents measure 0.44 to 0.571.
+
+  paragraph_sentences_mean:
+    min: 2.0
+    max: 4.5
+    provenance: project-calibration
+    reason: >
+      Natural documents measure 2.56 to 3.33, noticeably higher than the
+      instructional registers, which sit below 2.3.
+
+  content_word_diversity:
+    min: 0.58
+    max: 0.85
+    provenance: project-calibration
+    reason: >
+      Natural documents measure 0.62 to 0.71, against 0.45 to 0.55 for the plain
+      and technical registers. Vocabulary range is one of the clearest
+      distinctions the corpus shows.
+
+  contraction_per_1000:
+    min: 0
+    max: 80
+    provenance: project-calibration
+    reason: >
+      Permitted, not required, which is why the minimum is zero. The upper bound
+      comes from the two conversational documents in the corpus, at 58.7 and
+      68.8. Essayistic natural prose measures zero and sits inside the range
+      exactly as intended.

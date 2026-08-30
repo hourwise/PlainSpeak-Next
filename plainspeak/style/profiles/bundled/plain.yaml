@@ -1,0 +1,206 @@
+# Plain — clear, direct, accessible prose.
+#
+# Not "Natural, but shorter". Plain writing has a different goal: a reader who
+# is tired, distracted, or reading about something that frightens them should be
+# able to follow it once. That goal makes some kinds of repetition a virtue.
+# Calling the same thing by the same name every time is clearer than varying it,
+# and this profile is where that becomes an explicit position rather than an
+# exception.
+id: plain
+version: 1
+name: Plain
+provenance: plain-language-convention
+
+description: >
+  Short, direct sentences and consistent terminology, for prose that has to be
+  understood on a first reading. Deliberate repetition of a term is preferred to
+  a synonym that leaves the reader wondering whether a different thing is meant.
+
+target_use: >
+  Instructions, service pages, forms guidance, letters to the public, anything
+  where a misunderstanding costs the reader something. Not intended for prose
+  whose purpose is to be enjoyable to read.
+
+diagnostics:
+  PS.STYLE.SENTENCE_UNIFORMITY:
+    enabled: true
+    notice: 0.34
+    strong: 0.26
+    minimum_sample: 8
+    provenance: baseline-derived
+    reason: >
+      Kept at baseline despite the obvious temptation to loosen it. Plain writing
+      uses short sentences, but short is not the same as uniform, and the two
+      plain calibration documents measure 0.557 and 0.563 — nowhere near the
+      line. There is no evidence for a plain-specific value, so none is invented.
+
+  PS.STYLE.PARAGRAPH_UNIFORMITY:
+    enabled: true
+    notice: 0.20
+    strong: 0.12
+    minimum_sample: 8
+    provenance: baseline-derived
+    reason: Plain documents measure 0.417 and 0.42. Nothing to move the line with.
+
+  PS.STYLE.REPEATED_SENTENCE_OPENER:
+    enabled: true
+    notice: 0.35
+    strong: 0.50
+    minimum_sample: 6
+    provenance: baseline-derived
+    reason: >
+      Plain documents measure 0.098 and 0.23. The higher of the two is
+      instructional parallelism — "You can", "You must" — and it still sits 0.12
+      below the line, so the baseline holds without help.
+
+  PS.STYLE.REPEATED_PARAGRAPH_OPENER:
+    enabled: true
+    notice: 0.55
+    strong: 0.75
+    minimum_sample: 4
+    provenance: project-calibration
+    reason: >
+      Looser than baseline, and evidenced. appeal-a-decision.md measures 0.367
+      against a baseline line of 0.40 — a margin of 0.033 on a document whose
+      repeated openings are the correct way to write parallel instructions. A
+      reader scanning for "You can appeal if" is helped by every paragraph
+      starting the same way.
+
+  PS.STYLE.TRANSITION_DENSITY:
+    enabled: true
+    notice: 0.20
+    strong: 0.35
+    minimum_sample: 8
+    provenance: baseline-derived
+    reason: >
+      Plain documents measure 0.0 and 0.018. The register barely signposts at
+      all, which would argue for a tighter line, except that no plain document in
+      the corpus is anywhere near loud enough to calibrate one against.
+
+  PS.STYLE.REPEATED_TRANSITION:
+    enabled: true
+    notice: 0.70
+    strong: 0.88
+    minimum_sample: 6
+    provenance: weakly-calibrated
+    reason: >
+      The baseline correction described in natural.yaml, applied here for the
+      same reason. Neither plain document reaches the six-transition minimum, so
+      this profile inherits the correction rather than evidencing it.
+
+  PS.STYLE.CANNED_FRAMING:
+    enabled: true
+    notice: 0.25
+    strong: 0.50
+    minimum_sample: 4
+    provenance: weakly-calibrated
+    reason: >
+      Canned framing is undesirable in every register and especially this one.
+      No plain document produces a measurement, so the baseline stands.
+
+  PS.STYLE.VOCABULARY_OVERUSE:
+    enabled: true
+    notice: 3.0
+    strong: 6.0
+    minimum_sample: 200
+    provenance: weakly-calibrated
+    reason: No plain document registers a flagged word often enough to measure.
+
+  PS.STYLE.RHETORICAL_REPETITION:
+    enabled: true
+    notice: 0.50
+    strong: 0.90
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      The baseline correction described in natural.yaml. Two constructions in 65
+      sentences fired at the baseline line, which is too sensitive in any
+      register.
+
+  PS.STYLE.TRIADIC_REPETITION:
+    enabled: true
+    notice: 0.65
+    strong: 1.10
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: The baseline correction described in natural.yaml.
+
+  PS.STYLE.REPEATED_PHRASE:
+    enabled: true
+    notice: 0.80
+    strong: 1.30
+    minimum_sample: 8
+    provenance: plain-language-convention
+    reason: >
+      Looser than baseline. This is the profile's central position: repeating
+      "mandatory reconsideration notice" every time is clearer than alternating
+      it with "the letter" or "the notice", and a reader who has to work out
+      whether two names mean one thing has been failed. The two plain documents
+      measure 0.375 and 0.467, so 0.80 gives room for that repetition while
+      leaving vocabulary_heavy.md (1.408) strong.
+
+  PS.STYLE.LEXICAL_OVERLAP:
+    enabled: true
+    notice: 0.60
+    strong: 0.75
+    minimum_sample: 4
+    provenance: weakly-calibrated
+    reason: >
+      Neither plain document produces a measurement. Their paragraphs are short
+      and mostly fall below the twenty-token floor for comparison.
+
+  PS.STYLE.LIST_DOMINANCE:
+    enabled: true
+    notice: 0.55
+    strong: 0.75
+    minimum_sample: 6
+    provenance: weakly-calibrated
+    reason: >
+      Slightly looser than baseline. A page of steps should be a list of steps,
+      and prose that hides a sequence inside a paragraph is harder to follow.
+      Plain documents measure 0.118 and 0.179, so this override buys headroom the
+      corpus has not yet needed — the line is set on convention rather than on a
+      document that approached it.
+
+targets:
+  sentence_words_mean:
+    min: 5
+    max: 13
+    provenance: project-calibration
+    reason: >
+      Plain documents measure 6.39 and 6.45, the lowest in the corpus. The upper
+      bound is set so that an academic-length document (16.8) reads as above the
+      range, which is the intended contrast.
+
+  short_sentence_rate:
+    min: 0.55
+    max: 0.90
+    provenance: project-calibration
+    reason: Plain documents measure 0.71 and 0.73.
+
+  content_word_diversity:
+    min: 0.35
+    max: 0.65
+    provenance: project-calibration
+    reason: >
+      Plain documents measure 0.45 and 0.55. A low value here is expected rather
+      than poor: it is what deliberate terminology repetition looks like when
+      measured.
+
+  words_per_heading:
+    min: 40
+    max: 120
+    provenance: project-calibration
+    reason: >
+      Plain documents measure 66.7 and 71.3. Frequent headings let a reader find
+      the section that applies to them without reading the ones that do not.
+
+  contraction_per_1000:
+    min: 0
+    max: 45
+    provenance: weakly-calibrated
+    reason: >
+      Both plain documents measure zero, so only the lower bound is evidenced.
+      The upper bound reflects the plain-language position that contractions aid
+      readability, and is set on convention. It has not been tested against a
+      plain document that uses them.
