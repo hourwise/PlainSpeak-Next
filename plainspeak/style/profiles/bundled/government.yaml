@@ -1,0 +1,207 @@
+# Government — public-service communication.
+#
+# Not the Plain profile with a different name. The two share a goal and differ
+# in what they are allowed to assume. Plain writing is addressed to a reader who
+# chose to read it; public-service writing is often addressed to a reader who
+# has to, about something consequential, possibly at the worst moment of their
+# year. That changes what matters.
+#
+# The measurable consequences: heavier structure, so a reader can find the one
+# paragraph that applies to them without reading the rest; more official terms
+# repeated exactly, because "mandatory reconsideration notice" has a legal
+# meaning and a synonym does not; and more lists, because eligibility is a set of
+# conditions rather than an argument.
+#
+# The Phase 7 false positive on government.md is the seed of this profile and not
+# the whole of its evidence.
+id: government
+version: 1
+name: Government
+provenance: public-service-convention
+
+description: >
+  Direct instruction, consistent official terminology and informative structure,
+  for prose a reader must be able to act on. Accessibility matters more than
+  rhythm; controlled repetition of defined terms is expected.
+
+target_use: >
+  Public-service pages, eligibility and entitlement guidance, procedural
+  information, statutory notices written for the public. Not intended for
+  campaign material or for prose meant to persuade.
+
+diagnostics:
+  PS.STYLE.SENTENCE_UNIFORMITY:
+    enabled: true
+    notice: 0.34
+    strong: 0.26
+    minimum_sample: 8
+    provenance: baseline-derived
+    reason: >
+      The obvious place to loosen, and the evidence does not support it. The
+      three government documents measure 0.476, 0.536 and 0.593, all comfortably
+      clear of the baseline line. Public-service prose is consistent in register
+      without being monotonous in cadence, and the two are different properties.
+
+  PS.STYLE.PARAGRAPH_UNIFORMITY:
+    enabled: true
+    notice: 0.20
+    strong: 0.12
+    minimum_sample: 8
+    provenance: baseline-derived
+    reason: >
+      This is the diagnostic that produced the Phase 7 false positive on
+      government.md, and the fix was a higher minimum sample rather than a
+      different threshold. With eight paragraphs required, the two long
+      government documents measure 0.395 and 0.541 and are quiet on merit.
+
+  PS.STYLE.REPEATED_SENTENCE_OPENER:
+    enabled: true
+    notice: 0.35
+    strong: 0.50
+    minimum_sample: 6
+    provenance: baseline-derived
+    reason: Government documents measure 0.087 and 0.150.
+
+  PS.STYLE.REPEATED_PARAGRAPH_OPENER:
+    enabled: true
+    notice: 0.52
+    strong: 0.72
+    minimum_sample: 4
+    provenance: public-service-convention
+    reason: >
+      Looser than baseline. "You can", "You must", "Tell us if" repeated across
+      paragraphs is how a reader scanning for their own situation finds it. The
+      government documents measure 0.200 and 0.233, so this is headroom for a
+      construction the register encourages rather than a response to a near miss.
+
+  PS.STYLE.TRANSITION_DENSITY:
+    enabled: true
+    notice: 0.20
+    strong: 0.35
+    minimum_sample: 8
+    provenance: baseline-derived
+    reason: >
+      Government documents measure 0.0 and 0.02. Instructions do not argue, so
+      they do not signpost.
+
+  PS.STYLE.REPEATED_TRANSITION:
+    enabled: true
+    notice: 0.70
+    strong: 0.88
+    minimum_sample: 6
+    provenance: weakly-calibrated
+    reason: >
+      The baseline correction described in natural.yaml. Neither government
+      document reaches the six-transition minimum.
+
+  PS.STYLE.CANNED_FRAMING:
+    enabled: true
+    notice: 0.25
+    strong: 0.50
+    minimum_sample: 4
+    provenance: weakly-calibrated
+    reason: >
+      Unchanged, and if anything this is the register with the least tolerance
+      for it. No government document in the corpus produces a measurement.
+
+  PS.STYLE.VOCABULARY_OVERUSE:
+    enabled: true
+    notice: 3.0
+    strong: 6.0
+    minimum_sample: 200
+    provenance: weakly-calibrated
+    reason: No government document registers a flagged word often enough to measure.
+
+  PS.STYLE.RHETORICAL_REPETITION:
+    enabled: true
+    notice: 0.50
+    strong: 0.90
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      The baseline correction described in natural.yaml.
+      help-with-housing-costs.md measures 0.157.
+
+  PS.STYLE.TRIADIC_REPETITION:
+    enabled: true
+    notice: 0.65
+    strong: 1.10
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: The baseline correction described in natural.yaml.
+
+  PS.STYLE.REPEATED_PHRASE:
+    enabled: true
+    notice: 0.85
+    strong: 1.35
+    minimum_sample: 8
+    provenance: public-service-convention
+    reason: >
+      Looser than baseline, slightly more so than plain. Official terms carry
+      legal meaning and must be repeated exactly: "Discretionary Housing
+      Payment", "local housing allowance rate", "mandatory reconsideration". A
+      reader who meets two names for one thing has to work out whether they are
+      the same thing, and in this register that mistake has consequences. The
+      government documents measure 0.409 and 0.434.
+
+  PS.STYLE.LEXICAL_OVERLAP:
+    enabled: true
+    notice: 0.60
+    strong: 0.75
+    minimum_sample: 4
+    provenance: weakly-calibrated
+    reason: >
+      Neither government document produces a measurement — their paragraphs are
+      mostly below the twenty-token comparison floor.
+
+  PS.STYLE.LIST_DOMINANCE:
+    enabled: true
+    notice: 0.58
+    strong: 0.76
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      Looser than baseline. Eligibility is a set of conditions and reads better
+      as one. The government documents measure 0.291 and 0.361, the second
+      highest in the corpus after the technical spec, and both are correctly
+      structured. list_heavy.md at 0.789 remains strong.
+
+targets:
+  sentence_words_mean:
+    min: 5
+    max: 14
+    provenance: project-calibration
+    reason: Government documents measure 7.71 and 7.78.
+
+  short_sentence_rate:
+    min: 0.50
+    max: 0.85
+    provenance: project-calibration
+    reason: Government documents measure 0.62 and 0.63.
+
+  content_word_diversity:
+    min: 0.38
+    max: 0.68
+    provenance: project-calibration
+    reason: >
+      Government documents measure 0.48 and 0.53. As in the technical profile,
+      a low value is the signature of terms repeated exactly.
+
+  words_per_heading:
+    min: 45
+    max: 140
+    provenance: project-calibration
+    reason: >
+      Government documents measure 88.5 and 89.0. Headings are how a reader finds
+      the section that applies to them, which matters more here than anywhere
+      else in the corpus.
+
+  contraction_per_1000:
+    min: 0
+    max: 40
+    provenance: weakly-calibrated
+    reason: >
+      Both government documents measure zero, so only the lower bound is
+      evidenced. The upper bound follows the public-service position that
+      contractions are acceptable and often warmer, and is set on convention. No
+      government document in the corpus uses any.

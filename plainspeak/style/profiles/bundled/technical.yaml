@@ -1,0 +1,206 @@
+# Technical — specifications, runbooks, implementation notes.
+#
+# This is the profile where Phase 7's central distinction earns its keep. A
+# specification that calls the same thing by the same name in forty places is
+# doing its job; the same measurement in an essay would be a writer with a tic.
+# The measurement does not change. The interpretation does.
+id: technical
+version: 1
+name: Technical
+provenance: technical-writing-convention
+
+description: >
+  Consistent terminology, dense structure and short declarative statements.
+  Repeated nouns, headings and lists are expected. Rhetorical framing and
+  corporate filler remain undesirable, because they are undesirable everywhere.
+
+target_use: >
+  Specifications, engineering reports, runbooks, API documentation,
+  implementation notes, procedures. Not intended for prose meant to persuade or
+  to be read continuously.
+
+diagnostics:
+  PS.STYLE.SENTENCE_UNIFORMITY:
+    enabled: true
+    notice: 0.30
+    strong: 0.22
+    minimum_sample: 8
+    provenance: project-calibration
+    reason: >
+      Looser than baseline, on the strongest single piece of evidence in the
+      corpus. list_heavy.md measures 0.342 against a baseline line of 0.34 — a
+      margin of 0.002 — and it is a document of short declarative list items,
+      which is what a specification is largely made of. A structure like that
+      should not be two thousandths from a finding. The two technical documents
+      themselves measure 0.674 and 0.852, so this loosening costs nothing real.
+
+  PS.STYLE.PARAGRAPH_UNIFORMITY:
+    enabled: true
+    notice: 0.20
+    strong: 0.12
+    minimum_sample: 8
+    provenance: baseline-derived
+    reason: >
+      Technical documents measure 0.566 and 0.575, the highest in the corpus.
+      Specifications vary paragraph length more than one might expect, because
+      the material does.
+
+  PS.STYLE.REPEATED_SENTENCE_OPENER:
+    enabled: true
+    notice: 0.35
+    strong: 0.50
+    minimum_sample: 6
+    provenance: baseline-derived
+    reason: Technical documents measure 0.123 and 0.158, well below the line.
+
+  PS.STYLE.REPEATED_PARAGRAPH_OPENER:
+    enabled: true
+    notice: 0.50
+    strong: 0.70
+    minimum_sample: 4
+    provenance: technical-writing-convention
+    reason: >
+      Looser than baseline. Specification sections legitimately begin alike —
+      "The consumer must", "The consumer does not" — and the corpus technical
+      sample measures 0.333 against a baseline line of 0.40. The margin is real
+      but thin, and the construction is correct for the register.
+
+  PS.STYLE.TRANSITION_DENSITY:
+    enabled: true
+    notice: 0.20
+    strong: 0.35
+    minimum_sample: 8
+    provenance: baseline-derived
+    reason: >
+      Technical documents measure 0.021 and 0.051. Specifications state rather
+      than argue, so they signpost very little.
+
+  PS.STYLE.REPEATED_TRANSITION:
+    enabled: true
+    notice: 0.70
+    strong: 0.88
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      The baseline correction described in natural.yaml. index-rebuild-runbook.md
+      reaches the minimum sample at 0.429 and is quiet under either value.
+
+  PS.STYLE.CANNED_FRAMING:
+    enabled: true
+    notice: 0.25
+    strong: 0.50
+    minimum_sample: 4
+    provenance: weakly-calibrated
+    reason: >
+      Explicitly unchanged. "It is important to note" adds nothing to a
+      specification, and the register offers no defence for it.
+
+  PS.STYLE.VOCABULARY_OVERUSE:
+    enabled: true
+    notice: 3.0
+    strong: 6.0
+    minimum_sample: 200
+    provenance: weakly-calibrated
+    reason: >
+      Also explicitly unchanged. The flagged list is corporate filler, not
+      technical vocabulary — a specification saying "leverage" eleven times has
+      the same problem an essay would. Domain terms are not on the list and never
+      were.
+
+  PS.STYLE.RHETORICAL_REPETITION:
+    enabled: true
+    notice: 0.50
+    strong: 0.90
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      The baseline correction described in natural.yaml.
+      index-rebuild-runbook.md measures 0.147.
+
+  PS.STYLE.TRIADIC_REPETITION:
+    enabled: true
+    notice: 0.65
+    strong: 1.10
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: The baseline correction described in natural.yaml.
+
+  PS.STYLE.REPEATED_PHRASE:
+    enabled: true
+    notice: 1.00
+    strong: 1.60
+    minimum_sample: 8
+    provenance: technical-writing-convention
+    reason: >
+      The loosest of the five profiles, and deliberately so. "the conditional
+      put", "the attempt count", "the document identifier" recurring is
+      terminology consistency, and a specification that varied them would be
+      worse. The two technical documents measure 0.364 and 0.397; the line is set
+      well above that so that heavier but still legitimate repetition passes,
+      while vocabulary_heavy.md (1.408) is still strong.
+
+  PS.STYLE.LEXICAL_OVERLAP:
+    enabled: true
+    notice: 0.60
+    strong: 0.75
+    minimum_sample: 4
+    provenance: baseline-derived
+    reason: >
+      There is a plausible case for loosening this — sections describing related
+      machinery share vocabulary legitimately — and no evidence for it. The
+      technical documents measure 0.139 and produce no second measurement, so
+      nothing in the corpus tests where the line should sit. The argument was not
+      strong enough to invent a number on.
+
+  PS.STYLE.LIST_DOMINANCE:
+    enabled: true
+    notice: 0.60
+    strong: 0.78
+    minimum_sample: 10
+    provenance: project-calibration
+    reason: >
+      Looser than baseline, and the profile's most visible difference.
+      queue-consumer.md is 0.395 list items by block and is correctly structured;
+      under the natural profile that is a notice, and here it is not. The minimum
+      sample is raised from 6 to 10 because a short section that happens to be a
+      list is not a list-dominated document. list_heavy.md at 0.789 remains
+      strong.
+
+targets:
+  sentence_words_mean:
+    min: 6
+    max: 16
+    provenance: project-calibration
+    reason: Technical documents measure 7.41 and 7.73.
+
+  short_sentence_rate:
+    min: 0.45
+    max: 0.80
+    provenance: project-calibration
+    reason: Technical documents measure 0.64 and 0.66.
+
+  content_word_diversity:
+    min: 0.38
+    max: 0.68
+    provenance: project-calibration
+    reason: >
+      Technical documents measure 0.48 and 0.50, against 0.62 to 0.71 for natural
+      prose. Low diversity is the measurable signature of consistent terminology
+      and is expected here rather than tolerated.
+
+  list_block_share:
+    min: 0.05
+    max: 0.55
+    provenance: project-calibration
+    reason: >
+      Technical documents measure 0.25 and 0.395. The lower bound is deliberate:
+      a specification with no lists at all is usually one that should have some.
+
+  contraction_per_1000:
+    min: 0
+    max: 8
+    provenance: technical-writing-convention
+    reason: >
+      Both technical documents measure 0.0 and 0.0. Contractions are uncommon in
+      specifications; the small allowance exists so that a runbook written in a
+      slightly warmer voice is not reported for it.

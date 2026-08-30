@@ -1,0 +1,224 @@
+# Academic — scholarly and analytical writing.
+#
+# The stereotype to avoid here is that academic prose is long words and long
+# sentences, and that anything with those properties is academic. Sentence length
+# is one measurable property among several, and on its own it distinguishes
+# nothing: a badly written technical document and a good scholarly argument can
+# share a mean.
+#
+# What the corpus actually shows separating this register is denser signposting —
+# an argument has to tell the reader where it is going — semicolons and
+# parentheticals doing structural work, and a low rate of short sentences. Those
+# are the properties this profile is calibrated on. Canned framing and repetitive
+# rhetorical scaffolding remain diagnosable, because formality is not a defence
+# for them.
+id: academic
+version: 1
+name: Academic
+provenance: academic-convention
+
+description: >
+  Sustained argument with denser signposting, longer sentences and formal
+  vocabulary. Regular paragraph structure and frequent transitions are expected;
+  canned framing and repeated rhetorical scaffolding are not.
+
+target_use: >
+  Research writing, scholarly analysis, literature reviews, extended argument.
+  Not intended for teaching material or for writing addressed to a general
+  audience, both of which are better served by the plain profile.
+
+diagnostics:
+  PS.STYLE.SENTENCE_UNIFORMITY:
+    enabled: true
+    notice: 0.34
+    strong: 0.26
+    minimum_sample: 8
+    provenance: baseline-derived
+    reason: >
+      Unchanged. Long sentences are not uniform sentences, and conflating the two
+      is exactly the stereotype this profile avoids. The academic documents
+      measure 0.605 and 0.817 — the second is the second most varied document in
+      the whole corpus.
+
+  PS.STYLE.PARAGRAPH_UNIFORMITY:
+    enabled: true
+    notice: 0.20
+    strong: 0.12
+    minimum_sample: 12
+    provenance: academic-convention
+    reason: >
+      The threshold is unchanged and the minimum sample is raised from 8 to 12.
+      Scholarly paragraphs are more regular by convention — one move in the
+      argument each — so a uniformity claim about this register should rest on
+      more paragraphs than a claim about an essay. Raising the evidence bar is
+      the conservative way to express that; lowering the threshold would have
+      been a guess. The academic documents measure 0.419 and 0.479 over 17 and 22
+      paragraphs.
+
+  PS.STYLE.REPEATED_SENTENCE_OPENER:
+    enabled: true
+    notice: 0.35
+    strong: 0.50
+    minimum_sample: 6
+    provenance: baseline-derived
+    reason: Academic documents measure 0.130 and 0.197.
+
+  PS.STYLE.REPEATED_PARAGRAPH_OPENER:
+    enabled: true
+    notice: 0.40
+    strong: 0.60
+    minimum_sample: 4
+    provenance: baseline-derived
+    reason: >
+      Academic documents measure 0.182 and 0.294, leaving 0.106 of headroom at
+      the baseline value. Enough not to need an override.
+
+  PS.STYLE.TRANSITION_DENSITY:
+    enabled: true
+    notice: 0.30
+    strong: 0.45
+    minimum_sample: 8
+    provenance: project-calibration
+    reason: >
+      Looser than baseline, and evidenced by a false positive.
+      measurement-and-construct.md measures 0.213 against a baseline line of
+      0.20 and produced a notice — on prose whose transitions are load-bearing,
+      because an argument that does not say "furthermore" or "yet" leaves the
+      reader to guess how its paragraphs relate. transition_heavy.md at 0.471 is
+      still strong.
+
+  PS.STYLE.REPEATED_TRANSITION:
+    enabled: true
+    notice: 0.70
+    strong: 0.88
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      The baseline correction described in natural.yaml. The academic documents
+      both reach the minimum sample — at 13 and 11 transitions, the highest
+      counts in the corpus — and measure 0.273 and 0.308, so they are quiet under
+      either value. Density and concentration are separate observations, and this
+      profile loosens only the first.
+
+  PS.STYLE.CANNED_FRAMING:
+    enabled: true
+    notice: 0.25
+    strong: 0.50
+    minimum_sample: 4
+    provenance: weakly-calibrated
+    reason: >
+      Deliberately unchanged. Formality is not a defence for announcing a
+      statement rather than making it, and the temptation to treat academic prose
+      as entitled to scaffolding is precisely what this line is for.
+
+  PS.STYLE.VOCABULARY_OVERUSE:
+    enabled: true
+    notice: 3.0
+    strong: 6.0
+    minimum_sample: 200
+    provenance: weakly-calibrated
+    reason: >
+      Unchanged. The flagged list is corporate filler rather than technical
+      vocabulary, so specialist terminology is unaffected by it in any register.
+
+  PS.STYLE.RHETORICAL_REPETITION:
+    enabled: true
+    notice: 0.50
+    strong: 0.90
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      The baseline correction described in natural.yaml. Kept diagnosable rather
+      than disabled: repetitive rhetorical scaffolding is a real feature of weak
+      scholarly writing and the register should not exempt itself from it.
+
+  PS.STYLE.TRIADIC_REPETITION:
+    enabled: true
+    notice: 0.65
+    strong: 1.10
+    minimum_sample: 6
+    provenance: project-calibration
+    reason: >
+      The baseline correction described in natural.yaml.
+      reading-in-the-archive.md measures 0.253, which fired uncomfortably close
+      to the baseline line of 0.30 on two ordinary three-item lists.
+
+  PS.STYLE.REPEATED_PHRASE:
+    enabled: true
+    notice: 0.60
+    strong: 1.20
+    minimum_sample: 8
+    provenance: weakly-calibrated
+    reason: >
+      Neither academic document repeats a phrase often enough to produce a
+      measurement, so there is nothing to move the line with. Technical
+      terminology recurring is expected in this register too, which would argue
+      for loosening, but the corpus does not evidence a value.
+
+  PS.STYLE.LEXICAL_OVERLAP:
+    enabled: true
+    notice: 0.60
+    strong: 0.75
+    minimum_sample: 4
+    provenance: baseline-derived
+    reason: Academic documents measure 0.099 and 0.121.
+
+  PS.STYLE.LIST_DOMINANCE:
+    enabled: true
+    notice: 0.50
+    strong: 0.70
+    minimum_sample: 6
+    provenance: weakly-calibrated
+    reason: >
+      Both academic documents measure 0.0 — scholarly argument is carried in
+      continuous prose. That is an absence of evidence rather than evidence for
+      a tighter line, so the baseline is kept.
+
+targets:
+  sentence_words_mean:
+    min: 12
+    max: 28
+    provenance: project-calibration
+    reason: >
+      Academic documents measure 13.7 and 16.8, the highest in the corpus. The
+      range is set so that a plain-language page (6.4) reads as below it, which
+      is the intended contrast: neither document is wrong, and they are aiming at
+      different things.
+
+  short_sentence_rate:
+    min: 0.08
+    max: 0.45
+    provenance: project-calibration
+    reason: >
+      Academic documents measure 0.25 and 0.31, against 0.71 to 0.73 for plain
+      prose. The clearest separation the corpus produces between these two
+      registers.
+
+  long_sentence_rate:
+    min: 0.02
+    max: 0.32
+    provenance: project-calibration
+    reason: >
+      Academic documents measure 0.05 and 0.18. The lower bound is not a demand
+      for long sentences; it reflects that sustained argument normally contains
+      at least a few, and a document with none may have been broken up in a way
+      that hides its structure.
+
+  punctuation_semicolon_per_1000:
+    min: 0.5
+    max: 14.0
+    provenance: project-calibration
+    reason: >
+      Academic documents measure 3.7 and 5.85, against 0.0 for both plain and
+      government documents. Semicolons do structural work in this register rather
+      than decorative work.
+
+  contraction_per_1000:
+    min: 0
+    max: 5
+    provenance: academic-convention
+    reason: >
+      Both academic documents measure zero. The narrow allowance means a
+      conversational document analysed under this profile reads as above the
+      range — which is the correct report: it is not bad writing, it is writing
+      aimed at a different reader.
