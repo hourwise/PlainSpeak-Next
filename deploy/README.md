@@ -33,8 +33,20 @@ opens a document, loads zero rules and quietly produces different answers. That
 is the same defect this project has already shipped twice through
 `package-data`, invisible both times to everyone developing on it.
 
-`tools/record_desktop_build.py` checks the bundle actually contains them, and
-`--self-test` checks the engine still agrees with source. Neither is optional.
+`--include-package-data` alone was **not** enough, and the check found it: the
+first Linux build produced a perfectly good 160 MiB bundle containing the rule
+YAML, the profile YAML and no syllable dictionary. Nuitka does not treat a
+`.bin` as package data, so the file is now named explicitly with
+`--include-data-files`. A build without it loads 222 rules, reports every
+identity correctly and silently falls back to a vowel-counting heuristic for
+every readability metric.
+
+`--quiet` is deliberately absent. It suppressed the actual Nuitka error on the
+first Windows build and left nothing but a non-zero exit code to work from.
+
+`tools/record_desktop_build.py` checks the bundle actually contains the data,
+and `--self-test` checks the engine still agrees with source. Neither is
+optional.
 
 **`mode = standalone`** rather than `onefile`: a one-file build unpacks itself
 to a temporary directory on every launch, and a directory bundle is far easier

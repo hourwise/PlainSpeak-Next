@@ -115,3 +115,46 @@ The PlainSpeak web application:
 ---
 
 *This document was last updated: 2026-08-11*
+
+
+## PySide6 (optional — desktop only)
+
+Installed only by the `desktop` extra. `import plainspeak` does not require it,
+and the engine, the CLI and the test suite all run without it.
+
+| | |
+|---|---|
+| Package | PySide6 (Qt for Python), with PySide6-Essentials, PySide6-Addons and shiboken6 |
+| Version used | 6.11.2 (Qt 6.11.2); supported range `>=6.8,<6.12` |
+| Upstream | https://doc.qt.io/qtforpython/ |
+| Licence | LGPL v3, with a GPL v3 alternative, as stated by the Qt Company |
+
+### What that means here, and what it does not
+
+PlainSpeak's own licence is unchanged. It is MIT, and an optional dependency
+under a different licence does not alter the licence of this project's code.
+
+PySide6 and the Qt libraries are dynamically linked. A frozen build produced by
+`pyside6-deploy` bundles the Qt shared libraries alongside the application
+rather than statically linking them, which is the arrangement the LGPL is
+written for.
+
+**No legal advice is offered or implied.** The statements above describe what
+the upstream projects publish about their own licensing. Anyone redistributing
+a packaged PlainSpeak desktop build should read the LGPL v3 text and the Qt
+licensing documentation themselves and take their own advice — in particular
+about the relinking and notice obligations that attach to distributing LGPL
+libraries. This project does not currently distribute binaries.
+
+### Build tooling
+
+`pyside6-deploy` (shipped with PySide6) drives Nuitka, which it installs into
+the build environment. Nuitka is Apache 2.0. Neither is a runtime dependency of
+PlainSpeak and neither is bundled into the application; both are build-time
+tools only.
+
+### What is not bundled
+
+No custom fonts, no web engine, no QML runtime, no networking module. The
+frozen build declares `modules = Core,Gui,Widgets` and excludes QtWebEngine,
+QtQuick and the rest, so the application ships no browser and no HTTP stack.
