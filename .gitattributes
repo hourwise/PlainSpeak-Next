@@ -22,3 +22,7 @@ corpora/**                         -text
 # thresholds were drawn against these exact bytes.
 tests/style/corpus/**              -text
 tests/style/corpus-findings.json   -text
+
+# The profile calibration corpus and its snapshot: the profile thresholds
+# were drawn against these exact bytes.
+tests/style/profiles/**                     -text

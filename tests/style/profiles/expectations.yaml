@@ -1,0 +1,189 @@
+# What each calibration document must and must not produce.
+#
+# Stated in advance, and deliberately not generated from the engine's current
+# output. A snapshot proves the behaviour has not changed; this proves the
+# behaviour is the one that was intended. The two catch different mistakes, and
+# a suite with only the first will happily freeze a defect.
+#
+# `profile` is the profile a document is written for and must be quiet under.
+# `must_not_find` and `must_find` are checked under that profile.
+# `contrasts` name a different profile and what changes there — the evidence that
+# profiles produce meaningful distinctions rather than five names over one set of
+# numbers.
+
+documents:
+  - document: natural/craft-of-revision.md
+    profile: natural
+    words: 1081
+    must_find: []
+    must_not_find: [PS.STYLE.SENTENCE_UNIFORMITY, PS.STYLE.REPEATED_SENTENCE_OPENER,
+                    PS.STYLE.REPEATED_PARAGRAPH_OPENER, PS.STYLE.TRANSITION_DENSITY,
+                    PS.STYLE.REPEATED_TRANSITION, PS.STYLE.LIST_DOMINANCE]
+    reason: >
+      Essayistic natural prose with deliberately varied cadence. The document
+      the natural profile's sentence-uniformity threshold is calibrated against.
+
+  - document: natural/allotment-year.md
+    profile: natural
+    words: 1047
+    must_find: []
+    must_not_find: [PS.STYLE.REPEATED_TRANSITION, PS.STYLE.SENTENCE_UNIFORMITY]
+    reason: >
+      Narrative explanatory prose. Measures 0.50 on repeated transition, which
+      produced a false positive under the baseline threshold of 0.50 and is one
+      of the three documents that moved the natural profile's value to 0.70.
+
+  - document: natural/learning-to-cook-late.md
+    profile: natural
+    words: 894
+    must_find: []
+    must_not_find: [PS.STYLE.REPEATED_TRANSITION, PS.STYLE.SENTENCE_UNIFORMITY]
+    reason: >
+      Conversational prose with contractions — the only register in the corpus
+      that uses them. Measures 0.60 on repeated transition, the highest quiet
+      value, and 58.7 contractions per 1,000 words.
+    contrasts:
+      - profile: academic
+        target_outside: {contraction_per_1000: above}
+        reason: >
+          The same contraction rate that is unremarkable in conversational prose
+          is outside the range for scholarly writing. Not a defect in either
+          direction: the two are aimed at different readers.
+
+  - document: natural/packing-for-the-hills.md
+    profile: natural
+    words: 959
+    must_find: []
+    must_not_find: [PS.STYLE.LIST_DOMINANCE, PS.STYLE.REPEATED_TRANSITION]
+    reason: >
+      Natural prose containing genuine lists, at 0.233 list share. Phase 7 had
+      no natural document with any list at all, so list dominance separated
+      0.789 from 0.0 and the separation was worth nothing. This is the quiet
+      side that was missing.
+
+  - document: plain/appeal-a-decision.md
+    profile: plain
+    words: 1100
+    must_find: []
+    must_not_find: [PS.STYLE.REPEATED_PARAGRAPH_OPENER, PS.STYLE.REPEATED_PHRASE,
+                    PS.STYLE.REPEATED_SENTENCE_OPENER]
+    reason: >
+      Instructional prose that deliberately repeats both terminology and
+      paragraph openings, because a reader scanning for their own situation is
+      helped by both.
+    contrasts:
+      - profile: natural
+        must_find: [PS.STYLE.REPEATED_PARAGRAPH_OPENER]
+        reason: >
+          Identical measurement, 0.367. Correct for instructions, and a tic in
+          an essay. This is the clearest demonstration in the corpus that the
+          profile changes the reading and not the reading of the text.
+
+  - document: plain/what-the-library-offers.md
+    profile: plain
+    words: 1098
+    must_find: []
+    must_not_find: [PS.STYLE.REPEATED_PHRASE, PS.STYLE.LIST_DOMINANCE]
+    reason: Explanatory public text with short direct sentences and lists of options.
+
+  - document: technical/queue-consumer.md
+    profile: technical
+    words: 1249
+    must_find: []
+    must_not_find: [PS.STYLE.LIST_DOMINANCE, PS.STYLE.REPEATED_PHRASE,
+                    PS.STYLE.SENTENCE_UNIFORMITY, PS.STYLE.REPEATED_PARAGRAPH_OPENER]
+    reason: >
+      A specification with defined terminology repeated throughout, dense
+      structure and a list share of 0.395. Terminology consistency is the point
+      of the document and must not be reported as repetition.
+    contrasts:
+      - profile: natural
+        must_find: [PS.STYLE.LIST_DOMINANCE]
+        target_outside: {content_word_diversity: below, sentence_words_mean: below}
+        reason: >
+          The example from the brief. The same 0.395 list share is expected
+          structure in a specification and a notice in an essay, and the low
+          vocabulary diversity that signals consistent terminology reads as
+          below range when the document is judged as natural prose.
+
+  - document: technical/index-rebuild-runbook.md
+    profile: technical
+    words: 1146
+    must_find: []
+    must_not_find: [PS.STYLE.LIST_DOMINANCE, PS.STYLE.REPEATED_PHRASE,
+                    PS.STYLE.RHETORICAL_REPETITION, PS.STYLE.REPEATED_TRANSITION]
+    reason: >
+      Numbered procedures, short declarative requirements and repeated command
+      names. Reaches the six-transition minimum at 0.429.
+
+  - document: government/help-with-housing-costs.md
+    profile: government
+    words: 1027
+    must_find: []
+    must_not_find: [PS.STYLE.PARAGRAPH_UNIFORMITY, PS.STYLE.REPEATED_PHRASE,
+                    PS.STYLE.LIST_DOMINANCE, PS.STYLE.RHETORICAL_REPETITION]
+    reason: >
+      Eligibility prose with official terms repeated exactly and lists of
+      conditions. Thirty-five paragraphs, which is what makes it a real test of
+      the paragraph-uniformity minimum rather than a document silenced by it.
+
+  - document: government/registering-a-death.md
+    profile: government
+    words: 1199
+    must_find: []
+    must_not_find: [PS.STYLE.PARAGRAPH_UNIFORMITY, PS.STYLE.REPEATED_PHRASE,
+                    PS.STYLE.LIST_DOMINANCE, PS.STYLE.REPEATED_PARAGRAPH_OPENER]
+    reason: Procedural public instruction with repeated official terminology.
+
+  - document: academic/measurement-and-construct.md
+    profile: academic
+    words: 1037
+    must_find: []
+    must_not_find: [PS.STYLE.TRANSITION_DENSITY, PS.STYLE.SENTENCE_UNIFORMITY,
+                    PS.STYLE.PARAGRAPH_UNIFORMITY, PS.STYLE.CANNED_FRAMING]
+    reason: >
+      Sustained argument with load-bearing signposting. Measures 0.213 on
+      transition density and produced a false positive under the baseline line
+      of 0.20; that false positive is what moved the academic threshold to 0.30.
+    contrasts:
+      - profile: plain
+        must_find: [PS.STYLE.TRANSITION_DENSITY]
+        target_outside: {sentence_words_mean: above, short_sentence_rate: below}
+        reason: >
+          The second example from the brief. A mean of 16.8 words is normal for
+          argument and above the range for a service page, and the signposting
+          that carries the argument is density a plain-language page would not
+          want.
+
+  - document: academic/reading-in-the-archive.md
+    profile: academic
+    words: 1097
+    must_find: []
+    must_not_find: [PS.STYLE.TRIADIC_REPETITION, PS.STYLE.TRANSITION_DENSITY,
+                    PS.STYLE.REPEATED_TRANSITION]
+    reason: >
+      Scholarly argument with the highest transition count in the corpus, at 11.
+      Measures 0.253 on triadic repetition, which fired against the baseline
+      line of 0.30 on two ordinary three-item lists.
+
+  - document: controls/ordinary-rhetoric.md
+    profile: natural
+    words: 703
+    must_find: []
+    must_not_find: [PS.STYLE.RHETORICAL_REPETITION, PS.STYLE.TRIADIC_REPETITION]
+    reason: >
+      A control written to use the recognised rhetorical constructions the way
+      ordinary careful prose uses them. Phase 7 had no calibration document
+      exercising either diagnostic at all. This one fires both under the
+      baseline — 0.308 rhetorical and 0.462 triadic — on two and three
+      occurrences respectively, which is what showed the baseline rates to be
+      far too sensitive.
+
+  - document: controls/ordinary-triads.md
+    profile: natural
+    words: 607
+    must_find: []
+    must_not_find: [PS.STYLE.TRIADIC_REPETITION, PS.STYLE.RHETORICAL_REPETITION]
+    reason: >
+      A second control for the same gap, using three-item lists at a rate any
+      careful writer would. Quiet under every profile and under the baseline.

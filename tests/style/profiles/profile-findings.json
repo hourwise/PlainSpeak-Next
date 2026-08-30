@@ -1,0 +1,503 @@
+{
+  "academic/measurement-and-construct.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "government": {
+      "findings": [
+        {
+          "id": "PS.STYLE.TRANSITION_DENSITY",
+          "severity": "notice",
+          "value": 0.2131
+        }
+      ],
+      "outside_target": {
+        "sentence_words_mean": "above",
+        "short_sentence_rate": "below",
+        "words_per_heading": "above"
+      }
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "plain": {
+      "findings": [
+        {
+          "id": "PS.STYLE.TRANSITION_DENSITY",
+          "severity": "notice",
+          "value": 0.2131
+        }
+      ],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "sentence_words_mean": "above",
+        "short_sentence_rate": "below",
+        "words_per_heading": "above"
+      }
+    },
+    "technical": {
+      "findings": [
+        {
+          "id": "PS.STYLE.TRANSITION_DENSITY",
+          "severity": "notice",
+          "value": 0.2131
+        }
+      ],
+      "outside_target": {
+        "list_block_share": "below",
+        "sentence_words_mean": "above",
+        "short_sentence_rate": "below"
+      }
+    }
+  },
+  "academic/reading-in-the-archive.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "short_sentence_rate": "below",
+        "words_per_heading": "above"
+      }
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {
+        "short_sentence_rate": "below"
+      }
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "sentence_words_mean": "above",
+        "short_sentence_rate": "below",
+        "words_per_heading": "above"
+      }
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "list_block_share": "below",
+        "short_sentence_rate": "below"
+      }
+    }
+  },
+  "controls/ordinary-rhetoric.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "sentence_words_mean": "below"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "short_sentence_rate": "below"
+      }
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {
+        "paragraph_sentences_mean": "below"
+      }
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "short_sentence_rate": "below"
+      }
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "list_block_share": "below",
+        "short_sentence_rate": "below"
+      }
+    }
+  },
+  "controls/ordinary-triads.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "long_sentence_rate": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above"
+      }
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {
+        "paragraph_sentences_mean": "below"
+      }
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "short_sentence_rate": "below"
+      }
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "list_block_share": "below"
+      }
+    }
+  },
+  "government/help-with-housing-costs.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "long_sentence_rate": "below",
+        "punctuation_semicolon_per_1000": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "below",
+        "paragraph_sentences_mean": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {}
+    }
+  },
+  "government/registering-a-death.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "long_sentence_rate": "below",
+        "punctuation_semicolon_per_1000": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "below",
+        "paragraph_sentences_mean": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {}
+    }
+  },
+  "natural/allotment-year.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "short_sentence_rate": "below",
+        "words_per_heading": "above"
+      }
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "short_sentence_rate": "below",
+        "words_per_heading": "above"
+      }
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "list_block_share": "below"
+      }
+    }
+  },
+  "natural/craft-of-revision.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {
+        "short_sentence_rate": "below",
+        "words_per_heading": "above"
+      }
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "short_sentence_rate": "below",
+        "words_per_heading": "above"
+      }
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {
+        "list_block_share": "below"
+      }
+    }
+  },
+  "natural/learning-to-cook-late.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "contraction_per_1000": "above",
+        "long_sentence_rate": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {
+        "contraction_per_1000": "above",
+        "words_per_heading": "above"
+      }
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {
+        "contraction_per_1000": "above",
+        "words_per_heading": "above"
+      }
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {
+        "contraction_per_1000": "above",
+        "list_block_share": "below"
+      }
+    }
+  },
+  "natural/packing-for-the-hills.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "sentence_words_mean": "below"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "short_sentence_rate": "below"
+      }
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "short_sentence_rate": "below",
+        "words_per_heading": "above"
+      }
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "above",
+        "short_sentence_rate": "below"
+      }
+    }
+  },
+  "plain/appeal-a-decision.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "long_sentence_rate": "below",
+        "punctuation_semicolon_per_1000": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "natural": {
+      "findings": [
+        {
+          "id": "PS.STYLE.REPEATED_PARAGRAPH_OPENER",
+          "severity": "notice",
+          "value": 0.3673
+        }
+      ],
+      "outside_target": {
+        "content_word_diversity": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {}
+    }
+  },
+  "plain/what-the-library-offers.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "long_sentence_rate": "below",
+        "punctuation_semicolon_per_1000": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {}
+    }
+  },
+  "technical/index-rebuild-runbook.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "long_sentence_rate": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "natural": {
+      "findings": [],
+      "outside_target": {
+        "content_word_diversity": "below",
+        "paragraph_sentences_mean": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {}
+    }
+  },
+  "technical/queue-consumer.md": {
+    "academic": {
+      "findings": [],
+      "outside_target": {
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "government": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "natural": {
+      "findings": [
+        {
+          "id": "PS.STYLE.LIST_DOMINANCE",
+          "severity": "notice",
+          "value": 0.3947
+        }
+      ],
+      "outside_target": {
+        "content_word_diversity": "below",
+        "paragraph_sentences_mean": "below",
+        "sentence_words_mean": "below",
+        "short_sentence_rate": "above"
+      }
+    },
+    "plain": {
+      "findings": [],
+      "outside_target": {}
+    },
+    "technical": {
+      "findings": [],
+      "outside_target": {}
+    }
+  }
+}
