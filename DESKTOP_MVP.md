@@ -245,6 +245,66 @@ already through `package-data`.
 `tools/record_desktop_build.py` verifies the bundle contains that data and a
 real executable, and writes a manifest with the executable's SHA-256.
 
+### Build evidence
+
+Both produced on candidate `dcb850b8e8f0ffb5193be5d9fd8e5ff05764da4e` (Phase
+10F(f) on the reissued branch), CI run 36269826556, and both self-tested from a
+directory containing neither the checkout nor the virtual environment.
+
+| | Linux | Windows |
+|---|---|---|
+| bundle | 131 files, 162.0 MiB | 78 files, 80.6 MiB |
+| executable | `PlainSpeak.dist/desktop_main.bin`, 17.4 MiB | `PlainSpeak.dist/desktop_main.exe`, 13.0 MiB |
+| SHA-256 | `d91333ba76b687f6…` | `26e2cb45e76c252f…` |
+| syllable dictionary | present | present |
+| bundled rules | present | present |
+| style profiles | present | present |
+| self-test | OK | OK |
+
+Both report ruleset 2026.3 / `7eddd0710ec1` / 222 rules / 8 style fixes,
+integrity 2026.1, morphology 2026.1, style policy 2026.1, profile pack 2026.1
+with all five profiles, and the **same** smoke output hash
+`a70aa737f4a5b63a…` — which is the property that matters. The two executables
+are different bytes, as executables built by different compilers on different
+operating systems always are; what has to match is what they compute, and it
+does.
+
+The same holds across rebuilds. Phase 10 was first built on a branch that was
+rejected — one intermediate checkpoint introduced the desktop package before
+its architecture-policy entry, and was red — and then reissued with every
+checkpoint green. The implementation tree is identical, and the reissued builds
+report the same smoke output hash as the rejected ones, while neither
+executable matches its earlier SHA-256: a Nuitka build is not bit-reproducible
+across runs and runner images. That is why the self-test checks computed output
+rather than binary identity.
+
+### Six spec defects, each worth naming
+
+Every one cost a full build cycle, and every one was findable from the
+repository in under a second. They are now checked there, in
+`tests/test_desktop_session.py`:
+
+1. A comment before the first section. `pyside6-deploy` reads the spec through a
+   strict `configparser` path and raised `MissingSectionHeaderError` before
+   Nuitka ran at all.
+2. `--include-package-data` did not carry the syllable dictionary. Nuitka does
+   not treat a `.bin` as package data, so the build loaded 222 rules, reported
+   every identity correctly, and would have silently used a vowel-counting
+   heuristic for every readability metric. **The verifier caught this**, which is
+   the entire reason it was written before the first build.
+3. `--quiet` hid the real Windows error and left a bare non-zero exit.
+4. `--company-name` without a version. Nuitka requires both on Windows.
+5. `--file-description=PlainSpeak desktop review`. `extra_args` is split on
+   whitespace, so Nuitka received three arguments, read two as positional, and
+   died with "specify only one positional argument".
+6. Windows standalone needs Nuitka's dependency walker, which it will not fetch
+   without consent. An unattended build stops on a prompt nobody is there to
+   answer and reports it as a capability problem.
+
+The tests now assert that the spec parses, that every entry in `extra_args` is a
+flag, that the dictionary is named explicitly, that no path is absolute, and
+that no web or network Qt module is bundled.
+
 `--self-test` checks every published identity, the syllable dictionary and the
 exact output hash of a fixture carried inside the package, then exits. It runs
 from a directory containing neither the checkout nor the virtual environment: a
