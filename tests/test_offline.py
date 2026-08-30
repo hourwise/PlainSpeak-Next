@@ -97,6 +97,32 @@ def test_the_inherited_analyser_runs_offline(no_network) -> None:
     assert result.scores.total_words > 0
 
 
+def test_style_diagnostics_run_offline(no_network) -> None:
+    """The layer most likely to be assumed to need a model.
+
+    It does not need one, and this is where that is demonstrated rather than
+    asserted: the whole style analysis runs with the network taken away.
+    """
+    from plainspeak.document import parse_markdown
+    from plainspeak.pipeline.styling import analyze_style
+    from plainspeak.style import STYLE_POLICY_VERSION, analysis_to_json, policy_hash
+
+    source = (
+        "Moreover, the framework enables the team to deliver. "
+        "Moreover, the framework enables the team to report. "
+        "Moreover, the framework enables the team to review. "
+        "Moreover, the framework enables the team to improve. "
+        "Moreover, the framework enables the team to publish. "
+        "Moreover, the framework enables the team to archive.\n"
+    )
+    analysis = analyze_style(parse_markdown.parse(source))
+
+    assert analysis.policy_version == STYLE_POLICY_VERSION
+    assert analysis.policy_hash == policy_hash()
+    assert analysis.findings, "a document this repetitive should produce something"
+    assert analysis_to_json(analysis)
+
+
 def test_the_syllable_dictionary_loads_offline(no_network) -> None:
     from plainspeak.core.syllables import get_syllable_count
 

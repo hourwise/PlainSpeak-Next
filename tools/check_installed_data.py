@@ -63,11 +63,27 @@ def main() -> int:
         print("the installed morphology is not inflecting correctly", file=sys.stderr)
         return 1
 
+    # The style policy decides what a reader is told about their document. An
+    # installed copy whose thresholds differed from the source tree's would give
+    # different answers while reporting the same policy version.
+    from plainspeak.style import STYLE_POLICY_VERSION, analyze
+    from plainspeak.style import policy_hash as style_hash
+
+    if len(style_hash()) != 64:
+        print("the installed style policy has no usable hash", file=sys.stderr)
+        return 1
+    # Two sentences is far below every minimum sample, so a finding here would
+    # mean the installed thresholds are not the reviewed ones.
+    if analyze("A short sentence. Another one here.").findings:
+        print("the installed style policy speaks below its minimum sample", file=sys.stderr)
+        return 1
+
     print(
         f"installed package loads {len(counts)} syllable entries, "
         f"{len(ruleset)} rules (ruleset {ruleset.version} {ruleset.hash[:12]}), "
         f"integrity policy {POLICY_VERSION} ({policy_hash()[:12]}) and "
-        f"morphology {MORPHOLOGY_VERSION} ({morphology_hash()[:12]})"
+        f"morphology {MORPHOLOGY_VERSION} ({morphology_hash()[:12]}) and "
+        f"style policy {STYLE_POLICY_VERSION} ({style_hash()[:12]})"
     )
     return 0
 
