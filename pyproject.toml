@@ -39,6 +39,14 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# The desktop application. Deliberately optional: importing `plainspeak`
+# must never require Qt, and engine-only users should not pay a ~100 MB
+# dependency for a GUI they will not open.
+#
+# Floor 6.8 is the oldest release tested here; the 6.12 ceiling is the next
+# minor, because Qt for Python has moved API between minors before and an
+# untested minor is not a supported one.
+desktop = ["PySide6>=6.8,<6.12"]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
@@ -61,6 +69,7 @@ all = [
 [project.scripts]
 plainspeak = "plainspeak.adapters.cli:main"
 plainspeak-web = "plainspeak.adapters.web:main"
+plainspeak-desktop = "plainspeak.desktop.app:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
