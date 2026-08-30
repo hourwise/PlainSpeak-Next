@@ -52,6 +52,7 @@ Arrows are the *only* permitted directions.
 | `style` | Document-level style diagnostics, and the profiles that interpret them | `style`, `core` |
 | `pipeline` | Orchestration between documents, rules and analysis | `pipeline`, `core`, `document`, `integrity`, `rules`, `style` |
 | `adapters` | Interfaces onto the engine | `adapters`, `pipeline`, `core`, `integrity`, `reporting` |
+| `desktop` | The native review application | `desktop`, `pipeline` |
 
 That table is not a description. `tests/test_architecture.py` parses it out of
 this file and compares it against what the code actually imports, so a

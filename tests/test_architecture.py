@@ -59,6 +59,13 @@ ALLOWED_IMPORTS: dict[str, set[str]] = {
     "pipeline": {"pipeline", "core", "document", "integrity", "rules", "style"},
     # Adapters are the only layer allowed to reach across the whole system.
     "adapters": {"adapters", "pipeline", "core", "integrity", "reporting"},
+    # The desktop application. An adapter, and a stricter one than the CLI: it
+    # reaches `pipeline` and nothing else. Where it needed something the pipeline
+    # did not expose, the answer was to widen the pipeline facade rather than
+    # reach around it — `ReviewBundle` and `PreviewResult` exist because of this
+    # rule. A GUI joining four independent engine authorities together inside a
+    # widget would be re-implementing the engine somewhere nobody would test it.
+    "desktop": {"desktop", "pipeline"},
 }
 
 
@@ -324,7 +331,9 @@ def test_nothing_below_the_orchestration_layer_imports_it() -> None:
     """The dependency runs outwards from `pipeline`, never back into it."""
     offenders = []
     for layer, path in _layer_modules():
-        if layer in (ORCHESTRATION_LAYER, "adapters"):
+        # `adapters` and `desktop` are both above orchestration and are the
+        # only layers permitted to depend on it.
+        if layer in (ORCHESTRATION_LAYER, "adapters", "desktop"):
             continue
         for target, line in _imported_targets(path):
             if target == ORCHESTRATION_LAYER:
@@ -493,6 +502,158 @@ def test_style_cannot_reach_the_firewall_or_the_rule_engine() -> None:
             f"{path.relative_to(PACKAGE_ROOT.parent)} reaches "
             f"{sorted(targets & {'integrity', 'rules', 'pipeline', 'adapters', 'reporting'})}"
         )
+
+
+# -- Qt lives at the edge ---------------------------------------------------
+
+#: Every module that could plausibly gain a Qt import by accident. The desktop
+#: is deliberately absent: it is the one package allowed to know a GUI exists.
+QT_FREE_LAYERS = ("core", "document", "rules", "integrity", "morphology", "style",
+                  "pipeline", "reporting", "adapters")
+
+QT_MODULES = ("PySide6", "PyQt5", "PyQt6", "shiboken6", "shiboken2")
+
+
+@pytest.mark.parametrize("layer", QT_FREE_LAYERS)
+def test_no_engine_layer_imports_qt(layer: str) -> None:
+    """The engine must remain usable, testable and installable without a GUI.
+
+    A single `from PySide6 import ...` inside `pipeline` would make Qt a hard
+    dependency of `import plainspeak`, and every engine-only user would start
+    paying for a toolkit they never open. It would also mean the engine could
+    not be tested on a machine with no display.
+    """
+    offences = []
+    for path in sorted((PACKAGE_ROOT / layer).rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            names = []
+            if isinstance(node, ast.Import):
+                names = [alias.name.split(".")[0] for alias in node.names]
+            elif isinstance(node, ast.ImportFrom) and node.module and not node.level:
+                names = [node.module.split(".")[0]]
+            for name in names:
+                if name in QT_MODULES:
+                    offences.append(
+                        f"{path.relative_to(PACKAGE_ROOT.parent)}:{node.lineno} imports {name}"
+                    )
+    assert not offences, f"Qt reached the `{layer}` layer: " + "; ".join(offences)
+
+
+def test_only_the_desktop_may_import_qt() -> None:
+    """Stated positively as well, so the list above cannot quietly shrink."""
+    importing = set()
+    for path in sorted(PACKAGE_ROOT.rglob("*.py")):
+        source = path.read_text(encoding="utf-8")
+        if any(f"import {module}" in source or f"from {module}" in source
+               for module in QT_MODULES):
+            importing.add(path.relative_to(PACKAGE_ROOT).parts[0])
+    assert importing <= {"desktop"}, f"Qt imported outside the desktop: {sorted(importing)}"
+
+
+def test_importing_plainspeak_does_not_import_qt() -> None:
+    """Checked at runtime, not just statically.
+
+    A lazy import inside a function would pass the static check above and still
+    pull Qt in on the first ordinary call.
+    """
+    import subprocess
+    import sys
+
+    result = subprocess.run(
+        [sys.executable, "-c",
+         "import sys, plainspeak, plainspeak.pipeline;"
+         "print(sorted(m for m in sys.modules if m.split('.')[0] in"
+         " ('PySide6','PyQt5','PyQt6','shiboken6')))"],
+        capture_output=True, text=True, cwd=str(PACKAGE_ROOT.parent), check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.strip() == "[]", f"importing plainspeak pulled in {result.stdout}"
+
+
+def test_importing_the_desktop_package_does_not_import_qt() -> None:
+    """The session, the state machine and the save service are Qt-free.
+
+    They hold the behaviour worth testing, so they are importable — and
+    testable — without an event loop or a display.
+    """
+    import subprocess
+    import sys
+
+    result = subprocess.run(
+        [sys.executable, "-c",
+         "import sys, plainspeak.desktop, plainspeak.desktop.session;"
+         "print(sorted(m for m in sys.modules if m.split('.')[0] in"
+         " ('PySide6','PyQt5','PyQt6','shiboken6')))"],
+        capture_output=True, text=True, cwd=str(PACKAGE_ROOT.parent), check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    assert result.stdout.strip() == "[]", f"importing plainspeak.desktop pulled in {result.stdout}"
+
+
+def test_the_desktop_reaches_only_the_pipeline() -> None:
+    """No shortcut into `rules`, `style`, `integrity`, `document` or `core`.
+
+    Convenience is exactly the reason this would happen, and exactly why it must
+    not: a GUI that read the ruleset directly would be free to disagree with the
+    plan the pipeline built from the same rules.
+    """
+    allowed = ALLOWED_IMPORTS["desktop"]
+    violations = []
+    for path in sorted((PACKAGE_ROOT / "desktop").rglob("*.py")):
+        for target, line in _imported_targets(path):
+            if target in ALLOWED_IMPORTS and target not in allowed:
+                violations.append(
+                    f"{path.relative_to(PACKAGE_ROOT.parent)}:{line} imports `{target}`"
+                )
+    assert not violations, (
+        "the desktop may import only `pipeline`; if something is missing from it, "
+        "widen the pipeline facade rather than reaching around it:\n  "
+        + "\n  ".join(violations)
+    )
+
+
+def test_the_desktop_implements_no_engine_logic() -> None:
+    """No second replacement engine, no second source mapping, no second planner.
+
+    The desktop displays a `PreviewResult` and sends back review decisions. A
+    function here that materialised text or mapped a span would be doing the
+    pipeline's job in a place with no tests and no audit record.
+    """
+    forbidden = {
+        "serialise", "materialize", "materialise", "apply_plan", "build_plan",
+        "propose_change", "map_to_source", "project_document", "integrity_check",
+        "plan_style_changes", "approve_style_changes",
+    }
+    offences = []
+    for path in sorted((PACKAGE_ROOT / "desktop").rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+                if node.name.lower().strip("_") in forbidden:
+                    offences.append(
+                        f"{path.relative_to(PACKAGE_ROOT.parent)}:{node.lineno} "
+                        f"defines `{node.name}`"
+                    )
+    assert not offences, "engine logic found in the desktop: " + "; ".join(offences)
+
+
+def test_the_desktop_offers_no_override_or_bulk_accept() -> None:
+    """Two controls this application deliberately does not have.
+
+    An integrity override would let a person overrule the firewall from a button.
+    An accept-all would defeat the point of a review-required change, which is
+    that somebody looked at it.
+    """
+    forbidden = ("accept_all", "acceptall", "apply_anyway", "override_integrity",
+                 "ignore_integrity", "force_apply")
+    offences = []
+    for path in sorted((PACKAGE_ROOT / "desktop").rglob("*.py")):
+        lowered = path.read_text(encoding="utf-8").lower()
+        for word in forbidden:
+            if word in lowered:
+                offences.append(f"{path.name} mentions {word}")
+    assert not offences, "; ".join(offences)
 
 
 def test_no_rule_module_can_evaluate_code() -> None:
