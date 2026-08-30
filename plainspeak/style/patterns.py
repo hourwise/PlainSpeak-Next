@@ -25,7 +25,7 @@ from collections import Counter, defaultdict
 from typing import Callable, Iterable, Optional, Sequence
 
 from .metrics import content_words, sentences_of, words
-from .model import DocumentStructure, Evidence, Occurrence, ProseBlock, StyleFinding
+from .model import DocumentStructure, Evidence, Occurrence, ProseBlock, StyleObservation
 from .policy import (
     CANNED_FRAMING,
     FLAGGED_VOCABULARY,
@@ -97,29 +97,33 @@ def _excerpt(text: str) -> str:
     return collapsed if len(collapsed) <= EXCERPT else collapsed[: EXCERPT - 1] + "…"
 
 
-def _finding(
+def _observation(
     diagnostic: str,
     category: str,
     value: float,
     sample_size: int,
     message: str,
     evidence: Sequence[Evidence],
-) -> Optional[StyleFinding]:
-    """Build a finding, or nothing when the measurement is unremarkable."""
-    if sample_size < MINIMUM_SAMPLES[diagnostic]:
-        return None
-    severity = severity_for(diagnostic, value)
-    if not severity:
-        return None
-    notice, strong = THRESHOLDS[diagnostic]
-    return StyleFinding(
+) -> Optional[StyleObservation]:
+    """Record a measurement. Nothing here decides what it means.
+
+    Phase 7 applied the sample floor and the thresholds at exactly this point.
+    Both moved out in Phase 8, to `analyze.interpret_baseline` and to the profile
+    interpreter, because a measurement the baseline stays quiet about is one a
+    profile may legitimately want to speak about, and filtering here would have
+    thrown it away before either could see it.
+
+    What has *not* moved is the point at which a diagnostic decides there is
+    nothing to measure — no sentences, no transitions, a single occurrence of
+    something that needs at least two. Those are measurement conditions rather
+    than interpretations, and no profile may override them.
+    """
+    return StyleObservation(
         id=diagnostic,
         category=category,
-        severity=severity,
-        message=message,
         value=value,
-        threshold=strong if severity == "strong" else notice,
         sample_size=sample_size,
+        message=message,
         evidence=tuple(evidence),
     )
 
@@ -127,7 +131,7 @@ def _finding(
 # ── Uniformity ─────────────────────────────────────────────────────────────
 
 
-def sentence_uniformity(text: str, metrics) -> Optional[StyleFinding]:
+def sentence_uniformity(text: str, metrics) -> Optional[StyleObservation]:
     """Sentence lengths that barely vary.
 
     17, 18, 17, 18, 17 reads as machinery in a way 7, 24, 13, 9, 31 does not,
@@ -147,7 +151,7 @@ def sentence_uniformity(text: str, metrics) -> Optional[StyleFinding]:
             total=len(lengths),
         )
     ]
-    return _finding(
+    return _observation(
         SENTENCE_UNIFORMITY,
         "cadence",
         variation,
@@ -158,7 +162,7 @@ def sentence_uniformity(text: str, metrics) -> Optional[StyleFinding]:
     )
 
 
-def paragraph_uniformity(structure: DocumentStructure, metrics) -> Optional[StyleFinding]:
+def paragraph_uniformity(structure: DocumentStructure, metrics) -> Optional[StyleObservation]:
     paragraphs = structure.paragraphs
     variation = metrics.get("paragraph_words_variation")
     lengths = [len(words(block.text)) for block in paragraphs]
@@ -172,7 +176,7 @@ def paragraph_uniformity(structure: DocumentStructure, metrics) -> Optional[Styl
             total=len(lengths),
         )
     ]
-    return _finding(
+    return _observation(
         PARAGRAPH_UNIFORMITY,
         "cadence",
         variation,
@@ -202,7 +206,7 @@ def _repeated_opener(
     diagnostic: str,
     units: Sequence[tuple[str, str]],
     what: str,
-) -> Optional[StyleFinding]:
+) -> Optional[StyleObservation]:
     """The most repeated opener across a set of `(location, text)` units."""
     if not units:
         return None
@@ -236,7 +240,7 @@ def _repeated_opener(
         return None
 
     share, size, label, occurrences = best
-    return _finding(
+    return _observation(
         diagnostic,
         "repetition",
         share,
@@ -247,13 +251,13 @@ def _repeated_opener(
     )
 
 
-def repeated_sentence_opener(text: str) -> Optional[StyleFinding]:
+def repeated_sentence_opener(text: str) -> Optional[StyleObservation]:
     sentences = sentences_of(text)
     units = [(f"sentence {index + 1}", sentence) for index, sentence in enumerate(sentences)]
     return _repeated_opener(REPEATED_SENTENCE_OPENER, units, "sentences")
 
 
-def repeated_paragraph_opener(structure: DocumentStructure) -> Optional[StyleFinding]:
+def repeated_paragraph_opener(structure: DocumentStructure) -> Optional[StyleObservation]:
     units = [(block.location, block.text) for block in structure.paragraphs]
     return _repeated_opener(REPEATED_PARAGRAPH_OPENER, units, "paragraphs")
 
@@ -270,7 +274,7 @@ def _transition_hits(text: str) -> list[str]:
     return found
 
 
-def transition_density(text: str) -> Optional[StyleFinding]:
+def transition_density(text: str) -> Optional[StyleObservation]:
     """How much of the prose is discourse scaffolding."""
     sentences = sentences_of(text)
     hits = _transition_hits(text)
@@ -283,7 +287,7 @@ def transition_density(text: str) -> Optional[StyleFinding]:
         Evidence(label=word, count=number, total=len(hits))
         for word, number in sorted(counts.items(), key=lambda pair: (-pair[1], pair[0]))[:8]
     ]
-    return _finding(
+    return _observation(
         TRANSITION_DENSITY,
         "scaffolding",
         density,
@@ -294,7 +298,7 @@ def transition_density(text: str) -> Optional[StyleFinding]:
     )
 
 
-def repeated_transition(text: str, structure: DocumentStructure) -> Optional[StyleFinding]:
+def repeated_transition(text: str, structure: DocumentStructure) -> Optional[StyleObservation]:
     """One transition doing all the work.
 
     Deliberately separate from density. Eight different transitions is a writer
@@ -317,7 +321,7 @@ def repeated_transition(text: str, structure: DocumentStructure) -> Optional[Sty
         for block in structure.blocks
         if pattern.search(block.text)
     ]
-    return _finding(
+    return _observation(
         REPEATED_TRANSITION,
         "repetition",
         share,
@@ -331,7 +335,7 @@ def repeated_transition(text: str, structure: DocumentStructure) -> Optional[Sty
 # ── Canned framing ─────────────────────────────────────────────────────────
 
 
-def canned_framing(text: str, structure: DocumentStructure) -> Optional[StyleFinding]:
+def canned_framing(text: str, structure: DocumentStructure) -> Optional[StyleObservation]:
     """How often the document announces a statement rather than making it.
 
     Some of these phrases are also Phase 4 transformation rules, which detect
@@ -355,7 +359,7 @@ def canned_framing(text: str, structure: DocumentStructure) -> Optional[StyleFin
                  occurrences=tuple(occurrences[:6]))
         for phrase, number in sorted(counts.items(), key=lambda pair: (-pair[1], pair[0]))[:5]
     ]
-    return _finding(
+    return _observation(
         CANNED_FRAMING,
         "scaffolding",
         density,
@@ -368,7 +372,7 @@ def canned_framing(text: str, structure: DocumentStructure) -> Optional[StyleFin
 # ── Vocabulary ─────────────────────────────────────────────────────────────
 
 
-def vocabulary_overuse(text: str) -> Optional[StyleFinding]:
+def vocabulary_overuse(text: str) -> Optional[StyleObservation]:
     """A flagged word used unusually often.
 
     Not a claim that any of these words means anything about who wrote the text.
@@ -392,7 +396,7 @@ def vocabulary_overuse(text: str) -> Optional[StyleFinding]:
         Evidence(label=word, count=number, total=len(all_words))
         for word, number in sorted(counts.items(), key=lambda pair: (-pair[1], pair[0]))[:8]
     ]
-    return _finding(
+    return _observation(
         VOCABULARY_OVERUSE,
         "repetition",
         rate,
@@ -406,7 +410,7 @@ def vocabulary_overuse(text: str) -> Optional[StyleFinding]:
 # ── Rhetorical constructions ───────────────────────────────────────────────
 
 
-def rhetorical_repetition(text: str) -> Optional[StyleFinding]:
+def rhetorical_repetition(text: str) -> Optional[StyleObservation]:
     """A construction reused across the document.
 
     Every pattern here is ordinary English. The diagnostic is about a writer
@@ -439,7 +443,7 @@ def rhetorical_repetition(text: str) -> Optional[StyleFinding]:
                  occurrences=tuple(examples[name][:6]))
         for name, number in sorted(counts.items(), key=lambda pair: (-pair[1], pair[0]))[:5]
     ]
-    return _finding(
+    return _observation(
         RHETORICAL_REPETITION,
         "rhetoric",
         rate,
@@ -449,7 +453,7 @@ def rhetorical_repetition(text: str) -> Optional[StyleFinding]:
     )
 
 
-def triadic_repetition(text: str) -> Optional[StyleFinding]:
+def triadic_repetition(text: str) -> Optional[StyleObservation]:
     """Three-item lists, used repeatedly.
 
     A three-item list is not a defect. A document that reaches for one in every
@@ -470,7 +474,7 @@ def triadic_repetition(text: str) -> Optional[StyleFinding]:
         return None
 
     rate = len(occurrences) * 10 / len(sentences)
-    return _finding(
+    return _observation(
         TRIADIC_REPETITION,
         "rhetoric",
         rate,
@@ -484,7 +488,7 @@ def triadic_repetition(text: str) -> Optional[StyleFinding]:
 # ── Repeated phrases ───────────────────────────────────────────────────────
 
 
-def repeated_phrase(text: str) -> Optional[StyleFinding]:
+def repeated_phrase(text: str) -> Optional[StyleObservation]:
     """The same phrase, several times over.
 
     Phrases never cross a sentence boundary — a "phrase" spanning a full stop is
@@ -536,7 +540,7 @@ def repeated_phrase(text: str) -> Optional[StyleFinding]:
                  occurrences=tuple(locations[phrase][:6]))
         for phrase, number in repeated[:6]
     ]
-    return _finding(
+    return _observation(
         REPEATED_PHRASE,
         "repetition",
         rate,
@@ -606,7 +610,7 @@ def shared_token_counts(
     return shared, updates
 
 
-def lexical_overlap(structure: DocumentStructure) -> Optional[StyleFinding]:
+def lexical_overlap(structure: DocumentStructure) -> Optional[StyleObservation]:
     """Two paragraphs sharing most of their content words.
 
     Deliberately called *lexical overlap* and nothing else. This measures shared
@@ -651,7 +655,7 @@ def lexical_overlap(structure: DocumentStructure) -> Optional[StyleFinding]:
         return None
 
     score, left_block, right_block = best
-    return _finding(
+    return _observation(
         LEXICAL_OVERLAP,
         "repetition",
         score,
@@ -675,7 +679,7 @@ def lexical_overlap(structure: DocumentStructure) -> Optional[StyleFinding]:
 # ── Structure ──────────────────────────────────────────────────────────────
 
 
-def list_dominance(structure: DocumentStructure) -> Optional[StyleFinding]:
+def list_dominance(structure: DocumentStructure) -> Optional[StyleObservation]:
     """A document that is mostly bullet points.
 
     Worth surfacing and not worth moralising about. Some documents should be
@@ -688,7 +692,7 @@ def list_dominance(structure: DocumentStructure) -> Optional[StyleFinding]:
         return None
 
     share = len(items) / len(blocks)
-    return _finding(
+    return _observation(
         LIST_DOMINANCE,
         "structure",
         share,

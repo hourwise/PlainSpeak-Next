@@ -23,19 +23,30 @@ parser in this project. Style borrows the project's sentence segmentation for
 the same reason.
 
 Style profiles — deciding that a particular band is *wrong* for a particular
-kind of writing — are Phase 8. This phase establishes what can be observed.
+kind of writing — live in `plainspeak.style.profiles`. They change how a
+measurement is read and never what is measured: `observe` produces the numbers,
+`interpret` decides what they mean, and no profile has access to the text.
+
+None of that relaxes anything above. A profile cannot make an authorship claim,
+cannot produce a score, and cannot propose an edit, because there is nowhere in
+its schema to put one.
 """
 
-from .analyze import analyze
+from .analyze import analyze, interpret_baseline, observe
+from .interpret import analyze_with_profile, compare_profiles, interpret
 from .model import (
     BLOCK_KINDS,
     DocumentStructure,
     Evidence,
     Occurrence,
+    ProfiledAnalysis,
     ProseBlock,
     StyleAnalysis,
     StyleFinding,
     StyleMetrics,
+    StyleObservation,
+    StyleObservations,
+    TargetResult,
     text_hash,
 )
 from .policy import (
@@ -49,29 +60,76 @@ from .policy import (
     policy_hash,
     severity_for,
 )
-from .report import analysis_digest, analysis_to_dict, analysis_to_json
+from .profiles import (
+    PROFILE_ORDER,
+    PROFILE_PACK_VERSION,
+    ProfileError,
+    StyleProfile,
+    explain_all,
+    explain_profile,
+    load_pack,
+    load_profile,
+    pack_hash,
+    pack_identity,
+    profile_hash,
+    profile_ids,
+    resolve_profile,
+)
+from .report import (
+    analysis_digest,
+    analysis_to_dict,
+    analysis_to_json,
+    profiled_digest,
+    profiled_to_dict,
+    profiled_to_json,
+)
 
 __all__ = [
     "BLOCK_KINDS",
     "DIAGNOSTIC_IDS",
     "MINIMUM_SAMPLES",
+    "PROFILE_ORDER",
+    "PROFILE_PACK_VERSION",
     "SEVERITIES",
     "STYLE_POLICY_VERSION",
     "THRESHOLDS",
     "DocumentStructure",
     "Evidence",
     "Occurrence",
+    "ProfileError",
+    "ProfiledAnalysis",
     "ProseBlock",
     "StyleAnalysis",
     "StyleFinding",
     "StyleMetrics",
+    "StyleObservation",
+    "StyleObservations",
+    "StyleProfile",
+    "TargetResult",
     "analysis_digest",
     "analysis_to_dict",
     "analysis_to_json",
     "analyze",
+    "analyze_with_profile",
     "canonical_json",
+    "compare_profiles",
+    "explain_all",
+    "explain_profile",
+    "interpret",
+    "interpret_baseline",
+    "load_pack",
+    "load_profile",
+    "observe",
+    "pack_hash",
+    "pack_identity",
     "policy_document",
     "policy_hash",
+    "profile_hash",
+    "profile_ids",
+    "profiled_digest",
+    "profiled_to_dict",
+    "profiled_to_json",
+    "resolve_profile",
     "severity_for",
     "text_hash",
 ]

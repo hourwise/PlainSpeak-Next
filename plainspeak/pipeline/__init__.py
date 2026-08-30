@@ -38,7 +38,16 @@ from .projection import (
     project_block,
     project_document,
 )
-from .styling import analyze_style, structure_of
+from .styling import (
+    analyze_style,
+    analyze_style_with_profile,
+    compare_style_profiles,
+    explain_profile,
+    interpret_style,
+    list_profiles,
+    observe_style,
+    structure_of,
+)
 
 __all__ = [
     "DocumentAnalysis",
@@ -49,6 +58,12 @@ __all__ = [
     "SourceMapping",
     "analyze_document",
     "analyze_style",
+    "analyze_style_with_profile",
+    "compare_style_profiles",
+    "explain_profile",
+    "interpret_style",
+    "list_profiles",
+    "observe_style",
     "project_block",
     "project_document",
     "propose_change",

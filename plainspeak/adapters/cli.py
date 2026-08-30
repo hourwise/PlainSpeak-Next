@@ -19,6 +19,8 @@ from ..core.transform import generate_simplified_text
 from ..reporting.console import format_console_report
 from ..reporting.html import generate_report
 from ..pipeline import rules_api
+from ..pipeline import explain_profile as profile_detail
+from ..pipeline import list_profiles
 from ..reporting.json import generate_json
 
 
@@ -389,6 +391,81 @@ def rules_explain(rule_id: str):
     if item.provenance_reference:
         click.echo(f"  Reference   {item.provenance_reference}")
     click.echo(f"  Licence     {item.provenance_licence}")
+
+
+@main.group()
+def profiles():
+    """Inspect the style profiles.
+
+    Read-only, and deliberately so. A profile decides how a measurement is
+    interpreted for a kind of prose; it proposes no edits, and there is no
+    command here that changes a document. `plainspeak fix --profile` does not
+    exist and will not until style transformation has been designed on its own
+    terms.
+    """
+
+
+@profiles.command("list")
+def profiles_list():
+    """List the built-in style profiles."""
+    described = list_profiles()
+    click.echo(f"{len(described)} built-in profiles" + BLANK)
+    for item in described:
+        moved = sum(1 for value in item["diagnostics"].values() if value["differs_from_baseline"])
+        click.echo(f"  {item['id']:12} {item['name']}")
+        click.echo(f"  {'':12} {item['description']}")
+        click.echo(
+            f"  {'':12} {moved} of {len(item['diagnostics'])} diagnostics differ from "
+            f"the baseline; {len(item['weakly_calibrated'])} weakly calibrated"
+        )
+        click.echo(f"  {'':12} {item['sha256'][:12]}" + BLANK)
+
+
+@profiles.command("explain")
+@click.argument("profile_id")
+def profiles_explain(profile_id: str):
+    """Explain one profile, by ID. For example: technical"""
+    try:
+        item = profile_detail(profile_id.lower())
+    except ValueError as error:
+        # `ProfileError` subclasses ValueError. Caught by the base type because
+        # an adapter may not import `style`, and the layering test enforces it.
+        raise click.ClickException(str(error))
+
+    click.echo(f"{item['id']} v{item['version']}  {item['name']}")
+    click.echo(f"  {item['description']}")
+    click.echo(BLANK + f"  For          {item['target_use']}")
+    click.echo(f"  Provenance   {item['provenance']}")
+    click.echo(f"  Identity     {item['sha256']}")
+    click.echo(f"  Pack         {item['profile_pack_sha256'][:12]}")
+    click.echo(f"  Style policy {item['style_policy_version']}")
+
+    moved = {k: v for k, v in item["diagnostics"].items() if v["differs_from_baseline"]}
+    click.echo(BLANK + f"  Differs from the baseline on {len(moved)} diagnostics:")
+    for key, value in moved.items():
+        click.echo(
+            f"    {key.split('.')[-1]:28} {value['notice']} / {value['strong']}"
+            f"  (baseline {value['baseline_notice']} / {value['baseline_strong']})"
+        )
+        if value["minimum_sample"] != value["baseline_minimum_sample"]:
+            click.echo(
+                f"    {'':28} needs {value['minimum_sample']} samples, not "
+                f"{value['baseline_minimum_sample']}"
+            )
+        click.echo(f"    {'':28} {value['provenance']}")
+
+    if item["targets"]:
+        click.echo(BLANK + "  Target ranges (descriptive, not findings):")
+        for metric, target in item["targets"].items():
+            click.echo(f"    {metric:34} {target['min']} to {target['max']}  ({target['provenance']})")
+
+    if item["disabled"]:
+        click.echo(BLANK + f"  Disabled: {', '.join(item['disabled'])}")
+
+    if item["weakly_calibrated"]:
+        click.echo(BLANK + "  Weakly calibrated — no document on one side of the line:")
+        for key in item["weakly_calibrated"]:
+            click.echo(f"    {key}")
 
 
 @main.command()

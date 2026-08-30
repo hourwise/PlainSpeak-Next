@@ -95,3 +95,58 @@ def test_the_cli_exposes_only_read_only_rule_commands() -> None:
     from plainspeak.adapters.cli import rules
 
     assert set(rules.commands) == {"list", "explain"}
+
+
+# ── Profiles ───────────────────────────────────────────────────────────────
+#
+# `plainspeak profiles` is read-only, and that is the point. Phase 8 defines the
+# reference frame a style fix will eventually need. It grants no authority to
+# make one, so there is no command here that changes a document and the absence
+# is asserted rather than assumed.
+
+
+def test_profiles_list_shows_every_profile(run) -> None:
+    result = run("profiles", "list")
+
+    assert result.exit_code == 0
+    for identifier in ("natural", "plain", "technical", "government", "academic"):
+        assert identifier in result.output
+
+
+def test_profiles_list_reports_how_many_thresholds_moved(run) -> None:
+    result = run("profiles", "list")
+
+    assert "differ from the baseline" in result.output
+    assert "weakly calibrated" in result.output
+
+
+def test_profiles_explain_shows_the_numbers_and_their_provenance(run) -> None:
+    result = run("profiles", "explain", "technical")
+
+    assert result.exit_code == 0
+    assert "LIST_DOMINANCE" in result.output
+    assert "baseline" in result.output
+    assert "project-calibration" in result.output
+    assert "Target ranges" in result.output
+
+
+def test_profiles_explain_discloses_weak_calibration(run) -> None:
+    """A threshold with no data on one side must say so where a user can see it."""
+    assert "Weakly calibrated" in run("profiles", "explain", "plain").output
+
+
+def test_profiles_explain_is_case_insensitive(run) -> None:
+    assert run("profiles", "explain", "Technical").exit_code == 0
+
+
+def test_an_unknown_profile_is_an_error_not_a_default(run) -> None:
+    result = run("profiles", "explain", "natrual")
+
+    assert result.exit_code != 0
+    assert "natrual" in result.output
+    assert "natural" in result.output
+
+
+def test_the_cli_offers_no_command_that_changes_a_document_by_profile(run) -> None:
+    for attempt in (("profiles", "fix"), ("profiles", "apply"), ("fix",)):
+        assert run(*attempt).exit_code != 0, attempt

@@ -116,6 +116,44 @@ class Evidence:
 
 
 @dataclass(frozen=True)
+class StyleObservation:
+    """One measurement, before anybody decides what it means.
+
+    This is the seam between Phase 7 and Phase 8. A diagnostic measures — and
+    produces one of these, carrying the number, the sample it came from and the
+    places a reader can go and look. Whether that number crosses a line is a
+    separate question, answered by the base policy for a baseline analysis and by
+    a profile for a profiled one.
+
+    The split is what makes "measure once, interpret many" possible, and it is
+    also what makes the invariant testable: five profiles reading the same
+    observations cannot disagree about the metrics, because they never touch
+    them.
+
+    An observation is produced whenever there is something to measure at all.
+    Sample-size floors and thresholds are applied afterwards, so a profile can
+    interpret a measurement the baseline chose to stay quiet about.
+    """
+
+    id: str
+    category: str
+    value: float
+    sample_size: int
+    message: str
+    evidence: tuple[Evidence, ...] = ()
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "id": self.id,
+            "category": self.category,
+            "value": round(self.value, 6),
+            "sample_size": self.sample_size,
+            "message": self.message,
+            "evidence": [item.as_dict() for item in self.evidence],
+        }
+
+
+@dataclass(frozen=True)
 class StyleFinding:
     """One observation about the document, with its arithmetic attached."""
 
@@ -213,4 +251,118 @@ class StyleAnalysis:
             "metrics": self.metrics.as_dict(),
             "profile": self.profile,
             "findings": [finding.as_dict() for finding in self.findings],
+        }
+
+
+@dataclass(frozen=True)
+class StyleObservations:
+    """Everything measured about one document, before interpretation.
+
+    The reusable half. One of these is produced per document and read by as many
+    profiles as a caller cares to compare, which is why comparing five profiles
+    costs one measurement rather than five.
+    """
+
+    document_hash: str
+    metrics: StyleMetrics
+    observations: tuple[StyleObservation, ...] = ()
+
+    def by_id(self) -> dict[str, StyleObservation]:
+        return {item.id: item for item in self.observations}
+
+
+@dataclass(frozen=True)
+class TargetResult:
+    """How one metric sits against a profile's expected range.
+
+    Deliberately not a finding. A value outside a target range is reported as
+    outside the range, with the range shown, and no part of this package will
+    call it a defect: prose that sits outside the expectations for one kind of
+    writing is very often prose aimed at a different kind.
+    """
+
+    metric: str
+    value: float
+    minimum: float
+    maximum: float
+    state: str
+    provenance: str
+
+    @property
+    def within(self) -> bool:
+        return self.state == "within"
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "metric": self.metric,
+            "value": _round(self.value),
+            "min": _round(self.minimum),
+            "max": _round(self.maximum),
+            "state": self.state,
+            "provenance": self.provenance,
+        }
+
+
+@dataclass(frozen=True)
+class ProfiledAnalysis:
+    """One document, read against one profile.
+
+    Carries the profile that produced it, always. A style report that did not
+    say which expectations it was written against would be uninterpretable — the
+    same document is legitimately a finding under one profile and silent under
+    another, and a reader needs to know which question was asked.
+
+    There is still no score. Profiles change what is reported, not whether the
+    output can be collapsed into a number, and it cannot.
+    """
+
+    document_hash: str
+    policy_version: str
+    policy_hash: str
+    profile_id: str
+    profile_version: int
+    profile_hash: str
+    pack_hash: str
+    metrics: StyleMetrics
+    findings: tuple[StyleFinding, ...] = ()
+    targets: tuple[TargetResult, ...] = ()
+    #: Diagnostics this profile switched off, so a reader can tell "nothing
+    #: found" from "not looked for".
+    disabled: tuple[str, ...] = ()
+
+    @property
+    def profile(self) -> dict[str, str]:
+        """A band per diagnostic, under this profile's interpretation."""
+        from .policy import DIAGNOSTIC_IDS
+
+        bands = {identifier: "none" for identifier in DIAGNOSTIC_IDS}
+        for identifier in self.disabled:
+            bands[identifier] = "not-assessed"
+        order = {"none": 0, "not-assessed": 0, "info": 1, "notice": 2, "strong": 3}
+        for finding in self.findings:
+            if order[finding.severity] > order[bands.get(finding.id, "none")]:
+                bands[finding.id] = finding.severity
+        return dict(sorted(bands.items()))
+
+    def outside_target(self) -> tuple[TargetResult, ...]:
+        return tuple(item for item in self.targets if not item.within)
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "document_sha256": self.document_hash,
+            "findings": [finding.as_dict() for finding in self.findings],
+            "metrics": self.metrics.as_dict(),
+            "profile": {
+                "id": self.profile_id,
+                "version": self.profile_version,
+                "sha256": self.profile_hash,
+                "disabled": list(self.disabled),
+            },
+            "profile_bands": self.profile,
+            "profile_pack_sha256": self.pack_hash,
+            "style_policy": {
+                "version": self.policy_version,
+                "sha256": self.policy_hash,
+            },
+            "targets": [target.as_dict() for target in self.targets],
         }

@@ -25,8 +25,14 @@ from ..document.model import (
     Quote,
     Table,
 )
-from ..style import DocumentStructure, ProseBlock, StyleAnalysis
+from ..style import DocumentStructure, ProfiledAnalysis, ProseBlock, StyleAnalysis
+from ..style import StyleObservations
 from ..style import analyze as analyze_prose
+from ..style import compare_profiles as compare_prose_profiles
+from ..style import interpret as interpret_prose
+from ..style import observe as observe_prose
+from ..style import explain_all as explain_prose_profiles
+from ..style import explain_profile as explain_prose_profile
 from .projection import Projection, project_document
 
 #: Which document node maps to which style block kind. Anything absent from this
@@ -49,6 +55,44 @@ def analyze_style(
     """Measure how a structured document is written."""
     view = projection if projection is not None else project_document(document)
     return analyze_prose(view.text, structure_of(document, view))
+
+
+def observe_style(
+    document: Document, projection: Optional[Projection] = None
+) -> StyleObservations:
+    """Measure a document once, for as many profiles as a caller wants.
+
+    The expensive half. Callers comparing profiles should call this and then
+    `interpret_style` per profile, rather than `analyze_style_with_profile` per
+    profile, which would re-measure each time.
+    """
+    view = projection if projection is not None else project_document(document)
+    return observe_prose(view.text, structure_of(document, view))
+
+
+def interpret_style(observed: StyleObservations, profile) -> ProfiledAnalysis:
+    """Read an existing measurement against one profile. Cheap."""
+    return interpret_prose(observed, profile)
+
+
+def analyze_style_with_profile(
+    document: Document, profile, projection: Optional[Projection] = None
+) -> ProfiledAnalysis:
+    """Measure a document and read it against one named profile.
+
+    There is no default. An unknown or absent profile is an error rather than a
+    quiet fall back to `natural`, because a configuration typo that analysed a
+    specification against conversational expectations would produce a report that
+    looked entirely normal and was answering the wrong question.
+    """
+    return interpret_style(observe_style(document, projection), profile)
+
+
+def compare_style_profiles(
+    document: Document, profiles=None, projection: Optional[Projection] = None
+) -> dict:
+    """One measurement, read against several profiles."""
+    return compare_prose_profiles(observe_style(document, projection), profiles)
 
 
 def structure_of(document: Document, view: Projection) -> DocumentStructure:
@@ -136,3 +180,20 @@ def _walk(document: Document):
 
     for block in document.blocks:
         yield from visit(block, False, False)
+
+
+# ── Adapter-facing view ────────────────────────────────────────────────────
+#
+# `adapters` may reach `pipeline` and not `style`, so a CLI or a desktop pane
+# asks here. Read-only, deliberately: Phase 8 establishes the reference frame a
+# style fix would need and grants no authority to make one.
+
+
+def list_profiles() -> list:
+    """Every bundled profile, in canonical display order, as plain data."""
+    return explain_prose_profiles()
+
+
+def explain_profile(identifier: str) -> dict:
+    """One profile, in enough detail to choose it or argue with it."""
+    return explain_prose_profile(identifier)
