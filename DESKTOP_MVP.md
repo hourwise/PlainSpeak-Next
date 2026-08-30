@@ -245,6 +245,57 @@ already through `package-data`.
 `tools/record_desktop_build.py` verifies the bundle contains that data and a
 real executable, and writes a manifest with the executable's SHA-256.
 
+### Build evidence
+
+Both produced on candidate `5181f24a366f49870f105899280e32931698dde1`, CI run
+33321453443, and both self-tested from a directory containing neither the
+checkout nor the virtual environment.
+
+| | Linux | Windows |
+|---|---|---|
+| bundle | 131 files, 162.0 MiB | 78 files, 80.8 MiB |
+| executable | `PlainSpeak.dist/desktop_main.bin`, 17.4 MiB | `PlainSpeak.dist/desktop_main.exe`, 13.2 MiB |
+| SHA-256 | `fdd72b0f7b71c985…` | `f76d33b7163f7d83…` |
+| syllable dictionary | present | present |
+| bundled rules | present | present |
+| style profiles | present | present |
+| self-test | OK | OK |
+
+Both report ruleset 2026.3 / `7eddd0710ec1` / 222 rules / 8 style fixes,
+integrity 2026.1, morphology 2026.1, style policy 2026.1, profile pack 2026.1
+with all five profiles, and the **same** smoke output hash
+`a70aa737f4a5b63a…` — which is the property that matters. The two executables
+are different bytes, as executables built by different compilers on different
+operating systems always are; what has to match is what they compute, and it
+does.
+
+### Six spec defects, each worth naming
+
+Every one cost a full build cycle, and every one was findable from the
+repository in under a second. They are now checked there, in
+`tests/test_desktop_session.py`:
+
+1. A comment before the first section. `pyside6-deploy` reads the spec through a
+   strict `configparser` path and raised `MissingSectionHeaderError` before
+   Nuitka ran at all.
+2. `--include-package-data` did not carry the syllable dictionary. Nuitka does
+   not treat a `.bin` as package data, so the build loaded 222 rules, reported
+   every identity correctly, and would have silently used a vowel-counting
+   heuristic for every readability metric. **The verifier caught this**, which is
+   the entire reason it was written before the first build.
+3. `--quiet` hid the real Windows error and left a bare non-zero exit.
+4. `--company-name` without a version. Nuitka requires both on Windows.
+5. `--file-description=PlainSpeak desktop review`. `extra_args` is split on
+   whitespace, so Nuitka received three arguments, read two as positional, and
+   died with "specify only one positional argument".
+6. Windows standalone needs Nuitka's dependency walker, which it will not fetch
+   without consent. An unattended build stops on a prompt nobody is there to
+   answer and reports it as a capability problem.
+
+The tests now assert that the spec parses, that every entry in `extra_args` is a
+flag, that the dictionary is named explicitly, that no path is absolute, and
+that no web or network Qt module is bundled.
+
 `--self-test` checks every published identity, the syllable dictionary and the
 exact output hash of a fixture carried inside the package, then exits. It runs
 from a directory containing neither the checkout nor the virtual environment: a
