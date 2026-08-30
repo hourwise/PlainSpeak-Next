@@ -1,4 +1,4 @@
-ruleset_version: "2026.2"
+ruleset_version: "2026.3"
 description: >
   The rules PlainSpeak Next ships with. Every rule states what it matches,
   what it would do, why, where it came from, and the cases where it must stay
@@ -13,3 +13,9 @@ description: >
   The bias throughout is towards refusing. Being able to detect a phrase is not
   the same as being able to rewrite it safely, and where grammar or meaning
   could depend on context the rule is a diagnostic.
+
+  2026.3 activates the `style-fix` mode and adds eight transition
+  substitutions. A style fix is not a safe fix: it is a preference relative to a
+  chosen style profile, it may propose nothing until the style layer has
+  produced the finding that justifies it, and it always requires human review.
+  No style fix can enter the accepted set of a plan.

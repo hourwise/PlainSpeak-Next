@@ -238,8 +238,26 @@ def test_lookup_by_id(bundled: Ruleset) -> None:
 
 
 def test_mode_partitions_cover_every_rule(bundled: Ruleset) -> None:
-    total = len(bundled.safe_fixes) + len(bundled.diagnostics) + len(bundled.protections)
+    total = (
+        len(bundled.safe_fixes)
+        + len(bundled.diagnostics)
+        + len(bundled.protections)
+        + len(bundled.style_fixes)
+    )
     assert total == len(bundled)
+
+
+def test_style_fixes_are_a_separate_partition(bundled: Ruleset) -> None:
+    """Never folded in with the safe fixes.
+
+    A caller asking for "the rules that propose edits" and receiving both would
+    be one refactor away from applying a stylistic preference automatically, so
+    the two sets are kept apart at the point where somebody would be tempted.
+    """
+    assert bundled.style_fixes
+    assert not set(bundled.style_fixes) & set(bundled.safe_fixes)
+    for rule in bundled.style_fixes:
+        assert not rule.is_automatic
 
 
 # ── Cross-platform identity ────────────────────────────────────────────────
@@ -276,3 +294,32 @@ def test_the_bundled_ruleset_has_its_expected_identity(bundled: Ruleset) -> None
         "  If you did not edit a rule, something platform-dependent has reached the\n"
         "  canonical form, and that is a bug in the hashing rather than in this test."
     )
+
+
+def test_the_bundled_ruleset_is_loaded_once_per_process() -> None:
+    """Parsing 222 rules costs about half a second, and it is a pure function.
+
+    Nothing called this often enough to matter until Phase 9: the transformation
+    planner takes a ruleset once per document, but style planning takes one per
+    document *per profile*, so comparing five profiles was paying two and a half
+    seconds of YAML parsing to answer a question the first load had answered.
+    """
+    from plainspeak.rules import load_ruleset
+
+    first, second = load_ruleset(), load_ruleset()
+    assert first is second
+    assert first.hash == second.hash
+
+
+def test_an_explicit_root_is_never_cached(ruleset_from) -> None:
+    """A caller naming a directory gets what is in it now.
+
+    Only the bundled tree is cached, because only the bundled tree cannot change
+    under a running process. Every test that writes a rule into a temporary
+    directory depends on this.
+    """
+    from plainspeak.rules import load_ruleset
+
+    first = ruleset_from(VALID_RULE)
+    assert first is not load_ruleset()
+    assert first.hash != load_ruleset().hash

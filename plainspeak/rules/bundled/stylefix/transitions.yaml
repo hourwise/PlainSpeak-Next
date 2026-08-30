@@ -1,0 +1,378 @@
+# Style fixes for over-used discourse connectives.
+#
+# Every rule here is one exact phrase replaced by one exact phrase of the same
+# discourse class. Nothing is deleted, nothing is reordered, and no sentence
+# changes shape: "Nevertheless," and "Even so," occupy the same slot and do the
+# same job, so the substitution is visible to a reviewer in its entirety.
+#
+# None of these fires on its own. Each declares the style diagnostic that must be
+# present — under the *selected profile*, not the baseline — and the evidence
+# label that finding must name. A document that uses "nevertheless" twice
+# produces no finding, so it produces no proposals, and the rule never has to
+# form an opinion about whether twice is too often. That question belongs to the
+# style layer and stays there.
+#
+# All of them require review. A profile saying prose is repetitive is a
+# preference about a target style, and a preference does not become an automatic
+# edit because a threshold was crossed.
+#
+# ## What is deliberately absent
+#
+# **Anything the safe-fix ruleset already handles.** The first draft of this file
+# had rules for "furthermore", "moreover", "additionally" and "consequently".
+# Every one of them was permanently superseded by an existing Phase 6 safe fix —
+# PS.LEXICAL.161, .183, .103 and .122 replace exactly those words automatically,
+# and mode precedence means the style proposal loses every time. Four rules that
+# could never produce a single review item is worse than four rules that do not
+# exist, so they were removed. `tests/test_style_transformations.py` pins that
+# finding so the mistake is not made again.
+#
+# **Anything that changes register.** "However," to "But", "Therefore," to "So",
+# "Hence," to "So" are all common advice and all shift formality in a way a
+# specification or a scholarly argument would not want. A profile-relative
+# engine could in principle make those judgements. It has not earned them yet.
+#
+# **Anything ambiguous.** "Meanwhile" is sometimes temporal and sometimes
+# contrastive, and no exact replacement covers both readings.
+
+id: PS.STYLEFIX.001
+version: 1
+name: repeated-nevertheless
+mode: style-fix
+description: >
+  "Nevertheless" and "Even so" are concessive connectives of the same strength:
+  both concede what came before and continue anyway. Where a document has leaned
+  on one of them often enough for the style layer to say so under the selected
+  profile, substituting the plainer form in the later occurrences varies the
+  prose without altering what any sentence claims.
+match:
+  type: phrase
+  text: "Nevertheless,"
+  case: sensitive
+action:
+  type: replace
+  replacement: "Even so,"
+case:
+  policy: exact
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 40
+requires_diagnostic:
+  id: PS.STYLE.REPEATED_TRANSITION
+  evidence_label: "nevertheless"
+review:
+  required: true
+reason:
+  short: "Varies a concessive transition the chosen profile finds over-concentrated"
+provenance:
+  source: "PlainSpeak project style research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "Nevertheless, the committee proceeded."
+  negative:
+    - "It proceeded nevertheless, which surprised nobody."
+  transform:
+    - before: "Nevertheless, the committee proceeded."
+      after: "Even so, the committee proceeded."
+
+---
+id: PS.STYLEFIX.002
+version: 1
+name: repeated-nonetheless
+mode: style-fix
+description: >
+  "Nonetheless" is the same concessive connective as "nevertheless" in a
+  different spelling, and takes the same substitution for the same reason.
+match:
+  type: phrase
+  text: "Nonetheless,"
+  case: sensitive
+action:
+  type: replace
+  replacement: "Even so,"
+case:
+  policy: exact
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 40
+requires_diagnostic:
+  id: PS.STYLE.REPEATED_TRANSITION
+  evidence_label: "nonetheless"
+review:
+  required: true
+reason:
+  short: "Varies a concessive transition the chosen profile finds over-concentrated"
+provenance:
+  source: "PlainSpeak project style research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "Nonetheless, the figures were published."
+  negative:
+    - "They published nonetheless, without comment."
+  transform:
+    - before: "Nonetheless, the figures were published."
+      after: "Even so, the figures were published."
+
+---
+id: PS.STYLEFIX.003
+version: 1
+name: repeated-conversely
+mode: style-fix
+description: >
+  "Conversely" and "By contrast" both mark the sentence that follows as the
+  opposite of the one before. The substitution is exact and keeps the register:
+  neither form is informal, and the sentence structure is untouched.
+match:
+  type: phrase
+  text: "Conversely,"
+  case: sensitive
+action:
+  type: replace
+  replacement: "By contrast,"
+case:
+  policy: exact
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 40
+requires_diagnostic:
+  id: PS.STYLE.REPEATED_TRANSITION
+  evidence_label: "conversely"
+review:
+  required: true
+reason:
+  short: "Varies a contrastive transition the chosen profile finds over-concentrated"
+provenance:
+  source: "PlainSpeak project style research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "Conversely, the second cohort improved."
+  negative:
+    - "The result held conversely, as the paper notes."
+  transform:
+    - before: "Conversely, the second cohort improved."
+      after: "By contrast, the second cohort improved."
+
+---
+id: PS.STYLEFIX.004
+version: 1
+name: repeated-subsequently
+mode: style-fix
+description: >
+  "Subsequently" and "After that" both place the following sentence later in a
+  sequence. The substitution keeps the ordering relation exactly and does not
+  reach for a vaguer word such as "later", which would widen what the sentence
+  claims.
+match:
+  type: phrase
+  text: "Subsequently,"
+  case: sensitive
+action:
+  type: replace
+  replacement: "After that,"
+case:
+  policy: exact
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 40
+requires_diagnostic:
+  id: PS.STYLE.REPEATED_TRANSITION
+  evidence_label: "subsequently"
+review:
+  required: true
+reason:
+  short: "Varies a sequential transition the chosen profile finds over-concentrated"
+provenance:
+  source: "PlainSpeak project style research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "Subsequently, the panel reconvened."
+  negative:
+    - "The panel met subsequently, in April."
+  transform:
+    - before: "Subsequently, the panel reconvened."
+      after: "After that, the panel reconvened."
+
+---
+id: PS.STYLEFIX.005
+version: 1
+name: repeated-for-instance
+mode: style-fix
+description: >
+  "For instance" and "For example" are interchangeable in every context either
+  appears in. Both remain discourse markers, so this substitution varies a
+  concentration without changing how heavily the prose signposts — which is the
+  correct effect for a repetition finding and not for a density one.
+match:
+  type: phrase
+  text: "For instance,"
+  case: sensitive
+action:
+  type: replace
+  replacement: "For example,"
+case:
+  policy: exact
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 40
+requires_diagnostic:
+  id: PS.STYLE.REPEATED_TRANSITION
+  evidence_label: "for instance"
+review:
+  required: true
+reason:
+  short: "Varies an illustrative transition the chosen profile finds over-concentrated"
+provenance:
+  source: "PlainSpeak project style research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "For instance, the form asks for a date of birth."
+  negative:
+    - "Use this form for instance, records held after 1990."
+  transform:
+    - before: "For instance, the form asks for a date of birth."
+      after: "For example, the form asks for a date of birth."
+
+---
+id: PS.STYLEFIX.006
+version: 1
+name: repeated-likewise
+mode: style-fix
+description: >
+  "Likewise" and "Similarly" mark the same relation — what follows resembles what
+  came before — and are the two words writers alternate between when they notice
+  they have used one too often.
+match:
+  type: phrase
+  text: "Likewise,"
+  case: sensitive
+action:
+  type: replace
+  replacement: "Similarly,"
+case:
+  policy: exact
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 40
+requires_diagnostic:
+  id: PS.STYLE.REPEATED_TRANSITION
+  evidence_label: "likewise"
+review:
+  required: true
+reason:
+  short: "Varies a comparative transition the chosen profile finds over-concentrated"
+provenance:
+  source: "PlainSpeak project style research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "Likewise, the second site reported no faults."
+  negative:
+    - "The site behaved likewise, throughout the trial."
+  transform:
+    - before: "Likewise, the second site reported no faults."
+      after: "Similarly, the second site reported no faults."
+
+---
+id: PS.STYLEFIX.007
+version: 1
+name: dense-in-addition
+mode: style-fix
+description: >
+  A three-word connective replaced by a one-word one that does the same job.
+  This rule exists for transition *density* rather than concentration: where a
+  document signposts more heavily than the chosen profile expects, the padded
+  forms are the ones worth shortening first, and "Also" carries the same additive
+  relation in a quarter of the words. "Also" is not itself a counted discourse
+  marker, so the substitution genuinely reduces the measurement rather than
+  moving it.
+match:
+  type: phrase
+  text: "In addition,"
+  case: sensitive
+action:
+  type: replace
+  replacement: "Also,"
+case:
+  policy: exact
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 40
+requires_diagnostic:
+  id: PS.STYLE.TRANSITION_DENSITY
+  evidence_label: "in addition"
+review:
+  required: true
+reason:
+  short: "Shortens a padded connective where the chosen profile finds signposting dense"
+provenance:
+  source: "PlainSpeak project style research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "In addition, the fee is waived for anyone on a low income."
+  negative:
+    - "The clause in addition, as amended, was withdrawn."
+  transform:
+    - before: "In addition, the fee is waived for anyone on a low income."
+      after: "Also, the fee is waived for anyone on a low income."
+
+---
+id: PS.STYLEFIX.008
+version: 1
+name: dense-that-said
+mode: style-fix
+description: >
+  "That said" and "Even so" are the same concessive move, and the shorter of the
+  two is not a discourse marker the density measure counts. Offered where the
+  chosen profile finds the prose heavily signposted.
+match:
+  type: phrase
+  text: "That said,"
+  case: sensitive
+action:
+  type: replace
+  replacement: "Even so,"
+case:
+  policy: exact
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 40
+requires_diagnostic:
+  id: PS.STYLE.TRANSITION_DENSITY
+  evidence_label: "that said"
+review:
+  required: true
+reason:
+  short: "Shortens a padded connective where the chosen profile finds signposting dense"
+provenance:
+  source: "PlainSpeak project style research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "That said, the deadline has not moved."
+  negative:
+    - "Everything that said, in the minutes, was recorded."
+  transform:
+    - before: "That said, the deadline has not moved."
+      after: "Even so, the deadline has not moved."

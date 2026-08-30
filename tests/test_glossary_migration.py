@@ -38,12 +38,20 @@ INVENTORY_PATH = REPO_ROOT / "migration" / "glossary-inventory.json"
 #: exactly when a reviewer should be looking.
 INVENTORY_HASH = "b1657b20e4a4a0768d9c4b6b9d783d2293e1b20f98b6ae8bfbed91d72bc5fc3d"
 
-#: The ruleset after migration. The Phase 4 identity was 2026.1 / 38 /
-#: 2110d4ed…; migration deliberately changes the ruleset, so the version is
-#: bumped rather than the old hash quietly retained.
-RULESET_VERSION = "2026.2"
-RULESET_COUNT = 214
-RULESET_HASH = "e5aaf376077a85f8088baee8b6e9b17a44a7064542e5370f2f48535bcdc0827d"
+#: The ruleset as it currently ships. Phase 4 was 2026.1 / 38 / 2110d4ed…;
+#: the glossary migration made it 2026.2 / 214 / e5aaf376…; Phase 9 activated
+#: the `style-fix` mode and added eight transition substitutions, making it
+#: 2026.3 / 222. Each step bumps the version rather than quietly retaining an
+#: old hash, because each changes what the engine will do to a document.
+#:
+#: The migration figures below are unchanged: Phase 9 added rules in a new
+#: family and renumbered nothing.
+RULESET_VERSION = "2026.3"
+RULESET_COUNT = 222
+#: How many of those came from the glossary migration. Pinned separately so a
+#: later phase adding rules cannot silently change what this file is about.
+MIGRATED_RULESET_COUNT = 214
+RULESET_HASH = "7eddd0710ec15b7bdc940321d08dd2c4882e1561e11f8473fb1f2148709c0461"
 
 #: Rule IDs that existed before the migration. These must never be renumbered:
 #: an ID is a permanent public identity that an audit record may already name.

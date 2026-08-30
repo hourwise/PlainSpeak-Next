@@ -55,8 +55,28 @@ def test_the_ruleset_covers_several_families() -> None:
 
 def test_every_mode_is_represented() -> None:
     """A ruleset of nothing but safe fixes would not be a conservative one."""
+    from plainspeak.rules.schema import MODE_STYLE_FIX
+
     modes = {rule.mode for rule in RULES}
-    assert modes == {MODE_SAFE_FIX, MODE_DIAGNOSTIC, MODE_PROTECTED}
+    assert modes == {MODE_SAFE_FIX, MODE_DIAGNOSTIC, MODE_PROTECTED, MODE_STYLE_FIX}
+
+
+def test_no_style_fix_is_automatic() -> None:
+    """The guarantee, asserted over the shipped rules rather than the schema.
+
+    A style fix is a preference relative to a chosen profile. Every one of them
+    declares `review.required: true`, none of them is in the automatic modes, and
+    the loader has no way to build one that says otherwise.
+    """
+    from plainspeak.rules.schema import AUTOMATIC_MODES, MODE_STYLE_FIX
+
+    style_fixes = [rule for rule in RULES if rule.mode == MODE_STYLE_FIX]
+    assert style_fixes, "the ruleset ships no style fixes at all"
+    for rule in style_fixes:
+        assert rule.review is not None and rule.review.required is True, rule.id
+        assert rule.mode not in AUTOMATIC_MODES
+        assert not rule.is_automatic, rule.id
+        assert rule.trigger is not None, rule.id
 
 
 def test_rule_ids_are_unique_and_well_formed() -> None:

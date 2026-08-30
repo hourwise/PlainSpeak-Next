@@ -26,3 +26,7 @@ tests/style/corpus-findings.json   -text
 # The profile calibration corpus and its snapshot: the profile thresholds
 # were drawn against these exact bytes.
 tests/style/profiles/**                     -text
+
+# The Phase 9 style-transformation fixtures: the surplus arithmetic and the
+# pinned proposal identifiers are computed over these exact bytes.
+tests/style/stylefix/**                     -text
