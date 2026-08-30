@@ -38,6 +38,7 @@ from .projection import (
     project_block,
     project_document,
 )
+from .styling import analyze_style, structure_of
 
 __all__ = [
     "DocumentAnalysis",
@@ -47,7 +48,9 @@ __all__ = [
     "ProposedChange",
     "SourceMapping",
     "analyze_document",
+    "analyze_style",
     "project_block",
     "project_document",
     "propose_change",
+    "structure_of",
 ]
