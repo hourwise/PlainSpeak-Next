@@ -63,11 +63,57 @@ PlainSpeak gives writers and advocates a free, offline tool to check whether tex
 - [x] **Document-level style diagnostics** — cadence, repetition, transition and vocabulary patterns, each reported with the arithmetic behind it. Diagnostic only: no authorship claim, no aggregate score, no automatic fixes (see [STYLE_CALIBRATION.md](STYLE_CALIBRATION.md))
 - [x] **Style profiles** — five calibrated interpretations (Natural, Plain, Technical, Government, Academic) of the same measurements, so a specification and an essay are not judged against identical expectations. `plainspeak profiles list` (see [STYLE_PROFILES.md](STYLE_PROFILES.md))
 - [x] **Profile-governed style suggestions** — eight exact phrase substitutions that a chosen profile can trigger, every one requiring human review before it changes anything. `plainspeak style preview --profile natural` (see [STYLE_TRANSFORMATIONS.md](STYLE_TRANSFORMATIONS.md))
-- [x] Test suite (**3,862 tests**, all passing)
+- [x] **Native desktop review application** (PySide6) — side-by-side original and revised panes, per-suggestion accept and reject, integrity refusals shown and non-overridable, and the source document never overwritten (see [DESKTOP_MVP.md](DESKTOP_MVP.md))
+- [x] Test suite (**4,021 tests**, all passing)
 
 ## How to run it
 
-### Web interface (recommended for most users)
+### Desktop application (recommended)
+
+```bash
+pip install -e ".[desktop]"
+plainspeak-desktop
+```
+
+A native window with the original document on the left and the revised version
+on the right.
+
+> **PlainSpeak does not overwrite the document you open.** There is no Save
+> command — only **Save As** — and Save As refuses any destination that
+> resolves to the file you opened. The original is left exactly as it was, at
+> every point in the workflow.
+
+**Supported files.** `.txt`, `.md` and `.markdown`. DOCX, PDF and HTML are
+refused with an explanation rather than opened: they currently load as
+undifferentiated text, which is an honest fallback for analysis and a poor
+foundation for editing — you would reasonably assume a revised .docx had kept
+its structure, and nothing in the engine can promise that yet.
+
+**Profiles.** Natural, Plain, Technical, Government and Academic. The same
+document is read against different expectations: a specification that repeats a
+defined term forty times is doing its job, and the identical measurement in an
+essay is a writer with a tic. Changing profile clears your review decisions,
+because a decision belongs to the profile it was made under.
+
+**Two kinds of change, and they look different.**
+
+| | |
+|---|---|
+| `SAFE` | A mechanically safe change. Already applied; you can inspect it. |
+| `REVIEW` | A style suggestion for the profile you chose. **Nothing happens until you accept it.** |
+| `REFUSED` | PlainSpeak will not make this change. There is no override. |
+
+Rejecting a suggestion keeps your wording and leaves the observation standing —
+you disagreed about what to do, not about what was measured.
+
+**Offline.** No network on any path. No update check, no analytics, no crash
+reporting, no telemetry, no model, no embeddings.
+
+**Not yet.** No manual editing — both panes are read-only. No Accept All. No
+structured DOCX or PDF. No custom profiles. See
+[DESKTOP_MVP.md](DESKTOP_MVP.md) for the full accounting.
+
+### Web interface
 
 ```bash
 pip install -e ".[web]"
@@ -112,6 +158,7 @@ See [LIMITATIONS.md](LIMITATIONS.md) for a full accounting of known gaps. Key it
 - [STYLE_CALIBRATION.md](STYLE_CALIBRATION.md) — where the baseline style thresholds came from, and which are not yet supported by evidence
 - [STYLE_PROFILES.md](STYLE_PROFILES.md) — the five profiles, their margins, and the three baseline thresholds this calibration showed to be wrong
 - [STYLE_TRANSFORMATIONS.md](STYLE_TRANSFORMATIONS.md) — what a style fix may propose, what it may never do, and why four of them were deleted
+- [DESKTOP_MVP.md](DESKTOP_MVP.md) — the desktop application: architecture, file-safety model, review semantics and deployment evidence
 - [GLOSSARY_MIGRATION.md](GLOSSARY_MIGRATION.md) — how 706 inherited terms were reconciled
 - [UPSTREAM.md](UPSTREAM.md) — lineage, and why nothing syncs
 - [MISSION.md](MISSION.md) — problem, beneficiaries, ethical boundaries
