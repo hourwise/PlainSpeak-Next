@@ -39,6 +39,16 @@ jobs:
       - name: Run tests without the desktop extra
         run: python -m pytest -q
 
+      # Qt needs these shared libraries to import at all on a headless Linux
+      # runner, offscreen platform or not. Without them PySide6 imports and
+      # QtWidgets does not, which reads as a collection error rather than as
+      # "no Qt here".
+      - name: Linux Qt runtime libraries
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libxkbcommon-x11-0 libxcb-cursor0             libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0             libxcb-render-util0 libxcb-shape0 libxcb-xinerama0
+
       - name: Install the desktop extra
         run: python -m pip install -e ".[desktop]"
 

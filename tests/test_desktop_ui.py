@@ -18,12 +18,20 @@ from pathlib import Path
 
 import pytest
 
-pytest.importorskip("PySide6", reason="the desktop extra is not installed")
-
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
-from PySide6.QtCore import QEvent, Qt  # noqa: E402
-from PySide6.QtWidgets import QApplication  # noqa: E402
+# `importorskip("PySide6")` is not enough. The Python package imports fine on a
+# machine that lacks the Qt shared libraries; the failure arrives later, from
+# `QtWidgets`, as an ImportError about libEGL. Skipping on the package alone
+# turns "no Qt runtime here" into a collection error, which is what happened on
+# the Linux CI runner the first time this ran.
+try:
+    from PySide6.QtCore import QEvent, Qt
+    from PySide6.QtWidgets import QApplication
+except ImportError as error:  # pragma: no cover - environment-dependent
+    pytest.skip(
+        f"the Qt runtime is not usable here: {error}", allow_module_level=True
+    )
 
 from plainspeak.desktop.main_window import MainWindow  # noqa: E402
 from plainspeak.desktop.models import CHANGE_ROLE  # noqa: E402
