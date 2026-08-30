@@ -25,4 +25,4 @@ plugins =
 [nuitka]
 macos.permissions =
 mode = standalone
-extra_args = --noinclude-qt-translations --include-package=plainspeak --include-package-data=plainspeak --include-data-files=../plainspeak/core/syllable_data.bin=plainspeak/core/syllable_data.bin --nofollow-import-to=flask --nofollow-import-to=docx --nofollow-import-to=pypdf --nofollow-import-to=pytest --company-name=PlainSpeak --product-name=PlainSpeak --product-version=0.3.0.0 --file-version=0.3.0.0 --file-description=PlainSpeak desktop review
+extra_args = --noinclude-qt-translations --include-package=plainspeak --include-package-data=plainspeak --include-data-files=../plainspeak/core/syllable_data.bin=plainspeak/core/syllable_data.bin --nofollow-import-to=flask --nofollow-import-to=docx --nofollow-import-to=pypdf --nofollow-import-to=pytest --company-name=PlainSpeak --product-name=PlainSpeak --product-version=0.3.0.0 --file-version=0.3.0.0 --file-description=PlainSpeak-desktop-review

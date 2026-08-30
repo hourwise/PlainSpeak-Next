@@ -412,3 +412,85 @@ def _tree_state(root: Path) -> dict:
         for path in sorted(root.rglob("*"))
         if path.is_file()
     }
+
+
+# ── The deployment configuration ───────────────────────────────────────────
+#
+# Checked here rather than only in a build job, because a build cycle costs
+# fifteen minutes and each of these mistakes has already cost one.
+
+
+def spec():
+    import configparser
+
+    parser = configparser.ConfigParser()
+    parser.read(
+        Path(__file__).resolve().parent.parent / "deploy" / "pysidedeploy.spec",
+        encoding="utf-8",
+    )
+    return parser
+
+
+def test_the_deployment_spec_parses() -> None:
+    """`pyside6-deploy` reads it through a strict configparser path.
+
+    The first version opened with a paragraph explaining itself and failed both
+    platform builds with `MissingSectionHeaderError` before Nuitka ever ran. The
+    explanation lives in `deploy/README.md` now.
+    """
+    parsed = spec()
+    assert parsed.sections() == ["app", "python", "qt", "android", "nuitka"]
+    assert parsed["app"]["title"] == "PlainSpeak"
+
+
+def test_no_deployment_argument_contains_a_space() -> None:
+    """`extra_args` is split on whitespace before it reaches Nuitka.
+
+    `--file-description=PlainSpeak desktop review` therefore arrived as three
+    arguments, two of which Nuitka read as positional, and the build died with
+    "specify only one positional argument". Anything with a space in it has to
+    be written without one.
+    """
+    arguments = spec()["nuitka"]["extra_args"].split()
+    assert arguments, "the spec passes Nuitka nothing at all"
+    for argument in arguments:
+        assert argument.startswith("--"), (
+            f"{argument!r} would reach Nuitka as a positional argument. Every entry "
+            f"in extra_args must be a flag, because a value containing a space "
+            f"silently becomes several."
+        )
+
+
+def test_the_engine_data_is_named_explicitly() -> None:
+    """The line the whole spec exists for, plus the one that caught its gap.
+
+    `--include-package-data` brought the rule and profile YAML across and left
+    the 1.8 MB syllable dictionary behind, because Nuitka does not treat a `.bin`
+    as package data. The resulting build loaded 222 rules, reported every
+    identity correctly, and silently used a vowel-counting heuristic for every
+    readability metric.
+    """
+    arguments = spec()["nuitka"]["extra_args"]
+    assert "--include-package-data=plainspeak" in arguments
+    assert "syllable_data.bin" in arguments
+
+
+def test_the_spec_contains_no_absolute_paths() -> None:
+    """A build that only works on the machine that configured it is not a build."""
+    import re
+
+    text = (
+        Path(__file__).resolve().parent.parent / "deploy" / "pysidedeploy.spec"
+    ).read_text(encoding="utf-8")
+    assert not re.search(r"[A-Za-z]:[\/]", text), "a Windows absolute path"
+    for line in text.splitlines():
+        value = line.split("=", 1)[1].strip() if "=" in line else ""
+        assert not value.startswith("/"), f"an absolute path: {line}"
+
+
+def test_no_web_or_network_qt_module_is_bundled() -> None:
+    """No browser inside a review tool."""
+    modules = spec()["qt"]["modules"]
+    assert modules == "Core,Gui,Widgets"
+    for forbidden in ("WebEngine", "WebView", "Network", "Quick"):
+        assert forbidden not in modules
