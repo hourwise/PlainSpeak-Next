@@ -17,3 +17,8 @@ corpora/**                         -text
 *.jpg  binary
 *.ico  binary
 *.zip  binary
+
+# The style calibration corpus and its snapshot are byte-significant: the
+# thresholds were drawn against these exact bytes.
+tests/style/corpus/**              -text
+tests/style/corpus-findings.json   -text

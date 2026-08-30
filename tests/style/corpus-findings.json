@@ -1,0 +1,114 @@
+{
+  "academic": [],
+  "conversational": [],
+  "framing_heavy": [
+    {
+      "id": "PS.STYLE.CANNED_FRAMING",
+      "severity": "strong",
+      "value": 1.0
+    },
+    {
+      "id": "PS.STYLE.REPEATED_PARAGRAPH_OPENER",
+      "severity": "strong",
+      "value": 1.0
+    }
+  ],
+  "government": [],
+  "list_heavy": [
+    {
+      "id": "PS.STYLE.LIST_DOMINANCE",
+      "severity": "strong",
+      "value": 0.7895
+    }
+  ],
+  "long_natural": [],
+  "overlapping": [
+    {
+      "id": "PS.STYLE.LEXICAL_OVERLAP",
+      "severity": "strong",
+      "value": 1.0
+    },
+    {
+      "id": "PS.STYLE.REPEATED_PARAGRAPH_OPENER",
+      "severity": "notice",
+      "value": 0.4
+    }
+  ],
+  "repeated_openers": [
+    {
+      "id": "PS.STYLE.REPEATED_PARAGRAPH_OPENER",
+      "severity": "strong",
+      "value": 1.0
+    },
+    {
+      "id": "PS.STYLE.REPEATED_SENTENCE_OPENER",
+      "severity": "strong",
+      "value": 0.7059
+    }
+  ],
+  "short": [],
+  "technical": [],
+  "transition_heavy": [
+    {
+      "id": "PS.STYLE.REPEATED_PARAGRAPH_OPENER",
+      "severity": "strong",
+      "value": 0.75
+    },
+    {
+      "id": "PS.STYLE.REPEATED_TRANSITION",
+      "severity": "strong",
+      "value": 1.0
+    },
+    {
+      "id": "PS.STYLE.TRANSITION_DENSITY",
+      "severity": "strong",
+      "value": 0.4706
+    },
+    {
+      "id": "PS.STYLE.REPEATED_SENTENCE_OPENER",
+      "severity": "notice",
+      "value": 0.4706
+    }
+  ],
+  "uniform_cadence": [
+    {
+      "id": "PS.STYLE.SENTENCE_UNIFORMITY",
+      "severity": "strong",
+      "value": 0.2436
+    },
+    {
+      "id": "PS.STYLE.TRANSITION_DENSITY",
+      "severity": "notice",
+      "value": 0.2727
+    }
+  ],
+  "uniform_paragraphs": [
+    {
+      "id": "PS.STYLE.PARAGRAPH_UNIFORMITY",
+      "severity": "strong",
+      "value": 0.0588
+    },
+    {
+      "id": "PS.STYLE.REPEATED_PARAGRAPH_OPENER",
+      "severity": "strong",
+      "value": 1.0
+    },
+    {
+      "id": "PS.STYLE.REPEATED_PHRASE",
+      "severity": "notice",
+      "value": 1.1673
+    }
+  ],
+  "vocabulary_heavy": [
+    {
+      "id": "PS.STYLE.REPEATED_PHRASE",
+      "severity": "strong",
+      "value": 1.4085
+    },
+    {
+      "id": "PS.STYLE.VOCABULARY_OVERUSE",
+      "severity": "strong",
+      "value": 37.5587
+    }
+  ]
+}
