@@ -33,8 +33,27 @@ jobs:
       - name: Install
         run: python -m pip install --upgrade pip && python -m pip install -e ".[dev,all]"
 
-      - name: Run tests
+      # The engine must be usable, testable and installable with no GUI toolkit
+      # present. This job proves it: the desktop extra is deliberately absent
+      # here, and the desktop UI tests skip themselves.
+      - name: Run tests without the desktop extra
         run: python -m pytest -q
+
+      - name: Install the desktop extra
+        run: python -m pip install -e ".[desktop]"
+
+      # Linux runners have no display. Everything below runs against the
+      # offscreen platform plugin, which is what the desktop tests are written
+      # for — they drive actions, models and signals, never pixels.
+      - name: Run tests with the desktop, headless
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python -m pytest -q
+
+      - name: Desktop self-test
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python -m plainspeak.desktop.selftest
 
   package:
     name: built distributions carry their data
@@ -63,3 +82,68 @@ jobs:
           /tmp/wheeltest/bin/python -m pip install --quiet dist/*.whl
           /tmp/wheeltest/bin/python -m plainspeak.adapters.cli version
           /tmp/wheeltest/bin/python tools/check_installed_data.py
+
+  desktop-build:
+    name: frozen desktop build (${{ matrix.os }})
+    # Manually dispatched. A Nuitka compile takes many minutes and would triple
+    # the cost of every ordinary push for a result that only needs checking when
+    # something that could affect packaging has moved.
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      # Qt needs these to start at all on a headless Linux runner, even
+      # offscreen. Absent them the self-test below cannot verify Qt startup.
+      - name: Linux Qt runtime libraries
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libxkbcommon-x11-0 libxcb-cursor0             libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0             libxcb-render-util0 libxcb-shape0 libxcb-xinerama0 patchelf
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[desktop]"
+
+      - name: Build
+        working-directory: deploy
+        run: pyside6-deploy -c pysidedeploy.spec -f --keep-deployment-files
+
+      - name: Record what was produced
+        shell: bash
+        run: python tools/record_desktop_build.py deploy/dist
+
+      # The point of the whole job. A frozen build that finds the engine's data
+      # only because the source tree happens to be next to it is a failed
+      # deployment, so the self-test runs from a directory that contains
+      # neither the checkout nor the virtual environment.
+      - name: Self-test outside the source tree
+        shell: bash
+        run: |
+          set -e
+          mkdir -p "$RUNNER_TEMP/elsewhere"
+          cp -r deploy/dist "$RUNNER_TEMP/elsewhere/dist"
+          cd "$RUNNER_TEMP/elsewhere"
+          if [ "$RUNNER_OS" = "Windows" ]; then
+            ./dist/desktop_main.exe --self-test
+          else
+            ./dist/desktop_main.bin --self-test
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plainspeak-desktop-${{ matrix.os }}
+          path: |
+            deploy/dist
+            deploy/build-manifest.json
+          retention-days: 14
