@@ -59,6 +59,13 @@ ALLOWED_IMPORTS: dict[str, set[str]] = {
     "pipeline": {"pipeline", "core", "document", "integrity", "rules", "style"},
     # Adapters are the only layer allowed to reach across the whole system.
     "adapters": {"adapters", "pipeline", "core", "integrity", "reporting"},
+    # The desktop application. An adapter, and a stricter one than the CLI: it
+    # reaches `pipeline` and nothing else. Where it needed something the pipeline
+    # did not expose, the answer was to widen the pipeline facade rather than
+    # reach around it — `ReviewBundle` and `PreviewResult` exist because of this
+    # rule. A GUI joining four independent engine authorities together inside a
+    # widget would be re-implementing the engine somewhere nobody would test it.
+    "desktop": {"desktop", "pipeline"},
 }
 
 
@@ -324,7 +331,9 @@ def test_nothing_below_the_orchestration_layer_imports_it() -> None:
     """The dependency runs outwards from `pipeline`, never back into it."""
     offenders = []
     for layer, path in _layer_modules():
-        if layer in (ORCHESTRATION_LAYER, "adapters"):
+        # `adapters` and `desktop` are both above orchestration and are the
+        # only layers permitted to depend on it.
+        if layer in (ORCHESTRATION_LAYER, "adapters", "desktop"):
             continue
         for target, line in _imported_targets(path):
             if target == ORCHESTRATION_LAYER:
