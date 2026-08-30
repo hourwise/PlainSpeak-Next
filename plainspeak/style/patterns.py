@@ -265,7 +265,15 @@ def repeated_paragraph_opener(structure: DocumentStructure) -> Optional[StyleObs
 # ── Transitions ────────────────────────────────────────────────────────────
 
 
-def _transition_hits(text: str) -> list[str]:
+def transition_hits(text: str) -> list[str]:
+    """Every counted discourse connective in the text, lower-cased, in order.
+
+    Public because the style planner needs the same tokenisation the diagnostic
+    used. Working out how many occurrences must change to bring a document under
+    a profile's line requires the distribution, and a planner that recounted
+    transitions its own way would be a second detector free to disagree with
+    this one about what a transition is.
+    """
     found = [match.group(0).lower() for match in _TRANSITION_RE.finditer(text)]
     found += [
         " ".join(match.group(0).lower().split())
@@ -277,7 +285,7 @@ def _transition_hits(text: str) -> list[str]:
 def transition_density(text: str) -> Optional[StyleObservation]:
     """How much of the prose is discourse scaffolding."""
     sentences = sentences_of(text)
-    hits = _transition_hits(text)
+    hits = transition_hits(text)
     if not sentences:
         return None
 
@@ -305,7 +313,7 @@ def repeated_transition(text: str, structure: DocumentStructure) -> Optional[Sty
     with a habit of signposting; the same transition eight times is a different
     observation, and collapsing them would lose the more interesting one.
     """
-    hits = _transition_hits(text)
+    hits = transition_hits(text)
     if not hits:
         return None
 
