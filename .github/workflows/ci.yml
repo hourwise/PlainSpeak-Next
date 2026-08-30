@@ -143,12 +143,13 @@ jobs:
           set -e
           mkdir -p "$RUNNER_TEMP/elsewhere"
           cp -r deploy/dist "$RUNNER_TEMP/elsewhere/dist"
+          # The executable's location inside a standalone bundle is decided by
+          # the build, not by us, so it is read from the manifest rather than
+          # guessed. Guessing failed once already, for the wrong reason.
+          EXE=$(python -c "import json;print(json.load(open('deploy/build-manifest.json'))['executable_path'])")
           cd "$RUNNER_TEMP/elsewhere"
-          if [ "$RUNNER_OS" = "Windows" ]; then
-            ./dist/desktop_main.exe --self-test
-          else
-            ./dist/desktop_main.bin --self-test
-          fi
+          echo "running ./dist/$EXE --self-test"
+          "./dist/$EXE" --self-test
 
       - uses: actions/upload-artifact@v4
         with:

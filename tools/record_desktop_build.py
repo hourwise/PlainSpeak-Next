@@ -97,6 +97,12 @@ def main(argv: list[str]) -> int:
         "file_count": len(files),
         "total_bytes": total,
         "executable": main_executable.name if main_executable else None,
+        # Relative to the bundle, because a standalone build nests the binary
+        # and a job that guessed the layout would fail for the wrong reason.
+        "executable_path": (
+            str(main_executable.relative_to(bundle)).replace("\\", "/")
+            if main_executable else ""
+        ),
         "executable_bytes": main_executable.stat().st_size if main_executable else 0,
         "executable_sha256": sha256_of(main_executable) if main_executable else "",
         "engine_data": {
@@ -116,7 +122,7 @@ def main(argv: list[str]) -> int:
     print(f"files         {len(files)}")
     print(f"total size    {total / 1_048_576:.1f} MiB")
     if main_executable is not None:
-        print(f"executable    {main_executable.name}")
+        print(f"executable    {manifest['executable_path']}")
         print(f"  size        {main_executable.stat().st_size / 1_048_576:.1f} MiB")
         print(f"  sha256      {manifest['executable_sha256']}")
     for label, found in manifest["engine_data"].items():
