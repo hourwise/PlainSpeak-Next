@@ -1,0 +1,18 @@
+# PCGsoft governed project manifest (proposal data only; not publication authority).
+# This repository is the current implementation of the PlainSpeak project;
+# hourwise/Project-PlainSpeak is the original repository (see UPSTREAM.md).
+schemaVersion: 1
+project:
+  id: plain-speak
+  name: PlainSpeak
+  slug: plain-speak
+  alternateNames:
+    - PlainSpeak Next
+  public: true
+  category: open-source
+  status: active-development
+  statusLabel: "Active development — rebuilding into a deterministic prose transformation and review engine"
+  summary: "A diagnostic and review assistant for plain-language communication, being rebuilt into a deterministic prose transformation and review engine. All suggestions require human review."
+  websiteState: none
+  parentProject: null
+  lastReviewed: 2026-09-24
