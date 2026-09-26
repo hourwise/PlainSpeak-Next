@@ -55,6 +55,7 @@ from .style_review import (
     ReviewSubmission,
     approve_style_changes,
 )
+from .style_review import ReviewError as _SubmissionRefused
 from .styling import interpret_style, observe_style
 
 #: Document types an interface may review and save.
@@ -85,8 +86,15 @@ STATUS_REJECTED = "rejected"
 STATUS_REFUSED = "refused"
 
 
-class ReviewError(ValueError):
-    """A document could not be reviewed. Never downgraded to an empty bundle."""
+class ReviewError(_SubmissionRefused):
+    """A document could not be reviewed. Never downgraded to an empty bundle.
+
+    A subclass of the review-submission error rather than a sibling of it, so
+    one `except` catches every refusal a review can produce. They were once
+    unrelated classes that shared a name, and the package exported only one of
+    them: a caller catching `plainspeak.pipeline.ReviewError` silently missed
+    every error raised here.
+    """
 
 
 @dataclass(frozen=True)
@@ -311,7 +319,14 @@ class ReviewBundle:
                 )
                 + tuple(ReviewDecision(identifier, REJECT) for identifier in rejected_ids),
             )
-            approved = approve_style_changes(self.style_plan, submission).approved
+            try:
+                approved = approve_style_changes(self.style_plan, submission).approved
+            except ReviewError:
+                raise
+            except _SubmissionRefused as error:
+                # Surfaced as this facade's own error, so an adapter handling
+                # `ReviewError` from here handles every refusal from here.
+                raise ReviewError(str(error)) from None
 
         replacements: list[tuple[Span, str]] = [
             (change.source_span, change.replacement)
@@ -451,10 +466,7 @@ class ReviewBundle:
                     before=change.original_text,
                     after=change.replacement,
                     reason="",
-                    refusal=(
-                        f"{change.reason} — {found.summary}" if found is not None
-                        else change.reason
-                    ),
+                    refusal=_refusal_text(change.reason, found),
                     integrity_checked=found is not None,
                 )
             )
@@ -513,6 +525,17 @@ def _change_id(kind: str, rule_id: str, version: int, span: Span, before: str, a
         ).encode("utf-8")
     ).hexdigest()
     return f"{'SF' if kind == 'safe' else 'IR'}-{digest[:16]}"
+
+
+def _refusal_text(reason: str, found: Any) -> str:
+    """The plan's reason, with the firewall's detail when it adds any.
+
+    The planner's reason for an integrity refusal already quotes the verdict
+    summary, so appending it again printed the same violation twice.
+    """
+    if found is None or found.summary in reason:
+        return reason
+    return f"{reason} — {found.summary}"
 
 
 def _reason_of(rule_id: str, plan: TransformationPlan) -> str:

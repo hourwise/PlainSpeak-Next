@@ -142,6 +142,37 @@ def test_a_decision_can_be_changed(ready_session) -> None:
     assert proposal not in ready_session.snapshot().accepted
 
 
+def test_a_decision_the_engine_refuses_is_not_kept(ready_session, monkeypatch) -> None:
+    """If the engine refuses a combination, the session forgets the decision.
+
+    `preview` refuses when accepted changes cannot be combined or together
+    fail the document-wide integrity check. The session once recorded the
+    decision before asking, so a refusal left it holding a decision the preview
+    on screen did not reflect — and every later decision re-failed with it.
+    """
+    from plainspeak.pipeline import ReviewError
+
+    first, second = [item.proposal_id for item in ready_session.bundle.reviewable[:2]]
+    ready_session.accept(first)
+    before = ready_session.snapshot()
+
+    original = type(ready_session.bundle).preview
+
+    def refuse_second(bundle, accepted=(), rejected=()):
+        if second in set(accepted):
+            raise ReviewError("the selected changes cannot be combined")
+        return original(bundle, accepted=accepted, rejected=rejected)
+
+    monkeypatch.setattr(type(ready_session.bundle), "preview", refuse_second)
+    with pytest.raises(ReviewError):
+        ready_session.accept(second)
+
+    after = ready_session.snapshot()
+    assert set(after.accepted) == set(before.accepted) == {first}
+    assert second not in after.accepted and second not in after.rejected
+    assert after.revised_text == before.revised_text
+
+
 def test_deciding_on_an_unknown_proposal_is_refused(ready_session) -> None:
     with pytest.raises(SessionError, match="not awaiting review"):
         ready_session.accept("SP-doesnotexist")

@@ -336,3 +336,37 @@ def test_engine_identities_matches_what_a_bundle_reports() -> None:
     assert bundle["ruleset_sha256"] == identity["ruleset_sha256"]
     assert bundle["style_policy_sha256"] == identity["style_policy_sha256"]
     assert bundle["profile_pack_sha256"] == identity["profile_pack_sha256"]
+
+
+# ── One error type ─────────────────────────────────────────────────────────
+
+
+def test_the_package_review_error_catches_every_review_refusal(tmp_path) -> None:
+    """`plainspeak.pipeline.ReviewError` once meant only the submission error.
+
+    The facade's own refusals — an unsupported file, an uncombinable set of
+    decisions — raised a different class of the same name, which a caller
+    catching the package export silently missed.
+    """
+    import plainspeak.pipeline as pipeline
+    from plainspeak.pipeline import review, style_review
+
+    assert issubclass(review.ReviewError, pipeline.ReviewError)
+    assert issubclass(style_review.ReviewError, pipeline.ReviewError)
+    unsupported = tmp_path / "doc.docx"
+    unsupported.write_bytes(b"x")
+    with pytest.raises(pipeline.ReviewError):
+        pipeline.load_reviewable(unsupported)
+
+
+def test_a_refused_submission_surfaces_as_the_facade_error() -> None:
+    """An adapter handling the facade's error handles every refusal from `preview`."""
+    from plainspeak.pipeline import review
+
+    bundle = build_review_bundle(
+        load_reviewable(Path(__file__).resolve().parent / "style" / "stylefix" / "concessive-heavy.md"),
+        "natural",
+    )
+    with pytest.raises(review.ReviewError):
+        bundle.preview(accepted=["SP-not-a-real-proposal"])
+

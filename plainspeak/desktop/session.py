@@ -269,10 +269,18 @@ class ReviewSession:
         if change_id not in {item.proposal_id for item in self._bundle.reviewable}:
             raise SessionError(f"{change_id} is not awaiting review")
 
+        previous = (set(self._accepted), set(self._rejected))
         self._accepted.discard(change_id)
         self._rejected.discard(change_id)
         (self._accepted if accepted else self._rejected).add(change_id)
-        self._rematerialise()
+        try:
+            self._rematerialise()
+        except Exception:
+            # The engine refused this combination of decisions. Put the
+            # decisions back as they were, so what the session holds is always
+            # what the preview on screen reflects.
+            self._accepted, self._rejected = previous
+            raise
         self._state = State.REVIEWED
 
     def _rematerialise(self) -> None:
