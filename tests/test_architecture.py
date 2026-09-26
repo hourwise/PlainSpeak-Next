@@ -719,3 +719,63 @@ def test_the_bundled_rules_ship_with_the_package() -> None:
     assert BUNDLED_ROOT.is_relative_to(PACKAGE_ROOT)
     assert (BUNDLED_ROOT / "RULESET.yaml").is_file()
     assert list(BUNDLED_ROOT.rglob("*.yaml"))
+
+
+# -- One engine ---------------------------------------------------------------
+
+#: The inherited substitution engine. It is sealed by the characterisation suite
+#: and stays importable for external callers, but it predates the declarative
+#: rules, the integrity firewall and review, so no interface may put its output
+#: in front of a person. Every interface transforms through `pipeline`.
+UNGOVERNED_MODULES = ("core.transform",)
+UNGOVERNED_NAMES = ("generate_simplified_text", "post_process_simplified")
+INTERFACE_LAYERS = ("adapters", "desktop")
+
+
+def _imported_modules(path: Path) -> list[tuple[str, tuple[str, ...], int]]:
+    """Every intra-package import as (dotted module, imported names, line)."""
+    module_parts = path.relative_to(PACKAGE_ROOT).with_suffix("").parts
+    tree = ast.parse(path.read_text(encoding="utf-8"))
+    found = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.ImportFrom):
+            if node.level:
+                base = list(module_parts[: len(module_parts) - node.level])
+                parts = base + (node.module.split(".") if node.module else [])
+            elif node.module and node.module.split(".")[0] == "plainspeak":
+                parts = node.module.split(".")[1:]
+            else:
+                continue
+            found.append((".".join(parts), tuple(alias.name for alias in node.names), node.lineno))
+        elif isinstance(node, ast.Import):
+            for alias in node.names:
+                parts = alias.name.split(".")
+                if parts[0] == "plainspeak":
+                    found.append((".".join(parts[1:]), (), node.lineno))
+    return found
+
+
+@pytest.mark.parametrize("layer", INTERFACE_LAYERS)
+def test_no_interface_reaches_the_ungoverned_transformation(layer: str) -> None:
+    """No interface has its own engine — including the inherited one.
+
+    `adapters` may import `core`, so the layer table alone could not stop the
+    CLI or the web UI calling the old substitution engine directly, and until
+    Stage 1 two of them did: "leverages" became "borrowed money" and "shall"
+    became "must", with no firewall in the way. This closes the gap by name.
+    """
+    offences = []
+    for path in sorted((PACKAGE_ROOT / layer).rglob("*.py")):
+        for module, names, line in _imported_modules(path):
+            # `from ..core import transform` names the module as an import.
+            candidates = {module} | {f"{module}.{name}" for name in names}
+            bad_module = any(
+                candidate == forbidden or candidate.startswith(forbidden + ".")
+                for candidate in candidates for forbidden in UNGOVERNED_MODULES
+            )
+            bad_name = set(names) & set(UNGOVERNED_NAMES)
+            if bad_module or bad_name:
+                offences.append(f"{path.relative_to(PACKAGE_ROOT.parent)}:{line} imports {module}")
+    assert not offences, (
+        "interfaces must transform through the governed pipeline:\n  " + "\n  ".join(offences)
+    )

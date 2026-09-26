@@ -14,11 +14,23 @@ import click
 from .. import __version__
 from ..core.barriers import SimplificationResult, analyze_simplification
 from ..core.metrics import analyze
-from ..core.morphology import post_process_simplified
-from ..core.transform import generate_simplified_text
 from ..reporting.console import format_console_report
 from ..reporting.html import generate_report
 from ..pipeline import rules_api
+from ..pipeline import (
+    ERROR_EMPTY_INPUT,
+    ERROR_UNREADABLE_INPUT,
+    ERROR_UNSUPPORTED_INPUT,
+    FORMAT_MARKDOWN,
+    FORMAT_TEXT,
+    UNSUPPORTED_MESSAGE,
+    PresentError,
+    ReviewError,
+    is_reviewable_path,
+    load_reviewable,
+    parse_source,
+)
+from ..pipeline import present as present_document
 from ..pipeline import explain_profile as profile_detail
 from ..pipeline import plan_style_changes
 from ..pipeline.sources import load_document
@@ -30,12 +42,6 @@ from ..reporting.json import generate_json
 #: literal survives any tooling that rewrites escape sequences in source.
 BLANK = chr(10)
 
-#: Printed to stderr by the two commands that bypass the governed pipeline, so a
-#: person running them is told, and stdout stays exactly what it always was.
-LEGACY_WARNING = (
-    "Warning: legacy, unguarded path. This output does not pass PlainSpeak's "
-    "integrity firewall and can change meaning. See V1_SCOPE.md."
-)
 
 
 @click.group()
@@ -229,70 +235,175 @@ def score(text: Optional[str], from_stdin: bool):
     click.echo(f"Level:               {scores.reading_level_description}")
 
 
-@main.command()
-@click.argument("file", type=click.Path(exists=True), required=False)
-@click.option("--stdin", "from_stdin", is_flag=True, help="Read text from standard input.")
-@click.option("--output", "-o", type=click.Path(), default=None, help="Write simplified text to a file.")
-def simplify(file: Optional[str], from_stdin: bool, output: Optional[str]):
-    """
-    LEGACY, UNGUARDED: mechanical word substitution.
+# ── Presenting: the governed, non-interactive transformation ──────────────
 
-    Predates PlainSpeak Next's governed engine: no declarative rules, no
-    integrity firewall, no profiles and no review. It can change meaning. It
-    will be moved onto the governed pipeline or withdrawn before 1.0; see
-    V1_SCOPE.md.
+#: What `--format` may ask for. `json` is the versioned machine contract; the
+#: other three are for people and pipes, and carry no guarantee about layout.
+PRESENT_FORMATS = ("json", "text", "marked", "summary")
 
-    Applies plain-language word substitutions from the glossary.
-    Changed words are marked with **asterisks** for review.
 
-    IMPORTANT: This is a mechanical transformation. Review all changes
-    before using the output, especially for legal, medical, or
-    safety-critical content.
+def _read_present_input(path: Optional[str], from_stdin: bool, input_format: Optional[str]):
+    """Resolve the input to a `Document`, or raise `PresentError` with a code.
+
+    Standard input is parsed as Markdown unless told otherwise, because Markdown
+    parsing is the more conservative of the two: it keeps code, quotes, tables
+    and link destinations out of reach.
     """
     if from_stdin:
         text = sys.stdin.read()
-    elif file:
-        # Try multi-format reader first
-        try:
-            from ..pipeline.sources import read_text_source as read_auto
-            text, source_format = read_auto(file)
-        except (ImportError, ValueError, FileNotFoundError):
-            # Fall back to plain text
-            try:
-                text = Path(file).read_text(encoding="utf-8")
-            except UnicodeDecodeError:
-                try:
-                    text = Path(file).read_text(encoding="latin-1")
-                except Exception as e:
-                    click.echo(f"Error: Cannot read file '{file}': {e}", err=True)
-                    sys.exit(1)
-    else:
-        click.echo("Error: Provide a file or use --stdin.", err=True)
+        markdown = (input_format or FORMAT_MARKDOWN) == FORMAT_MARKDOWN
+        if not text.strip():
+            raise PresentError(ERROR_EMPTY_INPUT, "the input is empty")
+        return parse_source(text, markdown=markdown), FORMAT_MARKDOWN if markdown else FORMAT_TEXT
+
+    if input_format is not None:
+        raise click.UsageError(
+            "--input-format applies to --stdin only; a file is parsed according to its extension"
+        )
+    if not is_reviewable_path(path):
+        raise PresentError(ERROR_UNSUPPORTED_INPUT, UNSUPPORTED_MESSAGE)
+    try:
+        document = load_reviewable(path)
+    except (ReviewError, OSError, UnicodeDecodeError) as error:
+        raise PresentError(ERROR_UNREADABLE_INPUT, f"cannot read {path}: {error}") from None
+    fmt = FORMAT_TEXT if Path(path).suffix.lower() == ".txt" else FORMAT_MARKDOWN
+    return document, fmt
+
+
+def _render_present(result, fmt: str) -> str:
+    if fmt == "json":
+        return result.to_json()
+    if fmt == "text":
+        return result.text
+    if fmt == "marked":
+        return result.marked_text()
+    return _present_summary(result)
+
+
+def _present_summary(result) -> str:
+    identity = result.bundle.identities()
+    lines = [
+        f"PlainSpeak present — profile {result.bundle.profile_id}, "
+        f"ruleset {identity['ruleset_version']} ({identity['ruleset_sha256'][:12]})",
+        f"input {result.bundle.input_hash[:16]}  output {result.preview.output_hash[:16]}"
+        + ("" if result.changed else "  (unchanged)"),
+        "",
+        f"Applied automatically (SAFE): {len(result.applied)}",
+    ]
+    lines += [f"  {item.before!r} -> {item.after!r}  [{item.rule_id}]" for item in result.applied]
+    lines.append(f"Awaiting a person (REVIEW, not applied): {len(result.review)}")
+    lines += [f"  {item.before!r} -> {item.after!r}  [{item.rule_id}]" for item in result.review]
+    lines.append(f"Refused (REFUSED, never applied): {len(result.refused)}")
+    lines += [f"  {item.before!r}: {item.refusal}" for item in result.refused]
+    diagnostics = result.bundle.diagnostics()
+    lines.append(f"Style observations under {result.bundle.profile_id}: {len(diagnostics)}")
+    lines += [f"  [{item.severity}] {item.message}" for item in diagnostics]
+    return BLANK.join(lines) + BLANK
+
+
+def _write_new_file(destination: str, content: str, overwrite: bool, source: Optional[str]) -> None:
+    """Write `content` to `destination` atomically and conservatively.
+
+    Refuses to replace an existing file unless told to, and refuses outright to
+    replace the input: presenting a document never destroys it.
+    """
+    target = Path(destination)
+    if source is not None and target.resolve() == Path(source).resolve():
+        raise click.UsageError("--output is the input file; PlainSpeak never overwrites its input")
+    if target.exists() and not overwrite:
+        raise click.UsageError(f"{target} already exists; pass --overwrite to replace it")
+    target.parent.mkdir(parents=True, exist_ok=True)
+    partial = target.with_name(target.name + ".plainspeak-partial")
+    try:
+        with open(partial, "w", encoding="utf-8", newline="") as handle:
+            handle.write(content)
+        partial.replace(target)
+    finally:
+        if partial.exists():
+            partial.unlink()
+
+
+def _run_present(path, from_stdin, profile_id, fmt, input_format, output, overwrite) -> None:
+    if bool(path) == bool(from_stdin):
+        raise click.UsageError("give exactly one input: a PATH or --stdin")
+    try:
+        document, detected = _read_present_input(path, from_stdin, input_format)
+        result = present_document(document, profile_id, input_format=detected)
+    except PresentError as error:
+        if fmt == "json":
+            click.echo(error.to_json(), nl=False)
+        click.echo(f"Error ({error.code}): {error.message}", err=True)
         sys.exit(1)
 
-    if not text.strip():
-        click.echo("Error: Input text is empty.", err=True)
-        sys.exit(1)
-
-    click.echo(LEGACY_WARNING, err=True)
-    simplified, count = generate_simplified_text(text)
-    simplified = post_process_simplified(simplified)
-
-    click.echo(f"Made {count} mechanical substitution(s).")
-    click.echo("Changed words are marked with **asterisks** for your review.")
-    click.echo("=" * 60)
-
+    rendered = _render_present(result, fmt)
     if output:
-        try:
-            output_path = Path(output)
-            output_path.parent.mkdir(parents=True, exist_ok=True)
-            output_path.write_text(simplified, encoding="utf-8")
-            click.echo(f"\nSimplified text written to: {output_path.absolute()}")
-        except OSError as e:
-            click.echo(f"Error writing to '{output}': {e}", err=True)
-            sys.exit(1)
+        _write_new_file(output, rendered, overwrite, path)
+        click.echo(f"Wrote {fmt} to {Path(output)}", err=True)
+    else:
+        click.echo(rendered, nl=False)
 
-    click.echo(simplified)
+
+_PRESENT_OPTIONS = (
+    click.argument("path", type=click.Path(exists=True, dir_okay=False), required=False),
+    click.option("--stdin", "from_stdin", is_flag=True, help="Read the text from standard input."),
+    click.option(
+        "--profile", "profile_id", required=True,
+        help="Profile to present under: natural, plain, technical, government or academic. No default.",
+    ),
+    click.option(
+        "--input-format", type=click.Choice([FORMAT_MARKDOWN, FORMAT_TEXT]), default=None,
+        help="How to parse --stdin (default markdown). A file is parsed according to its extension.",
+    ),
+    click.option(
+        "--output", "-o", type=click.Path(dir_okay=False), default=None,
+        help="Write to this file instead of standard output.",
+    ),
+    click.option(
+        "--overwrite", is_flag=True,
+        help="Allow --output to replace an existing file. Never the input.",
+    ),
+)
+
+
+def _with_present_options(function):
+    for decorator in reversed(_PRESENT_OPTIONS):
+        function = decorator(function)
+    return function
+
+
+@main.command()
+@_with_present_options
+@click.option(
+    "--format", "fmt", type=click.Choice(PRESENT_FORMATS), default="json", show_default=True,
+    help="json: the versioned plainspeak.present.v1 contract. text: the presented document "
+         "only. marked: the document with applied changes in **asterisks**. summary: a "
+         "readable account of what happened.",
+)
+def present(path, from_stdin, profile_id, input_format, output, overwrite, fmt):
+    """Present a document: apply every SAFE change, and nothing else.
+
+    Every change passes the integrity firewall. Style suggestions that need a
+    person are reported and left unapplied; review them in plainspeak-desktop.
+    The input file is never written.
+
+    Exit status: 0 presented; 1 the input could not be presented (with --format
+    json, standard output carries the error code); 2 invalid usage.
+    """
+    _run_present(path, from_stdin, profile_id, fmt, input_format, output, overwrite)
+
+
+@main.command()
+@_with_present_options
+def simplify(path, from_stdin, profile_id, input_format, output, overwrite):
+    """Deprecated: use `plainspeak present --format marked`.
+
+    Prints the presented document with applied changes in **asterisks**. It
+    runs the governed pipeline — rules, integrity firewall, profiles — exactly
+    as `present` does. The inherited substitution engine this command once
+    used is no longer reachable from the command line.
+    """
+    click.echo("Note: `simplify` is deprecated; use `plainspeak present --format marked`.", err=True)
+    _run_present(path, from_stdin, profile_id, "marked", input_format, output, overwrite)
 
 
 @main.command()
@@ -310,11 +421,12 @@ def simplify(file: Optional[str], from_stdin: bool, output: Optional[str]):
 )
 def web(host: str, port: int, no_open: bool):
     """
-    LEGACY, UNGUARDED: the local web interface.
+    Start the local web interface.
 
-    Its "Simplified Text" is produced by the legacy substitution engine, not by
-    the governed pipeline: no integrity firewall, no profiles, no review. Use
-    `plainspeak-desktop` for governed review.
+    Its "Simplified Text" is the governed presentation — the same operation as
+    `plainspeak present`, under the Natural profile: SAFE changes only, every
+    one through the integrity firewall. Use `plainspeak-desktop` to review style
+    suggestions.
 
     Opens a browser-based readability analyzer that runs entirely
     on your computer. No data is ever sent anywhere.
@@ -332,7 +444,6 @@ def web(host: str, port: int, no_open: bool):
         )
         sys.exit(1)
 
-    click.echo(LEGACY_WARNING, err=True)
     import webbrowser
 
     app = create_app()

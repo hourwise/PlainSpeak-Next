@@ -14,12 +14,14 @@ this project is built on a claim rather than a property.
 `tests/test_architecture.py` enforces this. It is not documentation of intent;
 it fails the build.
 
-**One known exception, until Stage 1.** The inherited `simplify` command and the
-web interface call `core.transform` directly — the substitution engine that
-predates the rules, the integrity firewall and review. The import policy allows
-it, because `adapters` may import `core`, so the test does not catch it. They
-are labelled *legacy, unguarded* wherever a user meets them, and removing the
-exception is the first V1 blocker in [ROADMAP.md](ROADMAP.md).
+**Including the inherited engine.** `core.transform` — the substitution engine
+that predates the rules, the integrity firewall and review — is still in the
+package, sealed by the characterisation suite for external callers. The layer
+table alone cannot keep interfaces away from it, because `adapters` may import
+`core`, and until Stage 1 the `simplify` command and the web interface called it
+directly. `test_no_interface_reaches_the_ungoverned_transformation` now forbids
+`adapters` and `desktop` from importing it by module or by name. Every interface
+transforms through `pipeline.present` or the review bundle beneath it.
 
 ## The layers
 

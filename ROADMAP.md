@@ -43,10 +43,11 @@ labelled as such; [V1_SCOPE.md](V1_SCOPE.md) written before any V1 feature code.
 
 ## Stage 1 — V1 blockers
 
-1. **One engine.** Every user-facing rewriting path goes through the governed
-   pipeline. The inherited `simplify` command and web UI either move onto it or
-   stop presenting themselves as PlainSpeak's transformation.
-2. **`plainspeak present`.** Non-interactive. Applies SAFE changes only, never a
+1. ✅ **One engine.** Every user-facing rewriting path goes through the governed
+   pipeline. `simplify` is a deprecated alias for `present`, the web UI presents
+   through it, and a test forbids any interface from importing the inherited
+   substitution engine.
+2. ✅ **`plainspeak present`.** Non-interactive. Applies SAFE changes only, never a
    review-required one, and emits a versioned machine-readable contract: input
    and output hashes, engine identities, applied changes, pending reviews,
    refusals, protected facts and diagnostics. MCP and other adapters will reuse

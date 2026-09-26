@@ -26,12 +26,19 @@ All known limitations, uncertainties, and gaps. This document is maintained hone
 - **No sentence-structure, tense or agreement repair**, and no manual editing
   in the desktop application.
 
-## The legacy path (`simplify` and the web interface)
+## The inherited engine
 
-These are inherited from the original project, predate the governed engine and
-are **unguarded**: no declarative rules, no integrity firewall, no review. The
-limitations below under *Stemming* and *Mechanical simplification* describe this
-path.
+The original substitution engine (`core.transform`) is still in the package,
+pinned by the characterisation seal for external callers of the old API. No
+PlainSpeak interface uses it to transform text any more: `simplify` and the web
+interface present through the governed pipeline, and a test forbids any
+interface from importing it. The limitations below under *Stemming* and
+*Mechanical simplification* describe only that inherited API.
+
+The **readability suggestions** in `analyze` reports and on the web page still
+come from the inherited glossary and are sealed with it. They are never applied,
+and some are poor — "leverages" is offered "borrowed money". Replacing them
+needs a deliberately versioned successor to the seal.
 
 ## Functional limitations
 
@@ -75,7 +82,7 @@ path.
 ## Accessibility gaps
 
 - **CLI is not accessible to all users.** A command-line interface assumes comfort with terminal environments, which excludes many of the intended beneficiaries. **Partially addressed in v0.2.0:** the `plainspeak web` command provides a browser-based interface that is more accessible to non-technical users.
-- **Web interface requires local server, and is legacy.** The web app runs on localhost:5100 and uses the unguarded legacy path. The desktop application is the supported graphical interface; it ships as a portable Windows or Linux directory, with no installer yet.
+- **Web interface requires local server.** The web app runs on localhost:5100. Its simplified text is the governed presentation, but it cannot review style suggestions; the desktop application is the supported graphical interface, and ships as a portable Windows or Linux directory with no installer yet.
 - **HTML report has not been tested with screen readers.** We aim for WCAG 2.1 AA compliance but have not verified this with assistive technology.
 - **No internationalization.** All interface text, explanations, and suggestions are in English.
 

@@ -32,7 +32,8 @@ not ready until they are.
 ### Supported inputs
 
 - Transformation, review and saving: UTF-8 plain text (`.txt`) and Markdown
-  (`.md`, `.markdown`), and text on standard input *(Stage 1: `present`)*.
+  (`.md`, `.markdown`), and text on standard input (`present --stdin`, parsed as
+  Markdown unless `--input-format text` is given).
 - Markdown code, block quotes, tables, link and image destinations, autolinks
   and raw HTML are never rewritten.
 - DOCX, PDF and HTML may be **analysed** through a plain-text fallback. They are
@@ -88,11 +89,26 @@ of comparators and qualifiers ("at least", "no later than", "before",
 
 ### Public contracts
 
-- *(Stage 1)* `plainspeak present` and its versioned JSON result.
+- `plainspeak present` and its **`plainspeak.present.v1`** JSON contract:
+  `schema`, `status`, `plainspeak_version`, `profile` (id, version, sha256),
+  `input` (format, sha256, characters), `output` (sha256, characters, changed,
+  text), `engine` (every authority's version and hash, the plan hash),
+  `counts`, `applied`, `review`, `refused`, `protected` (policy identity,
+  `preserved`, and each fact's kind, surface, normalised form and source
+  offsets) and `diagnostics`. Canonical JSON: sorted keys, no insignificant
+  whitespace, a final newline, and no timestamps, paths or host details.
+- Errors in the same schema: `{"schema", "status": "error", "error": {"code",
+  "message"}}`, with codes `empty_input`, `unsupported_input`,
+  `unreadable_input`, `unknown_profile` and `not_presentable`. Exit status 0
+  presented, 1 not presentable, 2 invalid usage.
+- `present` never applies a REVIEW proposal and has no option that could.
 - The CLI commands `analyze`, `score`, `present`, `rules list`, `rules explain`,
   `profiles list`, `profiles explain`, `style preview` and `version`, and the
-  `plainspeak-desktop` application.
-- The Python facade exported from `plainspeak.pipeline`.
+  `plainspeak-desktop` application. `simplify` is a deprecated alias for
+  `present --format marked` and `web` a local convenience; neither is part of
+  the V1 contract.
+- The Python facade exported from `plainspeak.pipeline`, including `present`,
+  `present_text` and `PresentResult`.
 
 ## Not guaranteed
 
@@ -110,6 +126,9 @@ of comparators and qualifiers ("at least", "no later than", "before",
 - **Correctness of REVIEW suggestions.** A suggestion is a proposal that a
   person must judge. Its appearance is not a claim that it is right.
 - **Format fidelity beyond plain text and Markdown.**
+- **The readability suggestions in `analyze` reports.** They come from the
+  inherited glossary, are pinned by the characterisation seal, are never
+  applied, and some are poor.
 - **Improved comprehension.** Readability formulas are proxies. No study has yet
   shown that PlainSpeak's changes help readers understand text.
 - **Fitness for legal, medical, financial or safety-critical use** without

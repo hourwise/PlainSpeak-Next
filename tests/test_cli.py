@@ -113,33 +113,51 @@ class TestCLIScore:
 
 
 class TestCLISimplify:
-    """Test the `simplify` command."""
+    """`simplify` is a deprecated alias for `present --format marked`.
+
+    It once ran the inherited substitution engine directly. That contract is
+    superseded: it now runs the governed pipeline, so it needs a profile like
+    every other governed command, and it cannot produce what the old engine did.
+    """
 
     def test_simplify_file(self, runner, sample_file):
-        result = runner.invoke(main, ["simplify", sample_file])
+        result = runner.invoke(main, ["simplify", sample_file, "--profile", "natural"])
         assert result.exit_code == 0
-        assert "Made" in result.output
-        assert "substitution" in result.output
+        assert "deprecated" in result.stderr
+        assert result.stdout.startswith("This is a simple test document.")
 
-    def test_simplify_stdin(self, runner):
+    def test_simplify_stdin_marks_governed_changes(self, runner):
         result = runner.invoke(
-            main, ["simplify", "--stdin"],
+            main, ["simplify", "--stdin", "--profile", "natural"],
             input="We will utilize this methodology to implement the provisions.",
         )
         assert result.exit_code == 0
-        # Should have replaced "utilize" and "implement" and "provisions"
-        assert "substitution" in result.output
+        assert "**use**" in result.stdout
+
+    def test_simplify_no_longer_reaches_the_inherited_engine(self, runner):
+        """The two failures that made the old path unacceptable."""
+        result = runner.invoke(
+            main, ["simplify", "--stdin", "--profile", "natural"],
+            input="The system leverages a cache. Staff shall not utilize it.",
+        )
+        assert result.exit_code == 0
+        assert "borrowed money" not in result.stdout
+        assert "shall not" in result.stdout
 
     def test_simplify_with_output(self, runner, sample_file, tmp_path):
         output_path = tmp_path / "simplified.txt"
         result = runner.invoke(
-            main, ["simplify", sample_file, "--output", str(output_path)]
+            main, ["simplify", sample_file, "--profile", "natural", "--output", str(output_path)]
         )
         assert result.exit_code == 0
         assert output_path.exists()
 
+    def test_simplify_needs_a_profile(self, runner, sample_file):
+        result = runner.invoke(main, ["simplify", sample_file])
+        assert result.exit_code == 2
+
     def test_simplify_no_input(self, runner):
-        result = runner.invoke(main, ["simplify"])
+        result = runner.invoke(main, ["simplify", "--profile", "natural"])
         assert result.exit_code != 0
 
 
@@ -175,39 +193,21 @@ class TestCLIHelp:
         assert "--no-simplify" in result.output
 
 
-class TestLegacyPathsAreLabelled:
-    """`simplify` and `web` bypass the governed pipeline, and must say so.
+class TestOneEngine:
+    """Every command that rewrites text does it through the governed pipeline."""
 
-    They predate the declarative rules, the integrity firewall and review, so a
-    person meeting them anywhere should be told they carry none of PlainSpeak
-    Next's guarantees. The label is asserted rather than trusted, because the
-    likeliest way to lose it is an unrelated edit to a docstring.
-    """
-
-    @pytest.mark.parametrize("command", ["simplify", "web"])
-    def test_command_list_labels_it(self, runner, command):
-        result = runner.invoke(main, ["--help"])
-        line = next(l for l in result.output.splitlines() if l.strip().startswith(command))
-        assert "LEGACY, UNGUARDED" in line
-
-    @pytest.mark.parametrize("command", ["simplify", "web"])
-    def test_own_help_labels_it(self, runner, command):
-        result = runner.invoke(main, [command, "--help"])
-        assert result.exit_code == 0
-        # Click re-wraps help to the terminal width, so compare word runs.
+    def test_simplify_help_points_at_present(self, runner):
+        result = runner.invoke(main, ["simplify", "--help"])
         text = " ".join(result.output.split())
-        assert "LEGACY, UNGUARDED" in text
-        assert "integrity firewall" in text
+        assert "Deprecated: use `plainspeak present --format marked`" in text
+        assert "LEGACY" not in text
 
-    def test_simplify_warns_on_stderr_and_leaves_stdout_alone(self, runner, sample_file):
-        result = runner.invoke(main, ["simplify", sample_file])
-        assert result.exit_code == 0
-        assert "legacy, unguarded" in result.stderr
-        assert "legacy" not in result.stdout.lower()
-        assert result.stdout.startswith("Made ")
+    def test_command_list_no_longer_advertises_a_legacy_path(self, runner):
+        result = runner.invoke(main, ["--help"])
+        assert "LEGACY" not in result.output
+        assert "present" in result.output
 
-    def test_the_web_page_labels_its_simplified_text(self):
-        from plainspeak.adapters import web
-
-        source = Path(web.__file__).read_text(encoding="utf-8")
-        assert "Legacy, unguarded." in source
+    def test_web_help_describes_the_governed_presentation(self, runner):
+        result = runner.invoke(main, ["web", "--help"])
+        text = " ".join(result.output.split())
+        assert "governed presentation" in text

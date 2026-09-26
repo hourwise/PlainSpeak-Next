@@ -46,13 +46,27 @@ described in full in its commit messages and in the document linked.
 - [ROADMAP.md](ROADMAP.md) rewritten for PlainSpeak Next, and
   [V1_SCOPE.md](V1_SCOPE.md) defining what 1.0 will and will not promise.
 
+- **`plainspeak present`** — the governed, non-interactive transformation:
+  every SAFE change applied, REVIEW proposals reported and never applied,
+  refusals explained. Emits the versioned `plainspeak.present.v1` JSON contract
+  (or `text`, `marked`, `summary`), reads a file or standard input, and never
+  writes its input. `plainspeak.pipeline.present` / `present_text` in Python.
+
 ### Changed
-- `plainspeak simplify` and the web interface are documented as the **legacy,
-  unguarded** path. They predate the governed pipeline: they do not use the
-  declarative rules, the integrity firewall or review, and they can produce
-  ungrammatical or meaning-changing output.
+- **One engine.** `plainspeak simplify` is now a deprecated alias for
+  `present --format marked`, and requires `--profile`. The web interface's
+  simplified text is the governed presentation. Both previously called the
+  inherited substitution engine directly, with no integrity firewall — it
+  turned "leverages" into "borrowed money" and "shall" into "must". A new
+  architecture test forbids any interface from importing that engine.
 
 ### Fixed
+- `plainspeak.pipeline.ReviewError` now catches every review refusal. Two
+  unrelated classes shared the name, and the package exported the one the
+  review facade does not raise.
+- The desktop session no longer keeps a review decision the engine refused, so
+  what it holds always matches the preview on screen.
+- An integrity refusal no longer prints the same violation twice.
 - The syllable dictionary, bundled rules and profiles are now included in built
   wheels and frozen desktop bundles; before this, installs silently fell back to
   heuristics or loaded no rules at all.

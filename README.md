@@ -31,8 +31,8 @@ See [V1_SCOPE.md](V1_SCOPE.md) for exactly what it does and does not promise.
 ## Status
 
 Pre-release. The package still reports the last upstream version, `0.3.0`;
-PlainSpeak Next has not yet made a release. Phases 0–10 are accepted on `main`,
-and the work towards 1.0 is in [ROADMAP.md](ROADMAP.md).
+PlainSpeak Next has not yet made a release. Phases 0–10 and Stage 0 are accepted
+on `main`, and the work towards 1.0 is in [ROADMAP.md](ROADMAP.md).
 
 ## Install
 
@@ -81,7 +81,31 @@ or PDF, custom profiles, installers. See [DESKTOP_MVP.md](DESKTOP_MVP.md).
 
 ## Command line
 
-The governed engine — rules, integrity firewall, profiles, review:
+### `present`: the governed transformation
+
+```bash
+plainspeak present document.md --profile natural                  # JSON contract
+plainspeak present document.md --profile natural --format summary # readable account
+plainspeak present document.md --profile plain --format text -o presented.md
+cat reply.md | plainspeak present --stdin --profile technical
+```
+
+`present` applies every `SAFE` change and nothing else. `REVIEW` suggestions are
+reported and left unapplied — only a person, in the desktop application, can
+accept one — and `REFUSED` changes are reported with the reason. The input file
+is never written; `-o` refuses an existing file unless given `--overwrite`, and
+refuses the input file always.
+
+The default output is the versioned **`plainspeak.present.v1`** JSON contract:
+input and output SHA-256, every engine identity, the applied changes, the pending
+reviews, the refusals, the protected facts with their source offsets, and the
+style observations. It contains no timestamps, paths or host details, so the
+same input gives the same bytes anywhere. Exit status is 0 when presented, 1
+when the input cannot be presented (the JSON carries an error `code`), and 2 for
+invalid usage. `--format` also accepts `text`, `marked` and `summary`, which
+are for people and carry no layout guarantee.
+
+### Inspecting the engine
 
 ```bash
 plainspeak style preview document.md --profile natural   # suggestions, read-only
@@ -98,16 +122,18 @@ plainspeak analyze document.txt --output report.html
 plainspeak score document.txt
 ```
 
-### Legacy, unguarded: `simplify` and `web`
+### `simplify` and `web`
 
-`plainspeak simplify` and `plainspeak web` are inherited from the original
-project and **predate the governed engine**. They do not use the declarative
-rules, the integrity firewall, profiles or review. They substitute words from
-the old glossary directly, and can produce ungrammatical or meaning-changing
-output — for example "leverages" becoming "borrowed money".
+`plainspeak simplify` is a deprecated alias for `present --format marked`. The
+web interface (`plainspeak web`) shows the same governed presentation under the
+Natural profile. Both once used the inherited substitution engine, which had no
+integrity firewall; neither can reach it any more, and a test enforces that no
+interface can.
 
-Do not rely on them for anything PlainSpeak Next promises. They will be moved
-onto the governed pipeline or withdrawn before 1.0.
+The readability *suggestions* in `analyze` reports and the web page still come
+from the inherited glossary, which the characterisation seal pins byte for byte.
+They are never applied, and some are poor — "leverages" is still offered
+"borrowed money". Treat them as hints, not as PlainSpeak's transformations.
 
 ## Tests
 
