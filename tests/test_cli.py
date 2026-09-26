@@ -173,3 +173,41 @@ class TestCLIHelp:
         assert "--output" in result.output
         assert "--json" in result.output
         assert "--no-simplify" in result.output
+
+
+class TestLegacyPathsAreLabelled:
+    """`simplify` and `web` bypass the governed pipeline, and must say so.
+
+    They predate the declarative rules, the integrity firewall and review, so a
+    person meeting them anywhere should be told they carry none of PlainSpeak
+    Next's guarantees. The label is asserted rather than trusted, because the
+    likeliest way to lose it is an unrelated edit to a docstring.
+    """
+
+    @pytest.mark.parametrize("command", ["simplify", "web"])
+    def test_command_list_labels_it(self, runner, command):
+        result = runner.invoke(main, ["--help"])
+        line = next(l for l in result.output.splitlines() if l.strip().startswith(command))
+        assert "LEGACY, UNGUARDED" in line
+
+    @pytest.mark.parametrize("command", ["simplify", "web"])
+    def test_own_help_labels_it(self, runner, command):
+        result = runner.invoke(main, [command, "--help"])
+        assert result.exit_code == 0
+        # Click re-wraps help to the terminal width, so compare word runs.
+        text = " ".join(result.output.split())
+        assert "LEGACY, UNGUARDED" in text
+        assert "integrity firewall" in text
+
+    def test_simplify_warns_on_stderr_and_leaves_stdout_alone(self, runner, sample_file):
+        result = runner.invoke(main, ["simplify", sample_file])
+        assert result.exit_code == 0
+        assert "legacy, unguarded" in result.stderr
+        assert "legacy" not in result.stdout.lower()
+        assert result.stdout.startswith("Made ")
+
+    def test_the_web_page_labels_its_simplified_text(self):
+        from plainspeak.adapters import web
+
+        source = Path(web.__file__).read_text(encoding="utf-8")
+        assert "Legacy, unguarded." in source

@@ -4,6 +4,74 @@ All notable changes to PlainSpeak will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+PlainSpeak Next has not yet made a release. Everything since the fork is under
+**Unreleased**, and the package still reports the last upstream version,
+`0.3.0`. Entries for `0.3.0` and earlier describe the upstream project
+([Project-PlainSpeak](https://github.com/hourwise/Project-PlainSpeak)), whose
+history this repository preserves; see [UPSTREAM.md](UPSTREAM.md).
+
+## [Unreleased] — PlainSpeak Next
+
+Development after the fork at `74ecd51` (2026-08-29 onward). Each phase is
+described in full in its commit messages and in the document linked.
+
+### Added
+- **Phase 0–1.** Lineage record ([UPSTREAM.md](UPSTREAM.md)), cross-platform CI
+  (Windows, Linux, macOS; Python 3.10 and 3.13), line-ending normalisation, and a
+  characterisation seal pinning inherited behaviour byte-for-byte.
+- **Phase 2.** Layered package — `core`, `document`, `integrity`, `reporting`,
+  `adapters` — with the old module paths kept as compatibility shims, and an
+  import policy enforced by tests ([ARCHITECTURE.md](ARCHITECTURE.md)).
+- **Phase 3 / 3.5.** Document representation with exact source spans; the
+  analysis projection; separate analysis and editing authority; fail-closed
+  refusal of any text whose location cannot be established exactly.
+- **Phase 4.** Declarative YAML rules with versioned, hash-identified rulesets,
+  deterministic planning and atomic application; `plainspeak rules list` and
+  `plainspeak rules explain`.
+- **Phase 5.** The integrity firewall: numbers, dates, money, units, identifiers,
+  negation, modals and comparators must survive every change. No override.
+- **Phase 6.** Bounded deterministic morphology; all 706 inherited glossary
+  entries inventoried, classified and migrated ([GLOSSARY_MIGRATION.md](GLOSSARY_MIGRATION.md)).
+- **Phase 7.** Thirteen document-level style diagnostics, each reported with its
+  arithmetic; no verdicts and no authorship claims ([STYLE_CALIBRATION.md](STYLE_CALIBRATION.md)).
+- **Phase 8.** Five calibrated profiles — Natural, Plain, Technical, Government,
+  Academic; `plainspeak profiles list` and `plainspeak profiles explain`
+  ([STYLE_PROFILES.md](STYLE_PROFILES.md)).
+- **Phase 9.** Eight profile-gated style fixes, every one requiring human review;
+  `plainspeak style preview` ([STYLE_TRANSFORMATIONS.md](STYLE_TRANSFORMATIONS.md)).
+- **Phase 10.** `plainspeak-desktop`, a PySide6 review application with
+  side-by-side panes, per-suggestion Accept and Reject, non-overridable
+  refusals and Save As only; portable Windows and Linux builds with out-of-tree
+  self-tests ([DESKTOP_MVP.md](DESKTOP_MVP.md)).
+- [ROADMAP.md](ROADMAP.md) rewritten for PlainSpeak Next, and
+  [V1_SCOPE.md](V1_SCOPE.md) defining what 1.0 will and will not promise.
+
+### Changed
+- `plainspeak simplify` and the web interface are documented as the **legacy,
+  unguarded** path. They predate the governed pipeline: they do not use the
+  declarative rules, the integrity firewall or review, and they can produce
+  ungrammatical or meaning-changing output.
+
+### Fixed
+- The syllable dictionary, bundled rules and profiles are now included in built
+  wheels and frozen desktop bundles; before this, installs silently fell back to
+  heuristics or loaded no rules at all.
+
+## [0.3.0] - 2026-08-11
+
+Upstream release, recorded here from commit `ec748df`; it was not previously in
+this file.
+
+### Added
+- Dictionary-backed syllable counting from the CMU Pronouncing Dictionary
+  (125K+ words), with a heuristic fallback for unknown words.
+- Grammar post-processing after substitutions: a/an agreement and sentence
+  capitalisation.
+- Multi-format reader for `.txt`, `.md`, `.docx`, `.pdf` and `.html`, with
+  optional `python-docx` and `pypdf` extras.
+- Glossary expansions (legal, academic, phrase-level matching) and stemming
+  fixes.
+
 ## [0.2.0] - 2026-08-11
 
 ### Added

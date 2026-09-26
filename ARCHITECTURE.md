@@ -14,11 +14,18 @@ this project is built on a claim rather than a property.
 `tests/test_architecture.py` enforces this. It is not documentation of intent;
 it fails the build.
 
+**One known exception, until Stage 1.** The inherited `simplify` command and the
+web interface call `core.transform` directly — the substitution engine that
+predates the rules, the integrity firewall and review. The import policy allows
+it, because `adapters` may import `core`, so the test does not catch it. They
+are labelled *legacy, unguarded* wherever a user meets them, and removing the
+exception is the first V1 blocker in [ROADMAP.md](ROADMAP.md).
+
 ## The layers
 
 ```
                           adapters
-                   cli · web · (desktop) · (mcp)
+                   cli · web · desktop · (mcp)
                               │
                               ▼
                           pipeline

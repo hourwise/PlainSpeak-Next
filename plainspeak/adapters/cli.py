@@ -30,6 +30,13 @@ from ..reporting.json import generate_json
 #: literal survives any tooling that rewrites escape sequences in source.
 BLANK = chr(10)
 
+#: Printed to stderr by the two commands that bypass the governed pipeline, so a
+#: person running them is told, and stdout stays exactly what it always was.
+LEGACY_WARNING = (
+    "Warning: legacy, unguarded path. This output does not pass PlainSpeak's "
+    "integrity firewall and can change meaning. See V1_SCOPE.md."
+)
+
 
 @click.group()
 @click.version_option(version=__version__, prog_name="PlainSpeak")
@@ -228,7 +235,12 @@ def score(text: Optional[str], from_stdin: bool):
 @click.option("--output", "-o", type=click.Path(), default=None, help="Write simplified text to a file.")
 def simplify(file: Optional[str], from_stdin: bool, output: Optional[str]):
     """
-    Generate a mechanically simplified version of the text.
+    LEGACY, UNGUARDED: mechanical word substitution.
+
+    Predates PlainSpeak Next's governed engine: no declarative rules, no
+    integrity firewall, no profiles and no review. It can change meaning. It
+    will be moved onto the governed pipeline or withdrawn before 1.0; see
+    V1_SCOPE.md.
 
     Applies plain-language word substitutions from the glossary.
     Changed words are marked with **asterisks** for review.
@@ -262,6 +274,7 @@ def simplify(file: Optional[str], from_stdin: bool, output: Optional[str]):
         click.echo("Error: Input text is empty.", err=True)
         sys.exit(1)
 
+    click.echo(LEGACY_WARNING, err=True)
     simplified, count = generate_simplified_text(text)
     simplified = post_process_simplified(simplified)
 
@@ -297,7 +310,11 @@ def simplify(file: Optional[str], from_stdin: bool, output: Optional[str]):
 )
 def web(host: str, port: int, no_open: bool):
     """
-    Start the local web interface.
+    LEGACY, UNGUARDED: the local web interface.
+
+    Its "Simplified Text" is produced by the legacy substitution engine, not by
+    the governed pipeline: no integrity firewall, no profiles, no review. Use
+    `plainspeak-desktop` for governed review.
 
     Opens a browser-based readability analyzer that runs entirely
     on your computer. No data is ever sent anywhere.
@@ -315,6 +332,7 @@ def web(host: str, port: int, no_open: bool):
         )
         sys.exit(1)
 
+    click.echo(LEGACY_WARNING, err=True)
     import webbrowser
 
     app = create_app()

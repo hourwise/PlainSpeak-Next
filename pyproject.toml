@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "plainspeak"
 version = "0.3.0"
-description = "A readability analysis and text simplification toolkit"
+description = "Deterministic, integrity-protected presentation of prose: readability analysis, governed rewriting and human review"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
