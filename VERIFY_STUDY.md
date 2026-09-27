@@ -174,6 +174,23 @@ above, and does not pretend to.
 - **Version:** V2 adds contracts and changes none, so the recommendation is
   **1.1.0** — see [V2_SCOPE.md](V2_SCOPE.md).
 
+## Re-run after field testing of 1.0.0
+
+Ruleset 2026.6 reclassified 28 SAFE rules after field testing
+([V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md)), which changes the after text of
+the PlainSpeak cases. The study was re-run with no case changed: every result
+and outcome is the same, still with no false acceptance; only the receipts
+moved, because they name the ruleset.
+
+The cases most worth an independent reading before release — every case judged
+to change protected meaning, every acceptance that rests on a move, an
+equivalence or one of PlainSpeak's SAFE rules, and the two historical false
+acceptances — are collected, with exactly what changed in each, in
+[validation/verify-study/REVIEW_BUNDLE.md](validation/verify-study/REVIEW_BUNDLE.md).
+The judgements in the study were all written by the same agent that built
+Verify; an independent human reading of that bundle is the check this study
+cannot supply for itself.
+
 ## Reproducing it
 
 ```bash

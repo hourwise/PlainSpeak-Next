@@ -75,6 +75,8 @@ def main():
 
         plainspeak present document.md --profile natural --format summary
 
+        cat document.md | plainspeak present --stdin --profile natural
+
         plainspeak verify original.md revised.md
 
         plainspeak analyze document.txt --output report.html
@@ -115,8 +117,16 @@ def analyze_cmd(
     """
     Analyze the readability of a text file or stdin.
 
-    FILE is the path to a text file to analyze. If not provided,
-    use --stdin to read from standard input.
+    FILE is the path to a text file to analyze. To read piped text, say so
+    with --stdin; nothing is read from standard input without it.
+
+    \b
+    Examples:
+      plainspeak analyze report.txt
+      echo "Please check this." | plainspeak analyze --stdin
+
+    A text shorter than 100 words or 3 sentences is reported as an
+    insufficient sample: its scores are shown, but not as a judgement.
     """
     # Get input text
     if from_stdin:
@@ -165,6 +175,8 @@ def analyze_cmd(
             "Run 'plainspeak analyze --help' for usage.",
             err=True,
         )
+        if _stdin_is_piped():
+            click.echo(_PIPED_HINT.format(command="plainspeak analyze --stdin"), err=True)
         sys.exit(1)
 
     if not text.strip():
@@ -260,6 +272,23 @@ def score(text: Optional[str], from_stdin: bool):
 PRESENT_FORMATS = ("json", "text", "marked", "summary")
 
 
+#: Shown when text arrives on standard input but --stdin was not given. Input
+#: is explicit on purpose — a command that read a pipe whenever no file was
+#: named would read the wrong thing the first time it ran in a script with an
+#: inherited stdin — so the fix is to say what to add, not to guess.
+_PIPED_HINT = (
+    "Text is being piped in, but PlainSpeak only reads standard input when told "
+    "to. Add --stdin:" + BLANK + "  ... | {command}"
+)
+
+
+def _stdin_is_piped() -> bool:
+    try:
+        return not sys.stdin.isatty()
+    except (AttributeError, ValueError):
+        return False
+
+
 def _read_present_input(path: Optional[str], from_stdin: bool, input_format: Optional[str]):
     """Resolve the input to a `Document`, or raise `PresentError` with a code.
 
@@ -349,9 +378,17 @@ def _write_new_file(destination: str, content: str, overwrite: bool, source: Opt
             partial.unlink()
 
 
-def _run_present(path, from_stdin, profile_id, fmt, input_format, output, overwrite) -> None:
+def _one_input(path, from_stdin, command: str) -> None:
+    """Exactly one of a PATH or --stdin, with a hint when text is being piped in."""
     if bool(path) == bool(from_stdin):
-        raise click.UsageError("give exactly one input: a PATH or --stdin")
+        message = "give exactly one input: a PATH or --stdin"
+        if not path and _stdin_is_piped():
+            message += BLANK + _PIPED_HINT.format(command=command)
+        raise click.UsageError(message)
+
+
+def _run_present(path, from_stdin, profile_id, fmt, input_format, output, overwrite) -> None:
+    _one_input(path, from_stdin, "plainspeak present --stdin --profile natural")
     try:
         document, detected = _read_present_input(path, from_stdin, input_format)
         result = present_document(document, profile_id, input_format=detected)
@@ -411,6 +448,14 @@ def present(path, from_stdin, profile_id, input_format, output, overwrite, fmt):
     Every change passes the integrity firewall. Style suggestions that need a
     person are reported and left unapplied; review them in plainspeak-desktop.
     The input file is never written.
+
+    \b
+    Examples:
+      plainspeak present notes.md --profile natural
+      cat notes.md | plainspeak present --stdin --profile natural --format text
+
+    --profile is required and has no default: natural, plain, technical,
+    government or academic. Piped text is read only with --stdin.
 
     Exit status: 0 presented; 1 the input could not be presented (with --format
     json, standard output carries the error code); 2 invalid usage.
@@ -612,8 +657,7 @@ def diagnose_cmd(path, from_stdin, profile_id, input_format):
     Exit status: 0 diagnosed; 1 the input could not be diagnosed (standard
     output carries the error code); 2 invalid usage.
     """
-    if bool(path) == bool(from_stdin):
-        raise click.UsageError("give exactly one input: a PATH or --stdin")
+    _one_input(path, from_stdin, "plainspeak diagnose --stdin --profile natural")
     try:
         document, detected = _read_present_input(path, from_stdin, input_format)
         result = diagnose_document(document, profile_id, input_format=detected)

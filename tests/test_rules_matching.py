@@ -204,15 +204,16 @@ def test_unreproducible_casing_is_refused_rather_than_guessed(ruleset_from) -> N
 def test_a_multi_word_replacement_keeps_a_single_capital(bundled) -> None:
     """One capitalised word is sentence-shaped, not title-shaped.
 
-    "Ascertain" at the start of a sentence should become "Find out", not "Find
-    Out": the capital marks the sentence, and reproducing it on every word would
-    invent emphasis the author did not write.
+    "Henceforth" at the start of a sentence should become "From now on", not
+    "From Now On": the capital marks the sentence, and reproducing it on every
+    word would invent emphasis the author did not write. (The example was
+    "Ascertain" / "Find out" until ruleset 2026.6 demoted PS.LEXICAL.010.)
     """
     match = next(
-        m for m in find_matches("Ascertain the facts before deciding.", bundled.rules)
-        if m.rule_id == "PS.LEXICAL.010"
+        m for m in find_matches("Henceforth the office is closed.", bundled.rules)
+        if m.rule_id == "PS.LEXICAL.163"
     )
-    assert match.replacement == "Find out"
+    assert match.replacement == "From now on"
 
 
 def test_a_title_cased_phrase_keeps_title_case(bundled) -> None:

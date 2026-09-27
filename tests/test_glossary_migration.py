@@ -36,7 +36,7 @@ INVENTORY_PATH = REPO_ROOT / "migration" / "glossary-inventory.json"
 #: The inventory as it currently stands, pinned so every platform asserts the
 #: same number. It moves when a classification decision changes, which is
 #: exactly when a reviewer should be looking.
-INVENTORY_HASH = "90e3e080a40a87d2e3e57887c74b0abac74732ffbda69c19d307987ba61626d9"
+INVENTORY_HASH = "f1554a07dc7f370111976b6f00a64f07727cf8991d83962de03909f220c074ca"
 
 #: The ruleset as it currently ships. Phase 4 was 2026.1 / 38 / 2110d4ed…;
 #: the glossary migration made it 2026.2 / 214 / e5aaf376…; Phase 9 activated
@@ -44,17 +44,20 @@ INVENTORY_HASH = "90e3e080a40a87d2e3e57887c74b0abac74732ffbda69c19d307987ba61626
 #: 2026.3 / 222; V1 retired the two density style fixes, which could never
 #: lower the density that triggered them once it was measured honestly, making
 #: it 2026.4 / 220; the V1 acceptance review reclassified 25 migrated safe
-#: fixes as diagnostics, keeping every ID, making it 2026.5 / 220. Each step bumps the version rather than quietly retaining an
+#: fixes as diagnostics, keeping every ID, making it 2026.5 / 220; field testing
+#: of the published 1.0.0 reclassified 28 more (FIELD-001, facilitate -> help,
+#: and a bounded audit for the same defect), keeping every ID, making it
+#: 2026.6 / 220. Each step bumps the version rather than quietly retaining an
 #: old hash, because each changes what the engine will do to a document.
 #:
 #: The migration figures below are unchanged: Phase 9 added rules in a new
 #: family and renumbered nothing, and V1 removed two of those.
-RULESET_VERSION = "2026.5"
+RULESET_VERSION = "2026.6"
 RULESET_COUNT = 220
 #: How many of those came from the glossary migration. Pinned separately so a
 #: later phase adding rules cannot silently change what this file is about.
 MIGRATED_RULESET_COUNT = 214
-RULESET_HASH = "6494a92617e67fdbc1731abd1d5368056166b45a105bd91dc8b76ec7bf3d5b53"
+RULESET_HASH = "258b9e29edf4a4f57becbcbf9472e1123cf1b62e1e6b0063b60c8769be72cd57"
 
 #: Rule IDs that existed before the migration. These must never be renumbered:
 #: an ID is a permanent public identity that an audit record may already name.

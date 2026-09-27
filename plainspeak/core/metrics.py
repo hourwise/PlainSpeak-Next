@@ -56,6 +56,22 @@ class ReadabilityScores:
 # Maximum credible grade level — values above this are clamped and flagged
 MAX_CREDIBLE_GRADE: float = 25.0
 
+# The smallest sample the readability formulas are taken to describe. Below
+# either figure a document-level result — a grade band, "very easy", "no
+# barriers" — is not presented as a judgement of the text, because a sentence or
+# two moves the formulas by whole grades. The figures are the ones this module
+# has always used for its short-text warning; they are named here so every
+# report applies the same line. Found by field testing of 1.0.0: "Please check
+# this." was reported as grade 2, "Very easy".
+MIN_SAMPLE_WORDS: int = 100
+MIN_SAMPLE_SENTENCES: int = 3
+# Below this many words a result is shown, but as indicative only.
+LIMITED_SAMPLE_WORDS: int = 300
+
+SAMPLE_INSUFFICIENT = "insufficient_sample"
+SAMPLE_LIMITED = "limited_sample"
+SAMPLE_SUFFICIENT = "sufficient"
+
 
 # Minimum grade level (below kindergarten)
 MIN_CREDIBLE_GRADE: float = 0.0
@@ -290,19 +306,45 @@ def analyze(text: str) -> ReadabilityScores:
     # Short-text reliability warning
     # Readability formulas need sufficient text to produce stable estimates.
     # Below ~100 words or ~3 sentences, results should be treated as indicative only.
-    if total_words < 100 or total_sentences < 3:
+    if total_words < MIN_SAMPLE_WORDS or total_sentences < MIN_SAMPLE_SENTENCES:
         scores.short_text_warning = (
             "This text is very short. Readability formulas need at least "
             "100 words and 3+ sentences to produce stable estimates. "
             "Treat these results as rough indicators, not precise measurements."
         )
-    elif total_words < 300:
+    elif total_words < LIMITED_SAMPLE_WORDS:
         scores.short_text_warning = (
             "This text is fairly short. Readability estimates may vary with "
             "small changes. For more reliable results, analyse a longer passage."
         )
 
     return scores
+
+
+def sample_status(scores: ReadabilityScores) -> str:
+    """Whether a document is long enough for a document-level readability result.
+
+    `insufficient_sample` below `MIN_SAMPLE_WORDS` words or
+    `MIN_SAMPLE_SENTENCES` sentences, `limited_sample` below
+    `LIMITED_SAMPLE_WORDS` words, otherwise `sufficient`. The formulas still
+    run on any sample; this says what their output may be presented as.
+    """
+    if scores.total_words < MIN_SAMPLE_WORDS or scores.total_sentences < MIN_SAMPLE_SENTENCES:
+        return SAMPLE_INSUFFICIENT
+    if scores.total_words < LIMITED_SAMPLE_WORDS:
+        return SAMPLE_LIMITED
+    return SAMPLE_SUFFICIENT
+
+
+def insufficient_sample_message(scores: ReadabilityScores) -> str:
+    """One sentence a report shows instead of a readability judgement."""
+    return (
+        f"Not enough text to judge readability: {scores.total_words} "
+        f"word{'' if scores.total_words == 1 else 's'} in {scores.total_sentences} "
+        f"sentence{'' if scores.total_sentences == 1 else 's'}, and the formulas need at least "
+        f"{MIN_SAMPLE_WORDS} words and {MIN_SAMPLE_SENTENCES} sentences. The scores below "
+        "describe this sample only; they are not a judgement of how easy the text is to read."
+    )
 
 
 def _describe_grade_level(grade: float) -> str:

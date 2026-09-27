@@ -48,9 +48,9 @@
   "reporter": {
     "outcome": "ok",
     "value": {
-      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 13.8\n  Difficult (undergraduate university level)\n\n  Text Statistics:\n    Words:               4\n    Sentences:           1\n    Avg Sentence Length:  4.0 words\n    Avg Word Length:      6.2 characters\n    Complex Words (3+ syl): 2\n\n  Readability Scores:\n    Flesch Reading Ease:        12.4\n      Very difficult — university graduate level.\n    Flesch-Kincaid Grade Level:  12.5\n    Gunning Fog Index:           21.6\n    SMOG Index:                  11.2\n    Automated Readability Index: 10.0\n\n  Found 1 readability issue(s) across 1 sentence(s): 1 warning(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"punctuation\"\n           -> \"punctuation\" has 4 syllables. Is there a simpler word you could use?\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 9624,
-      "html_sha256": "2d5fe27873da360ae206cb6eff367c1871373ee22df9006f1822b5bd80c656d7",
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  INSUFFICIENT SAMPLE\n  Not enough text to judge readability: 4 words in 1 sentence, and the\n  formulas need at least 100 words and 3 sentences. The scores below\n  describe this sample only; they are not a judgement of how easy the\n  text is to read.\n\n  Consensus Grade Level: 13.8  (this sample only)\n\n  Text Statistics:\n    Words:               4\n    Sentences:           1\n    Avg Sentence Length:  4.0 words\n    Avg Word Length:      6.2 characters\n    Complex Words (3+ syl): 2\n\n  Readability Scores:\n    Flesch Reading Ease:        12.4\n    Flesch-Kincaid Grade Level:  12.5\n    Gunning Fog Index:           21.6\n    SMOG Index:                  11.2\n    Automated Readability Index: 10.0\n\n  Found 1 readability issue(s) across 1 sentence(s): 1 warning(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"punctuation\"\n           -> \"punctuation\" has 4 syllables. Is there a simpler word you could use?\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 9943,
+      "html_sha256": "36cba23a408343caab786ab091605419a2680ad07f30c17474439cc07db5ddd9",
       "json_report": {
         "consensus": {
           "description": "Difficult (undergraduate university level)",
@@ -63,6 +63,14 @@
           "flesch_reading_ease": 12.4,
           "gunning_fog_index": 21.6,
           "smog_index": 11.2
+        },
+        "sample": {
+          "minimum_sentences": 3,
+          "minimum_words": 100,
+          "sentences": 1,
+          "short_text_warning": "This text is very short. Readability formulas need at least 100 words and 3+ sentences to produce stable estimates. Treat these results as rough indicators, not precise measurements.",
+          "status": "insufficient_sample",
+          "words": 4
         },
         "simplification": {
           "barriers": [

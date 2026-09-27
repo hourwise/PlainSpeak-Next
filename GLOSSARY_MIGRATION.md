@@ -53,9 +53,9 @@ looked yet, which is the honest description of an entry inherited in bulk.
 
 | Classification | Count | Meaning |
 |---|---:|---|
-| `safe-fix` | 115 | Individually reviewed; became a rule |
+| `safe-fix` | 88 | Individually reviewed; became a rule |
 | `deferred` | 477 | Not yet individually reviewed, or a multi-word phrase |
-| `diagnostic` | 61 | Worth flagging, cannot be substituted mechanically |
+| `diagnostic` | 88 | Worth flagging, cannot be substituted mechanically |
 | `protected` | 23 | In the inherited protected-term register |
 | `rejected` | 14 | The inherited suggestion is wrong and was not carried forward |
 | `already-covered` | 16 | Handled by a hand-authored Phase 4 rule |
@@ -70,9 +70,13 @@ Its SHA-256 is pinned in the test suite.
 The Phase 6 migration made 140 safe fixes and 36 diagnostics. The V1 acceptance
 review reclassified 25 of those safe fixes as diagnostics after running them
 over real prose — "requests are rate-limited" became "asks are rate-limited" —
-so the figures are now 115 and 61; see
-[V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md). Every reclassified rule kept
-its ID. [`migration/rule-ids.json`](migration/rule-ids.json) binds each rule ID
+so the figures became 115 and 61; see
+[V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md). Field testing of the
+published 1.0.0 found "facilitate the completion of" becoming "help the
+completion of", and a bounded audit for the same defect reclassified 27 more
+migrated safe fixes (and the hand-authored PS.LEXICAL.010), so they are now 88
+and 88; see [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md). Every reclassified rule
+kept its ID. [`migration/rule-ids.json`](migration/rule-ids.json) binds each rule ID
 to its term for life: the builder once numbered rules by position, and
 reclassifying one would have renumbered 134 others.
 

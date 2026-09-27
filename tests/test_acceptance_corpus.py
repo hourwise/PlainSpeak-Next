@@ -102,7 +102,10 @@ def test_a_sentence_an_automatic_change_used_to_break_is_left_alone(sentence):
         ("It offers an advantageous position.", "It offers a helpful position."),
         ("An advantageous position helps.", "A helpful position helps."),
         ("We found an erroneous result.", "We found a wrong result."),
-        ("They reached a unilateral decision.", "They reached a one-sided decision."),
+        # "a" before a vowel letter with a consonant sound stays "a". This was
+        # "a unilateral decision" until "unilateral" was demoted in ruleset
+        # 2026.6 (field testing of 1.0.0: "one-sided" is not "made by one party").
+        ("They formed a homogeneous group.", "They formed a uniform group."),
         ("It is an obsolete tool.", "It is an outdated tool."),
         ("We have sufficient funds.", "We have enough funds."),
     ],

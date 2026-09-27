@@ -92,9 +92,9 @@
   "reporter": {
     "outcome": "ok",
     "value": {
-      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 4.2\n  Easy (approximately upper primary level)\n\n  Text Statistics:\n    Words:               95\n    Sentences:           9\n    Avg Sentence Length:  10.6 words\n    Avg Word Length:      3.6 characters\n    Complex Words (3+ syl): 3\n\n  Readability Scores:\n    Flesch Reading Ease:        84.8\n      Easy — conversational English.\n    Flesch-Kincaid Grade Level:  4.1\n    Gunning Fog Index:           5.5\n    SMOG Index:                  6.4\n    Automated Readability Index: 1.0\n\n  Found 3 readability issue(s) across 9 sentence(s): 3 warning(s).\n\n  Top issues:\n    [WARNING] Passive Voice: \"was founded\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"is based\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"contractors\"\n           -> \"contractors\" has 3 syllables. Is there a simpler word you could use?\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 11581,
-      "html_sha256": "e60d5995d461d42c6a3af7005cf55f0bfdbb5d7dcacd3030a01cb3908405606d",
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  INSUFFICIENT SAMPLE\n  Not enough text to judge readability: 95 words in 9 sentences, and\n  the formulas need at least 100 words and 3 sentences. The scores\n  below describe this sample only; they are not a judgement of how\n  easy the text is to read.\n\n  Consensus Grade Level: 4.2  (this sample only)\n\n  Text Statistics:\n    Words:               95\n    Sentences:           9\n    Avg Sentence Length:  10.6 words\n    Avg Word Length:      3.6 characters\n    Complex Words (3+ syl): 3\n\n  Readability Scores:\n    Flesch Reading Ease:        84.8\n    Flesch-Kincaid Grade Level:  4.1\n    Gunning Fog Index:           5.5\n    SMOG Index:                  6.4\n    Automated Readability Index: 1.0\n\n  Found 3 readability issue(s) across 9 sentence(s): 3 warning(s).\n\n  Top issues:\n    [WARNING] Passive Voice: \"was founded\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"is based\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"contractors\"\n           -> \"contractors\" has 3 syllables. Is there a simpler word you could use?\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 11904,
+      "html_sha256": "5f099539563a30beb977a87d6b2cbdadc66d556a0e140297a16e772db9566202",
       "json_report": {
         "consensus": {
           "description": "Easy (approximately upper primary level)",
@@ -107,6 +107,14 @@
           "flesch_reading_ease": 84.8,
           "gunning_fog_index": 5.5,
           "smog_index": 6.4
+        },
+        "sample": {
+          "minimum_sentences": 3,
+          "minimum_words": 100,
+          "sentences": 9,
+          "short_text_warning": "This text is very short. Readability formulas need at least 100 words and 3+ sentences to produce stable estimates. Treat these results as rough indicators, not precise measurements.",
+          "status": "insufficient_sample",
+          "words": 95
         },
         "simplification": {
           "barriers": [

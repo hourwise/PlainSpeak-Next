@@ -25,29 +25,19 @@ safe_fix_verbs:
   - {term: utilise, target: use}
   - {term: utilize, target: use}
   - {term: commence, target: start}
-  - {term: ascertain, target: find out}
-  - {term: facilitate, target: help}
   - {term: alter, target: change}
   - {term: modify, target: change}
   - {term: obtain, target: get}
-  - {term: acquire, target: get}
   - {term: procure, target: get}
-  - {term: cease, target: stop}
   - {term: discontinue, target: stop}
   - {term: demonstrate, target: show}
   - {term: depict, target: show}
   - {term: elucidate, target: explain}
   - {term: enumerate, target: list}
-  - {term: expedite, target: speed up}
-  - {term: disburse, target: pay out}
-  - {term: reimburse, target: pay back}
-  - {term: relinquish, target: give up}
   - {term: notify, target: tell}
   - {term: apprise, target: tell}
   - {term: concur, target: agree}
   - {term: corroborate, target: support}
-  - {term: substantiate, target: back up}
-  - {term: mitigate, target: reduce}
   - {term: alleviate, target: reduce}
   - {term: ameliorate, target: improve}
   - {term: enhance, target: improve}
@@ -58,10 +48,7 @@ safe_fix_verbs:
   - {term: replicate, target: copy}
   - {term: relocate, target: move}
   - {term: scrutinize, target: examine}
-  - {term: transcribe, target: write down}
-  - {term: validate, target: confirm}
   - {term: formulate, target: create}
-  - {term: consolidate, target: combine}
   - {term: synthesise, target: combine}
   - {term: synthesize, target: combine}
   - {term: intervene, target: step in}
@@ -69,24 +56,18 @@ safe_fix_verbs:
   - {term: initiate, target: start}
   - {term: possess, target: have}
   - {term: retain, target: keep}
-  - {term: preserve, target: keep}
   - {term: reside, target: live}
   - {term: attain, target: reach}
-  - {term: augment, target: add to}
   - {term: append, target: add}
   - {term: expend, target: spend}
   - {term: finalize, target: finish}
   - {term: designate, target: choose}
   - {term: contemplate, target: think about}
   - {term: anticipate, target: expect}
-  - {term: comprise, target: make up}
-  - {term: constitute, target: make up}
-  - {term: impair, target: harm}
   - {term: perpetuate, target: continue}
   - {term: disseminate, target: spread}
   - {term: promulgate, target: announce}
   - {term: delineate, target: outline}
-  - {term: effectuate, target: carry out}
   - {term: accomplish, target: do}
   - {term: transmit, target: send}
   - {term: signify, target: mean}
@@ -101,7 +82,6 @@ safe_fix_nouns:
   - {term: portion, target: part}
   - {term: component, target: part}
   - {term: occurrence, target: event}
-  - {term: obligation, target: duty}
   - {term: remainder, target: rest}
   - {term: threshold, target: limit}
   - {term: trajectory, target: path}
@@ -119,17 +99,12 @@ safe_fix_words:
   - {term: beneficial, target: helpful}
   - {term: ambiguous, target: unclear}
   - {term: erroneous, target: wrong}
-  - {term: feasible, target: workable}
-  - {term: viable, target: workable}
   - {term: numerous, target: many}
-  - {term: comprehensive, target: full}
   - {term: obsolete, target: outdated}
   - {term: negligible, target: tiny}
   - {term: inordinate, target: excessive}
   - {term: permissible, target: allowed}
   - {term: requisite, target: required}
-  - {term: preliminary, target: early}
-  - {term: contemporary, target: modern}
   - {term: transitory, target: temporary}
   - {term: heterogeneous, target: varied}
   - {term: homogeneous, target: uniform}
@@ -139,9 +114,6 @@ safe_fix_words:
   - {term: detrimental, target: harmful}
   - {term: deficient, target: lacking}
   - {term: definitive, target: final}
-  - {term: unilateral, target: one-sided}
-  - {term: qualitative, target: descriptive}
-  - {term: quantitative, target: numerical}
   - {term: innovative, target: new}
   - {term: additionally, target: also}
   - {term: furthermore, target: also}
@@ -158,6 +130,40 @@ safe_fix_words:
 # Each of these is worth flagging and cannot be substituted mechanically. The
 # reason is the whole point of the entry: it records why somebody said no.
 diagnostic:
+  # Reclassified from safe-fix after field testing of 1.0.0 (ruleset 2026.6).
+  # Field report FIELD-001 found 'facilitate the completion of' becoming
+  # 'help the completion of'. A bounded audit of every automatic lexical rule
+  # for the same defect shape — a context-free substitution that leaves a
+  # grammatically invalid or materially worse sentence — found each of these
+  # failing in a realistic sentence. See V2_FIELD_FINDINGS.md.
+  - {term: facilitate, reason: "'facilitate X' is 'make X easier', and 'help X' is 'assist X': 'facilitate the completion of the task' became 'help the completion of the task' (field report FIELD-001 on 1.0.0), 'facilitates access to' became 'helps access to', 'facilitate payment' became 'help payment'"}
+  - {term: comprise, reason: "runs the other way from 'make up': 'the committee comprises five members' became 'the committee makes up five members'"}
+  - {term: constitute, reason: "'this constitutes a breach' became 'this makes up a breach'"}
+  - {term: reimburse, reason: "a separable phrasal verb cannot precede a pronoun: 'reimburse you' became 'pay back you'"}
+  - {term: relinquish, reason: "a separable phrasal verb cannot precede a pronoun: 'relinquish it' became 'give up it'"}
+  - {term: substantiate, reason: "a separable phrasal verb cannot precede a pronoun: 'substantiate it' became 'back up it'"}
+  - {term: transcribe, reason: "a separable phrasal verb cannot precede a pronoun: 'transcribe it' became 'write down it'"}
+  - {term: expedite, reason: "a separable phrasal verb cannot precede a pronoun: 'expedite it' became 'speed up it'"}
+  - {term: effectuate, reason: "a separable phrasal verb cannot precede a pronoun: 'effectuate it' became 'carry out it'"}
+  - {term: disburse, reason: "a separable phrasal verb cannot precede a pronoun: 'disburse them' became 'pay out them'"}
+  - {term: ascertain, reason: "a separable phrasal verb cannot precede a pronoun: 'ascertain it' became 'find out it' (the hand-authored PS.LEXICAL.010)"}
+  - {term: cease, reason: "'cease to exist' became 'stop to exist', which means something else; 'cease and desist' became 'stop and desist'"}
+  - {term: augment, reason: "the participle is also an adjective: 'augmented reality' became 'added to reality'"}
+  - {term: impair, reason: "the participle is also an adjective: 'impaired vision' became 'harmed vision', 'the hearing impaired' became 'the hearing harmed'"}
+  - {term: preserve, reason: "the participle is also an adjective: 'preserved food' became 'kept food'"}
+  - {term: acquire, reason: "'the data was acquired' became 'the data was got'; 'acquired immunity' is a medical term"}
+  - {term: consolidate, reason: "also means strengthen: 'consolidate our position' became 'combine our position'"}
+  - {term: mitigate, reason: "'mitigate against flooding' became 'reduce against flooding'"}
+  - {term: validate, reason: "in software, validating input checks it against rules, which 'confirm' does not say"}
+  - {term: obligation, reason: "'payment obligations' became 'payment duties'; a duty is also a tax"}
+  - {term: comprehensive, reason: "'comprehensive insurance' is a kind of cover; it became 'full insurance'"}
+  - {term: contemporary, reason: "also means of the same period: 'contemporary accounts of the fire of 1666' became 'modern accounts'"}
+  - {term: preliminary, reason: "'a preliminary hearing' is a stage in proceedings; it became 'an early hearing'"}
+  - {term: viable, reason: "a clinical term: 'a viable pregnancy' became 'a workable pregnancy'"}
+  - {term: unilateral, reason: "means made by one party, not biased: 'a unilateral decision' became 'a one-sided decision'"}
+  - {term: quantitative, reason: "'quantitative easing' became 'numerical easing'"}
+  - {term: qualitative, reason: "'qualitative research' is a method; 'descriptive research' is a different one"}
+  - {term: feasible, reason: "'it is feasible to finish' became 'it is workable to finish'"}
   # Reclassified from safe-fix in the V1 acceptance review (ruleset 2026.5):
   # each broke a real sentence in the acceptance corpus or its probe.
   - {term: empirical, reason: "'empirical evidence' is evidence from observation or experiment, not 'observed evidence'"}

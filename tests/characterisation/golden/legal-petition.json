@@ -117,6 +117,14 @@
           "gunning_fog_index": 20.6,
           "smog_index": 17.7
         },
+        "sample": {
+          "minimum_sentences": 3,
+          "minimum_words": 100,
+          "sentences": 18,
+          "short_text_warning": "",
+          "status": "sufficient",
+          "words": 522
+        },
         "simplification": {
           "barriers": [
             {

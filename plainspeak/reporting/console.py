@@ -3,7 +3,14 @@
 from typing import Optional
 
 from ..core.barriers import SimplificationResult
-from ..core.metrics import ReadabilityScores, describe_flesch_score
+from ..core.metrics import (
+    SAMPLE_INSUFFICIENT,
+    SAMPLE_LIMITED,
+    ReadabilityScores,
+    describe_flesch_score,
+    insufficient_sample_message,
+    sample_status,
+)
 from .labels import _barrier_type_label
 
 
@@ -28,12 +35,25 @@ def format_console_report(
     lines.append("=" * 60)
     lines.append("")
 
+    # A tiny sample gets its raw numbers and no verdict: a grade band or a
+    # "very easy" drawn from three words would be a judgement nobody made.
+    status = sample_status(readability)
+    insufficient = status == SAMPLE_INSUFFICIENT
+    if insufficient:
+        lines.append("  INSUFFICIENT SAMPLE")
+        lines.extend(_wrap(insufficient_sample_message(readability)))
+        lines.append("")
+
     # Consensus
     if readability.consensus_grade_level is not None:
         lines.append(
             f"  Consensus Grade Level: {readability.consensus_grade_level:.1f}"
+            + ("  (this sample only)" if insufficient else "")
         )
-        lines.append(f"  {readability.reading_level_description}")
+        if not insufficient:
+            lines.append(f"  {readability.reading_level_description}")
+        if status == SAMPLE_LIMITED and readability.short_text_warning:
+            lines.extend(_wrap(readability.short_text_warning))
         lines.append("")
 
     # Stats
@@ -51,9 +71,10 @@ def format_console_report(
         lines.append(
             f"    Flesch Reading Ease:        {readability.flesch_reading_ease:.1f}"
         )
-        lines.append(
-            f"      {describe_flesch_score(readability.flesch_reading_ease)}"
-        )
+        if not insufficient:
+            lines.append(
+                f"      {describe_flesch_score(readability.flesch_reading_ease)}"
+            )
     if readability.flesch_kincaid_grade is not None:
         lines.append(
             f"    Flesch-Kincaid Grade Level:  {readability.flesch_kincaid_grade:.1f}"
@@ -79,6 +100,11 @@ def format_console_report(
     # Issues summary
     if simplification:
         lines.append(f"  {simplification.summary}")
+        if insufficient and not simplification.barriers:
+            lines.append(
+                "  (Each sentence was checked, but that is too little text to call the"
+            )
+            lines.append("  document easy to read.)")
         lines.append("")
         if simplification.barriers:
             lines.append("  Top issues:")
@@ -108,3 +134,10 @@ def format_console_report(
     lines.append("=" * 60)
 
     return "\n".join(lines)
+
+
+def _wrap(text: str, width: int = 70) -> list[str]:
+    """A long message as indented lines no wider than the report."""
+    import textwrap
+
+    return ["  " + line for line in textwrap.wrap(text, width - 2)]

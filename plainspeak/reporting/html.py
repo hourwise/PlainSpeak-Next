@@ -308,15 +308,29 @@ def generate_report(
     parts.append('<section aria-labelledby="summary-heading">')
     parts.append(f'<h2 id="summary-heading">Summary</h2>')
 
+    # A tiny sample gets its raw numbers and no verdict.
+    from ..core.metrics import SAMPLE_INSUFFICIENT, insufficient_sample_message, sample_status
+
+    insufficient = sample_status(readability) == SAMPLE_INSUFFICIENT
+    if insufficient:
+        parts.append('<div class="warning-note" role="note">')
+        parts.append(
+            f'<strong>&#9888; Insufficient sample.</strong> '
+            f'{_escape(insufficient_sample_message(readability))}'
+        )
+        parts.append('</div>')
+    elif readability.short_text_warning:
+        parts.append(f'<div class="warning-note" role="note">{_escape(readability.short_text_warning)}</div>')
+
     # Consensus grade
     if readability.consensus_grade_level is not None:
         parts.append('<div class="consensus-banner" role="alert" aria-live="polite">')
         parts.append(
             f'<div class="grade">Grade {readability.consensus_grade_level:.1f}</div>'
         )
-        parts.append(
-            f'<div class="description">{_escape(readability.reading_level_description)}</div>'
-        )
+        description = ("Not a judgement of the text: insufficient sample" if insufficient
+                       else readability.reading_level_description)
+        parts.append(f'<div class="description">{_escape(description)}</div>')
         parts.append('</div>')
 
     # Overview stats

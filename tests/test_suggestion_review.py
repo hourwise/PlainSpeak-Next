@@ -122,7 +122,7 @@ def test_the_governed_ruleset_is_not_affected():
     """The review changes advice, not rules: the ruleset identity does not move."""
     from plainspeak.rules import load_ruleset
 
-    assert load_ruleset().version == "2026.5"
+    assert load_ruleset().version == "2026.6"
 
 
 # ── Nouns and verbs ────────────────────────────────────────────────────────

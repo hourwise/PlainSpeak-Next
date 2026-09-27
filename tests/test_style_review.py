@@ -58,6 +58,9 @@ FIXTURES = Path(__file__).resolve().parent / "style" / "stylefix"
 #: after it moves. Two proposals, not four, since "Even so," was counted.
 #: `signposted` under plain has a density finding and nothing to propose, so
 #: its output is its source.
+#: Plan hashes and digests carry the ruleset identity, so they moved with ruleset
+#: 2026.6 (the field-testing reclassifications). The proposal IDs and the output
+#: hashes did not: nothing these documents contain was affected.
 PINNED = {
     "concessive-heavy": {
         "profile": "natural",
@@ -65,19 +68,19 @@ PINNED = {
             "SP-5de1cbe21aedf1ea",
             "SP-58df68f7f42b847b",
         ],
-        "plan_hash": "cdf43666a339875d9945b167bc970da0e7bf47873faa5a4a401b129f1746e2a7",
-        "plan_digest": "b1f2a60d4c7a08cd4c741fec8a51eff710ea783158fe393a59cd4728f5247010",
-        "approved_digest": "1434db826d554c695a28e740381d4959e19cd45a120a954b7dc464c85d6a02b0",
-        "result_digest": "4d9b5773f4e21164852d0ce6da4b9881e83d2838587c65df19c0f9817e664c89",
+        "plan_hash": "38395e6e91db4ed8b1801a79bf24ae662f4da6c377703c69f74358140825b4e5",
+        "plan_digest": "fb7db359b789c64405c7edcd28545c324da0d9a7808c1bc0ac5c29f5cff486c0",
+        "approved_digest": "c1a2ff6e96ccfce71e3dfbd6281ecca19133399b4f465b4f2082db951f53daf6",
+        "result_digest": "d00f307cf5e6a73a8ef9fe9314cb03d7f0c8459e146a9c55e5284adf2c1fa241",
         "output_hash": "37f9937a9f45961e71b703b9c39d24504222c250802329c438fde86db6ce4e1a",
     },
     "signposted": {
         "profile": "plain",
         "proposal_ids": [],
-        "plan_hash": "e97987120a7028ac0ee9bcc0586dc08c307bf1f4f5204c21cc71f8cfcebf606e",
-        "plan_digest": "873dba9becd80d53d8159fc79dcc26744ba5e97b38d36f56a5edcc9c7308bbb7",
-        "approved_digest": "27afd9696894200130996328c85dafbc8625a2b89bbc22c813a89029e650f4e9",
-        "result_digest": "4846dd626e12f65add9a8b78173373353fa9ec54bc55f092bd656e2e0c49597a",
+        "plan_hash": "389eb59220a37752353d9e85a175f4bab9b092d05a8ef41d3555615a11844443",
+        "plan_digest": "ce543cbd8c65f973680da74ba174d0fdca2b80fd54ae18f5ac3be29cbcd4c208",
+        "approved_digest": "b682b20eb338359c86cf2917f0b46ee979470ef6eb74aaa616cd87541810d2fb",
+        "result_digest": "75cb10ff1487a4eb18fe7a851adb23a6b0fd5261c558b3fbda6a3487ccf10bcc",
         "output_hash": "00ddb376fe3145c8e7768571e9c1d8f32cad021bdaeddcf5019359471fbd1c7c",
     },
 }

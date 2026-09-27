@@ -23,6 +23,7 @@ from typing import Any, Optional
 
 from ..document.model import Document
 from ..rules import Ruleset, canonical_json
+from ..core.metrics import sample_status
 from .analysis import analyze_document
 from .present import FORMAT_MARKDOWN, FORMAT_TEXT, PresentResult, present
 
@@ -106,6 +107,7 @@ def _readability(document: Document) -> dict[str, Any]:
     for name in READABILITY_FIELDS:
         value = getattr(scores, name)
         values[name] = round(value, 2) if isinstance(value, float) else value
+    values["sample_status"] = sample_status(scores)
     return values
 
 

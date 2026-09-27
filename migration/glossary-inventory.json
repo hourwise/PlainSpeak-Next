@@ -126,39 +126,20 @@
       "term": "acquiesce"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "acquire",
-          "get"
-        ],
-        [
-          "acquires",
-          "gets"
-        ],
-        [
-          "acquired",
-          "got"
-        ],
-        [
-          "acquiring",
-          "getting"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'the data was acquired' became 'the data was got'; 'acquired immunity' is a medical term",
       "replacement": "get",
       "rule_id": "PS.LEXICAL.102",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "get",
       "term": "acquire"
     },
     {
@@ -1221,39 +1202,20 @@
       "term": "attempt"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'increase' — a simpler verb.",
-      "forms": [
-        [
-          "augment",
-          "add to"
-        ],
-        [
-          "augments",
-          "adds to"
-        ],
-        [
-          "augmented",
-          "added to"
-        ],
-        [
-          "augmenting",
-          "adding to"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the participle is also an adjective: 'augmented reality' became 'added to reality'",
       "replacement": "add to",
       "rule_id": "PS.LEXICAL.113",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "add to",
       "term": "augment"
     },
     {
@@ -1655,39 +1617,20 @@
       "term": "caveat emptor"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Anglo-Saxon words are usually shorter.",
-      "forms": [
-        [
-          "cease",
-          "stop"
-        ],
-        [
-          "ceases",
-          "stops"
-        ],
-        [
-          "ceased",
-          "stopped"
-        ],
-        [
-          "ceasing",
-          "stopping"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'cease to exist' became 'stop to exist', which means something else; 'cease and desist' became 'stop and desist'",
       "replacement": "stop",
       "rule_id": "PS.LEXICAL.115",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "stop",
       "term": "cease"
     },
     {
@@ -2061,27 +2004,20 @@
       "term": "component"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'complete' — a simpler word.",
-      "forms": [
-        [
-          "comprehensive",
-          "full"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'comprehensive insurance' is a kind of cover; it became 'full insurance'",
       "replacement": "full",
       "rule_id": "PS.LEXICAL.119",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "full",
       "term": "comprehensive"
     },
     {
@@ -2102,39 +2038,20 @@
       "term": "comprehensive cover"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'include' — a simpler verb.",
-      "forms": [
-        [
-          "comprise",
-          "make up"
-        ],
-        [
-          "comprises",
-          "makes up"
-        ],
-        [
-          "comprised",
-          "made up"
-        ],
-        [
-          "comprising",
-          "making up"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "runs the other way from 'make up': 'the committee comprises five members' became 'the committee makes up five members'",
       "replacement": "make up",
       "rule_id": "PS.LEXICAL.120",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "make up",
       "term": "comprise"
     },
     {
@@ -2369,76 +2286,38 @@
       "term": "considerable"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Use words your readers use every day.",
-      "forms": [
-        [
-          "consolidate",
-          "combine"
-        ],
-        [
-          "consolidates",
-          "combines"
-        ],
-        [
-          "consolidated",
-          "combined"
-        ],
-        [
-          "consolidating",
-          "combining"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "also means strengthen: 'consolidate our position' became 'combine our position'",
       "replacement": "combine",
       "rule_id": "PS.LEXICAL.124",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "combine",
       "term": "consolidate"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'form' — a simpler verb.",
-      "forms": [
-        [
-          "constitute",
-          "make up"
-        ],
-        [
-          "constitutes",
-          "makes up"
-        ],
-        [
-          "constituted",
-          "made up"
-        ],
-        [
-          "constituting",
-          "making up"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'this constitutes a breach' became 'this makes up a breach'",
       "replacement": "make up",
       "rule_id": "PS.LEXICAL.125",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "make up",
       "term": "constitute"
     },
     {
@@ -2529,27 +2408,20 @@
       "term": "contemplate"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'current' — a simpler word.",
-      "forms": [
-        [
-          "contemporary",
-          "modern"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "also means of the same period: 'contemporary accounts of the fire of 1666' became 'modern accounts'",
       "replacement": "modern",
       "rule_id": "PS.LEXICAL.128",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "modern",
       "term": "contemporary"
     },
     {
@@ -3216,39 +3088,20 @@
       "term": "direct payments"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "disburse",
-          "pay out"
-        ],
-        [
-          "disburses",
-          "pays out"
-        ],
-        [
-          "disbursed",
-          "paid out"
-        ],
-        [
-          "disbursing",
-          "paying out"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a separable phrasal verb cannot precede a pronoun: 'disburse them' became 'pay out them'",
       "replacement": "pay out",
       "rule_id": "PS.LEXICAL.139",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "pay out",
       "term": "disburse"
     },
     {
@@ -3582,39 +3435,20 @@
       "term": "effectiveness"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A verb people actually say.",
-      "forms": [
-        [
-          "effectuate",
-          "carry out"
-        ],
-        [
-          "effectuates",
-          "carries out"
-        ],
-        [
-          "effectuated",
-          "carried out"
-        ],
-        [
-          "effectuating",
-          "carrying out"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a separable phrasal verb cannot precede a pronoun: 'effectuate it' became 'carry out it'",
       "replacement": "carry out",
       "rule_id": "PS.LEXICAL.142",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "carry out",
       "term": "effectuate"
     },
     {
@@ -4368,40 +4202,21 @@
       "term": "exhibit"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "A more direct phrase.",
-      "forms": [
-        [
-          "expedite",
-          "speed up"
-        ],
-        [
-          "expedites",
-          "speeds up"
-        ],
-        [
-          "expedited",
-          "sped up"
-        ],
-        [
-          "expediting",
-          "speeding up"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a separable phrasal verb cannot precede a pronoun: 'expedite it' became 'speed up it'",
       "replacement": "speed up",
       "rule_id": "PS.LEXICAL.151",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "speed up",
       "term": "expedite"
     },
     {
@@ -4509,40 +4324,21 @@
       "term": "extrapolate"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Or 'enable' — a simpler verb.",
-      "forms": [
-        [
-          "facilitate",
-          "help"
-        ],
-        [
-          "facilitates",
-          "helps"
-        ],
-        [
-          "facilitated",
-          "helped"
-        ],
-        [
-          "facilitating",
-          "helping"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'facilitate X' is 'make X easier', and 'help X' is 'assist X': 'facilitate the completion of the task' became 'help the completion of the task' (field report FIELD-001 on 1.0.0), 'facilitates access to' became 'helps access to', 'facilitate payment' became 'help payment'",
       "replacement": "help",
       "rule_id": "PS.LEXICAL.153",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "help",
       "term": "facilitate"
     },
     {
@@ -4591,27 +4387,20 @@
       "term": "fatality"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "feasible",
-          "workable"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'it is feasible to finish' became 'it is workable to finish'",
       "replacement": "workable",
       "rule_id": "PS.LEXICAL.155",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "workable",
       "term": "feasible"
     },
     {
@@ -5667,39 +5456,20 @@
       "term": "immediately"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "impair",
-          "harm"
-        ],
-        [
-          "impairs",
-          "harms"
-        ],
-        [
-          "impaired",
-          "harmed"
-        ],
-        [
-          "impairing",
-          "harming"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the participle is also an adjective: 'impaired vision' became 'harmed vision', 'the hearing impaired' became 'the hearing harmed'",
       "replacement": "harm",
       "rule_id": "PS.LEXICAL.168",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "harm",
       "term": "impair"
     },
     {
@@ -7919,40 +7689,21 @@
       "term": "middleware"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Or 'lessen' — a simpler verb.",
-      "forms": [
-        [
-          "mitigate",
-          "reduce"
-        ],
-        [
-          "mitigates",
-          "reduces"
-        ],
-        [
-          "mitigated",
-          "reduced"
-        ],
-        [
-          "mitigating",
-          "reducing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'mitigate against flooding' became 'reduce against flooding'",
       "replacement": "reduce",
       "rule_id": "PS.LEXICAL.180",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "reduce",
       "term": "mitigate"
     },
     {
@@ -8458,31 +8209,20 @@
       "term": "obligated"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "obligation",
-          "duty"
-        ],
-        [
-          "obligations",
-          "duties"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'payment obligations' became 'payment duties'; a duty is also a tax",
       "replacement": "duty",
       "rule_id": "PS.LEXICAL.189",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "duty",
       "term": "obligation"
     },
     {
@@ -9566,27 +9306,20 @@
       "term": "prejudiced"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'first' — a simpler word.",
-      "forms": [
-        [
-          "preliminary",
-          "early"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'a preliminary hearing' is a stage in proceedings; it became 'an early hearing'",
       "replacement": "early",
       "rule_id": "PS.LEXICAL.203",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "early",
       "term": "preliminary"
     },
     {
@@ -9659,40 +9392,21 @@
       "term": "prescribe"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Shorter.",
-      "forms": [
-        [
-          "preserve",
-          "keep"
-        ],
-        [
-          "preserves",
-          "keeps"
-        ],
-        [
-          "preserved",
-          "kept"
-        ],
-        [
-          "preserving",
-          "keeping"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the participle is also an adjective: 'preserved food' became 'kept food'",
       "replacement": "keep",
       "rule_id": "PS.LEXICAL.204",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "keep",
       "term": "preserve"
     },
     {
@@ -10385,51 +10099,37 @@
       "term": "qualify"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Explain the research type.",
-      "forms": [
-        [
-          "qualitative",
-          "descriptive"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'qualitative research' is a method; 'descriptive research' is a different one",
       "replacement": "descriptive",
       "rule_id": "PS.LEXICAL.208",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "descriptive",
       "term": "qualitative"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Explain the research type.",
-      "forms": [
-        [
-          "quantitative",
-          "numerical"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'quantitative easing' became 'numerical easing'",
       "replacement": "numerical",
       "rule_id": "PS.LEXICAL.209",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "numerical",
       "term": "quantitative"
     },
     {
@@ -10639,39 +10339,20 @@
       "term": "regimen"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "reimburse",
-          "pay back"
-        ],
-        [
-          "reimburses",
-          "pays back"
-        ],
-        [
-          "reimbursed",
-          "paid back"
-        ],
-        [
-          "reimbursing",
-          "paying back"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a separable phrasal verb cannot precede a pronoun: 'reimburse you' became 'pay back you'",
       "replacement": "pay back",
       "rule_id": "PS.LEXICAL.211",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "pay back",
       "term": "reimburse"
     },
     {
@@ -10709,35 +10390,20 @@
       "term": "relief"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "relinquish",
-          "give up"
-        ],
-        [
-          "relinquishes",
-          "gives up"
-        ],
-        [
-          "relinquishing",
-          "giving up"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a separable phrasal verb cannot precede a pronoun: 'relinquish it' became 'give up it'",
       "replacement": "give up",
       "rule_id": "PS.LEXICAL.212",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "give up",
       "term": "relinquish"
     },
     {
@@ -12130,40 +11796,21 @@
       "term": "substantial"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Or 'support' — a simpler verb.",
-      "forms": [
-        [
-          "substantiate",
-          "back up"
-        ],
-        [
-          "substantiates",
-          "backs up"
-        ],
-        [
-          "substantiated",
-          "backed up"
-        ],
-        [
-          "substantiating",
-          "backing up"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a separable phrasal verb cannot precede a pronoun: 'substantiate it' became 'back up it'",
       "replacement": "back up",
       "rule_id": "PS.LEXICAL.226",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "back up",
       "term": "substantiate"
     },
     {
@@ -12910,35 +12557,20 @@
       "term": "trajectory"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "transcribe",
-          "write down"
-        ],
-        [
-          "transcribes",
-          "writes down"
-        ],
-        [
-          "transcribing",
-          "writing down"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a separable phrasal verb cannot precede a pronoun: 'transcribe it' became 'write down it'",
       "replacement": "write down",
       "rule_id": "PS.LEXICAL.231",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "write down",
       "term": "transcribe"
     },
     {
@@ -13172,28 +12804,21 @@
       "term": "underwriter"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Plain explanation built into the word.",
-      "forms": [
-        [
-          "unilateral",
-          "one-sided"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "means made by one party, not biased: 'a unilateral decision' became 'a one-sided decision'",
       "replacement": "one-sided",
       "rule_id": "PS.LEXICAL.236",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "one-sided",
       "term": "unilateral"
     },
     {
@@ -13283,40 +12908,21 @@
       "term": "vacant possession"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Or 'check' — a simpler verb.",
-      "forms": [
-        [
-          "validate",
-          "confirm"
-        ],
-        [
-          "validates",
-          "confirms"
-        ],
-        [
-          "validated",
-          "confirmed"
-        ],
-        [
-          "validating",
-          "confirming"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "in software, validating input checks it against rules, which 'confirm' does not say",
       "replacement": "confirm",
       "rule_id": "PS.LEXICAL.237",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "confirm",
       "term": "validate"
     },
     {
@@ -13422,27 +13028,20 @@
       "term": "verify"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A more concrete adjective.",
-      "forms": [
-        [
-          "viable",
-          "workable"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a clinical term: 'a viable pregnancy' became 'a workable pregnancy'",
       "replacement": "workable",
       "rule_id": "PS.LEXICAL.239",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "workable",
       "term": "viable"
     },
     {
@@ -13677,10 +13276,10 @@
     "by_classification": {
       "already-covered": 16,
       "deferred": 477,
-      "diagnostic": 61,
+      "diagnostic": 88,
       "protected": 23,
       "rejected": 14,
-      "safe-fix": 115
+      "safe-fix": 88
     },
     "conflicting_replacements": 1,
     "duplicate_across_sources": 55,

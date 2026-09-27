@@ -74,11 +74,13 @@ def test_the_original_document_is_never_mutated() -> None:
 
 def test_changes_are_applied_right_to_left_without_shifting_each_other() -> None:
     """Several edits in one line must all land where they were mapped."""
-    source = "In order to utilise it, ascertain approximately how many.\n"
+    # "henceforth -> from now on" supplies the multi-word, length-changing edit
+    # that "ascertain -> find out" supplied until ruleset 2026.6 demoted it.
+    source = "In order to utilise it henceforth, count approximately how many.\n"
     _, plan, result = run(source)
 
     assert len(plan.accepted) == 4
-    assert result.output == "To use it, find out about how many.\n"
+    assert result.output == "To use it from now on, count about how many.\n"
 
 
 def test_a_document_with_nothing_to_fix_is_returned_unchanged() -> None:

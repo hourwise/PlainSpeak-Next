@@ -46,43 +46,6 @@ examples:
       after: "The report used the word do."
 
 ---
-id: PS.LEXICAL.102
-version: 1
-name: acquire-to-get
-mode: safe-fix
-description: >
-  "Acquire" is "get" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "acquire"
-  pos: verb
-action:
-  type: replace
-  lemma: "get"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"get\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word acquire."
-    - "The report used the word acquires."
-  negative:
-    - "The token acquirer is a different word."
-  transform:
-    - before: "The report used the word acquire."
-      after: "The report used the word get."
-
----
 id: PS.LEXICAL.105
 version: 1
 name: alleviate-to-reduce
@@ -342,117 +305,6 @@ examples:
       after: "The report used the word reach."
 
 ---
-id: PS.LEXICAL.113
-version: 1
-name: augment-to-add-to
-mode: safe-fix
-description: >
-  "Augment" is "add to" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "augment"
-  pos: verb
-action:
-  type: replace
-  lemma: "add to"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"add to\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word augment."
-    - "The report used the word augments."
-  negative:
-    - "The token augmentr is a different word."
-  transform:
-    - before: "The report used the word augment."
-      after: "The report used the word add to."
-
----
-id: PS.LEXICAL.115
-version: 1
-name: cease-to-stop
-mode: safe-fix
-description: >
-  "Cease" is "stop" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "cease"
-  pos: verb
-action:
-  type: replace
-  lemma: "stop"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"stop\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word cease."
-    - "The report used the word ceases."
-  negative:
-    - "The token ceaser is a different word."
-  transform:
-    - before: "The report used the word cease."
-      after: "The report used the word stop."
-
----
-id: PS.LEXICAL.120
-version: 1
-name: comprise-to-make-up
-mode: safe-fix
-description: >
-  "Comprise" is "make up" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "comprise"
-  pos: verb
-action:
-  type: replace
-  lemma: "make up"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"make up\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word comprise."
-    - "The report used the word comprises."
-  negative:
-    - "The token compriser is a different word."
-  transform:
-    - before: "The report used the word comprise."
-      after: "The report used the word make up."
-
----
 id: PS.LEXICAL.121
 version: 1
 name: concur-to-agree
@@ -488,80 +340,6 @@ examples:
   transform:
     - before: "The report used the word concur."
       after: "The report used the word agree."
-
----
-id: PS.LEXICAL.124
-version: 1
-name: consolidate-to-combine
-mode: safe-fix
-description: >
-  "Consolidate" is "combine" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "consolidate"
-  pos: verb
-action:
-  type: replace
-  lemma: "combine"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"combine\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word consolidate."
-    - "The report used the word consolidates."
-  negative:
-    - "The token consolidater is a different word."
-  transform:
-    - before: "The report used the word consolidate."
-      after: "The report used the word combine."
-
----
-id: PS.LEXICAL.125
-version: 1
-name: constitute-to-make-up
-mode: safe-fix
-description: >
-  "Constitute" is "make up" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "constitute"
-  pos: verb
-action:
-  type: replace
-  lemma: "make up"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"make up\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word constitute."
-    - "The report used the word constitutes."
-  negative:
-    - "The token constituter is a different word."
-  transform:
-    - before: "The report used the word constitute."
-      after: "The report used the word make up."
 
 ---
 id: PS.LEXICAL.127
@@ -749,43 +527,6 @@ examples:
       after: "The report used the word choose."
 
 ---
-id: PS.LEXICAL.139
-version: 1
-name: disburse-to-pay-out
-mode: safe-fix
-description: >
-  "Disburse" is "pay out" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "disburse"
-  pos: verb
-action:
-  type: replace
-  lemma: "pay out"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"pay out\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word disburse."
-    - "The report used the word disburses."
-  negative:
-    - "The token disburser is a different word."
-  transform:
-    - before: "The report used the word disburse."
-      after: "The report used the word pay out."
-
----
 id: PS.LEXICAL.140
 version: 1
 name: discontinue-to-stop
@@ -858,43 +599,6 @@ examples:
   transform:
     - before: "The report used the word disseminate."
       after: "The report used the word spread."
-
----
-id: PS.LEXICAL.142
-version: 1
-name: effectuate-to-carry-out
-mode: safe-fix
-description: >
-  "Effectuate" is "carry out" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "effectuate"
-  pos: verb
-action:
-  type: replace
-  lemma: "carry out"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"carry out\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word effectuate."
-    - "The report used the word effectuates."
-  negative:
-    - "The token effectuater is a different word."
-  transform:
-    - before: "The report used the word effectuate."
-      after: "The report used the word carry out."
 
 ---
 id: PS.LEXICAL.143
@@ -1045,43 +749,6 @@ examples:
       after: "The report used the word worsen."
 
 ---
-id: PS.LEXICAL.151
-version: 1
-name: expedite-to-speed-up
-mode: safe-fix
-description: >
-  "Expedite" is "speed up" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "expedite"
-  pos: verb
-action:
-  type: replace
-  lemma: "speed up"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"speed up\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word expedite."
-    - "The report used the word expedites."
-  negative:
-    - "The token expediter is a different word."
-  transform:
-    - before: "The report used the word expedite."
-      after: "The report used the word speed up."
-
----
 id: PS.LEXICAL.152
 version: 1
 name: expend-to-spend
@@ -1117,3 +784,336 @@ examples:
   transform:
     - before: "The report used the word expend."
       after: "The report used the word spend."
+
+---
+id: PS.LEXICAL.156
+version: 1
+name: finalize-to-finish
+mode: safe-fix
+description: >
+  "Finalize" is "finish" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "finalize"
+  pos: verb
+action:
+  type: replace
+  lemma: "finish"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"finish\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word finalize."
+    - "The report used the word finalizes."
+  negative:
+    - "The token finalizer is a different word."
+  transform:
+    - before: "The report used the word finalize."
+      after: "The report used the word finish."
+
+---
+id: PS.LEXICAL.157
+version: 1
+name: formulate-to-create
+mode: safe-fix
+description: >
+  "Formulate" is "create" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "formulate"
+  pos: verb
+action:
+  type: replace
+  lemma: "create"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"create\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word formulate."
+    - "The report used the word formulates."
+  negative:
+    - "The token formulater is a different word."
+  transform:
+    - before: "The report used the word formulate."
+      after: "The report used the word create."
+
+---
+id: PS.LEXICAL.171
+version: 1
+name: initiate-to-start
+mode: safe-fix
+description: >
+  "Initiate" is "start" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "initiate"
+  pos: verb
+action:
+  type: replace
+  lemma: "start"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"start\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word initiate."
+    - "The report used the word initiates."
+  negative:
+    - "The token initiater is a different word."
+  transform:
+    - before: "The report used the word initiate."
+      after: "The report used the word start."
+
+---
+id: PS.LEXICAL.174
+version: 1
+name: intervene-to-step-in
+mode: safe-fix
+description: >
+  "Intervene" is "step in" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "intervene"
+  pos: verb
+action:
+  type: replace
+  lemma: "step in"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"step in\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word intervene."
+    - "The report used the word intervenes."
+  negative:
+    - "The token intervener is a different word."
+  transform:
+    - before: "The report used the word intervene."
+      after: "The report used the word step in."
+
+---
+id: PS.LEXICAL.182
+version: 1
+name: modify-to-change
+mode: safe-fix
+description: >
+  "Modify" is "change" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "modify"
+  pos: verb
+action:
+  type: replace
+  lemma: "change"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"change\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word modify."
+    - "The report used the word modifies."
+  negative:
+    - "The token modifyr is a different word."
+  transform:
+    - before: "The report used the word modify."
+      after: "The report used the word change."
+
+---
+id: PS.LEXICAL.184
+version: 1
+name: necessitate-to-require
+mode: safe-fix
+description: >
+  "Necessitate" is "require" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "necessitate"
+  pos: verb
+action:
+  type: replace
+  lemma: "require"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"require\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word necessitate."
+    - "The report used the word necessitates."
+  negative:
+    - "The token necessitater is a different word."
+  transform:
+    - before: "The report used the word necessitate."
+      after: "The report used the word require."
+
+---
+id: PS.LEXICAL.186
+version: 1
+name: notify-to-tell
+mode: safe-fix
+description: >
+  "Notify" is "tell" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "notify"
+  pos: verb
+action:
+  type: replace
+  lemma: "tell"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"tell\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word notify."
+    - "The report used the word notifies."
+  negative:
+    - "The token notifyr is a different word."
+  transform:
+    - before: "The report used the word notify."
+      after: "The report used the word tell."
+
+---
+id: PS.LEXICAL.191
+version: 1
+name: obtain-to-get
+mode: safe-fix
+description: >
+  "Obtain" is "get" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "obtain"
+  pos: verb
+action:
+  type: replace
+  lemma: "get"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"get\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word obtain."
+    - "The report used the word obtains."
+  negative:
+    - "The token obtainr is a different word."
+  transform:
+    - before: "The report used the word obtain."
+      after: "The report used the word get."
+
+---
+id: PS.LEXICAL.195
+version: 1
+name: originate-to-start
+mode: safe-fix
+description: >
+  "Originate" is "start" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "originate"
+  pos: verb
+action:
+  type: replace
+  lemma: "start"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"start\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word originate."
+    - "The report used the word originates."
+  negative:
+    - "The token originater is a different word."
+  transform:
+    - before: "The report used the word originate."
+      after: "The report used the word start."

@@ -27,7 +27,7 @@ from ..core.barriers import (
     get_barrier_priority,
     group_barriers_by_sentence,
 )
-from ..core.metrics import analyze, describe_flesch_score
+from ..core.metrics import analyze, describe_flesch_score, sample_status
 from ..pipeline import PresentError, present_text
 
 #: The profile the page presents under when a request names none. A product
@@ -833,10 +833,17 @@ function renderResults(data) {
   updateLiveScores(data);
 
   // ── Difficulty band banner (primary output) ──
-  const band = data.difficulty_band || describeEase(data.flesch_reading_ease);
+  // Too little text for a band to mean anything: say so instead of showing one.
+  const insufficient = data.sample_status === 'insufficient_sample';
+  const band = insufficient ? 'Not enough text'
+    : (data.difficulty_band || describeEase(data.flesch_reading_ease));
   document.getElementById('diff-band').textContent = band;
-  document.getElementById('diff-label').textContent = data.difficulty_band_label || data.reading_level_description || '';
-  document.getElementById('diff-explanation').textContent = data.difficulty_band_explanation || '';
+  document.getElementById('diff-label').textContent = insufficient
+    ? 'Too little text to judge how easy it is to read'
+    : (data.difficulty_band_label || data.reading_level_description || '');
+  document.getElementById('diff-explanation').textContent = insufficient
+    ? 'The formulas need at least 100 words and 3 sentences. The scores below describe this sample only.'
+    : (data.difficulty_band_explanation || '');
 
   // Colour the band badge by difficulty
   const bandEl = document.getElementById('diff-band');
@@ -1200,6 +1207,9 @@ def create_app():
             "difficulty_band_label": readability.difficulty_band_label,
             "difficulty_band_explanation": readability.difficulty_band_explanation,
             "short_text_warning": readability.short_text_warning,
+            # Added after field testing of 1.0.0: whether the band above may be
+            # shown as a judgement of the text at all.
+            "sample_status": sample_status(readability),
             "metric_spread": round(readability.metric_spread, 1),
             "metric_count": readability.metric_count,
             "grade_warnings": readability.grade_warnings,

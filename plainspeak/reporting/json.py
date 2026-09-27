@@ -8,7 +8,12 @@ import json
 from typing import Any, Optional
 
 from ..core.barriers import SimplificationResult
-from ..core.metrics import ReadabilityScores
+from ..core.metrics import (
+    MIN_SAMPLE_SENTENCES,
+    MIN_SAMPLE_WORDS,
+    ReadabilityScores,
+    sample_status,
+)
 
 
 def generate_json(
@@ -73,6 +78,17 @@ def generate_json(
                 if readability.coleman_liau_index is not None
                 else None
             ),
+        },
+        # Added after field testing of 1.0.0. Every field above keeps its value;
+        # this says whether the sample was large enough for the figures to be
+        # read as a judgement of the document.
+        "sample": {
+            "status": sample_status(readability),
+            "words": readability.total_words,
+            "sentences": readability.total_sentences,
+            "minimum_words": MIN_SAMPLE_WORDS,
+            "minimum_sentences": MIN_SAMPLE_SENTENCES,
+            "short_text_warning": readability.short_text_warning,
         },
         "consensus": {
             "grade_level": (

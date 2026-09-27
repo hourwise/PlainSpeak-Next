@@ -13,9 +13,33 @@ history this repository preserves; see [UPSTREAM.md](UPSTREAM.md).
 
 ## [Unreleased]
 
-The V2 release candidate. Additive: every 1.0.0 contract is unchanged, and
-`plainspeak.present.v1` output is byte-identical to 1.0.0's. Recommended
-version: 1.1.0 ([V2_SCOPE.md](V2_SCOPE.md)).
+The 1.1.0 release candidate: Verify, the GitHub Action and the MCP server, and
+fixes for defects found by field testing of the published 1.0.0. Every 1.0.0
+contract keeps its shape. Recommended version: 1.1.0 ([V2_SCOPE.md](V2_SCOPE.md)).
+
+### Fixed — found by field testing of 1.0.0
+- **An unsafe automatic rewrite (FIELD-001).** 1.0.0 turned "In order to
+  facilitate the completion of the task" into "To help the completion of the
+  task": "facilitate X" is "make X easier", "help X" is "assist X".
+  `PS.LEXICAL.153` is now a diagnostic. A bounded audit of every automatic
+  lexical rule for the same defect reclassified 27 more — separable phrasal
+  verbs before a pronoun ("reimburse you" → "pay back you"), reversed or changed
+  meanings ("comprises five members" → "makes up five members"), adjectival
+  participles ("augmented reality" → "added to reality") and terms of art
+  ("comprehensive insurance", "a preliminary hearing", "quantitative easing").
+  Ruleset 2026.6: 220 rules, 111 automatic; every rule keeps its ID. 25 of 145
+  checked `present` outputs change, each only by no longer applying one of these
+  rules.
+- **A readability verdict on three words (FIELD-003).** `analyze` called "Please
+  check this." grade 2, "Very easy". A sample under 100 words or 3 sentences is
+  now reported as an insufficient sample: raw scores kept, no band or verdict.
+  The JSON report gains a `sample` object; no existing field changes.
+- **Piped text without `--stdin` (FIELD-002).** `analyze`, `present` and
+  `diagnose` now say when text is being piped in without `--stdin`, and show
+  the command that works; help shows `--stdin` examples and that `--profile`
+  has no default. Input semantics and exit statuses are unchanged.
+
+See [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md).
 
 ### Added
 - **`plainspeak verify BEFORE AFTER`** judges a transformation made by anyone —

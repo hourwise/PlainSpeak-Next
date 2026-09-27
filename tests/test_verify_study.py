@@ -66,3 +66,11 @@ def test_every_judgement_is_complete(study):
 def test_the_recorded_results_are_current(results):
     recorded = json.loads((STUDY / "results.json").read_text(encoding="utf-8"))
     assert results == recorded
+
+
+def test_the_independent_review_bundle_is_current():
+    """REVIEW_BUNDLE.md is generated; a stale one would show a reviewer old results."""
+    spec = importlib.util.spec_from_file_location("review_bundle", STUDY / "review_bundle.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    assert module.render() == (STUDY / "REVIEW_BUNDLE.md").read_bytes().decode("utf-8")

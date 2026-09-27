@@ -1,4 +1,4 @@
-ruleset_version: "2026.5"
+ruleset_version: "2026.6"
 description: >
   The rules PlainSpeak Next ships with. Every rule states what it matches,
   what it would do, why, where it came from, and the cases where it must stay
@@ -33,3 +33,15 @@ description: >
   became "does to pay"), or one that broke the grammar ("convene a meeting"
   became "meet a meeting"). They are still reported; they are no longer applied.
   Every rule keeps its ID: migration/rule-ids.json binds each ID to its term.
+
+  2026.6 reclassifies 28 more safe fixes as diagnostics after field testing of
+  the published 1.0.0. "In order to facilitate the completion of the task"
+  became "To help the completion of the task": "facilitate X" is "make X
+  easier", "help X" is "assist X". A bounded audit of every automatic lexical
+  rule for that defect shape found 27 others failing in realistic sentences: a
+  separable phrasal verb before a pronoun ("reimburse you" became "pay back
+  you"), a verb that runs the other way ("comprises five members" became
+  "makes up five members"), a participle that is also an adjective ("augmented
+  reality" became "added to reality"), and terms of art ("comprehensive
+  insurance", "a preliminary hearing", "quantitative easing"). They are still
+  reported; they are no longer applied. Every rule keeps its ID.

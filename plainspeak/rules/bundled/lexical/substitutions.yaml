@@ -324,23 +324,21 @@ examples:
 id: PS.LEXICAL.010
 version: 1
 name: ascertain-to-find-out
-mode: safe-fix
+mode: diagnostic
 description: >
-  A Latinate verb with a plain phrasal equivalent. The replacement is two words
-  rather than one, which the engine handles as an ordinary span replacement.
+  A Latinate verb with a plain phrasal equivalent, "find out" — but a separable
+  one. Before a pronoun the particle has to move ("find it out"), and a
+  context-free substitution cannot move it: "ascertain it" became "find out
+  it". Reclassified from safe-fix after field testing of 1.0.0 (ruleset
+  2026.6); reported, not rewritten. The rule ID is unchanged.
 match:
   type: word
   text: "ascertain"
-action:
-  type: replace
-  replacement: "find out"
 scope:
   include: [prose]
-case:
-  policy: preserve
 priority: 100
 reason:
-  short: "\"find out\" is the everyday phrase"
+  short: "\"find out\" is the everyday phrase, but it cannot always be substituted"
 provenance:
   source: "PlainSpeak inherited glossary, re-authored as a rule"
   reference: "plainspeak/core/glossary.py"
@@ -350,9 +348,6 @@ examples:
     - "We will ascertain whether the claim is valid."
   negative:
     - "The ascertainment of facts took two weeks."
-  transform:
-    - before: "We will ascertain whether the claim is valid."
-      after: "We will find out whether the claim is valid."
 
 ---
 id: PS.LEXICAL.011

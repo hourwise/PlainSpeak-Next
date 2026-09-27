@@ -104,15 +104,21 @@ This is the scope of the V2 release candidate. It has not been published.
 
 ## Compatibility with V1
 
-Nothing in V1's public contracts changed:
+No V1 contract changed shape, and two field defects in 1.0.0's behaviour were
+corrected deliberately ([V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md)):
 
-- `plainspeak.present.v1` output is byte-identical to 1.0.0's for the same input
-  and profile. Checked by comparing all 27 acceptance-corpus documents under
-  all five profiles (135 outputs) between `main` and this branch.
-- Every V1 CLI command, option and exit status is unchanged. V2 adds commands; it
-  removes and alters none.
-- The integrity policy (2026.2), ruleset (2026.5), morphology, style policy and
-  profile pack are unchanged, so every V1 identity and pinned output is too.
+- **Ruleset 2026.6** reclassifies 28 SAFE rules as diagnostics (FIELD-001: an
+  automatic rewrite that broke sentences, and the audit that followed). Of 145
+  `present` outputs checked — 29 documents under five profiles — 120 are
+  byte-identical to 1.0.0 apart from the ruleset identity, and 25 differ only in
+  that a reclassified rule is no longer applied; nothing is applied that was
+  not before, and each textual difference is a reverted substitution.
+- **`analyze` reports** qualify a sample shorter than 100 words or 3 sentences
+  instead of presenting a verdict (FIELD-003). The JSON report gains a `sample`
+  object; every existing field keeps its value.
+- The `plainspeak.present.v1` schema, every V1 CLI command, option and exit
+  status, and the integrity policy (2026.2), morphology, style policy and
+  profile pack are unchanged. V2 adds commands; it removes and alters none.
 - No runtime dependency was added. `import plainspeak` loads neither the MCP
   server nor anything new outside the standard library.
 
@@ -130,6 +136,8 @@ The V1 boundary applies to the new contracts as well. In addition:
 
 ## Version
 
-V2 is additive and every V1 contract is unchanged, so the recommended next
-version is **1.1.0**, not 2.0.0. See [VERIFY_STUDY.md](VERIFY_STUDY.md) for the
+V2 is additive, every V1 contract keeps its shape, and the two behaviour
+changes are corrections of defects found in 1.0.0 — output that was wrong, not
+output anyone could have relied on — so the recommended next version is
+**1.1.0**, not 2.0.0. See [VERIFY_STUDY.md](VERIFY_STUDY.md) for the
 release-candidate evidence.

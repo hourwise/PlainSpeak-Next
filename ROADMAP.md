@@ -103,6 +103,13 @@ and desktop there. See [MCP.md](MCP.md).
 run found a false acceptance of protected meaning; it was fixed and the final
 run has none. See [VERIFY_STUDY.md](VERIFY_STUDY.md).
 
+### Stage 4c — Field findings *(V2-E)*
+
+Field testing of the published 1.0.0 found an unsafe SAFE rule (facilitate →
+help), a readability verdict on three words, and hard-to-discover `--stdin`.
+All fixed; a bounded audit reclassified 27 more rules. See
+[V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md).
+
 *Backlog:* `plainspeak explain before.txt after.txt` — a semantic/style diff that
 classifies each difference as SAFE, PRESERVED, REVIEW or REFUSED.
 
