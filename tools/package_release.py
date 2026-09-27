@@ -42,7 +42,11 @@ def write_sums(paths: list[Path]) -> Path:
     sums = RELEASE / "SHA256SUMS"
     lines = set(sums.read_text(encoding="utf-8").splitlines()) if sums.exists() else set()
     lines |= {f"{sha256_of(path)}  {path.name}" for path in paths}
-    sums.write_text("\n".join(sorted(lines, key=lambda line: line[66:])) + "\n", encoding="utf-8")
+    # LF on every platform: `sha256sum --check` reads a CRLF line as a file
+    # name ending in a carriage return, and a checksum file nobody can check
+    # is worse than none. `write_text` would translate newlines on Windows.
+    with open(sums, "w", encoding="utf-8", newline="\n") as handle:
+        handle.write("\n".join(sorted(lines, key=lambda line: line[66:])) + "\n")
     return sums
 
 

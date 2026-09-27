@@ -104,14 +104,14 @@ jobs:
           /tmp/wheeltest/bin/python certify_release.py --report certification-python.json
 
       - name: Package the Python distributions
-        run: python tools/package_release.py python dist
+        run: |
+          python tools/package_release.py python dist
+          cp "$RUNNER_TEMP/elsewhere/certification-python.json" release/
 
       - uses: actions/upload-artifact@v4
         with:
           name: plainspeak-python
-          path: |
-            release/
-            ${{ runner.temp }}/elsewhere/certification-python.json
+          path: release/
           retention-days: 14
 
   desktop-build:
