@@ -34,6 +34,17 @@ history this repository preserves; see [UPSTREAM.md](UPSTREAM.md).
   into an isolated environment; inputs reach it only through the environment,
   paths are confined to the workspace, and document text written back out is
   escaped. Dogfooded by the `Verify action` workflow on Linux and Windows.
+- **`plainspeak serve`**: a local MCP server over stdio exposing `present`,
+  `verify` and `diagnose` as tools, returning the CLI's contracts byte for
+  byte. No network, no file access, no commands, no mutation, no telemetry and
+  no dependencies — the protocol subset is implemented with the standard
+  library. Protocol revisions 2024-11-05 to 2025-11-25; interoperability
+  checked against the official MCP Python SDK client. A new `mcp` layer may
+  import only `pipeline`, and only `plainspeak serve` may import it. See
+  [MCP.md](MCP.md).
+- **`plainspeak diagnose`** and the `plainspeak.diagnose.v1` contract:
+  everything `present` observes, applied to nothing, built from the same review
+  bundle so the two cannot disagree; plus readability, rounded to two places.
 - `plainspeak.pipeline.verify`, `verify_text` and `verify_files`. Architecture
   tests forbid any interface from containing a verifier of its own, and require
   each versioned contract to be defined in exactly one module.

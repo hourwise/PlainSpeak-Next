@@ -38,6 +38,7 @@ from ..pipeline import present as present_document
 from ..pipeline import explain_profile as profile_detail
 from ..pipeline import plan_style_changes
 from ..pipeline import verify_files
+from ..pipeline import diagnose as diagnose_document
 from ..pipeline.sources import load_document
 from ..pipeline import list_profiles
 from ..reporting.json import generate_json
@@ -585,6 +586,60 @@ def verify_cmd(before, after, fmt, input_format, receipt_path, output, overwrite
     else:
         click.echo(rendered, nl=False)
     sys.exit(VERIFY_EXIT[result.result])
+
+
+# ── Diagnosing and serving ────────────────────────────────────────────────
+
+
+@main.command("diagnose")
+@click.argument("path", type=click.Path(exists=True, dir_okay=False), required=False)
+@click.option("--stdin", "from_stdin", is_flag=True, help="Read the text from standard input.")
+@click.option(
+    "--profile", "profile_id", required=True,
+    help="Profile to diagnose under: natural, plain, technical, government or academic. No default.",
+)
+@click.option(
+    "--input-format", type=click.Choice([FORMAT_MARKDOWN, FORMAT_TEXT]), default=None,
+    help="How to parse --stdin (default markdown). A file is parsed according to its extension.",
+)
+def diagnose_cmd(path, from_stdin, profile_id, input_format):
+    """Report everything PlainSpeak observes about a document, and change nothing.
+
+    The versioned plainspeak.diagnose.v1 contract: the SAFE changes `present`
+    would apply, suggestions awaiting a person, refusals and their reasons,
+    style observations and their coverage, protected facts and readability.
+
+    Exit status: 0 diagnosed; 1 the input could not be diagnosed (standard
+    output carries the error code); 2 invalid usage.
+    """
+    if bool(path) == bool(from_stdin):
+        raise click.UsageError("give exactly one input: a PATH or --stdin")
+    try:
+        document, detected = _read_present_input(path, from_stdin, input_format)
+        result = diagnose_document(document, profile_id, input_format=detected)
+    except PresentError as error:
+        click.echo(error.to_json(), nl=False)
+        click.echo(f"Error ({error.code}): {error.message}", err=True)
+        sys.exit(1)
+    click.echo(result.to_json(), nl=False)
+
+
+@main.command("serve")
+@click.option(
+    "--transport", type=click.Choice(["stdio"]), default="stdio", show_default=True,
+    help="How to talk to the MCP client. Only stdio: the server is local by design.",
+)
+def serve_cmd(transport):
+    """Run PlainSpeak as a local MCP server, for an agent or an MCP client.
+
+    Exposes three tools — present, verify and diagnose — returning exactly the
+    versioned contracts the CLI returns. Speaks the MCP stdio transport on
+    standard input and output. No network, no files, no telemetry: every tool
+    takes text and returns a result, and nothing is written or executed.
+    """
+    from ..mcp import serve_stdio
+
+    sys.exit(serve_stdio())
 
 
 @main.command()

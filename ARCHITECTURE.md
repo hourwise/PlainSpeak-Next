@@ -60,8 +60,9 @@ Arrows are the *only* permitted directions.
 | `rules` | Declarative prose rules and deterministic matching | `rules`, `morphology` |
 | `style` | Document-level style diagnostics, and the profiles that interpret them | `style`, `core` |
 | `pipeline` | Orchestration between documents, rules and analysis | `pipeline`, `core`, `document`, `integrity`, `rules`, `style` |
-| `adapters` | Interfaces onto the engine | `adapters`, `pipeline`, `core`, `integrity`, `reporting` |
+| `adapters` | Interfaces onto the engine | `adapters`, `pipeline`, `core`, `integrity`, `reporting`, `mcp` |
 | `desktop` | The native review application | `desktop`, `pipeline` |
+| `mcp` | The MCP server: `present`, `verify` and `diagnose` as tools | `mcp`, `pipeline` |
 
 That table is not a description. `tests/test_architecture.py` parses it out of
 this file and compares it against what the code actually imports, so a
@@ -110,6 +111,15 @@ second firewall. Interfaces call it and render its result;
 sequence aligner or the firewall's comparison functions, and
 `test_each_contract_is_defined_in_one_place` keeps `plainspeak.verify.v1` in one
 module. See [VERIFY.md](VERIFY.md).
+
+## MCP
+
+`plainspeak.mcp` is the MCP server, and the strictest adapter: it may import
+`pipeline` and nothing else, it imports only the standard library from outside
+PlainSpeak, and the only module that may import it is the CLI's `serve`
+command — so `import plainspeak` never loads it. Its tools take text, call one
+pipeline function each, and return that function's contract unchanged. See
+[MCP.md](MCP.md).
 
 ## Where the layers came from
 

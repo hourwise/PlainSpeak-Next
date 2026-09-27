@@ -87,7 +87,7 @@ even to people who never use PlainSpeak's own transformations.
 semantic/style diff that classifies each difference as SAFE, PRESERVED, REVIEW
 or REFUSED.
 
-### Stage 4 — MCP
+### Stage 4 — MCP *(V2-C implemented on the V2 branch; see [MCP.md](MCP.md))*
 
 `plainspeak serve` exposes thin adapters over canonical pipeline operations
 (`present`, `verify`, `diagnose`). MCP must not become another engine; the

@@ -58,7 +58,7 @@ ALLOWED_IMPORTS: dict[str, set[str]] = {
     # a result is not part of producing one.
     "pipeline": {"pipeline", "core", "document", "integrity", "rules", "style"},
     # Adapters are the only layer allowed to reach across the whole system.
-    "adapters": {"adapters", "pipeline", "core", "integrity", "reporting"},
+    "adapters": {"adapters", "pipeline", "core", "integrity", "reporting", "mcp"},
     # The desktop application. An adapter, and a stricter one than the CLI: it
     # reaches `pipeline` and nothing else. Where it needed something the pipeline
     # did not expose, the answer was to widen the pipeline facade rather than
@@ -66,6 +66,12 @@ ALLOWED_IMPORTS: dict[str, set[str]] = {
     # rule. A GUI joining four independent engine authorities together inside a
     # widget would be re-implementing the engine somewhere nobody would test it.
     "desktop": {"desktop", "pipeline"},
+    # The MCP server. An adapter as strict as the desktop: it reaches `pipeline`
+    # and nothing else, and the only thing that may reach it is the CLI command
+    # that starts it. An agent-facing interface that assembled its own answer
+    # from the engine's parts could give an agent a different answer from the
+    # one a person gets from the CLI.
+    "mcp": {"mcp", "pipeline"},
 }
 
 
@@ -333,7 +339,7 @@ def test_nothing_below_the_orchestration_layer_imports_it() -> None:
     for layer, path in _layer_modules():
         # `adapters` and `desktop` are both above orchestration and are the
         # only layers permitted to depend on it.
-        if layer in (ORCHESTRATION_LAYER, "adapters", "desktop"):
+        if layer in (ORCHESTRATION_LAYER, "adapters", "desktop", "mcp"):
             continue
         for target, line in _imported_targets(path):
             if target == ORCHESTRATION_LAYER:
@@ -509,7 +515,7 @@ def test_style_cannot_reach_the_firewall_or_the_rule_engine() -> None:
 #: Every module that could plausibly gain a Qt import by accident. The desktop
 #: is deliberately absent: it is the one package allowed to know a GUI exists.
 QT_FREE_LAYERS = ("core", "document", "rules", "integrity", "morphology", "style",
-                  "pipeline", "reporting", "adapters")
+                  "pipeline", "reporting", "adapters", "mcp")
 
 QT_MODULES = ("PySide6", "PyQt5", "PyQt6", "shiboken6", "shiboken2")
 
@@ -729,7 +735,7 @@ def test_the_bundled_rules_ship_with_the_package() -> None:
 #: in front of a person. Every interface transforms through `pipeline`.
 UNGOVERNED_MODULES = ("core.transform",)
 UNGOVERNED_NAMES = ("generate_simplified_text", "post_process_simplified")
-INTERFACE_LAYERS = ("adapters", "desktop")
+INTERFACE_LAYERS = ("adapters", "desktop", "mcp")
 
 
 def _imported_modules(path: Path) -> list[tuple[str, tuple[str, ...], int]]:
@@ -789,6 +795,7 @@ CONTRACTS = {
     "plainspeak.verify.v1": "pipeline/verify.py",
     "plainspeak.verify.receipt.v1": "pipeline/verify.py",
     "plainspeak.present.v1": "pipeline/present.py",
+    "plainspeak.diagnose.v1": "pipeline/diagnose.py",
 }
 
 

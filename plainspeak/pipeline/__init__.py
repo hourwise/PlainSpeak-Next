@@ -23,7 +23,7 @@ no protected-term policy and no document parsing. If something here starts to
 look like analysis, it belongs in `core`; if it starts to look like parsing, it
 belongs in `document`.
 
-The entry points are `analyze_document`, `present` and `verify`. Adapters —
+The entry points are `analyze_document`, `present`, `verify` and `diagnose`. Adapters —
 the CLI, the desktop application and the MCP server — call these functions, so
 that a document cannot get different answers depending on which interface
 asked.
@@ -86,6 +86,7 @@ from .verify import (
     verify_files,
     verify_text,
 )
+from .diagnose import DIAGNOSE_SCHEMA, DiagnoseResult, diagnose, diagnose_text
 from .style_plan import StylePlan, StylePlanError, StyleProposal, plan_style_changes
 from .style_review import (
     ApprovedStylePlan,
@@ -165,4 +166,8 @@ __all__ = [
     "verify",
     "verify_files",
     "verify_text",
+    "DIAGNOSE_SCHEMA",
+    "DiagnoseResult",
+    "diagnose",
+    "diagnose_text",
 ]

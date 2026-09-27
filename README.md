@@ -159,6 +159,20 @@ The same check runs in CI as a GitHub Action:
     after: docs/revised.md
 ```
 
+### `diagnose` and `serve`
+
+```bash
+plainspeak diagnose document.md --profile natural   # plainspeak.diagnose.v1, changes nothing
+plainspeak serve                                    # a local MCP server over stdio
+```
+
+`diagnose` reports everything `present` observes — the SAFE changes it would
+make, suggestions awaiting a person, refusals, style observations and their
+coverage, protected facts, readability — and applies nothing. `serve` exposes
+`present`, `verify` and `diagnose` to an agent as MCP tools, returning the same
+contracts byte for byte: stdio only, no network, no file access, no
+dependencies. See [MCP.md](MCP.md).
+
 ### Inspecting the engine
 
 ```bash
@@ -220,6 +234,7 @@ The full accounting is in [LIMITATIONS.md](LIMITATIONS.md) and
 - [HOW_IT_WORKS.md](HOW_IT_WORKS.md) — what PlainSpeak changes, what it refuses to change, and why you can rely on it
 - [WALKTHROUGH.md](WALKTHROUGH.md) — install, present, review and save your first document
 - [VERIFY.md](VERIFY.md) — `plainspeak verify`: what it guarantees, what it does not, the contract and the receipt
+- [MCP.md](MCP.md) — `plainspeak serve`: the tools, the setup, and what the server will not do
 - [V1_SCOPE.md](V1_SCOPE.md) — what 1.0 guarantees, what it does not, and what counts as breaking
 - [V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md) — what running PlainSpeak on 27 real documents found, and what changed
 - [RELEASING.md](RELEASING.md) and [RELEASE_READINESS.md](RELEASE_READINESS.md) — how a release is built and certified, and the evidence for this one
