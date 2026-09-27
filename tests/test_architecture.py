@@ -779,3 +779,59 @@ def test_no_interface_reaches_the_ungoverned_transformation(layer: str) -> None:
     assert not offences, (
         "interfaces must transform through the governed pipeline:\n  " + "\n  ".join(offences)
     )
+
+
+# -- One verifier -------------------------------------------------------------
+
+#: Versioned contract identifiers, each of which must be defined in exactly one
+#: module. A second definition is a second implementation of the contract.
+CONTRACTS = {
+    "plainspeak.verify.v1": "pipeline/verify.py",
+    "plainspeak.verify.receipt.v1": "pipeline/verify.py",
+    "plainspeak.present.v1": "pipeline/present.py",
+}
+
+
+@pytest.mark.parametrize("schema", sorted(CONTRACTS))
+def test_each_contract_is_defined_in_one_place(schema: str) -> None:
+    """Interfaces return the pipeline's result; they never build their own."""
+    defining = sorted(
+        str(path.relative_to(PACKAGE_ROOT)).replace("\\", "/")
+        for path in PACKAGE_ROOT.rglob("*.py")
+        if f'"{schema}"' in path.read_text(encoding="utf-8")
+    )
+    assert defining == [CONTRACTS[schema]], f"{schema} is spelled out in {defining}"
+
+
+@pytest.mark.parametrize("layer", INTERFACE_LAYERS)
+def test_no_interface_has_its_own_verifier(layer: str) -> None:
+    """Verification enters through `pipeline.verify`, never around it.
+
+    A verifier needs to align two texts and compare what they protect. An
+    interface that imported a sequence aligner, or reached the firewall's
+    snapshot and comparison functions directly, would be building a second one.
+    """
+    forbidden_names = {"snapshot", "extract", "compare", "check", "SequenceMatcher"}
+    offences = []
+    for path in sorted((PACKAGE_ROOT / layer).rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import) and any(a.name.split(".")[0] == "difflib" for a in node.names):
+                offences.append(f"{path.name}:{node.lineno} imports difflib")
+            if isinstance(node, ast.ImportFrom):
+                module = node.module or ""
+                if module.split(".")[0] == "difflib":
+                    offences.append(f"{path.name}:{node.lineno} imports difflib")
+                if "integrity" in module.split("."):
+                    names = {alias.name for alias in node.names} & forbidden_names
+                    if names:
+                        offences.append(f"{path.name}:{node.lineno} imports {sorted(names)} from integrity")
+    assert not offences, "verification logic found in an interface: " + "; ".join(offences)
+
+
+def test_the_cli_verifies_through_the_pipeline() -> None:
+    source = (PACKAGE_ROOT / "adapters" / "cli.py").read_text(encoding="utf-8")
+    assert "verify_files(" in source
+    tree = ast.parse(source)
+    defined = {node.name for node in ast.walk(tree) if isinstance(node, ast.FunctionDef)}
+    assert not defined & {"verify", "verify_text", "verify_files", "_align", "_moves"}

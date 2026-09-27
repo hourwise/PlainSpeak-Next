@@ -11,7 +11,25 @@ describe the upstream project
 ([Project-PlainSpeak](https://github.com/hourwise/Project-PlainSpeak)), whose
 history this repository preserves; see [UPSTREAM.md](UPSTREAM.md).
 
-## [1.0.0]
+## [Unreleased]
+
+### Added
+- **`plainspeak verify BEFORE AFTER`** judges a transformation made by anyone —
+  a person, a language model, an agent, other software — against the integrity
+  model: `ACCEPTED`, `REFUSED` or `INCONCLUSIVE`, never collapsing unknown into
+  safe. Refuses any change to a protected fact, a term of art, or a region
+  PlainSpeak never rewrites; accounts for formatting, reviewed equivalences,
+  PlainSpeak's own SAFE rules in either direction, and a time or limit phrase
+  moving within its sentence; reports everything else as unresolved. Swapped
+  values and obligations — which a count of protected facts alone would pass —
+  are not accepted. Versioned `plainspeak.verify.v1` JSON contract, a
+  deterministic receipt (`plainspeak.verify.receipt.v1`), verification policy
+  `2026.1`, and exit statuses for CI (0 accepted, 1 refused, 3 inconclusive,
+  4 input error, 5 internal error). See [VERIFY.md](VERIFY.md).
+- `plainspeak.pipeline.verify`, `verify_text` and `verify_files`. Architecture
+  tests forbid any interface from containing a verifier of its own, and require
+  each versioned contract to be defined in exactly one module.
+
 
 The release candidate after a pre-release acceptance review that ran PlainSpeak
 over 27 realistic documents and read the output

@@ -98,6 +98,19 @@ knew about would gradually diverge from the markup the parser knew about. So
 neither imports the other, and `pipeline` joins them. Exactly one layer is
 permitted to depend on both, and a test enforces that too.
 
+## Verify
+
+`pipeline.verify` compares two documents rather than transforming one, and it is
+built entirely from authorities that already exist: facts from `integrity`,
+protected phrases and SAFE rules from `rules` and the planner, structure from
+`document` and the projection. It adds a verification policy — what counts as
+accounted for — and a deterministic alignment, and nothing else. There is no
+second firewall. Interfaces call it and render its result;
+`test_no_interface_has_its_own_verifier` forbids any of them from importing a
+sequence aligner or the firewall's comparison functions, and
+`test_each_contract_is_defined_in_one_place` keeps `plainspeak.verify.v1` in one
+module. See [VERIFY.md](VERIFY.md).
+
 ## Where the layers came from
 
 Every module here was extracted verbatim from the flat package inherited at the

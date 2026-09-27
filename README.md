@@ -133,6 +133,23 @@ when the input cannot be presented (the JSON carries an error `code`), and 2 for
 invalid usage. `--format` also accepts `text`, `marked` and `summary`, which
 are for people and carry no layout guarantee.
 
+### `verify`: judging someone else's transformation
+
+```bash
+plainspeak verify original.md revised.md                  # readable account
+plainspeak verify original.md revised.md --format json    # plainspeak.verify.v1
+```
+
+`verify` checks a rewrite made by anyone — a person, a language model, an
+agent, other software — against PlainSpeak's integrity model. `ACCEPTED`
+(exit 0) means every protected item survived and every difference is one the
+model accounts for; `REFUSED` (exit 1) means a number, date, amount, negation,
+modal, comparator, identifier, term of art, or a region PlainSpeak never
+rewrites was lost, added or changed; `INCONCLUSIVE` (exit 3) means nothing
+protected was lost but something changed that the model cannot vouch for. It
+does **not** establish that two texts mean the same thing. The result carries a
+deterministic receipt. See [VERIFY.md](VERIFY.md).
+
 ### Inspecting the engine
 
 ```bash
@@ -193,6 +210,7 @@ The full accounting is in [LIMITATIONS.md](LIMITATIONS.md) and
 
 - [HOW_IT_WORKS.md](HOW_IT_WORKS.md) — what PlainSpeak changes, what it refuses to change, and why you can rely on it
 - [WALKTHROUGH.md](WALKTHROUGH.md) — install, present, review and save your first document
+- [VERIFY.md](VERIFY.md) — `plainspeak verify`: what it guarantees, what it does not, the contract and the receipt
 - [V1_SCOPE.md](V1_SCOPE.md) — what 1.0 guarantees, what it does not, and what counts as breaking
 - [V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md) — what running PlainSpeak on 27 real documents found, and what changed
 - [RELEASING.md](RELEASING.md) and [RELEASE_READINESS.md](RELEASE_READINESS.md) — how a release is built and certified, and the evidence for this one

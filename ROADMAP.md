@@ -75,7 +75,7 @@ publication has been explicitly authorised.
 
 These are directions, not commitments. None is implemented.
 
-### Stage 3 — Verify
+### Stage 3 — Verify *(V2-A implemented on the V2 branch; see [VERIFY.md](VERIFY.md))*
 
 `plainspeak verify before.txt after.txt` exposes the integrity firewall for any
 pair of texts, whoever produced the rewrite: PlainSpeak, another model, a

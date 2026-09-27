@@ -24,8 +24,12 @@ from ..pipeline import (
     FORMAT_MARKDOWN,
     FORMAT_TEXT,
     UNSUPPORTED_MESSAGE,
+    VERIFY_ACCEPTED,
+    VERIFY_INCONCLUSIVE,
+    VERIFY_REFUSED,
     PresentError,
     ReviewError,
+    VerifyError,
     is_reviewable_path,
     load_reviewable,
     parse_source,
@@ -33,6 +37,7 @@ from ..pipeline import (
 from ..pipeline import present as present_document
 from ..pipeline import explain_profile as profile_detail
 from ..pipeline import plan_style_changes
+from ..pipeline import verify_files
 from ..pipeline.sources import load_document
 from ..pipeline import list_profiles
 from ..reporting.json import generate_json
@@ -68,6 +73,8 @@ def main():
         plainspeak present document.md --profile natural
 
         plainspeak present document.md --profile natural --format summary
+
+        plainspeak verify original.md revised.md
 
         plainspeak analyze document.txt --output report.html
     """
@@ -422,6 +429,162 @@ def simplify(path, from_stdin, profile_id, input_format, output, overwrite):
     """
     click.echo("Note: `simplify` is deprecated; use `plainspeak present --format marked`.", err=True)
     _run_present(path, from_stdin, profile_id, "marked", input_format, output, overwrite)
+
+
+# ── Verifying: someone else's transformation ──────────────────────────────
+
+#: Exit statuses for `verify`, chosen for CI. Every outcome but ACCEPTED is
+#: non-zero, and each has its own code so a pipeline can tell them apart.
+EXIT_ACCEPTED = 0
+EXIT_REFUSED = 1
+EXIT_USAGE = 2
+EXIT_INCONCLUSIVE = 3
+EXIT_INPUT_ERROR = 4
+EXIT_INTERNAL_ERROR = 5
+
+VERIFY_EXIT = {VERIFY_ACCEPTED: EXIT_ACCEPTED, VERIFY_REFUSED: EXIT_REFUSED,
+               VERIFY_INCONCLUSIVE: EXIT_INCONCLUSIVE}
+
+VERIFY_FORMATS = ("summary", "json")
+
+#: What each result means, said once, the same way everywhere it is shown.
+VERIFY_MEANING = {
+    VERIFY_ACCEPTED: "every protected item survived, and every difference is one the "
+                     "integrity model accounts for",
+    VERIFY_REFUSED: "a protected item or a region PlainSpeak never rewrites was lost, "
+                    "added or changed",
+    VERIFY_INCONCLUSIVE: "nothing protected was lost, but something changed that the "
+                         "integrity model cannot vouch for",
+}
+
+VERIFY_SCOPE = (
+    "Verify checks the properties PlainSpeak's integrity model represents. It does not "
+    "establish that two texts mean the same thing."
+)
+
+
+def _render_verify_summary(result) -> str:
+    data = result.as_dict()
+    engine = data["engine"]
+    lines = [
+        f"PlainSpeak verify — {result.result}",
+        f"  {VERIFY_MEANING[result.result]}.",
+        "",
+        f"before {data['before']['sha256'][:16]} ({data['before']['characters']} characters)   "
+        f"after {data['after']['sha256'][:16]} ({data['after']['characters']} characters)",
+        f"integrity {engine['integrity_version']} ({engine['integrity_sha256'][:12]})  "
+        f"ruleset {engine['ruleset_version']} ({engine['ruleset_sha256'][:12]})  "
+        f"verify policy {data['verify_policy']['version']} ({data['verify_policy']['sha256'][:12]})",
+        f"Protected items in before: {data['protected']['count']}",
+    ]
+    if result.identical:
+        lines.append("The two texts are identical.")
+    lines.append("")
+    lines.append(f"Refused: {len(result.refusals)}")
+    for item in result.refusals:
+        where = _lines_label(item.get("before_lines"), item.get("after_lines"))
+        lines.append(f"  [{item['kind']}] {item['detail']}{where}")
+    lines.append(f"Not accounted for (INCONCLUSIVE): {len(result.unresolved)}")
+    for item in result.unresolved:
+        where = _lines_label([item["before_line"]] if item.get("before_line") else [],
+                             [item["after_line"]] if item.get("after_line") else [])
+        lines.append(f"  {item['detail']}{where}")
+        if item["before"] or item["after"]:
+            lines.append(f"    before: {item['before']!r}")
+            lines.append(f"    after:  {item['after']!r}")
+    lines.append(f"Accounted for: {len(result.equivalences)}")
+    for item in result.equivalences:
+        change = f" {item['before']!r} -> {item['after']!r}" if item["before"] or item["after"] else ""
+        lines.append(f"  {item['detail']}{change}")
+    lines += ["", f"Receipt {result.receipt_id}", VERIFY_SCOPE]
+    return BLANK.join(lines) + BLANK
+
+
+def _lines_label(before_lines, after_lines) -> str:
+    parts = []
+    if before_lines:
+        parts.append("before line " + ", ".join(str(n) for n in before_lines))
+    if after_lines:
+        parts.append("after line " + ", ".join(str(n) for n in after_lines))
+    return f"  ({'; '.join(parts)})" if parts else ""
+
+
+@main.command("verify")
+@click.argument("before", type=click.Path(dir_okay=False))
+@click.argument("after", type=click.Path(dir_okay=False))
+@click.option(
+    "--format", "fmt", type=click.Choice(VERIFY_FORMATS), default="summary", show_default=True,
+    help="summary: a readable account. json: the versioned plainspeak.verify.v1 contract.",
+)
+@click.option(
+    "--input-format", type=click.Choice([FORMAT_MARKDOWN, FORMAT_TEXT]), default=None,
+    help="Parse both files as this format. Default: from the BEFORE file's extension.",
+)
+@click.option(
+    "--receipt", "receipt_path", type=click.Path(dir_okay=False), default=None,
+    help="Also write the canonical verification receipt (JSON) to this file.",
+)
+@click.option(
+    "--output", "-o", type=click.Path(dir_okay=False), default=None,
+    help="Write the result to this file instead of standard output.",
+)
+@click.option(
+    "--overwrite", is_flag=True,
+    help="Allow --output and --receipt to replace existing files. Never an input.",
+)
+def verify_cmd(before, after, fmt, input_format, receipt_path, output, overwrite):
+    """Verify that AFTER is an admissible transformation of BEFORE.
+
+    Checks whether a transformation made by anyone — a person, a language
+    model, an agent, other software or PlainSpeak — preserved what
+    PlainSpeak's integrity model protects: numbers, dates, amounts, units,
+    negation, modals, comparators, identifiers, terms of art, and the regions
+    PlainSpeak never rewrites. It does not establish that two texts mean the
+    same thing.
+
+    \b
+    Result:
+      ACCEPTED      every protected item survived and every difference is
+                    accounted for
+      REFUSED       a protected item or region was lost, added or changed
+      INCONCLUSIVE  nothing protected was lost, but something changed that
+                    the model cannot vouch for
+
+    \b
+    Exit status:
+      0  ACCEPTED
+      1  REFUSED
+      2  invalid usage
+      3  INCONCLUSIVE
+      4  the inputs could not be verified (with --format json, standard
+         output carries the error code)
+      5  internal error
+    """
+    for destination in (output, receipt_path):
+        if destination is not None and any(
+            Path(destination).resolve() == Path(source).resolve() for source in (before, after)
+        ):
+            raise click.UsageError("PlainSpeak never overwrites its input; choose another file")
+    try:
+        result = verify_files(before, after, input_format=input_format)
+    except VerifyError as error:
+        if fmt == "json":
+            click.echo(error.to_json(), nl=False)
+        click.echo(f"Error ({error.code}): {error.message}", err=True)
+        sys.exit(EXIT_INPUT_ERROR)
+    except Exception as error:  # noqa: BLE001 — an unexpected failure must not read as a result
+        click.echo(f"Internal error: {type(error).__name__}: {error}", err=True)
+        sys.exit(EXIT_INTERNAL_ERROR)
+
+    rendered = result.to_json() if fmt == "json" else _render_verify_summary(result)
+    if receipt_path:
+        _write_new_file(receipt_path, result.receipt_json(), overwrite, before)
+    if output:
+        _write_new_file(output, rendered, overwrite, before)
+        click.echo(f"{result.result}: wrote {fmt} to {Path(output)}", err=True)
+    else:
+        click.echo(rendered, nl=False)
+    sys.exit(VERIFY_EXIT[result.result])
 
 
 @main.command()

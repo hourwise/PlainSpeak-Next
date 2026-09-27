@@ -23,9 +23,9 @@ no protected-term policy and no document parsing. If something here starts to
 look like analysis, it belongs in `core`; if it starts to look like parsing, it
 belongs in `document`.
 
-The entry point is `analyze_document`. Adapters — the CLI today, a desktop
-application and an MCP server later — call that one function, so that a
-structured document cannot get different answers depending on which interface
+The entry points are `analyze_document`, `present` and `verify`. Adapters —
+the CLI, the desktop application and the MCP server — call these functions, so
+that a document cannot get different answers depending on which interface
 asked.
 """
 
@@ -71,6 +71,20 @@ from .present import (
     PresentResult,
     present,
     present_text,
+)
+from .verify import (
+    ACCEPTED as VERIFY_ACCEPTED,
+    ERROR_FORMAT_MISMATCH,
+    INCONCLUSIVE as VERIFY_INCONCLUSIVE,
+    RECEIPT_SCHEMA,
+    REFUSED as VERIFY_REFUSED,
+    VERIFY_POLICY_VERSION,
+    VERIFY_SCHEMA,
+    VerifyError,
+    VerifyResult,
+    verify,
+    verify_files,
+    verify_text,
 )
 from .style_plan import StylePlan, StylePlanError, StyleProposal, plan_style_changes
 from .style_review import (
@@ -139,4 +153,16 @@ __all__ = [
     "project_document",
     "propose_change",
     "structure_of",
+    "ERROR_FORMAT_MISMATCH",
+    "RECEIPT_SCHEMA",
+    "VERIFY_ACCEPTED",
+    "VERIFY_INCONCLUSIVE",
+    "VERIFY_POLICY_VERSION",
+    "VERIFY_REFUSED",
+    "VERIFY_SCHEMA",
+    "VerifyError",
+    "VerifyResult",
+    "verify",
+    "verify_files",
+    "verify_text",
 ]
