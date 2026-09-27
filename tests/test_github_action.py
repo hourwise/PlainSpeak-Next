@@ -213,11 +213,25 @@ def test_outputs_refuse_a_value_with_a_line_break():
         write_outputs({"result-path": "a\nevil=1"}, io.StringIO())
 
 
-@pytest.mark.parametrize("value", ["../outside.md", "..\\outside.md", "sub/../../outside.md"])
+@pytest.mark.parametrize("value", ["../outside.md", "sub/../../outside.md"])
 def test_a_path_may_not_escape_the_workspace(workspace, value):
     (workspace.parent / "outside.md").write_text("Pay £5.\n", encoding="utf-8")
     with pytest.raises(ActionError, match="outside the workspace"):
         resolve_input(value, workspace, "before")
+
+
+def test_a_backslash_path_is_refused_on_every_platform(workspace):
+    """A separator on Windows; on Linux and macOS, part of a file name that does not exist.
+
+    Refused either way. Found when the first version of this test assumed the
+    Windows reading and failed on Linux and macOS in CI.
+    """
+    import os
+
+    (workspace.parent / "outside.md").write_text("Pay £5.\n", encoding="utf-8")
+    expected = "outside the workspace" if os.sep == "\\" else "not a file"
+    with pytest.raises(ActionError, match=expected):
+        resolve_input("..\\outside.md", workspace, "before")
 
 
 def test_an_absolute_path_elsewhere_is_refused(workspace):
