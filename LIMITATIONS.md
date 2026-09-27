@@ -40,10 +40,12 @@ interface present through the governed pipeline, and a test forbids any
 interface from importing it. The limitations below under *Stemming* and
 *Mechanical simplification* describe only that inherited API.
 
-The **readability suggestions** in `analyze` reports and on the web page still
-come from the inherited glossary and are sealed with it. They are never applied,
-and some are poor — "leverages" is offered "borrowed money". Replacing them
-needs a deliberately versioned successor to the seal.
+The **readability suggestions** in `analyze` reports and on the web page come
+from the inherited glossary through a reviewed overlay (`core/suggestions.py`):
+71 wrong suggestions were withdrawn and 5 corrected before 1.0, and verbs for
+nominalisations come only from a reviewed table. What remains is advice that
+will not fit every context — "provide → give" is often right and sometimes not
+— and is never applied.
 
 ## Functional limitations
 

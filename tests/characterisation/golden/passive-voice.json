@@ -97,8 +97,8 @@
     "outcome": "ok",
     "value": {
       "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 7.0\n  Fairly easy (approximately lower secondary level)\n\n  Text Statistics:\n    Words:               98\n    Sentences:           13\n    Avg Sentence Length:  7.5 words\n    Avg Word Length:      4.9 characters\n    Complex Words (3+ syl): 13\n\n  Readability Scores:\n    Flesch Reading Ease:        72.3\n      Fairly easy — plain English suitable for general audience.\n    Flesch-Kincaid Grade Level:  5.1\n    Gunning Fog Index:           8.3\n    SMOG Index:                  8.8\n    Automated Readability Index: 5.6\n\n  Found 31 readability issue(s) across 13 sentence(s): 19 warning(s), 12 suggestion(s).\n\n  Top issues:\n    [WARNING] Passive Voice: \"was reviewed\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"application\"\n           -> \"application\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"committee\"\n           -> \"committee\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Passive Voice: \"been received\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"have been received\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"submissions\"\n           -> \"submissions\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"decisions\"\n           -> \"decisions\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Passive Voice: \"were completed\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"were then\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"were processed\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    ... and 21 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 31483,
-      "html_sha256": "5942e9a5592fc573e3ee0ba5dcd7dda8cde23ce17d5ab8c0526e38010c021858",
+      "html_chars": 31487,
+      "html_sha256": "b8ec0773f86e2a3e0140ca3c18842f99163d3ccbb32f019f488b465630d0097c",
       "json_report": {
         "consensus": {
           "description": "Fairly easy (approximately lower secondary level)",
@@ -282,7 +282,7 @@
               "sentence_context": "It was determined that the request could not be granted.",
               "sentence_index": 4,
               "severity": "warning",
-              "suggestion": "Consider using \"decide\" instead. Decision words should be clear.",
+              "suggestion": "\"determined\" has 3 syllables. Is there a simpler word you could use?",
               "type": "complex_word"
             },
             {
@@ -569,7 +569,7 @@
               "label": "Complex word",
               "matched_text": "determined",
               "priority": "consider",
-              "suggestion": "Consider using \"decide\" instead. Decision words should be clear.",
+              "suggestion": "\"determined\" has 3 syllables. Is there a simpler word you could use?",
               "type": "complex_word"
             }
           ],
@@ -711,7 +711,7 @@
           "word_count": 3
         }
       ],
-      "replacement_count": 2,
+      "replacement_count": 1,
       "result": {
         "barriers": [
           {
@@ -921,7 +921,7 @@
             "sentence_text": "It was determined that the request could not be granted.",
             "severity": "warning",
             "start_char": 0,
-            "suggestion": "Consider using \"decide\" instead. Decision words should be clear."
+            "suggestion": "\"determined\" has 3 syllables. Is there a simpler word you could use?"
           },
           {
             "barrier_type": "complex_word",
@@ -1078,7 +1078,7 @@
         "total_barriers": 31,
         "warning_count": 19
       },
-      "simplified_text": "The application was reviewed by the committee last Tuesday.\n\nDecisions are made by the panel after all submissions have been received. The\nforms were completed by the applicant and were then forwarded to the regional\noffice, where they were processed by staff who had been trained for that\npurpose.\n\nIt was **decide** that the **ask** could not be granted. The applicant was\ninformed that an appeal may be lodged within twenty-eight days.\n\nThe building is being renovated. The work will be finished by March.\n\nShe reviewed the application. The committee met on Tuesday. Staff processed the\nforms.\n",
+      "simplified_text": "The application was reviewed by the committee last Tuesday.\n\nDecisions are made by the panel after all submissions have been received. The\nforms were completed by the applicant and were then forwarded to the regional\noffice, where they were processed by staff who had been trained for that\npurpose.\n\nIt was determined that the **ask** could not be granted. The applicant was\ninformed that an appeal may be lodged within twenty-eight days.\n\nThe building is being renovated. The work will be finished by March.\n\nShe reviewed the application. The committee met on Tuesday. Staff processed the\nforms.\n",
       "top_improvements": [
         {
           "action": "Break into 2-3 shorter sentences. Aim for 15-25 words per sentence.",

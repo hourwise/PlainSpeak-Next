@@ -36,24 +36,25 @@ INVENTORY_PATH = REPO_ROOT / "migration" / "glossary-inventory.json"
 #: The inventory as it currently stands, pinned so every platform asserts the
 #: same number. It moves when a classification decision changes, which is
 #: exactly when a reviewer should be looking.
-INVENTORY_HASH = "b1657b20e4a4a0768d9c4b6b9d783d2293e1b20f98b6ae8bfbed91d72bc5fc3d"
+INVENTORY_HASH = "90e3e080a40a87d2e3e57887c74b0abac74732ffbda69c19d307987ba61626d9"
 
 #: The ruleset as it currently ships. Phase 4 was 2026.1 / 38 / 2110d4ed…;
 #: the glossary migration made it 2026.2 / 214 / e5aaf376…; Phase 9 activated
 #: the `style-fix` mode and added eight transition substitutions, making it
 #: 2026.3 / 222; V1 retired the two density style fixes, which could never
 #: lower the density that triggered them once it was measured honestly, making
-#: it 2026.4 / 220. Each step bumps the version rather than quietly retaining an
+#: it 2026.4 / 220; the V1 acceptance review reclassified 25 migrated safe
+#: fixes as diagnostics, keeping every ID, making it 2026.5 / 220. Each step bumps the version rather than quietly retaining an
 #: old hash, because each changes what the engine will do to a document.
 #:
 #: The migration figures below are unchanged: Phase 9 added rules in a new
 #: family and renumbered nothing, and V1 removed two of those.
-RULESET_VERSION = "2026.4"
+RULESET_VERSION = "2026.5"
 RULESET_COUNT = 220
 #: How many of those came from the glossary migration. Pinned separately so a
 #: later phase adding rules cannot silently change what this file is about.
 MIGRATED_RULESET_COUNT = 214
-RULESET_HASH = "b2068de58272bc2f48564a3cb643a6a2341f9b35fee6e0aa9961b5e5e2de44a0"
+RULESET_HASH = "6494a92617e67fdbc1731abd1d5368056166b45a105bd91dc8b76ec7bf3d5b53"
 
 #: Rule IDs that existed before the migration. These must never be renumbered:
 #: an ID is a permanent public identity that an audit record may already name.
@@ -316,3 +317,34 @@ def test_specific_defects_the_review_found_stay_fixed(ruleset, surface: str, for
         for candidate, replacement in surfaces_of(rule):
             if candidate == surface:
                 assert replacement != forbidden, f"{rule.id} regressed to {forbidden!r}"
+
+
+def test_every_generated_rule_keeps_the_id_registered_for_its_term() -> None:
+    """A rule ID belongs to its term for life.
+
+    The builder once assigned IDs by position, so reclassifying one rule
+    renumbered every rule after it, and an ID an audit record had cited would
+    silently come to mean a different rule. `migration/rule-ids.json` is the
+    registry; reclassification changes a rule's mode, never its ID.
+    """
+    import yaml
+
+    registry = json.loads((REPO_ROOT / "migration" / "rule-ids.json").read_text(encoding="utf-8"))
+    bundled = {}
+    for path in (REPO_ROOT / "plainspeak" / "rules" / "bundled").rglob("migrated_*.yaml"):
+        for document in yaml.safe_load_all(path.read_text(encoding="utf-8")):
+            if document and "id" in document:
+                match = document["match"]
+                bundled[document["id"]] = match.get("lemma") or match.get("text")
+    for term, rule_id in registry.items():
+        assert bundled.get(rule_id) == term, (rule_id, term, bundled.get(rule_id))
+    assert len(set(registry.values())) == len(registry), "an ID is registered to two terms"
+
+
+def test_the_request_rule_is_still_ps_lexical_216() -> None:
+    """The concrete case: reclassified in 2026.5, same ID as in 1.0.0rc1."""
+    from plainspeak.rules import load_ruleset
+
+    rule = next(r for r in load_ruleset().rules if r.id == "PS.LEXICAL.216")
+    assert rule.mode == "diagnostic"
+    assert "request" in rule.name

@@ -66,7 +66,7 @@ A profile is always required — PlainSpeak never chooses one for you. You will
 see:
 
 ```text
-PlainSpeak present — profile natural, ruleset 2026.4 (b2068de58272)
+PlainSpeak present — profile natural, ruleset 2026.5 (6494a92617e6)
 input 2d3888ed6c930f0b  output fcfa1aa32c6e66e6
 
 Applied automatically (SAFE): 3

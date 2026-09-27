@@ -10,8 +10,10 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from ..integrity.protected import PROTECTED_TERMS, get_protected_domain, is_protected_term
-from .glossary import GLOSSARY
+# The reviewed suggestion glossary, not the raw inherited data: see `suggestions`.
+from .suggestions import EFFECTIVE_GLOSSARY as GLOSSARY
 from .lexicon import find_glossary_match
+from .suggestions import NOUN_VERBS, verb_for
 from .tokenize import count_syllables, split_sentences, split_words
 
 
@@ -346,58 +348,15 @@ def find_nominalizations(sentence: str, sentence_index: int) -> list[Barrier]:
 
 
 def _nominalization_to_verb(word: str) -> Optional[str]:
-    """Attempt to convert a nominalization back to its verb form.
-    
-    Only returns a verb if the derived form is a validated real English word
-    (checked against the CMU Pronouncing Dictionary). Bogus derivations like
-    'medication' -> 'medice' are suppressed.
+    """The reviewed verb for a nominalisation, or None.
+
+    This used to derive a verb by stripping a suffix and accepting anything the
+    pronouncing dictionary contained, which offered "ace" for "action", "lee"
+    for "lesion" and "commit" for "commission", and presented every "-ness" and
+    "-ity" adjective as a verb. The reviewed table in `suggestions` is now the
+    only source; a noun outside it is not called a nominalisation.
     """
-    word = word.lower()
-    candidate = None
-    
-    if word.endswith("ization"):
-        candidate = word[:-7] + "ize"
-    elif word.endswith("isation"):
-        candidate = word[:-7] + "ise"
-    elif word.endswith("ation"):
-        # implementation -> implement, consideration -> consider
-        candidate = word[:-5]
-    elif word.endswith("tion"):
-        base = word[:-4]
-        if base.endswith("a"):
-            candidate = base[:-1] + "e"
-        elif base.endswith("i"):
-            candidate = base[:-1] + "y"
-        else:
-            candidate = base + "e"
-    elif word.endswith("sion"):
-        base = word[:-4]
-        if base.endswith("mis"):
-            candidate = base[:-3] + "mit"
-        elif base.endswith("ci"):
-            candidate = base[:-2] + "de"
-        else:
-            candidate = base + "e"
-    elif word.endswith("ment"):
-        candidate = word[:-4]
-    elif word.endswith("ance"):
-        base = word[:-4]
-        if base.endswith("r"):
-            candidate = base
-        else:
-            candidate = base + "e"
-    elif word.endswith("ence"):
-        base = word[:-4]
-        candidate = base + "e"
-    elif word.endswith("ness"):
-        candidate = word[:-4]
-    elif word.endswith("ity"):
-        base = word[:-3]
-        candidate = base + "e"
-    
-    if candidate and _is_real_word(candidate):
-        return candidate
-    return None
+    return NOUN_VERBS.get(word.lower())
 
 
 def _is_real_word(word: str) -> bool:
@@ -546,34 +505,13 @@ def find_hidden_verbs(sentence: str, sentence_index: int) -> list[Barrier]:
 
 
 def _noun_to_verb(noun: str) -> Optional[str]:
-    """Convert a noun to its verb form if possible."""
-    noun = noun.lower()
-    if noun.endswith("ment"):
-        return noun[:-4]  # arrangement -> arrange, statement -> state
-    if noun.endswith("tion"):
-        base = noun[:-4]
-        if base.endswith("a"):
-            return base[:-1] + "e"
-        return base
-    if noun.endswith("sion"):
-        base = noun[:-4]
-        if base.endswith("mis"):
-            return base[:-3] + "mit"
-        return base
-    if noun.endswith("ance"):
-        return noun[:-4]  # performance -> perform
-    if noun.endswith("ence"):
-        return noun[:-4]  # reference -> refer
-    if noun.endswith("al"):
-        return noun[:-2]  # approval -> approve
-    if noun.endswith("ure"):
-        return noun[:-3]  # failure -> fail
-    if noun.endswith("sis"):
-        return noun[:-3] + "e"  # analysis -> analyze
-    if noun.endswith("sis"):
-        return noun[:-3] + "ze"
-    # Many nouns are the same as their verb form
-    return noun  # "change", "plan", "report", "study", "review", etc.
+    """The reviewed verb for a hidden-verb noun ("make a decision" -> "decide"), or None.
+
+    This used to strip a suffix and check nothing, which offered "deci" for
+    "make a decision" and "solu" for "provided a solution". A noun with no
+    reviewed verb is not flagged: silence is better than a wrong suggestion.
+    """
+    return verb_for(noun)
 
 
 # ── Main analysis function ─────────────────────────────────────────────────

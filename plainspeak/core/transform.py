@@ -8,7 +8,10 @@ presented as a finished rewrite.
 
 import re
 
-from .glossary import GLOSSARY, SIMPLE_WORD_MAP
+# The reviewed suggestion glossary, not the raw inherited data: see `suggestions`.
+from .suggestions import EFFECTIVE_GLOSSARY as GLOSSARY
+from .suggestions import EFFECTIVE_SIMPLE_WORD_MAP as SIMPLE_WORD_MAP
+from .suggestions import WITHDRAWN
 from .lexicon import stem_word
 
 
@@ -89,7 +92,7 @@ def generate_simplified_text(text: str) -> tuple[str, int]:
         seg_words = set(w.lower() for w in re.findall(r'\b[a-zA-Z]+\b', working))
         
         for match_word in seg_words:
-            if match_word in replaced_words:
+            if match_word in replaced_words or match_word in WITHDRAWN:
                 continue
             
             if match_word in word_replacements:

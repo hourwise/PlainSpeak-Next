@@ -122,9 +122,9 @@
   "reporter": {
     "outcome": "ok",
     "value": {
-      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 15.1\n  Difficult (undergraduate university level)\n\n  Text Statistics:\n    Words:               408\n    Sentences:           39\n    Avg Sentence Length:  10.5 words\n    Avg Word Length:      6.1 characters\n    Complex Words (3+ syl): 144\n\n  Readability Scores:\n    Flesch Reading Ease:        19.6\n      Very difficult — university graduate level.\n    Flesch-Kincaid Grade Level:  13.1\n    Gunning Fog Index:           18.3\n    SMOG Index:                  14.1\n    Automated Readability Index: 12.7\n    Coleman-Liau Index:          17.4\n\n  Found 151 readability issue(s) across 39 sentence(s): 108 warning(s), 43 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"instructions\"\n           -> \"instructions\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"discharge\"\n           -> \"discharge\" has 2 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"operative\"\n           -> \"operative\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"laparoscopic\"\n           -> \"laparoscopic\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"cholecystectomy\"\n           -> \"cholecystectomy\" has 6 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"following\"\n           -> \"following\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"laparoscopic\"\n           -> \"laparoscopic\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"cholecystectomy\"\n           -> \"cholecystectomy\" has 6 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"gallbladder\"\n           -> \"gallbladder\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"minimally\"\n           -> \"minimally\" has 4 syllables. Is there a simpler word you could use?\n    ... and 141 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 117636,
-      "html_sha256": "0720124ea4fece9648153a9734671e3a912ec129ad6a156331c8cdbedcdfcfd2",
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 15.1\n  Difficult (undergraduate university level)\n\n  Text Statistics:\n    Words:               408\n    Sentences:           39\n    Avg Sentence Length:  10.5 words\n    Avg Word Length:      6.1 characters\n    Complex Words (3+ syl): 144\n\n  Readability Scores:\n    Flesch Reading Ease:        19.6\n      Very difficult — university graduate level.\n    Flesch-Kincaid Grade Level:  13.1\n    Gunning Fog Index:           18.3\n    SMOG Index:                  14.1\n    Automated Readability Index: 12.7\n    Coleman-Liau Index:          17.4\n\n  Found 150 readability issue(s) across 39 sentence(s): 108 warning(s), 42 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"instructions\"\n           -> \"instructions\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"discharge\"\n           -> \"discharge\" has 2 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"operative\"\n           -> \"operative\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"laparoscopic\"\n           -> \"laparoscopic\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"cholecystectomy\"\n           -> \"cholecystectomy\" has 6 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"following\"\n           -> \"following\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"laparoscopic\"\n           -> \"laparoscopic\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"cholecystectomy\"\n           -> \"cholecystectomy\" has 6 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"gallbladder\"\n           -> \"gallbladder\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"minimally\"\n           -> \"minimally\" has 4 syllables. Is there a simpler word you could use?\n    ... and 140 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 117047,
+      "html_sha256": "48cd3079bbf0578ad3078d8a5fedf472fff1f73b329445017ff8eff83b7886b6",
       "json_report": {
         "consensus": {
           "description": "Difficult (undergraduate university level)",
@@ -713,7 +713,7 @@
               "sentence_context": "You have been prescribed analgesic medication for pain management.",
               "sentence_index": 14,
               "severity": "warning",
-              "suggestion": "Consider using \"set\" instead. For rules — use the direct verb.",
+              "suggestion": "\"prescribed\" has 2 syllables. Is there a simpler word you could use?",
               "type": "complex_word"
             },
             {
@@ -911,7 +911,7 @@
               "sentence_context": "You should also complete the full course of any antibiotic prophylaxis that has been prescribed, even in the absence of symptomatology suggesting infection.",
               "sentence_index": 18,
               "severity": "warning",
-              "suggestion": "Consider using \"set\" instead. For rules — use the direct verb.",
+              "suggestion": "\"prescribed\" has 2 syllables. Is there a simpler word you could use?",
               "type": "complex_word"
             },
             {
@@ -1266,15 +1266,6 @@
               "type": "complex_word"
             },
             {
-              "explanation": "\"oral\" can often be replaced with a simpler word.",
-              "matched_text": "oral",
-              "sentence_context": "- Persistent nausea and vomiting precluding oral hydration",
-              "sentence_index": 28,
-              "severity": "info",
-              "suggestion": "Consider using \"by mouth\" instead. Explain the route.",
-              "type": "jargon"
-            },
-            {
               "explanation": "\"abdominal\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
               "matched_text": "abdominal",
               "sentence_context": "- Abdominal distension or rigidity",
@@ -1501,9 +1492,9 @@
             }
           ],
           "critical_count": 0,
-          "info_count": 43,
-          "summary": "Found 151 readability issue(s) across 39 sentence(s): 108 warning(s), 43 suggestion(s).",
-          "total_barriers": 151,
+          "info_count": 42,
+          "summary": "Found 150 readability issue(s) across 39 sentence(s): 108 warning(s), 42 suggestion(s).",
+          "total_barriers": 150,
           "warning_count": 108
         },
         "statistics": {
@@ -1745,36 +1736,6 @@
           "total_issues": 3,
           "unique_issue_types": 2,
           "word_count": 9
-        },
-        {
-          "issues": [
-            {
-              "confidence": "medium",
-              "count": 1,
-              "explanation": "\"oral\" can often be replaced with a simpler word.",
-              "label": "Jargon or formal language",
-              "matched_text": "oral",
-              "priority": "high",
-              "suggestion": "Consider using \"by mouth\" instead. Explain the route.",
-              "type": "jargon"
-            },
-            {
-              "confidence": "medium",
-              "count": 3,
-              "explanation": "\"persistent\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
-              "label": "Complex word",
-              "matched_text": "persistent",
-              "priority": "consider",
-              "suggestion": "\"persistent\" has 3 syllables. Is there a simpler word you could use?",
-              "type": "complex_word"
-            }
-          ],
-          "priority": "high",
-          "sentence_index": 28,
-          "sentence_text": "- Persistent nausea and vomiting precluding oral hydration",
-          "total_issues": 4,
-          "unique_issue_types": 2,
-          "word_count": 8
         },
         {
           "issues": [
@@ -2085,7 +2046,7 @@
               "label": "Complex word",
               "matched_text": "prescribed",
               "priority": "consider",
-              "suggestion": "Consider using \"set\" instead. For rules — use the direct verb.",
+              "suggestion": "\"prescribed\" has 2 syllables. Is there a simpler word you could use?",
               "type": "complex_word"
             }
           ],
@@ -2281,6 +2242,26 @@
             {
               "confidence": "medium",
               "count": 3,
+              "explanation": "\"persistent\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "persistent",
+              "priority": "consider",
+              "suggestion": "\"persistent\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 28,
+          "sentence_text": "- Persistent nausea and vomiting precluding oral hydration",
+          "total_issues": 3,
+          "unique_issue_types": 1,
+          "word_count": 8
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 3,
               "explanation": "\"abdominal\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
               "label": "Complex word",
               "matched_text": "abdominal",
@@ -2467,7 +2448,7 @@
           "word_count": 9
         }
       ],
-      "replacement_count": 25,
+      "replacement_count": 23,
       "result": {
         "barriers": [
           {
@@ -3172,7 +3153,7 @@
             "sentence_text": "You have been prescribed analgesic medication for pain management.",
             "severity": "warning",
             "start_char": 0,
-            "suggestion": "Consider using \"set\" instead. For rules — use the direct verb."
+            "suggestion": "\"prescribed\" has 2 syllables. Is there a simpler word you could use?"
           },
           {
             "barrier_type": "complex_word",
@@ -3414,7 +3395,7 @@
             "sentence_text": "You should also complete the full course of any antibiotic prophylaxis that has been prescribed, even in the absence of symptomatology suggesting infection.",
             "severity": "warning",
             "start_char": 0,
-            "suggestion": "Consider using \"set\" instead. For rules — use the direct verb."
+            "suggestion": "\"prescribed\" has 2 syllables. Is there a simpler word you could use?"
           },
           {
             "barrier_type": "complex_word",
@@ -3846,17 +3827,6 @@
             "suggestion": "\"hydration\" has 3 syllables. Is there a simpler word you could use?"
           },
           {
-            "barrier_type": "jargon",
-            "end_char": 0,
-            "explanation": "\"oral\" can often be replaced with a simpler word.",
-            "matched_text": "oral",
-            "sentence_index": 28,
-            "sentence_text": "- Persistent nausea and vomiting precluding oral hydration",
-            "severity": "info",
-            "start_char": 0,
-            "suggestion": "Consider using \"by mouth\" instead. Explain the route."
-          },
-          {
             "barrier_type": "complex_word",
             "end_char": 0,
             "explanation": "\"abdominal\" has 4 syllables and 9 characters. Shorter, more common words are understood by more readers.",
@@ -4133,7 +4103,7 @@
           }
         ],
         "critical_count": 0,
-        "info_count": 43,
+        "info_count": 42,
         "original_text": "PATIENT DISCHARGE INSTRUCTIONS\n\nPOST-OPERATIVE CARE FOLLOWING LAPAROSCOPIC CHOLECYSTECTOMY\n\nYou have undergone a laparoscopic cholecystectomy, which is the surgical removal of your gallbladder using minimally invasive techniques. Please adhere to the following postoperative instructions to facilitate optimal recovery and minimize the probability of postoperative complications.\n\nACTIVITY RESTRICTIONS\n\nAmbulation is encouraged to reduce the risk of deep vein thrombosis and pulmonary complications. However, strenuous physical exertion, including heavy lifting exceeding ten pounds, should be avoided for a period of four to six weeks postoperatively. You may resume activities of daily living as tolerated.\n\nINCISION CARE\n\nYour surgical incisions are covered with sterile adhesive dressings. These dressings should be maintained in a clean and dry condition. You may shower 48 hours after your procedure, but immersion in water (bathing, swimming, hot tub utilization) is contraindicated until your incisions have achieved complete healing. Monitor your incisions for signs of infection including erythema, purulent drainage, increasing tenderness, or febrile episodes.\n\nMEDICATION REGIMEN\n\nYou have been prescribed analgesic medication for pain management. Take your pain medication as directed. Narcotic analgesics may cause constipation; therefore, adequate hydration and dietary fiber intake are recommended. A stool softener may be utilized if necessary.\n\nYou should also complete the full course of any antibiotic prophylaxis that has been prescribed, even in the absence of symptomatology suggesting infection.\n\nDIETARY GUIDELINES\n\nCommence with clear liquids and advance to a regular diet as tolerated. Some patients experience temporary gastrointestinal disturbances including nausea, bloating, and diarrhea. Consuming smaller, more frequent meals may ameliorate these symptoms. Fatty food consumption should be limited initially, as your body is adapting to the absence of a gallbladder for bile storage.\n\nWARNING SIGNS — SEEK IMMEDIATE MEDICAL ATTENTION\n\nPresent to the Emergency Department or contact your surgeon forthwith if you experience any of the following:\n\n- Persistent or increasing abdominal pain unrelieved by analgesic medication\n- Febrile temperature exceeding 101 degrees Fahrenheit\n- Persistent nausea and vomiting precluding oral hydration\n- Abdominal distension or rigidity\n- Jaundice (yellowing of the skin or sclera)\n- Dyspnea or chest pain\n- Erythema, warmth, or purulent drainage from your incision sites\n\nFOLLOW-UP APPOINTMENT\n\nA postoperative follow-up appointment has been scheduled for you. It is imperative that you attend this appointment for wound assessment and to ensure your convalescence is progressing satisfactorily. Please contact our office if you need to reschedule.\n\nIf you have questions or concerns, do not hesitate to contact our office during regular business hours. For after-hours emergencies, proceed to the nearest Emergency Department.\n",
         "sentences": [
           "PATIENT DISCHARGE INSTRUCTIONS",
@@ -4176,11 +4146,11 @@
           "If you have questions or concerns, do not hesitate to contact our office during regular business hours.",
           "For after-hours emergencies, proceed to the nearest Emergency Department."
         ],
-        "summary": "Found 151 readability issue(s) across 39 sentence(s): 108 warning(s), 43 suggestion(s).",
-        "total_barriers": 151,
+        "summary": "Found 150 readability issue(s) across 39 sentence(s): 108 warning(s), 42 suggestion(s).",
+        "total_barriers": 150,
         "warning_count": 108
       },
-      "simplified_text": "PATIENT DISCHARGE INSTRUCTIONS\n\nPOST-OPERATIVE CARE FOLLOWING LAPAROSCOPIC CHOLECYSTECTOMY\n\nYou have undergone a laparoscopic cholecystectomy, which is the surgical removal of your gallbladder using minimally invasive techniques. Please adhere to the following postoperative instructions to **help** **best** recovery and minimize the probability of postoperative complications.\n\nACTIVITY RESTRICTIONS\n\nAmbulation is encouraged to reduce the risk of deep vein **blood clot** and **lung** complications. **but**, strenuous physical exertion, including heavy lifting exceeding ten pounds, should be avoided for a period of four to six weeks postoperatively. You may resume activities of daily living as tolerated.\n\nINCISION CARE\n\nYour surgical incisions are covered with sterile adhesive dressings. These dressings should be **keep** in a clean and dry condition. You may shower 48 hours after your procedure, but immersion in water (bathing, swimming, hot tub **use**) is **not recommended** until your incisions have achieved complete healing. Monitor your incisions for signs of infection including erythema, purulent drainage, increasing tenderness, or febrile episodes.\n\nMEDICATION **plan**\n\nYou have been **set** **painkiller** medication for pain management. Take your pain medication as directed. Narcotic **painkiller** may cause constipation; therefore, adequate hydration and dietary fiber intake are recommended. A stool softener may be **use** if necessary.\n\nYou should also complete the full course of any antibiotic **prevention** that has been **set**, even **without** **symptoms** suggesting infection.\n\nDIETARY GUIDELINES\n\n**start** with clear liquids and advance to a regular diet as tolerated. Some patients experience temporary **stomach and bowel** disturbances including nausea, bloating, and diarrhea. Consuming smaller, more frequent meals may **improve** these symptoms. Fatty food consumption should be limited initially, as your body is adapting to the absence of a gallbladder for bile storage.\n\nWARNING SIGNS — SEEK IMMEDIATE MEDICAL ATTENTION\n\nPresent to the Emergency Department or contact your surgeon **now** if you experience any of the following:\n\n- Persistent or increasing abdominal pain unrelieved by analgesic medication\n- Febrile temperature exceeding 101 degrees Fahrenheit\n- Persistent nausea and vomiting precluding **by mouth** hydration\n- Abdominal distension or rigidity\n- Jaundice (yellowing of the skin or sclera)\n- **shortness of breath** or chest pain\n- Erythema, warmth, or purulent drainage from your incision sites\n\nFOLLOW-UP APPOINTMENT\n\nA postoperative follow-up appointment has been scheduled for you. **must** you attend this appointment for wound **evaluation** and to ensure your convalescence is progressing satisfactorily. Please contact our office if you need to reschedule.\n\nIf you have questions or concerns, do not hesitate to contact our office during regular business hours. For after-hours emergencies, **go ahead** to the nearest Emergency Department.\n",
+      "simplified_text": "PATIENT DISCHARGE INSTRUCTIONS\n\nPOST-OPERATIVE CARE FOLLOWING LAPAROSCOPIC CHOLECYSTECTOMY\n\nYou have undergone a laparoscopic cholecystectomy, which is the surgical removal of your gallbladder using minimally invasive techniques. Please adhere to the following postoperative instructions to **help** **best** recovery and minimize the probability of postoperative complications.\n\nACTIVITY RESTRICTIONS\n\nAmbulation is encouraged to reduce the risk of deep vein **blood clot** and **lung** complications. **but**, strenuous physical exertion, including heavy lifting exceeding ten pounds, should be avoided for a period of four to six weeks postoperatively. You may resume activities of daily living as tolerated.\n\nINCISION CARE\n\nYour surgical incisions are covered with sterile adhesive dressings. These dressings should be **keep** in a clean and dry condition. You may shower 48 hours after your procedure, but immersion in water (bathing, swimming, hot tub **use**) is **not recommended** until your incisions have achieved complete healing. Monitor your incisions for signs of infection including erythema, purulent drainage, increasing tenderness, or febrile episodes.\n\nMEDICATION **plan**\n\nYou have been prescribed **painkiller** medication for pain management. Take your pain medication as directed. Narcotic **painkiller** may cause constipation; therefore, adequate hydration and dietary fiber intake are recommended. A stool softener may be **use** if necessary.\n\nYou should also complete the full course of any antibiotic **prevention** that has been prescribed, even **without** **symptoms** suggesting infection.\n\nDIETARY GUIDELINES\n\n**start** with clear liquids and advance to a regular diet as tolerated. Some patients experience temporary **stomach and bowel** disturbances including nausea, bloating, and diarrhea. Consuming smaller, more frequent meals may **improve** these symptoms. Fatty food consumption should be limited initially, as your body is adapting to the absence of a gallbladder for bile storage.\n\nWARNING SIGNS — SEEK IMMEDIATE MEDICAL ATTENTION\n\nPresent to the Emergency Department or contact your surgeon **now** if you experience any of the following:\n\n- Persistent or increasing abdominal pain unrelieved by analgesic medication\n- Febrile temperature exceeding 101 degrees Fahrenheit\n- Persistent nausea and vomiting precluding oral hydration\n- Abdominal distension or rigidity\n- Jaundice (yellowing of the skin or sclera)\n- **shortness of breath** or chest pain\n- Erythema, warmth, or purulent drainage from your incision sites\n\nFOLLOW-UP APPOINTMENT\n\nA postoperative follow-up appointment has been scheduled for you. **must** you attend this appointment for wound **evaluation** and to ensure your convalescence is progressing satisfactorily. Please contact our office if you need to reschedule.\n\nIf you have questions or concerns, do not hesitate to contact our office during regular business hours. For after-hours emergencies, **go ahead** to the nearest Emergency Department.\n",
       "top_improvements": [
         {
           "action": "Consider replacing with: \"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",

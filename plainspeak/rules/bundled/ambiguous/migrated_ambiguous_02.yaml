@@ -1,4 +1,4 @@
-# 6 terms the inherited glossary would substitute, and this engine
+# 30 terms the inherited glossary would substitute, and this engine
 # will not.
 #
 # Each is worth flagging and cannot be replaced mechanically: a word with two
@@ -160,5 +160,629 @@ provenance:
 examples:
   positive:
     - "The notice used the word yield here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.116
+version: 1
+name: collaborate-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "collaborate" with
+  "work with". This engine reports it instead: 'collaborate with' became 'work with with'.
+match:
+  type: word
+  text: "collaborate"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "'collaborate with' became 'work with with'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word collaborate here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.117
+version: 1
+name: compensate-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "compensate" with
+  "pay". This engine reports it instead: 'compensate for' is not 'pay for': 'compensate for a poor diet' changed meaning.
+match:
+  type: word
+  text: "compensate"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "'compensate for' is not 'pay for': 'compensate for a poor diet' changed meaning"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word compensate here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.123
+version: 1
+name: considerable-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "considerable" with
+  "large". This engine reports it instead: 'considerable time' became 'large time'; the collocations do not carry over.
+match:
+  type: word
+  text: "considerable"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "'considerable time' became 'large time'; the collocations do not carry over"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word considerable here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.126
+version: 1
+name: construct-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "construct" with
+  "build". This engine reports it instead: also a noun: 'a social construct' became 'a social build'.
+match:
+  type: word
+  text: "construct"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "also a noun: 'a social construct' became 'a social build'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word construct here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.130
+version: 1
+name: convene-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "convene" with
+  "meet". This engine reports it instead: 'convene a meeting' became 'meet a meeting'.
+match:
+  type: word
+  text: "convene"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "'convene a meeting' became 'meet a meeting'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word convene here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.136
+version: 1
+name: deprecated-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "deprecated" with
+  "outdated". This engine reports it instead: in software means officially discouraged, which 'outdated' does not say.
+match:
+  type: word
+  text: "deprecated"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "in software means officially discouraged, which 'outdated' does not say"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word deprecated here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.144
+version: 1
+name: empirical-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "empirical" with
+  "observed". This engine reports it instead: 'empirical evidence' is evidence from observation or experiment, not 'observed evidence'.
+match:
+  type: word
+  text: "empirical"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "'empirical evidence' is evidence from observation or experiment, not 'observed evidence'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word empirical here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.145
+version: 1
+name: endeavor-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "endeavor" with
+  "try". This engine reports it instead: also a noun: 'a worthwhile endeavor' became 'a worthwhile try'.
+match:
+  type: word
+  text: "endeavor"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "also a noun: 'a worthwhile endeavor' became 'a worthwhile try'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word endeavor here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.146
+version: 1
+name: endeavour-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "endeavour" with
+  "try". This engine reports it instead: also a noun: 'a worthwhile endeavour' became 'a worthwhile try'.
+match:
+  type: word
+  text: "endeavour"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "also a noun: 'a worthwhile endeavour' became 'a worthwhile try'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word endeavour here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.159
+version: 1
+name: fundamental-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "fundamental" with
+  "basic". This engine reports it instead: means at the root, not merely basic: 'a fundamental shift' changed meaning.
+match:
+  type: word
+  text: "fundamental"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "means at the root, not merely basic: 'a fundamental shift' changed meaning"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word fundamental here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.160
+version: 1
+name: furnish-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "furnish" with
+  "give". This engine reports it instead: also means to put furniture in: 'furnish the flat' became 'give the flat'.
+match:
+  type: word
+  text: "furnish"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "also means to put furniture in: 'furnish the flat' became 'give the flat'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word furnish here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.162
+version: 1
+name: gratuitous-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "gratuitous" with
+  "free". This engine reports it instead: usually means unjustified, not free: 'gratuitous violence' became 'free violence'.
+match:
+  type: word
+  text: "gratuitous"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "usually means unjustified, not free: 'gratuitous violence' became 'free violence'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word gratuitous here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.167
+version: 1
+name: identical-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "identical" with
+  "same". This engine reports it instead: 'identical to' became 'same to'; 'the same as' needs a restructure.
+match:
+  type: word
+  text: "identical"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "'identical to' became 'same to'; 'the same as' needs a restructure"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word identical here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.169
+version: 1
+name: incorporate-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "incorporate" with
+  "include". This engine reports it instead: a settled corporate sense: 'incorporated in England' became 'included in England'.
+match:
+  type: word
+  text: "incorporate"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "a settled corporate sense: 'incorporated in England' became 'included in England'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word incorporate here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.170
+version: 1
+name: inhibit-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "inhibit" with
+  "prevent". This engine reports it instead: 'prevent' is stronger than 'inhibit': 'may inhibit growth' became 'may prevent growth'.
+match:
+  type: word
+  text: "inhibit"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "'prevent' is stronger than 'inhibit': 'may inhibit growth' became 'may prevent growth'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word inhibit here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.176
+version: 1
+name: liaise-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "liaise" with
+  "work with". This engine reports it instead: 'liaise with' became 'work with with'.
+match:
+  type: word
+  text: "liaise"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "'liaise with' became 'work with with'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word liaise here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.178
+version: 1
+name: manufacture-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "manufacture" with
+  "make". This engine reports it instead: also a noun: 'the manufacture of drugs' became 'the make of drugs'.
+match:
+  type: word
+  text: "manufacture"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "also a noun: 'the manufacture of drugs' became 'the make of drugs'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word manufacture here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.188
+version: 1
+name: objective-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "objective" with
+  "goal". This engine reports it instead: also an adjective: 'an objective assessment' became 'an goal assessment'.
+match:
+  type: word
+  text: "objective"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "also an adjective: 'an objective assessment' became 'an goal assessment'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word objective here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.196
+version: 1
+name: paradigm-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "paradigm" with
+  "model". This engine reports it instead: breaks the idiom: 'a fundamental paradigm shift' became 'a basic model shift'.
+match:
+  type: word
+  text: "paradigm"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "breaks the idiom: 'a fundamental paradigm shift' became 'a basic model shift'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word paradigm here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.216
+version: 1
+name: request-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "request" with
+  "ask". This engine reports it instead: the noun is as common as the verb: 'requests are rate-limited' became 'asks are rate-limited'.
+match:
+  type: word
+  text: "request"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "the noun is as common as the verb: 'requests are rate-limited' became 'asks are rate-limited'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word request here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.220
+version: 1
+name: resilient-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "resilient" with
+  "strong". This engine reports it instead: resilient means able to recover, which 'strong' does not say.
+match:
+  type: word
+  text: "resilient"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "resilient means able to recover, which 'strong' does not say"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word resilient here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.225
+version: 1
+name: specification-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "specification" with
+  "detail". This engine reports it instead: in technical writing a specification is a document, not a detail.
+match:
+  type: word
+  text: "specification"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "in technical writing a specification is a document, not a detail"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word specification here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.234
+version: 1
+name: ubiquitous-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "ubiquitous" with
+  "everywhere". This engine reports it instead: the replacement is an adverb: 'ubiquitous devices' became 'everywhere devices'.
+match:
+  type: word
+  text: "ubiquitous"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "the replacement is an adverb: 'ubiquitous devices' became 'everywhere devices'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word ubiquitous here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.235
+version: 1
+name: undertake-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "undertake" with
+  "do". This engine reports it instead: a settled contractual sense: 'undertakes to pay' is a promise, and became 'does to pay'.
+match:
+  type: word
+  text: "undertake"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "a settled contractual sense: 'undertakes to pay' is a promise, and became 'does to pay'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word undertake here."
   negative:
     - "A different word entirely appears instead."

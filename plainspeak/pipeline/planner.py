@@ -31,6 +31,7 @@ proposal has to survive both.
 from __future__ import annotations
 
 import bisect
+import re
 from dataclasses import dataclass, replace
 from typing import Iterable, Optional, Sequence
 
@@ -68,6 +69,7 @@ REFUSAL_DUPLICATE = "an identical change was already proposed"
 REFUSAL_OUT_OF_SCOPE = "the match is outside the scopes this rule declares"
 REFUSAL_DIAGNOSTIC = "this rule reports only and never proposes an edit"
 REFUSAL_INTEGRITY = "the change would alter protected information"
+REFUSAL_ARTICLE = "the replacement cannot follow 'a' or 'an'"
 
 
 @dataclass(frozen=True)
@@ -454,11 +456,18 @@ def _propose(
     protected_regions: Sequence[Span],
 ) -> ProposedChange:
     start, end = deletion_span(view.text, rule, match)
+    replacement = match.replacement
+    article_refusal = ""
+    if replacement and not match.refusal:
+        if replacement.split()[0].lower() in _NO_ARTICLE and _article_before(view.text, start):
+            article_refusal = REFUSAL_ARTICLE
+        else:
+            start, replacement = _agree_article(view.text, start, end, replacement)
     change = propose_change(
         view,
         document,
         Span(start, end),
-        replacement=match.replacement,
+        replacement=replacement,
         rule_id=match.rule_id,
         rule_version=match.rule_version,
         mode=match.mode,
@@ -469,6 +478,8 @@ def _propose(
     # rule never had a well-defined edit to offer.
     if match.refusal:
         return replace(change, applicable=False, reason=match.refusal)
+    if article_refusal:
+        return replace(change, applicable=False, reason=article_refusal)
 
     if not change.applicable:
         return change
@@ -482,6 +493,63 @@ def _propose(
         return replace(change, applicable=False, reason=inherited)
 
     return change
+
+
+#: "a" or "an" immediately before a match, with the space between them.
+_ARTICLE_BEFORE = re.compile(r"(?<![\w'’])(an|a)(\s+)$", re.IGNORECASE)
+#: Words spelt with a vowel and said with a consonant, and the reverse. Only the
+#: beginnings the ruleset's replacements and matched words can have need to be
+#: here; the rest follow the spelling.
+_CONSONANT_SOUND = ("use", "usu", "uni", "euro", "one", "once")
+_VOWEL_SOUND = ("hour", "honest", "honour", "honor", "heir")
+
+
+#: Replacements that cannot follow "a" or "an" at all. "Sufficient funds" is
+#: "enough funds", but "a sufficient reason" cannot be "an enough reason", and
+#: "an optimal choice" is not "a best choice". Refused after an article.
+_NO_ARTICLE = frozenset({"enough", "best"})
+
+
+def _article_before(text: str, start: int) -> bool:
+    found = _ARTICLE_BEFORE.search(text, max(0, start - 8), start)
+    return found is not None and found.end() == start
+
+
+def _takes_an(word: str) -> bool:
+    lowered = word.lower()
+    if lowered.startswith(_VOWEL_SOUND):
+        return True
+    if lowered.startswith(_CONSONANT_SOUND):
+        return False
+    return lowered[:1] in "aeiou"
+
+
+def _agree_article(text: str, start: int, end: int, replacement: str) -> tuple[int, str]:
+    """Correct "a" or "an" before a replacement that changes the first sound.
+
+    "An objective assessment" with "objective" replaced must become "a goal
+    assessment", not "an goal assessment". The article becomes part of the
+    change — its span widened back over the article, its replacement written
+    with the article corrected and its capitalisation kept — so the edit is
+    still one contiguous span replacement, checked by the firewall like any
+    other. Articles are not protected facts. Where the article cannot be
+    reached in the same span, the change is refused downstream rather than
+    applied with the wrong article.
+    """
+    if _takes_an(text[start:end]) == _takes_an(replacement):
+        return start, replacement
+    found = _ARTICLE_BEFORE.search(text, max(0, start - 8), start)
+    if found is None or found.end() != start:
+        return start, replacement
+    article, space = found.group(1), found.group(2)
+    wanted = "an" if _takes_an(replacement) else "a"
+    if len(article) == 2 and article.isupper():
+        corrected = wanted.upper()          # "AN" -> "A"
+    elif article[0].isupper():
+        corrected = wanted.capitalize()     # "An" -> "A", "A" -> "An"
+    else:
+        corrected = wanted
+    return found.start(), corrected + space + replacement
 
 
 def _record(

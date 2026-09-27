@@ -35,7 +35,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-EXPECTED_VERSION = "1.0.0rc1"
+EXPECTED_VERSION = "1.0.0"
 EXPECTED_SCHEMA = "plainspeak.present.v1"
 
 #: A fixed input and the SHA-256 of what every profile must present it as.

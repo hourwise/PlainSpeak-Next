@@ -63,7 +63,7 @@ labelled as such; [V1_SCOPE.md](V1_SCOPE.md) written before any V1 feature code.
 5. ✅ **Short-text honesty.** Below a diagnostic's minimum sample, PlainSpeak says
    there was not enough text to judge rather than implying the text is clean.
 
-## Stage 2 — V1 release *(release candidate prepared; not published)*
+## Stage 2 — V1 release *(1.0.0 certified; not published)*
 
 A certified release candidate: Python package, portable Windows and Linux
 desktop bundles, a "how it works and what it guarantees" document, and a

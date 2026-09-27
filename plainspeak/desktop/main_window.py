@@ -153,8 +153,10 @@ class MainWindow(QMainWindow):
         self.profile_box.setObjectName("profile-selector")
         self.profile_box.setAccessibleName("Style profile")
         self.profile_box.setToolTip(
-            "The kind of prose this document is meant to be. Changing it clears "
-            "any review decisions, because a decision belongs to one profile."
+            "The kind of prose this document is meant to be. It decides which style "
+            "observations are reported; it does not change the automatic SAFE changes "
+            "or what is protected. Changing it clears any review decisions, because a "
+            "decision belongs to one profile."
         )
         for identifier, name in _profile_choices():
             self.profile_box.addItem(name, identifier)

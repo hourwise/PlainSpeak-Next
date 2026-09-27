@@ -83,10 +83,13 @@ class TestNominalizationVerbValidation:
         """'medication' is a medical term — _is_real_word sees 'medic' but protected terms prevent replacement."""
         assert is_protected_term("medication")
 
-    def test_documentation_produces_document(self):
-        """'documentation' produces 'document' which IS a real word (noun & verb)."""
-        verb = _nominalization_to_verb("documentation")
-        assert verb == "document", f"Expected 'document', got '{verb}'"
+    def test_documentation_is_not_offered_a_verb(self):
+        """'documentation' is usually the thing you read, not the act of documenting.
+
+        Superseded contract: the suffix-stripping derivation offered "document".
+        Verbs now come only from the reviewed table in `core.suggestions`.
+        """
+        assert _nominalization_to_verb("documentation") is None
 
     def test_connection_produces_no_bogus_verb(self):
         """'connection' must NOT suggest 'connece'."""
@@ -104,15 +107,17 @@ class TestNominalizationVerbValidation:
         verb = _nominalization_to_verb("implementation")
         assert verb == "implement", f"Expected 'implement', got '{verb}'"
 
-    def test_organization_produces_real_verb(self):
-        """'organization' should produce 'organize' (real word)."""
-        verb = _nominalization_to_verb("organization")
-        assert verb == "organize", f"Expected 'organize', got '{verb}'"
+    def test_organization_is_not_offered_organize(self):
+        """An organisation is usually a body, not the act of organising.
 
-    def test_development_produces_real_verb(self):
-        """'development' should produce 'develop' (real word)."""
-        verb = _nominalization_to_verb("development")
-        assert verb == "develop", f"Expected 'develop', got '{verb}'"
+        Superseded contract: "organize" is a real word, which is all the old
+        derivation checked, and it changes what the sentence says.
+        """
+        assert _nominalization_to_verb("organization") is None
+
+    def test_development_is_not_flagged(self):
+        """'development' is in the detector's exceptions and is never offered a verb."""
+        assert _nominalization_to_verb("development") is None
 
     def test_consideration_produces_real_verb(self):
         """'consideration' should produce 'consider' (real word)."""

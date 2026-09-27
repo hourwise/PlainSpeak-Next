@@ -1844,39 +1844,20 @@
       "term": "cognizant of"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "collaborate",
-          "work with"
-        ],
-        [
-          "collaborates",
-          "works with"
-        ],
-        [
-          "collaborated",
-          "worked with"
-        ],
-        [
-          "collaborating",
-          "working with"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'collaborate with' became 'work with with'",
       "replacement": "work with",
       "rule_id": "PS.LEXICAL.116",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "work with",
       "term": "collaborate"
     },
     {
@@ -1999,40 +1980,21 @@
       "term": "common areas"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Directness builds trust.",
-      "forms": [
-        [
-          "compensate",
-          "pay"
-        ],
-        [
-          "compensates",
-          "pays"
-        ],
-        [
-          "compensated",
-          "paid"
-        ],
-        [
-          "compensating",
-          "paying"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'compensate for' is not 'pay for': 'compensate for a poor diet' changed meaning",
       "replacement": "pay",
       "rule_id": "PS.LEXICAL.117",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "pay",
       "term": "compensate"
     },
     {
@@ -2390,27 +2352,20 @@
       "term": "consequently"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'big' — a shorter word.",
-      "forms": [
-        [
-          "considerable",
-          "large"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'considerable time' became 'large time'; the collocations do not carry over",
       "replacement": "large",
       "rule_id": "PS.LEXICAL.123",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "large",
       "term": "considerable"
     },
     {
@@ -2487,39 +2442,20 @@
       "term": "constitute"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Concrete words are easier to picture.",
-      "forms": [
-        [
-          "construct",
-          "build"
-        ],
-        [
-          "constructs",
-          "builds"
-        ],
-        [
-          "constructed",
-          "built"
-        ],
-        [
-          "constructing",
-          "building"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "also a noun: 'a social construct' became 'a social build'",
       "replacement": "build",
       "rule_id": "PS.LEXICAL.126",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "build",
       "term": "construct"
     },
     {
@@ -2696,39 +2632,20 @@
       "term": "contusion"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "convene",
-          "meet"
-        ],
-        [
-          "convenes",
-          "meets"
-        ],
-        [
-          "convened",
-          "met"
-        ],
-        [
-          "convening",
-          "meeting"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'convene a meeting' became 'meet a meeting'",
       "replacement": "meet",
       "rule_id": "PS.LEXICAL.130",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "meet",
       "term": "convene"
     },
     {
@@ -3089,27 +3006,20 @@
       "term": "deposition"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Explain the status.",
-      "forms": [
-        [
-          "deprecated",
-          "outdated"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "in software means officially discouraged, which 'outdated' does not say",
       "replacement": "outdated",
       "rule_id": "PS.LEXICAL.136",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "outdated",
       "term": "deprecated"
     },
     {
@@ -3847,27 +3757,20 @@
       "term": "emolument"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'measured' — explain the evidence type.",
-      "forms": [
-        [
-          "empirical",
-          "observed"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'empirical evidence' is evidence from observation or experiment, not 'observed evidence'",
       "replacement": "observed",
       "rule_id": "PS.LEXICAL.144",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "observed",
       "term": "empirical"
     },
     {
@@ -3939,75 +3842,37 @@
       "term": "encumbrance"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Shorter and more direct.",
-      "forms": [
-        [
-          "endeavor",
-          "try"
-        ],
-        [
-          "endeavors",
-          "tries"
-        ],
-        [
-          "endeavored",
-          "tried"
-        ],
-        [
-          "endeavoring",
-          "trying"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "also a noun: 'a worthwhile endeavor' became 'a worthwhile try'",
       "replacement": "try",
       "rule_id": "PS.LEXICAL.145",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "try",
       "term": "endeavor"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "endeavour",
-          "try"
-        ],
-        [
-          "endeavours",
-          "tries"
-        ],
-        [
-          "endeavoured",
-          "tried"
-        ],
-        [
-          "endeavouring",
-          "trying"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "also a noun: 'a worthwhile endeavour' became 'a worthwhile try'",
       "replacement": "try",
       "rule_id": "PS.LEXICAL.146",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "try",
       "term": "endeavour"
     },
     {
@@ -5035,59 +4900,37 @@
       "term": "functionality"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'key' — a simpler word.",
-      "forms": [
-        [
-          "fundamental",
-          "basic"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "means at the root, not merely basic: 'a fundamental shift' changed meaning",
       "replacement": "basic",
       "rule_id": "PS.LEXICAL.159",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "basic",
       "term": "fundamental"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Everyday language.",
-      "forms": [
-        [
-          "furnish",
-          "give"
-        ],
-        [
-          "furnishes",
-          "gives"
-        ],
-        [
-          "furnishing",
-          "giving"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "also means to put furniture in: 'furnish the flat' became 'give the flat'",
       "replacement": "give",
       "rule_id": "PS.LEXICAL.160",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "give",
       "term": "furnish"
     },
     {
@@ -5183,27 +5026,20 @@
       "term": "give recognition to"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Something given without payment.",
-      "forms": [
-        [
-          "gratuitous",
-          "free"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "usually means unjustified, not free: 'gratuitous violence' became 'free violence'",
       "replacement": "free",
       "rule_id": "PS.LEXICAL.162",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "free",
       "term": "gratuitous"
     },
     {
@@ -5745,28 +5581,21 @@
       "term": "hypotension"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Shorter word, same meaning.",
-      "forms": [
-        [
-          "identical",
-          "same"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'identical to' became 'same to'; 'the same as' needs a restructure",
       "replacement": "same",
       "rule_id": "PS.LEXICAL.167",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "same",
       "term": "identical"
     },
     {
@@ -6386,39 +6215,20 @@
       "term": "income tax"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "incorporate",
-          "include"
-        ],
-        [
-          "incorporates",
-          "includes"
-        ],
-        [
-          "incorporated",
-          "included"
-        ],
-        [
-          "incorporating",
-          "including"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a settled corporate sense: 'incorporated in England' became 'included in England'",
       "replacement": "include",
       "rule_id": "PS.LEXICAL.169",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "include",
       "term": "incorporate"
     },
     {
@@ -6577,39 +6387,20 @@
       "term": "inheritance tax"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'block' — a simpler verb.",
-      "forms": [
-        [
-          "inhibit",
-          "prevent"
-        ],
-        [
-          "inhibits",
-          "prevents"
-        ],
-        [
-          "inhibited",
-          "prevented"
-        ],
-        [
-          "inhibiting",
-          "preventing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'prevent' is stronger than 'inhibit': 'may inhibit growth' became 'may prevent growth'",
       "replacement": "prevent",
       "rule_id": "PS.LEXICAL.170",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "prevent",
       "term": "inhibit"
     },
     {
@@ -7391,39 +7182,20 @@
       "term": "liability"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Jargon — use everyday language.",
-      "forms": [
-        [
-          "liaise",
-          "work with"
-        ],
-        [
-          "liaises",
-          "works with"
-        ],
-        [
-          "liaised",
-          "worked with"
-        ],
-        [
-          "liaising",
-          "working with"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'liaise with' became 'work with with'",
       "replacement": "work with",
       "rule_id": "PS.LEXICAL.176",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "work with",
       "term": "liaise"
     },
     {
@@ -7949,39 +7721,20 @@
       "term": "mandate"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "manufacture",
-          "make"
-        ],
-        [
-          "manufactures",
-          "makes"
-        ],
-        [
-          "manufactured",
-          "made"
-        ],
-        [
-          "manufacturing",
-          "making"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "also a noun: 'the manufacture of drugs' became 'the make of drugs'",
       "replacement": "make",
       "rule_id": "PS.LEXICAL.178",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "make",
       "term": "manufacture"
     },
     {
@@ -8670,32 +8423,21 @@
       "term": "nunc pro tunc"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Concrete nouns are clearer.",
-      "forms": [
-        [
-          "objective",
-          "goal"
-        ],
-        [
-          "objectives",
-          "goals"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "also an adjective: 'an objective assessment' became 'an goal assessment'",
       "replacement": "goal",
       "rule_id": "PS.LEXICAL.188",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "goal",
       "term": "objective"
     },
     {
@@ -9053,31 +8795,20 @@
       "term": "palliative"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'framework' — a simpler word.",
-      "forms": [
-        [
-          "paradigm",
-          "model"
-        ],
-        [
-          "paradigms",
-          "models"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "breaks the idiom: 'a fundamental paradigm shift' became 'a basic model shift'",
       "replacement": "model",
       "rule_id": "PS.LEXICAL.196",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "model",
       "term": "paradigm"
     },
     {
@@ -11247,39 +10978,20 @@
       "term": "repository"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Direct communication.",
-      "forms": [
-        [
-          "request",
-          "ask"
-        ],
-        [
-          "requests",
-          "asks"
-        ],
-        [
-          "requested",
-          "asked"
-        ],
-        [
-          "requesting",
-          "asking"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the noun is as common as the verb: 'requests are rate-limited' became 'asks are rate-limited'",
       "replacement": "ask",
       "rule_id": "PS.LEXICAL.216",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "ask",
       "term": "request"
     },
     {
@@ -11414,27 +11126,20 @@
       "term": "reside"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "resilient",
-          "strong"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "resilient means able to recover, which 'strong' does not say",
       "replacement": "strong",
       "rule_id": "PS.LEXICAL.220",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "strong",
       "term": "resilient"
     },
     {
@@ -12102,31 +11807,20 @@
       "term": "specific performance"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "specification",
-          "detail"
-        ],
-        [
-          "specifications",
-          "details"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "in technical writing a specification is a document, not a detail",
       "replacement": "detail",
       "rule_id": "PS.LEXICAL.225",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "detail",
       "term": "specification"
     },
     {
@@ -13359,27 +13053,20 @@
       "term": "trauma"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "ubiquitous",
-          "everywhere"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the replacement is an adverb: 'ubiquitous devices' became 'everywhere devices'",
       "replacement": "everywhere",
       "rule_id": "PS.LEXICAL.234",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "everywhere",
       "term": "ubiquitous"
     },
     {
@@ -13434,43 +13121,20 @@
       "term": "underlying"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Direct verb.",
-      "forms": [
-        [
-          "undertake",
-          "do"
-        ],
-        [
-          "undertakes",
-          "does"
-        ],
-        [
-          "undertook",
-          "did"
-        ],
-        [
-          "undertaken",
-          "done"
-        ],
-        [
-          "undertaking",
-          "doing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a settled contractual sense: 'undertakes to pay' is a promise, and became 'does to pay'",
       "replacement": "do",
       "rule_id": "PS.LEXICAL.235",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "do",
       "term": "undertake"
     },
     {
@@ -13741,39 +13405,20 @@
       "term": "venue"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "verify",
-          "check"
-        ],
-        [
-          "verifies",
-          "checks"
-        ],
-        [
-          "verified",
-          "checked"
-        ],
-        [
-          "verifying",
-          "checking"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a precise technical sense: 'the signature verifies' became 'the signature checks'",
       "replacement": "check",
       "rule_id": "PS.LEXICAL.238",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "check",
       "term": "verify"
     },
     {
@@ -14032,10 +13677,10 @@
     "by_classification": {
       "already-covered": 16,
       "deferred": 477,
-      "diagnostic": 36,
+      "diagnostic": 61,
       "protected": 23,
       "rejected": 14,
-      "safe-fix": 140
+      "safe-fix": 115
     },
     "conflicting_replacements": 1,
     "duplicate_across_sources": 55,

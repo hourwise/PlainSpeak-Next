@@ -254,41 +254,6 @@ examples:
       after: "The report used the word so."
 
 ---
-id: PS.LEXICAL.123
-version: 1
-name: considerable-to-large
-mode: safe-fix
-description: >
-  "Considerable" is "large" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: word
-  text: "considerable"
-action:
-  type: replace
-  replacement: "large"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"large\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word considerable."
-  negative:
-    - "The token considerabler is a different word."
-  transform:
-    - before: "The report used the word considerable."
-      after: "The report used the word large."
-
----
 id: PS.LEXICAL.128
 version: 1
 name: contemporary-to-modern
@@ -394,41 +359,6 @@ examples:
       after: "The report used the word final."
 
 ---
-id: PS.LEXICAL.136
-version: 1
-name: deprecated-to-outdated
-mode: safe-fix
-description: >
-  "Deprecated" is "outdated" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: word
-  text: "deprecated"
-action:
-  type: replace
-  replacement: "outdated"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"outdated\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word deprecated."
-  negative:
-    - "The token deprecatedr is a different word."
-  transform:
-    - before: "The report used the word deprecated."
-      after: "The report used the word outdated."
-
----
 id: PS.LEXICAL.138
 version: 1
 name: detrimental-to-harmful
@@ -462,41 +392,6 @@ examples:
   transform:
     - before: "The report used the word detrimental."
       after: "The report used the word harmful."
-
----
-id: PS.LEXICAL.144
-version: 1
-name: empirical-to-observed
-mode: safe-fix
-description: >
-  "Empirical" is "observed" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: word
-  text: "empirical"
-action:
-  type: replace
-  replacement: "observed"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"observed\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word empirical."
-  negative:
-    - "The token empiricalr is a different word."
-  transform:
-    - before: "The report used the word empirical."
-      after: "The report used the word observed."
 
 ---
 id: PS.LEXICAL.149
@@ -604,41 +499,6 @@ examples:
       after: "The report used the word often."
 
 ---
-id: PS.LEXICAL.159
-version: 1
-name: fundamental-to-basic
-mode: safe-fix
-description: >
-  "Fundamental" is "basic" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: word
-  text: "fundamental"
-action:
-  type: replace
-  replacement: "basic"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"basic\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word fundamental."
-  negative:
-    - "The token fundamentalr is a different word."
-  transform:
-    - before: "The report used the word fundamental."
-      after: "The report used the word basic."
-
----
 id: PS.LEXICAL.161
 version: 1
 name: furthermore-to-also
@@ -672,41 +532,6 @@ examples:
   transform:
     - before: "The report used the word furthermore."
       after: "The report used the word also."
-
----
-id: PS.LEXICAL.162
-version: 1
-name: gratuitous-to-free
-mode: safe-fix
-description: >
-  "Gratuitous" is "free" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: word
-  text: "gratuitous"
-action:
-  type: replace
-  replacement: "free"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"free\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word gratuitous."
-  negative:
-    - "The token gratuitousr is a different word."
-  transform:
-    - before: "The report used the word gratuitous."
-      after: "The report used the word free."
 
 ---
 id: PS.LEXICAL.163
@@ -847,41 +672,6 @@ examples:
   transform:
     - before: "The report used the word homogeneous."
       after: "The report used the word uniform."
-
----
-id: PS.LEXICAL.167
-version: 1
-name: identical-to-same
-mode: safe-fix
-description: >
-  "Identical" is "same" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: word
-  text: "identical"
-action:
-  type: replace
-  replacement: "same"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"same\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word identical."
-  negative:
-    - "The token identicalr is a different word."
-  transform:
-    - before: "The report used the word identical."
-      after: "The report used the word same."
 
 ---
 id: PS.LEXICAL.172
@@ -1057,3 +847,213 @@ examples:
   transform:
     - before: "The report used the word numerous."
       after: "The report used the word many."
+
+---
+id: PS.LEXICAL.190
+version: 1
+name: obsolete-to-outdated
+mode: safe-fix
+description: >
+  "Obsolete" is "outdated" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: word
+  text: "obsolete"
+action:
+  type: replace
+  replacement: "outdated"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"outdated\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word obsolete."
+  negative:
+    - "The token obsoleter is a different word."
+  transform:
+    - before: "The report used the word obsolete."
+      after: "The report used the word outdated."
+
+---
+id: PS.LEXICAL.193
+version: 1
+name: optimal-to-best
+mode: safe-fix
+description: >
+  "Optimal" is "best" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: word
+  text: "optimal"
+action:
+  type: replace
+  replacement: "best"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"best\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word optimal."
+  negative:
+    - "The token optimalr is a different word."
+  transform:
+    - before: "The report used the word optimal."
+      after: "The report used the word best."
+
+---
+id: PS.LEXICAL.194
+version: 1
+name: optimum-to-best
+mode: safe-fix
+description: >
+  "Optimum" is "best" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: word
+  text: "optimum"
+action:
+  type: replace
+  replacement: "best"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"best\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word optimum."
+  negative:
+    - "The token optimumr is a different word."
+  transform:
+    - before: "The report used the word optimum."
+      after: "The report used the word best."
+
+---
+id: PS.LEXICAL.197
+version: 1
+name: permissible-to-allowed
+mode: safe-fix
+description: >
+  "Permissible" is "allowed" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: word
+  text: "permissible"
+action:
+  type: replace
+  replacement: "allowed"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"allowed\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word permissible."
+  negative:
+    - "The token permissibler is a different word."
+  transform:
+    - before: "The report used the word permissible."
+      after: "The report used the word allowed."
+
+---
+id: PS.LEXICAL.201
+version: 1
+name: predominant-to-main
+mode: safe-fix
+description: >
+  "Predominant" is "main" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: word
+  text: "predominant"
+action:
+  type: replace
+  replacement: "main"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"main\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word predominant."
+  negative:
+    - "The token predominantr is a different word."
+  transform:
+    - before: "The report used the word predominant."
+      after: "The report used the word main."
+
+---
+id: PS.LEXICAL.202
+version: 1
+name: predominantly-to-mainly
+mode: safe-fix
+description: >
+  "Predominantly" is "mainly" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: word
+  text: "predominantly"
+action:
+  type: replace
+  replacement: "mainly"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"mainly\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word predominantly."
+  negative:
+    - "The token predominantlyr is a different word."
+  transform:
+    - before: "The report used the word predominantly."
+      after: "The report used the word mainly."

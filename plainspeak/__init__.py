@@ -6,7 +6,7 @@ reports what it changed, what needs a person and what it refused. All
 processing is offline and local. See HOW_IT_WORKS.md.
 """
 
-__version__ = "1.0.0rc1"
+__version__ = "1.0.0"
 __all__ = [
     # Layers
     "core",

@@ -53,9 +53,9 @@ looked yet, which is the honest description of an entry inherited in bulk.
 
 | Classification | Count | Meaning |
 |---|---:|---|
-| `safe-fix` | 140 | Individually reviewed; became a rule |
+| `safe-fix` | 115 | Individually reviewed; became a rule |
 | `deferred` | 477 | Not yet individually reviewed, or a multi-word phrase |
-| `diagnostic` | 36 | Worth flagging, cannot be substituted mechanically |
+| `diagnostic` | 61 | Worth flagging, cannot be substituted mechanically |
 | `protected` | 23 | In the inherited protected-term register |
 | `rejected` | 14 | The inherited suggestion is wrong and was not carried forward |
 | `already-covered` | 16 | Handled by a hand-authored Phase 4 rule |
@@ -67,10 +67,21 @@ which carries every entry with its classification, reason, source module,
 duplicate status and — where it became a rule — its new ID and generated forms.
 Its SHA-256 is pinned in the test suite.
 
+The Phase 6 migration made 140 safe fixes and 36 diagnostics. The V1 acceptance
+review reclassified 25 of those safe fixes as diagnostics after running them
+over real prose — "requests are rate-limited" became "asks are rate-limited" —
+so the figures are now 115 and 61; see
+[V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md). Every reclassified rule kept
+its ID. [`migration/rule-ids.json`](migration/rule-ids.json) binds each rule ID
+to its term for life: the builder once numbered rules by position, and
+reclassifying one would have renumbered 134 others.
+
 477 deferred entries is not a gap being hidden. It is the honest state: those
 terms have not been read one by one, and until they have, the engine says
-nothing about them. The inherited flat path still uses all 706 and remains
-sealed by its characterisation goldens.
+nothing about them as rules. The readability report's *suggestions*, which
+still draw on the inherited glossary, go through a reviewed overlay
+(`plainspeak/core/suggestions.py`) that withdrew 71 suggestions and corrected 5;
+the inherited data itself is unchanged, and its hash is pinned.
 
 ## Rejected entries
 

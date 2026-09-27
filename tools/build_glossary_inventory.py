@@ -38,6 +38,23 @@ from plainspeak.morphology import MorphologyError, inflected_pairs
 REPO_ROOT = Path(__file__).resolve().parent.parent
 MIGRATION_DIR = REPO_ROOT / "migration"
 DECISIONS_PATH = MIGRATION_DIR / "decisions.yaml"
+#: Term -> rule ID, for every rule this script has ever generated. A rule ID is a
+#: permanent public identity that an audit record may cite, so it belongs to the
+#: term for life: a term reclassified from safe-fix to diagnostic keeps its ID
+#: and changes only its mode, and a new term takes the next unused number. IDs
+#: were once assigned by position, which renumbered every later rule whenever
+#: an earlier one was reclassified.
+RULE_IDS_PATH = MIGRATION_DIR / "rule-ids.json"
+
+
+def load_rule_ids() -> dict[str, str]:
+    if not RULE_IDS_PATH.exists():
+        return {}
+    return json.loads(RULE_IDS_PATH.read_text(encoding="utf-8"))
+
+
+def render_rule_ids(registry: dict[str, str]) -> str:
+    return json.dumps({term: registry[term] for term in sorted(registry)}, indent=1, ensure_ascii=False) + "\n"
 INVENTORY_PATH = MIGRATION_DIR / "glossary-inventory.json"
 RULES_DIR = REPO_ROOT / "plainspeak" / "rules" / "bundled" / "lexical"
 DIAGNOSTIC_DIR = REPO_ROOT / "plainspeak" / "rules" / "bundled" / "ambiguous"
@@ -149,8 +166,16 @@ def classify(entries: dict[str, dict[str, Any]], decisions: dict[str, dict[str, 
 
     covered = existing_coverage()
     rows: list[dict[str, Any]] = []
-    next_id = MIGRATED_ID_BASE
-    next_diagnostic_id = 1
+    registry = load_rule_ids()
+
+    def next_free(prefix: str, floor: int) -> int:
+        used = [int(value.rsplit(".", 1)[1]) for value in registry.values() if value.startswith(prefix)]
+        return max(used + [floor - 1]) + 1
+
+    def rule_id_for(term: str, prefix: str, floor: int) -> str:
+        if term not in registry:
+            registry[term] = f"{prefix}{next_free(prefix, floor):03d}"
+        return registry[term]
 
     for term, entry in entries.items():
         protected = term in PROTECTED_TERMS
@@ -186,14 +211,12 @@ def classify(entries: dict[str, dict[str, Any]], decisions: dict[str, dict[str, 
             row["reason"] = "individually reviewed as a mechanical substitution"
             row["part_of_speech"] = decision["pos"]
             row["target"] = decision["target"]
-            row["rule_id"] = f"PS.LEXICAL.{next_id:03d}"
-            next_id += 1
+            row["rule_id"] = rule_id_for(term, "PS.LEXICAL.", MIGRATED_ID_BASE)
             row["forms"] = [list(pair) for pair in _forms_for(term, decision)]
         elif decision and decision["classification"] == DIAGNOSTIC:
             row["classification"] = DIAGNOSTIC
             row["reason"] = decision["reason"]
-            row["rule_id"] = f"PS.AMBIGUOUS.{next_diagnostic_id:03d}"
-            next_diagnostic_id += 1
+            row["rule_id"] = rule_id_for(term, "PS.AMBIGUOUS.", 1)
         elif decision:
             row["classification"] = decision["classification"]
             row["reason"] = decision["reason"]
@@ -206,6 +229,7 @@ def classify(entries: dict[str, dict[str, Any]], decisions: dict[str, dict[str, 
 
         rows.append(row)
 
+    classify.registry = registry  # read by `main`, which decides whether to write it
     return rows
 
 
@@ -511,9 +535,14 @@ def main(argv: list[str] | None = None) -> int:
     inventory = build_inventory()
     rendered = readable_json(inventory)
 
+    registry = render_rule_ids(classify.registry)
+
     if args.check:
         if not INVENTORY_PATH.exists() or INVENTORY_PATH.read_text(encoding="utf-8") != rendered:
             print("the glossary inventory is stale; regenerate it", file=sys.stderr)
+            return 1
+        if not RULE_IDS_PATH.exists() or RULE_IDS_PATH.read_text(encoding="utf-8") != registry:
+            print("the rule-ID registry is stale; regenerate with --rules", file=sys.stderr)
             return 1
         print(f"inventory up to date ({inventory_hash(inventory)[:12]})")
         return 0
@@ -527,6 +556,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  inventory sha256: {inventory_hash(inventory)}")
 
     if args.rules:
+        RULE_IDS_PATH.write_text(registry, encoding="utf-8", newline="\n")
         print(f"wrote rules: {emit_rules(inventory)}")
     return 0
 

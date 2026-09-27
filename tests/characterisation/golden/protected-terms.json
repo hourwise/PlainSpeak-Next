@@ -95,9 +95,9 @@
   "reporter": {
     "outcome": "ok",
     "value": {
-      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 11.8\n  Fairly difficult (approximately upper secondary level)\n\n  Text Statistics:\n    Words:               106\n    Sentences:           12\n    Avg Sentence Length:  8.8 words\n    Avg Word Length:      5.5 characters\n    Complex Words (3+ syl): 29\n\n  Readability Scores:\n    Flesch Reading Ease:        33.5\n      Difficult — best understood by college graduates.\n    Flesch-Kincaid Grade Level:  10.8\n    Gunning Fog Index:           14.5\n    SMOG Index:                  12.0\n    Automated Readability Index: 8.8\n    Coleman-Liau Index:          13.1\n\n  Found 32 readability issue(s) across 12 sentence(s): 16 warning(s), 16 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"consideration\"\n           -> \"consideration\" has 5 syllables. Is there a simpler word you could use?\n    [INFO] Jargon / Formal Language: \"damages\"\n           -> \"damages\" is a legal term of art with specific meaning. Consider defining or explaining it on first \n    [WARNING] Complex Word: \"consideration\"\n           -> \"consideration\" has 5 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"essential\"\n           -> \"essential\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"agreement\"\n           -> \"agreement\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"material\"\n           -> \"material\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"defendant\"\n           -> \"defendant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Nominalization: \"motion\"\n           -> \"motion\" is a nominalization. Consider using the verb \"moe\" instead to make the sentence more direct\n    [INFO] Jargon / Formal Language: \"material fact\"\n           -> \"material fact\" is a domain term of art. Consider defining or explaining it on first use rather than\n    [WARNING] Passive Voice: \"was admitted\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    ... and 22 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 31468,
-      "html_sha256": "d83698fced87d6ed9cd1ed0f90be0ba5f5997cda89e776b1ca2f65926c1f1434",
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 11.8\n  Fairly difficult (approximately upper secondary level)\n\n  Text Statistics:\n    Words:               106\n    Sentences:           12\n    Avg Sentence Length:  8.8 words\n    Avg Word Length:      5.5 characters\n    Complex Words (3+ syl): 29\n\n  Readability Scores:\n    Flesch Reading Ease:        33.5\n      Difficult — best understood by college graduates.\n    Flesch-Kincaid Grade Level:  10.8\n    Gunning Fog Index:           14.5\n    SMOG Index:                  12.0\n    Automated Readability Index: 8.8\n    Coleman-Liau Index:          13.1\n\n  Found 32 readability issue(s) across 12 sentence(s): 16 warning(s), 16 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"consideration\"\n           -> \"consideration\" has 5 syllables. Is there a simpler word you could use?\n    [INFO] Jargon / Formal Language: \"damages\"\n           -> \"damages\" is a legal term of art with specific meaning. Consider defining or explaining it on first \n    [WARNING] Complex Word: \"consideration\"\n           -> \"consideration\" has 5 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"essential\"\n           -> \"essential\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"agreement\"\n           -> \"agreement\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"material\"\n           -> \"material\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"defendant\"\n           -> \"defendant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Nominalization: \"judgment\"\n           -> \"judgment\" is a nominalization. Consider using the verb \"judge\" instead to make the sentence more di\n    [INFO] Jargon / Formal Language: \"material fact\"\n           -> \"material fact\" is a domain term of art. Consider defining or explaining it on first use rather than\n    [WARNING] Passive Voice: \"was admitted\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    ... and 22 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 31474,
+      "html_sha256": "59ca1362fd3568b66027e693594fb856295140a305a81891365cfe3a99e9679d",
       "json_report": {
         "consensus": {
           "description": "Fairly difficult (approximately upper secondary level)",
@@ -178,11 +178,11 @@
             },
             {
               "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
-              "matched_text": "motion",
+              "matched_text": "judgment",
               "sentence_context": "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
               "sentence_index": 3,
               "severity": "info",
-              "suggestion": "\"motion\" is a nominalization. Consider using the verb \"moe\" instead to make the sentence more direct.",
+              "suggestion": "\"judgment\" is a nominalization. Consider using the verb \"judge\" instead to make the sentence more direct.",
               "type": "nominalization"
             },
             {
@@ -485,9 +485,9 @@
               "count": 1,
               "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
               "label": "Nominalization",
-              "matched_text": "motion",
+              "matched_text": "judgment",
               "priority": "consider",
-              "suggestion": "\"motion\" is a nominalization. Consider using the verb \"moe\" instead to make the sentence more direct.",
+              "suggestion": "\"judgment\" is a nominalization. Consider using the verb \"judge\" instead to make the sentence more direct.",
               "type": "nominalization"
             }
           ],
@@ -861,14 +861,14 @@
           },
           {
             "barrier_type": "nominalization",
-            "end_char": 28,
+            "end_char": 49,
             "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
-            "matched_text": "motion",
+            "matched_text": "judgment",
             "sentence_index": 3,
             "sentence_text": "The defendant filed a motion for summary judgment, arguing that no genuine issue of material fact remained.",
             "severity": "info",
-            "start_char": 22,
-            "suggestion": "\"motion\" is a nominalization. Consider using the verb \"moe\" instead to make the sentence more direct."
+            "start_char": 41,
+            "suggestion": "\"judgment\" is a nominalization. Consider using the verb \"judge\" instead to make the sentence more direct."
           },
           {
             "barrier_type": "jargon",

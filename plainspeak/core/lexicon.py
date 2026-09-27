@@ -8,7 +8,10 @@ directly to decide on a replacement, or the protection is trivially bypassed.
 from typing import Optional
 
 from ..integrity.protected import is_protected_term
-from .glossary import GLOSSARY, SIMPLE_WORD_MAP
+# The reviewed suggestion glossary, not the raw inherited data: see `suggestions`.
+from .suggestions import EFFECTIVE_GLOSSARY as GLOSSARY
+from .suggestions import EFFECTIVE_SIMPLE_WORD_MAP as SIMPLE_WORD_MAP
+from .suggestions import WITHDRAWN
 
 
 # ── Basic stemming ─────────────────────────────────────────────────────────
@@ -167,6 +170,12 @@ def find_glossary_match(word: str) -> Optional[tuple[str, str]]:
 
     # Protected terms of art: never propose a replacement word
     if is_protected_term(word_lower):
+        return None
+
+    # A withdrawn suggestion stays withdrawn. Without this the stemmer would
+    # reach a neighbouring entry — "implementation" would fall through to
+    # "implement" and be offered "carry out".
+    if word_lower in WITHDRAWN:
         return None
 
     # Exact match in GLOSSARY

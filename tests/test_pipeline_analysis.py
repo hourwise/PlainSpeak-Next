@@ -198,8 +198,13 @@ def test_applying_a_mapped_finding_edits_only_that_word() -> None:
 
 
 def test_a_finding_spanning_markup_is_refused() -> None:
-    """A phrase detector that crosses an emphasis marker has no safe edit."""
-    result = analyze_document(md("The system provides a **robust** solution.\n"))
+    """A phrase detector that crosses an emphasis marker has no safe edit.
+
+    The example was once "provides a **robust**", a hidden-verb finding whose
+    suggestion was to use "robust" instead. The reviewed noun-verb table no
+    longer offers that, so a phrase that genuinely crosses markup is used.
+    """
+    result = analyze_document(md("Use it in **accordance** with the rules.\n"))
     crossing = [
         f for f in result.findings if f.reason == REFUSAL_DISCONTIGUOUS
     ]

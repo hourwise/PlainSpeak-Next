@@ -42,6 +42,15 @@ from ..reporting.json import generate_json
 #: literal survives any tooling that rewrites escape sequences in source.
 BLANK = chr(10)
 
+#: What choosing a profile does and does not change, said the same way by the
+#: CLI, the desktop and HOW_IT_WORKS.md.
+PROFILE_SCOPE = BLANK.join([
+    "A profile decides which style observations are reported: where each line is",
+    "drawn and how much text a check needs. It does not change the automatic SAFE",
+    "changes or what is protected. In this version the style suggestions are the",
+    "same under every profile; the observations are where profiles differ.",
+])
+
 
 
 @click.group()
@@ -550,6 +559,7 @@ def profiles_list():
     """List the built-in style profiles."""
     described = list_profiles()
     click.echo(f"{len(described)} built-in profiles" + BLANK)
+    click.echo(PROFILE_SCOPE + BLANK)
     for item in described:
         moved = sum(1 for value in item["diagnostics"].values() if value["differs_from_baseline"])
         click.echo(f"  {item['id']:12} {item['name']}")
@@ -574,6 +584,7 @@ def profiles_explain(profile_id: str):
 
     click.echo(f"{item['id']} v{item['version']}  {item['name']}")
     click.echo(f"  {item['description']}")
+    click.echo(BLANK + "  " + PROFILE_SCOPE.strip().replace(BLANK, BLANK + "  "))
     click.echo(BLANK + f"  For          {item['target_use']}")
     click.echo(f"  Provenance   {item['provenance']}")
     click.echo(f"  Identity     {item['sha256']}")

@@ -293,3 +293,38 @@ def test_the_desktop_and_present_agree_on_what_changed(tmp_path):
 def test_the_whole_contract_is_deterministic_with_every_feature_in_play():
     text = SIGNPOSTED + "\nIt should be noted that staff must file it prior to 3 June 2027.\n"
     assert present_text(text, "plain").to_json() == present_text(text, "plain").to_json()
+
+
+# ── What a profile changes ─────────────────────────────────────────────────
+
+
+def test_style_suggestions_really_are_the_same_under_every_profile():
+    """HOW_IT_WORKS.md, the CLI and the desktop all say so; this keeps it true.
+
+    Every bundled style fix is triggered by a diagnostic whose line — both
+    bands and the minimum sample — is identical in all five profiles. If a
+    profile ever draws that line differently, the documentation is wrong and
+    this fails.
+    """
+    from plainspeak.rules import load_ruleset
+
+    triggers = {rule.trigger.diagnostic for rule in load_ruleset().style_fixes}
+    assert triggers
+    for diagnostic in triggers:
+        lines = {
+            (rule.threshold_for("notice"), rule.threshold_for("strong"), rule.minimum_sample, rule.enabled)
+            for rule in (load_profile(name).rule(diagnostic) for name in PROFILES)
+        }
+        assert len(lines) == 1, (diagnostic, lines)
+
+
+def test_every_interface_says_what_a_profile_changes():
+    from pathlib import Path
+
+    from plainspeak.adapters import cli
+
+    assert "does not change the automatic SAFE" in " ".join(cli.PROFILE_SCOPE.split())
+    listed = CliRunner().invoke(main, ["profiles", "list"]).output
+    assert "does not change the automatic SAFE" in " ".join(listed.split())
+    window = (Path(cli.__file__).resolve().parents[1] / "desktop" / "main_window.py").read_text(encoding="utf-8")
+    assert "does not change the automatic SAFE" in window

@@ -26,9 +26,9 @@ NL = chr(10)
 #: self-consistent: a frozen application comparing itself to itself would pass
 #: while carrying a completely different ruleset.
 EXPECTED = {
-    "ruleset_version": "2026.4",
+    "ruleset_version": "2026.5",
     "ruleset_count": 220,
-    "ruleset_sha256": "b2068de58272bc2f48564a3cb643a6a2341f9b35fee6e0aa9961b5e5e2de44a0",
+    "ruleset_sha256": "6494a92617e67fdbc1731abd1d5368056166b45a105bd91dc8b76ec7bf3d5b53",
     "integrity_version": "2026.2",
     "integrity_sha256": "ac617b5499557c17a61ff5a4fa6ce7b123109b3aacd2029887b7b7108808fda2",
     "morphology_version": "2026.1",
@@ -62,7 +62,7 @@ SMOKE_SOURCE = (
 #: SHA-256 of the revised document with every safe fix applied and no style
 #: suggestion accepted. Recomputed by the test suite from source, so a frozen
 #: build disagreeing with source is a build failure rather than a mystery.
-SMOKE_OUTPUT_SHA256 = "a70aa737f4a5b63a059eaaaee953be533e451eccf810a3d42e123707c3143ae3"
+SMOKE_OUTPUT_SHA256 = "ca5d501239c0d4b6a40bb6294c15104206f1836aa96a19d2b97cd7caec11d379"
 
 
 def run_self_test(argv: Optional[list[str]] = None) -> int:

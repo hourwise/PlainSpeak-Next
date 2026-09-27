@@ -30,10 +30,11 @@ See [V1_SCOPE.md](V1_SCOPE.md) for exactly what it does and does not promise.
 
 ## Status
 
-**Release candidate `1.0.0rc1`** — not yet published. Phases 0–10 and the V1
-blockers are accepted on `main`; the certification evidence is in
-[RELEASE_READINESS.md](RELEASE_READINESS.md), and what 1.0 promises is in
-[V1_SCOPE.md](V1_SCOPE.md).
+**Version 1.0.0** — certified, not yet published. Phases 0–10, the V1 blockers
+and the pre-release acceptance review are accepted on `main`; the certification
+evidence is in [RELEASE_READINESS.md](RELEASE_READINESS.md), what 1.0 promises
+is in [V1_SCOPE.md](V1_SCOPE.md), and what reading its output on real writing
+found is in [V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md).
 
 New here? [WALKTHROUGH.md](WALKTHROUGH.md) takes you from installation to a
 reviewed document in about ten minutes, and [HOW_IT_WORKS.md](HOW_IT_WORKS.md)
@@ -138,10 +139,10 @@ Natural profile. Both once used the inherited substitution engine, which had no
 integrity firewall; neither can reach it any more, and a test enforces that no
 interface can.
 
-The readability *suggestions* in `analyze` reports and the web page still come
-from the inherited glossary, which the characterisation seal pins byte for byte.
-They are never applied, and some are poor — "leverages" is still offered
-"borrowed money". Treat them as hints, not as PlainSpeak's transformations.
+The readability *suggestions* in `analyze` reports and on the web page come from
+the inherited glossary through a reviewed overlay: 71 suggestions that were
+wrong in ordinary prose were withdrawn and 5 corrected ("leverages" used to be
+offered "borrowed money"). They are advice for a person and are never applied.
 
 ## Tests
 
@@ -174,6 +175,7 @@ The full accounting is in [LIMITATIONS.md](LIMITATIONS.md) and
 - [HOW_IT_WORKS.md](HOW_IT_WORKS.md) — what PlainSpeak changes, what it refuses to change, and why you can rely on it
 - [WALKTHROUGH.md](WALKTHROUGH.md) — install, present, review and save your first document
 - [V1_SCOPE.md](V1_SCOPE.md) — what 1.0 guarantees, what it does not, and what counts as breaking
+- [V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md) — what running PlainSpeak on 27 real documents found, and what changed
 - [RELEASING.md](RELEASING.md) and [RELEASE_READINESS.md](RELEASE_READINESS.md) — how a release is built and certified, and the evidence for this one
 - [ROADMAP.md](ROADMAP.md) — accepted phases, V1 blockers, and what comes after
 - [ARCHITECTURE.md](ARCHITECTURE.md) — the layers, and what each may depend on

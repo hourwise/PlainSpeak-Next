@@ -25,6 +25,6 @@ within seven percentage points of it.
 
 Nevertheless, the panel recommends continuing the scheme for a further year.
 The evidence for a permanent change is not yet strong enough, and a second year
-would produce enough data to settle the question either way.
+would obtain enough data to settle the question either way.
 
 Nevertheless, the funding decision rests with the board, which meets in March.

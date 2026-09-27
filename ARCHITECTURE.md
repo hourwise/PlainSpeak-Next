@@ -354,6 +354,27 @@ saw text an earlier rule had changed, the result would depend on which order the
 rules ran, and every claim to determinism would be gone. Matches are collected,
 mapped and judged before a single character moves.
 
+### The article travels with the word
+
+A replacement that changes a word's first sound changes the article before it:
+"an advantageous position" must become "a helpful position", not "an helpful
+position". The planner widens such a change back over a directly preceding "a"
+or "an" and writes the corrected article as part of the same single-span
+replacement, keeping its capitalisation — so it is still one edit, located,
+mapped and checked by the firewall like any other. Where the article cannot be
+reached in the same span (it sits outside the word's emphasis, say), the change
+is refused rather than applied with the wrong article. Two replacements,
+"enough" and "best", cannot follow an article at all and are refused where one
+precedes them. Found by the V1 acceptance review; see
+[V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md).
+
+### Rule identifiers are permanent
+
+A rule ID names one rule for good; an audit record may cite it. Rules migrated
+from the inherited glossary are generated, and `migration/rule-ids.json` binds
+each generated ID to its term, so reclassifying a rule — as the V1 acceptance
+review did for 25 of them — changes its mode and never its ID.
+
 ### Two kinds of protection, neither able to weaken the other
 
 Declarative `protected` rules cover phrases the ruleset knows about — "informed

@@ -7,7 +7,7 @@ the features turned out to do.
 
 Some items were part of the V1 contract before they were implemented; all of
 them were delivered in Stage 1 and the markers have been removed. The engine
-identities V1 ships with are ruleset 2026.4, integrity policy 2026.2, morphology
+identities V1 ships with are ruleset 2026.5, integrity policy 2026.2, morphology
 2026.1, style policy 2026.2 and profile pack 2026.1.
 
 ## Guaranteed in V1
@@ -89,6 +89,9 @@ of comparators and qualifiers ("at least", "no later than", "before",
 - The desktop application never overwrites the file it opened, writes
   atomically, and saves the engine's output rather than a widget's contents.
 - Accepting or rejecting a suggestion never re-plans the document.
+- Rule identifiers are permanent: an ID always names the same rule. A rule
+  may be reclassified (for example from safe-fix to diagnostic) under a new
+  ruleset version, but its ID never moves to another rule.
 - A review decision is bound to the plan it was made against, and the plan's
   identity includes the engine version, every rule-set identity and the
   document. A decision made under one release cannot be replayed under another.
@@ -144,8 +147,10 @@ of comparators and qualifiers ("at least", "no later than", "before",
   person must judge. Its appearance is not a claim that it is right.
 - **Format fidelity beyond plain text and Markdown.**
 - **The readability suggestions in `analyze` reports.** They come from the
-  inherited glossary, are pinned by the characterisation seal, are never
-  applied, and some are poor.
+  inherited glossary through a reviewed overlay (suggestion review 2026.1) that
+  withdrew or corrected every suggestion found to be wrong in ordinary prose.
+  They remain advice for a person, are never applied, and will not fit every
+  context.
 - **Improved comprehension.** Readability formulas are proxies. No study has yet
   shown that PlainSpeak's changes help readers understand text.
 - **Fitness for legal, medical, financial or safety-critical use** without

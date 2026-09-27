@@ -318,7 +318,7 @@ def test_engine_identities_reports_every_family() -> None:
     """The desktop needs these and may not gather them from five packages."""
     identity = engine_identities()
 
-    assert identity["ruleset_version"] == "2026.4"
+    assert identity["ruleset_version"] == "2026.5"
     assert identity["ruleset_count"] == 220
     assert identity["style_fix_count"] == 6
     assert identity["style_fixes_all_review_required"] is True

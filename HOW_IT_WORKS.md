@@ -26,14 +26,17 @@ version 1 promises, see [V1_SCOPE.md](V1_SCOPE.md).
 ## What PlainSpeak changes
 
 **SAFE changes** are word- and phrase-level substitutions from a versioned
-rulebook of 220 rules — "in order to" becomes "to", "utilise" becomes "use",
+rulebook of 220 rules, 139 of which may change text automatically — "in order to" becomes "to", "utilise" becomes "use",
 "prior to" becomes "before". Each rule has been written down with examples of
 where it applies and where it must not, and each is tested. A SAFE change is
 applied automatically only if:
 
 1. it passes the **integrity check** on its own, in its sentence, and together
    with every other change in the document; and
-2. together with the other SAFE changes, it does not make the document's style
+2. the words around it still read correctly — "an advantageous position"
+   becomes "a helpful position", with the article corrected, and a replacement
+   that cannot follow "a" or "an" is refused where one precedes it; and
+3. together with the other SAFE changes, it does not make the document's style
    **worse** — for example, by turning "Furthermore", "Moreover" and
    "Additionally" all into "Also" until half the sentences begin with the same
    word. If a group of changes would, that group is refused and the reason is
@@ -80,7 +83,7 @@ versioned rule sets:
 
 | | version |
 |---|---|
-| ruleset | 2026.4 |
+| ruleset | 2026.5 |
 | integrity policy | 2026.2 |
 | morphology | 2026.1 |
 | style policy | 2026.2 |
@@ -97,9 +100,17 @@ essay that does the same has a tic. So style is judged against a **profile**:
 Natural, Plain, Technical, Government or Academic. You always choose one —
 PlainSpeak never picks for you.
 
-Profiles decide which style habits are reported and which style suggestions
-are offered. They never affect SAFE changes, which are the same under every
-profile, and they never affect what the integrity check protects.
+| choosing a profile changes | choosing a profile does not change |
+|---|---|
+| which style observations are reported, and at what strength | the SAFE changes — identical under every profile |
+| how much text a style check needs before it will judge | what the integrity check protects |
+| the target ranges shown for sentence length and vocabulary | the REFUSED changes |
+
+In version 1 the six style suggestions act on repeated transitions, where all
+five profiles draw the same line, so the suggestions you are offered are the
+same under every profile. Profiles are five standards for judging the same
+text, not five ways of rewriting it. `plainspeak profiles explain technical`
+shows exactly where one profile draws its lines and why.
 
 ## `plainspeak present`
 

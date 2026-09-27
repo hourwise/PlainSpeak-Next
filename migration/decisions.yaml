@@ -27,8 +27,6 @@ safe_fix_verbs:
   - {term: commence, target: start}
   - {term: ascertain, target: find out}
   - {term: facilitate, target: help}
-  - {term: endeavour, target: try}
-  - {term: endeavor, target: try}
   - {term: alter, target: change}
   - {term: modify, target: change}
   - {term: obtain, target: get}
@@ -61,15 +59,11 @@ safe_fix_verbs:
   - {term: relocate, target: move}
   - {term: scrutinize, target: examine}
   - {term: transcribe, target: write down}
-  - {term: verify, target: check}
   - {term: validate, target: confirm}
   - {term: formulate, target: create}
   - {term: consolidate, target: combine}
   - {term: synthesise, target: combine}
   - {term: synthesize, target: combine}
-  - {term: incorporate, target: include}
-  - {term: collaborate, target: work with}
-  - {term: liaise, target: work with}
   - {term: intervene, target: step in}
   - {term: originate, target: start}
   - {term: initiate, target: start}
@@ -81,8 +75,6 @@ safe_fix_verbs:
   - {term: augment, target: add to}
   - {term: append, target: add}
   - {term: expend, target: spend}
-  - {term: furnish, target: give}
-  - {term: compensate, target: pay}
   - {term: finalize, target: finish}
   - {term: designate, target: choose}
   - {term: contemplate, target: think about}
@@ -90,19 +82,13 @@ safe_fix_verbs:
   - {term: comprise, target: make up}
   - {term: constitute, target: make up}
   - {term: impair, target: harm}
-  - {term: inhibit, target: prevent}
   - {term: perpetuate, target: continue}
   - {term: disseminate, target: spread}
   - {term: promulgate, target: announce}
   - {term: delineate, target: outline}
   - {term: effectuate, target: carry out}
   - {term: accomplish, target: do}
-  - {term: undertake, target: do}
-  - {term: manufacture, target: make}
-  - {term: construct, target: build}
-  - {term: convene, target: meet}
   - {term: transmit, target: send}
-  - {term: request, target: ask}
   - {term: signify, target: mean}
   - {term: quash, target: overturn}
 
@@ -118,13 +104,10 @@ safe_fix_nouns:
   - {term: obligation, target: duty}
   - {term: remainder, target: rest}
   - {term: threshold, target: limit}
-  - {term: objective, target: goal}
-  - {term: paradigm, target: model}
   - {term: trajectory, target: path}
   - {term: laceration, target: cut}
   - {term: contusion, target: bruise}
   - {term: fatality, target: death}
-  - {term: specification, target: detail}
 
 # ── Words with a single form ───────────────────────────────────────────────
 #
@@ -139,12 +122,8 @@ safe_fix_words:
   - {term: feasible, target: workable}
   - {term: viable, target: workable}
   - {term: numerous, target: many}
-  - {term: considerable, target: large}
   - {term: comprehensive, target: full}
-  - {term: fundamental, target: basic}
-  - {term: identical, target: same}
   - {term: obsolete, target: outdated}
-  - {term: deprecated, target: outdated}
   - {term: negligible, target: tiny}
   - {term: inordinate, target: excessive}
   - {term: permissible, target: allowed}
@@ -160,13 +139,9 @@ safe_fix_words:
   - {term: detrimental, target: harmful}
   - {term: deficient, target: lacking}
   - {term: definitive, target: final}
-  - {term: resilient, target: strong}
-  - {term: ubiquitous, target: everywhere}
   - {term: unilateral, target: one-sided}
-  - {term: empirical, target: observed}
   - {term: qualitative, target: descriptive}
   - {term: quantitative, target: numerical}
-  - {term: gratuitous, target: free}
   - {term: innovative, target: new}
   - {term: additionally, target: also}
   - {term: furthermore, target: also}
@@ -183,6 +158,33 @@ safe_fix_words:
 # Each of these is worth flagging and cannot be substituted mechanically. The
 # reason is the whole point of the entry: it records why somebody said no.
 diagnostic:
+  # Reclassified from safe-fix in the V1 acceptance review (ruleset 2026.5):
+  # each broke a real sentence in the acceptance corpus or its probe.
+  - {term: empirical, reason: "'empirical evidence' is evidence from observation or experiment, not 'observed evidence'"}
+  - {term: considerable, reason: "'considerable time' became 'large time'; the collocations do not carry over"}
+  - {term: resilient, reason: "resilient means able to recover, which 'strong' does not say"}
+  - {term: request, reason: "the noun is as common as the verb: 'requests are rate-limited' became 'asks are rate-limited'"}
+  - {term: endeavour, reason: "also a noun: 'a worthwhile endeavour' became 'a worthwhile try'"}
+  - {term: endeavor, reason: "also a noun: 'a worthwhile endeavor' became 'a worthwhile try'"}
+  - {term: construct, reason: "also a noun: 'a social construct' became 'a social build'"}
+  - {term: manufacture, reason: "also a noun: 'the manufacture of drugs' became 'the make of drugs'"}
+  - {term: objective, reason: "also an adjective: 'an objective assessment' became 'an goal assessment'"}
+  - {term: undertake, reason: "a settled contractual sense: 'undertakes to pay' is a promise, and became 'does to pay'"}
+  - {term: furnish, reason: "also means to put furniture in: 'furnish the flat' became 'give the flat'"}
+  - {term: compensate, reason: "'compensate for' is not 'pay for': 'compensate for a poor diet' changed meaning"}
+  - {term: inhibit, reason: "'prevent' is stronger than 'inhibit': 'may inhibit growth' became 'may prevent growth'"}
+  - {term: incorporate, reason: "a settled corporate sense: 'incorporated in England' became 'included in England'"}
+  - {term: gratuitous, reason: "usually means unjustified, not free: 'gratuitous violence' became 'free violence'"}
+  - {term: deprecated, reason: "in software means officially discouraged, which 'outdated' does not say"}
+  - {term: specification, reason: "in technical writing a specification is a document, not a detail"}
+  - {term: convene, reason: "'convene a meeting' became 'meet a meeting'"}
+  - {term: ubiquitous, reason: "the replacement is an adverb: 'ubiquitous devices' became 'everywhere devices'"}
+  - {term: identical, reason: "'identical to' became 'same to'; 'the same as' needs a restructure"}
+  - {term: collaborate, reason: "'collaborate with' became 'work with with'"}
+  - {term: liaise, reason: "'liaise with' became 'work with with'"}
+  - {term: fundamental, reason: "means at the root, not merely basic: 'a fundamental shift' changed meaning"}
+  - {term: paradigm, reason: "breaks the idiom: 'a fundamental paradigm shift' became 'a basic model shift'"}
+  - {term: verify, reason: "a precise technical sense: 'the signature verifies' became 'the signature checks'"}
   - {term: employ, reason: "means both 'use' and 'hire'; the sense depends on the object"}
   - {term: elect, reason: "means both 'choose' and 'vote for'"}
   - {term: perform, reason: "means both 'do' and 'present publicly'"}

@@ -1,4 +1,4 @@
-ruleset_version: "2026.4"
+ruleset_version: "2026.5"
 description: >
   The rules PlainSpeak Next ships with. Every rule states what it matches,
   what it would do, why, where it came from, and the cases where it must stay
@@ -25,3 +25,11 @@ description: >
   seemed to lower the density only because the measure did not count the
   connective they wrote; with style policy 2026.2 counting it, neither could
   ever resolve the finding that triggered it. Six style fixes remain.
+
+  2026.5 reclassifies 25 migrated safe fixes as diagnostics after the V1
+  acceptance review ran them over real prose. Each broke a sentence: a verb
+  that is as often a noun ("requests are rate-limited" became "asks are
+  rate-limited"), a replacement that changed the meaning ("undertakes to pay"
+  became "does to pay"), or one that broke the grammar ("convene a meeting"
+  became "meet a meeting"). They are still reported; they are no longer applied.
+  Every rule keeps its ID: migration/rule-ids.json binds each ID to its term.

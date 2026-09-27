@@ -346,7 +346,7 @@ V1 moved four of these, each deliberately:
 
 | | Phase 9 | V1 |
 |---|---|---|
-| Ruleset | 2026.3 / `7eddd0710ec1` / 222 rules | **2026.4 / `b2068de58272` / 220 rules** — two density style fixes retired |
+| Ruleset | 2026.3 / `7eddd0710ec1` / 222 rules | **2026.5 / `6494a92617e6` / 220 rules** — two density style fixes retired (2026.4), 25 safe fixes reclassified (2026.5) |
 | Integrity | 2026.1 / `21532115747c` | **2026.2 / `ac617b549955`** — "prior to" ≡ "before" |
 | Morphology | 2026.1 / `93fba6907f87` | unchanged |
 | Style policy | 2026.1 / `bedae926205a` | **2026.2 / `80ef39cef5f5`** — sentence-initial connectives, sample units |

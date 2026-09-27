@@ -122,9 +122,9 @@
   "reporter": {
     "outcome": "ok",
     "value": {
-      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 5.6\n  Easy (approximately upper primary level)\n\n  Text Statistics:\n    Words:               325\n    Sentences:           39\n    Avg Sentence Length:  8.3 words\n    Avg Word Length:      4.4 characters\n    Complex Words (3+ syl): 25\n\n  Readability Scores:\n    Flesch Reading Ease:        83.1\n      Easy — conversational English.\n    Flesch-Kincaid Grade Level:  3.7\n    Gunning Fog Index:           6.4\n    SMOG Index:                  7.7\n    Automated Readability Index: 3.6\n    Coleman-Liau Index:          6.7\n\n  Found 23 readability issue(s) across 39 sentence(s): 1 critical issue(s), 12 warning(s), 10 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"plainspeak\"\n           -> \"plainspeak\" has 2 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"sentences\"\n           -> \"sentences\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"plainspeak\"\n           -> \"plainspeak\" has 2 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"government\"\n           -> \"government\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"information\"\n           -> \"information\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"educational\"\n           -> \"educational\" has 5 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"materials\"\n           -> \"materials\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"documents\"\n           -> \"documents\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Nominalization: \"clarity\"\n           -> \"clarity\" is a nominalization. Consider using the verb \"clare\" instead to make the sentence more dir\n    [CRITICAL] Long Sentence: \"HOW TO USE IT\n\n1. Write your text in any text editor and sav\"\n           -> This sentence has 47 words. Consider splitting it into two or more shorter sentences.\n    ... and 13 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 26816,
-      "html_sha256": "9b911dce079a78ca16495d2edfeeeda5d8f11754609aaba02e8dfb64978bcec4",
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 5.6\n  Easy (approximately upper primary level)\n\n  Text Statistics:\n    Words:               325\n    Sentences:           39\n    Avg Sentence Length:  8.3 words\n    Avg Word Length:      4.4 characters\n    Complex Words (3+ syl): 25\n\n  Readability Scores:\n    Flesch Reading Ease:        83.1\n      Easy — conversational English.\n    Flesch-Kincaid Grade Level:  3.7\n    Gunning Fog Index:           6.4\n    SMOG Index:                  7.7\n    Automated Readability Index: 3.6\n    Coleman-Liau Index:          6.7\n\n  Found 22 readability issue(s) across 39 sentence(s): 1 critical issue(s), 12 warning(s), 9 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"plainspeak\"\n           -> \"plainspeak\" has 2 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"sentences\"\n           -> \"sentences\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"plainspeak\"\n           -> \"plainspeak\" has 2 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"government\"\n           -> \"government\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"information\"\n           -> \"information\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"educational\"\n           -> \"educational\" has 5 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"materials\"\n           -> \"materials\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"documents\"\n           -> \"documents\" has 3 syllables. Is there a simpler word you could use?\n    [CRITICAL] Long Sentence: \"HOW TO USE IT\n\n1. Write your text in any text editor and sav\"\n           -> This sentence has 47 words. Consider splitting it into two or more shorter sentences.\n    [WARNING] Complex Word: \"plainspeak\"\n           -> \"plainspeak\" has 2 syllables. Is there a simpler word you could use?\n    ... and 12 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 26175,
+      "html_sha256": "5e4041bd360c5b651f5322590e74ba118be799b1e306269fadd919bcf5b97c00",
       "json_report": {
         "consensus": {
           "description": "Easy (approximately upper primary level)",
@@ -213,15 +213,6 @@
               "type": "complex_word"
             },
             {
-              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
-              "matched_text": "clarity",
-              "sentence_context": "It also helps teachers, editors, and people who check content for clarity.",
-              "sentence_index": 10,
-              "severity": "info",
-              "suggestion": "\"clarity\" is a nominalization. Consider using the verb \"clare\" instead to make the sentence more direct.",
-              "type": "nominalization"
-            },
-            {
               "explanation": "Sentences over 25 words are harder to follow. This one has 47 words. Try breaking it at natural pause points.",
               "matched_text": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal ...",
               "sentence_context": "HOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability sc...",
@@ -303,15 +294,6 @@
               "type": "complex_word"
             },
             {
-              "explanation": "\"terms\" can often be replaced with a simpler word.",
-              "matched_text": "terms",
-              "sentence_context": "Avoid jargon and technical terms when you can.",
-              "sentence_index": 30,
-              "severity": "info",
-              "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts.",
-              "type": "jargon"
-            },
-            {
               "explanation": "\"limitations\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
               "matched_text": "limitations",
               "sentence_context": "LIMITATIONS",
@@ -346,12 +328,21 @@
               "severity": "info",
               "suggestion": "\"confusing\" has 3 syllables. Is there a simpler word you could use?",
               "type": "complex_word"
+            },
+            {
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "matched_text": "judgment",
+              "sentence_context": "Use your judgment along with the scores.",
+              "sentence_index": 38,
+              "severity": "info",
+              "suggestion": "\"judgment\" is a nominalization. Consider using the verb \"judge\" instead to make the sentence more direct.",
+              "type": "nominalization"
             }
           ],
           "critical_count": 1,
-          "info_count": 10,
-          "summary": "Found 23 readability issue(s) across 39 sentence(s): 1 critical issue(s), 12 warning(s), 10 suggestion(s).",
-          "total_barriers": 23,
+          "info_count": 9,
+          "summary": "Found 22 readability issue(s) across 39 sentence(s): 1 critical issue(s), 12 warning(s), 9 suggestion(s).",
+          "total_barriers": 22,
           "warning_count": 12
         },
         "statistics": {
@@ -423,36 +414,6 @@
           "total_issues": 1,
           "unique_issue_types": 1,
           "word_count": 4
-        },
-        {
-          "issues": [
-            {
-              "confidence": "medium",
-              "count": 1,
-              "explanation": "\"terms\" can often be replaced with a simpler word.",
-              "label": "Jargon or formal language",
-              "matched_text": "terms",
-              "priority": "high",
-              "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts.",
-              "type": "jargon"
-            },
-            {
-              "confidence": "medium",
-              "count": 1,
-              "explanation": "\"technical\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
-              "label": "Complex word",
-              "matched_text": "technical",
-              "priority": "consider",
-              "suggestion": "\"technical\" has 3 syllables. Is there a simpler word you could use?",
-              "type": "complex_word"
-            }
-          ],
-          "priority": "high",
-          "sentence_index": 30,
-          "sentence_text": "Avoid jargon and technical terms when you can.",
-          "total_issues": 2,
-          "unique_issue_types": 2,
-          "word_count": 8
         },
         {
           "issues": [
@@ -539,26 +500,6 @@
             {
               "confidence": "medium",
               "count": 1,
-              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
-              "label": "Nominalization",
-              "matched_text": "clarity",
-              "priority": "consider",
-              "suggestion": "\"clarity\" is a nominalization. Consider using the verb \"clare\" instead to make the sentence more direct.",
-              "type": "nominalization"
-            }
-          ],
-          "priority": "consider",
-          "sentence_index": 10,
-          "sentence_text": "It also helps teachers, editors, and people who check content for clarity.",
-          "total_issues": 1,
-          "unique_issue_types": 1,
-          "word_count": 12
-        },
-        {
-          "issues": [
-            {
-              "confidence": "medium",
-              "count": 1,
               "explanation": "\"understand\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
               "label": "Complex word",
               "matched_text": "understand",
@@ -593,6 +534,26 @@
           "total_issues": 1,
           "unique_issue_types": 1,
           "word_count": 3
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
+              "explanation": "\"technical\" has 3 syllables and 9 characters. Shorter, more common words are understood by more readers.",
+              "label": "Complex word",
+              "matched_text": "technical",
+              "priority": "consider",
+              "suggestion": "\"technical\" has 3 syllables. Is there a simpler word you could use?",
+              "type": "complex_word"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 30,
+          "sentence_text": "Avoid jargon and technical terms when you can.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 8
         },
         {
           "issues": [
@@ -679,6 +640,26 @@
             {
               "confidence": "medium",
               "count": 1,
+              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+              "label": "Nominalization",
+              "matched_text": "judgment",
+              "priority": "consider",
+              "suggestion": "\"judgment\" is a nominalization. Consider using the verb \"judge\" instead to make the sentence more direct.",
+              "type": "nominalization"
+            }
+          ],
+          "priority": "consider",
+          "sentence_index": 38,
+          "sentence_text": "Use your judgment along with the scores.",
+          "total_issues": 1,
+          "unique_issue_types": 1,
+          "word_count": 7
+        },
+        {
+          "issues": [
+            {
+              "confidence": "medium",
+              "count": 1,
               "explanation": "Redundant word pairs add words without adding meaning.",
               "label": "Redundant word pair",
               "matched_text": "general public",
@@ -695,7 +676,7 @@
           "word_count": 5
         }
       ],
-      "replacement_count": 2,
+      "replacement_count": 1,
       "result": {
         "barriers": [
           {
@@ -785,17 +766,6 @@
             "severity": "info",
             "start_char": 0,
             "suggestion": "\"documents\" has 3 syllables. Is there a simpler word you could use?"
-          },
-          {
-            "barrier_type": "nominalization",
-            "end_char": 73,
-            "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
-            "matched_text": "clarity",
-            "sentence_index": 10,
-            "sentence_text": "It also helps teachers, editors, and people who check content for clarity.",
-            "severity": "info",
-            "start_char": 66,
-            "suggestion": "\"clarity\" is a nominalization. Consider using the verb \"clare\" instead to make the sentence more direct."
           },
           {
             "barrier_type": "long_sentence",
@@ -897,17 +867,6 @@
             "suggestion": "\"technical\" has 3 syllables. Is there a simpler word you could use?"
           },
           {
-            "barrier_type": "jargon",
-            "end_char": 0,
-            "explanation": "\"terms\" can often be replaced with a simpler word.",
-            "matched_text": "terms",
-            "sentence_index": 30,
-            "sentence_text": "Avoid jargon and technical terms when you can.",
-            "severity": "info",
-            "start_char": 0,
-            "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts."
-          },
-          {
             "barrier_type": "complex_word",
             "end_char": 0,
             "explanation": "\"limitations\" has 4 syllables and 11 characters. Shorter, more common words are understood by more readers.",
@@ -950,10 +909,21 @@
             "severity": "info",
             "start_char": 0,
             "suggestion": "\"confusing\" has 3 syllables. Is there a simpler word you could use?"
+          },
+          {
+            "barrier_type": "nominalization",
+            "end_char": 17,
+            "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
+            "matched_text": "judgment",
+            "sentence_index": 38,
+            "sentence_text": "Use your judgment along with the scores.",
+            "severity": "info",
+            "start_char": 9,
+            "suggestion": "\"judgment\" is a nominalization. Consider using the verb \"judge\" instead to make the sentence more direct."
           }
         ],
         "critical_count": 1,
-        "info_count": 10,
+        "info_count": 9,
         "original_text": "HOW TO USE THIS TOOL\n\nPlainSpeak is a tool that helps you check how easy your writing is to read.\n\nWHAT IT DOES\n\n- It measures how readable your text is using several standard tests.\n- It finds words and sentences that might be hard for some readers.\n- It suggests simpler words you could use instead.\n- It creates a report that you can view in your web browser.\n\nWHO IT HELPS\n\nPlainSpeak helps anyone who writes for the public. This includes people who write government forms, health information, educational materials, and legal documents. It also helps teachers, editors, and people who check content for clarity.\n\nHOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html\n\nWHAT THE SCORES MEAN\n\nThe tool gives you several scores. The main one is the grade level. A lower grade level means the text is easier to read. Here is a simple guide:\n\n- Grade 6 or below: Easy to read. Most adults can understand it.\n- Grade 7 to 8: Plain English. Suitable for the general public.\n- Grade 9 to 12: Harder to read. Some readers may struggle.\n- Above Grade 12: Very hard. Best for expert readers only.\n\nTIPS FOR CLEAR WRITING\n\nKeep sentences short. Aim for 15 to 20 words per sentence. Use common words that most people know. Write in active voice — say who does what. Avoid jargon and technical terms when you can. If you must use a hard word, explain it the first time.\n\nLIMITATIONS\n\nThe scores are not perfect. They count things like word length and sentence length. They cannot tell if your text makes sense or if it is well organized. A text with a low score can still be confusing. A text with a high score can still be clear. Use your judgment along with the scores.\n",
         "sentences": [
           "HOW TO USE THIS TOOL",
@@ -996,11 +966,11 @@
           "A text with a high score can still be clear.",
           "Use your judgment along with the scores."
         ],
-        "summary": "Found 23 readability issue(s) across 39 sentence(s): 1 critical issue(s), 12 warning(s), 10 suggestion(s).",
-        "total_barriers": 23,
+        "summary": "Found 22 readability issue(s) across 39 sentence(s): 1 critical issue(s), 12 warning(s), 9 suggestion(s).",
+        "total_barriers": 22,
         "warning_count": 12
       },
-      "simplified_text": "HOW TO USE THIS TOOL\n\nPlainSpeak is a tool that helps you check how easy your writing is to read.\n\nWHAT IT DOES\n\n- It measures how readable your text is using several standard tests.\n- It finds words and sentences that might be hard for some readers.\n- It suggests simpler words you could use instead.\n- It creates a report that you can view in your web browser.\n\nWHO IT HELPS\n\nPlainSpeak helps anyone who writes for the public. This includes people who write government forms, health information, educational **important**, and legal documents. It also helps teachers, editors, and people who check content for clarity.\n\nHOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html\n\nWHAT THE SCORES MEAN\n\nThe tool gives you several scores. The main one is the grade level. A lower grade level means the text is easier to read. Here is a simple guide:\n\n- Grade 6 or below: Easy to read. Most adults can understand it.\n- Grade 7 to 8: Plain English. Suitable for the general public.\n- Grade 9 to 12: Harder to read. Some readers may struggle.\n- Above Grade 12: Very hard. Best for expert readers only.\n\nTIPS FOR CLEAR WRITING\n\nKeep sentences short. Aim for 15 to 20 words per sentence. Use common words that most people know. Write in active voice — say who does what. Avoid jargon and technical **length of cover** when you can. If you must use a hard word, explain it the first time.\n\nLIMITATIONS\n\nThe scores are not perfect. They count things like word length and sentence length. They cannot tell if your text makes sense or if it is well organized. A text with a low score can still be confusing. A text with a high score can still be clear. Use your judgment along with the scores.\n",
+      "simplified_text": "HOW TO USE THIS TOOL\n\nPlainSpeak is a tool that helps you check how easy your writing is to read.\n\nWHAT IT DOES\n\n- It measures how readable your text is using several standard tests.\n- It finds words and sentences that might be hard for some readers.\n- It suggests simpler words you could use instead.\n- It creates a report that you can view in your web browser.\n\nWHO IT HELPS\n\nPlainSpeak helps anyone who writes for the public. This includes people who write government forms, health information, educational **important**, and legal documents. It also helps teachers, editors, and people who check content for clarity.\n\nHOW TO USE IT\n\n1. Write your text in any text editor and save it as a .txt file.\n2. Open a terminal or command prompt.\n3. Type: plainspeak analyze yourfile.txt\n4. The tool will show you readability scores and suggestions.\n5. To save an HTML report, add: --output report.html\n\nWHAT THE SCORES MEAN\n\nThe tool gives you several scores. The main one is the grade level. A lower grade level means the text is easier to read. Here is a simple guide:\n\n- Grade 6 or below: Easy to read. Most adults can understand it.\n- Grade 7 to 8: Plain English. Suitable for the general public.\n- Grade 9 to 12: Harder to read. Some readers may struggle.\n- Above Grade 12: Very hard. Best for expert readers only.\n\nTIPS FOR CLEAR WRITING\n\nKeep sentences short. Aim for 15 to 20 words per sentence. Use common words that most people know. Write in active voice — say who does what. Avoid jargon and technical terms when you can. If you must use a hard word, explain it the first time.\n\nLIMITATIONS\n\nThe scores are not perfect. They count things like word length and sentence length. They cannot tell if your text makes sense or if it is well organized. A text with a low score can still be confusing. A text with a high score can still be clear. Use your judgment along with the scores.\n",
       "top_improvements": [
         {
           "action": "Break into 2-3 shorter sentences. Aim for 15-25 words per sentence.",
@@ -1024,20 +994,6 @@
           "priority": "high"
         },
         {
-          "action": "Consider replacing with: Consider using \"length of cover\" instead. How long the insurance lasts.",
-          "impact": "Jargon is the most common barrier for non-specialist readers.",
-          "issue": "Contains jargon or formal language: 'terms'",
-          "location": "Sentence 31",
-          "priority": "high"
-        },
-        {
-          "action": "Replace complex words with shorter, more common alternatives where possible.",
-          "impact": "Familiar words reduce cognitive load for all readers.",
-          "issue": "Contains complex words (e.g. 'technical')",
-          "location": "Sentence 31",
-          "priority": "consider"
-        },
-        {
           "action": "Replace complex words with shorter, more common alternatives where possible.",
           "impact": "Familiar words reduce cognitive load for all readers.",
           "issue": "Contains complex words (e.g. 'plainspeak')",
@@ -1049,6 +1005,20 @@
           "impact": "Familiar words reduce cognitive load for all readers.",
           "issue": "Contains complex words (e.g. 'sentences')",
           "location": "Sentence 5",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'plainspeak')",
+          "location": "Sentence 9",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'government')",
+          "location": "Sentence 10",
           "priority": "consider"
         }
       ]

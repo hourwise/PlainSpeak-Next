@@ -10,6 +10,37 @@ describe the upstream project
 ([Project-PlainSpeak](https://github.com/hourwise/Project-PlainSpeak)), whose
 history this repository preserves; see [UPSTREAM.md](UPSTREAM.md).
 
+## [1.0.0] — certified, not yet published
+
+The release candidate after a pre-release acceptance review that ran PlainSpeak
+over 27 realistic documents and read the output
+([V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md)).
+
+### Changed
+- **Ruleset 2026.5.** 25 migrated safe fixes reclassified as diagnostics: each
+  broke a real sentence — "requests are rate-limited" became "asks are
+  rate-limited", "undertakes to pay" became "does to pay", "convene a meeting"
+  became "meet a meeting". Reported, no longer applied. Every rule keeps its ID.
+- **Articles agree with replacements.** "An advantageous position" becomes "a
+  helpful position"; "a sufficient reason" and "an optimal choice" are refused.
+- **Reviewed readability suggestions** (suggestion review 2026.1). 71 inherited
+  suggestions withdrawn and 5 corrected — "leverages" is no longer offered
+  "borrowed money". Nominalisation and hidden-verb suggestions come from a
+  reviewed table of 340 verbs: "make a decision" is offered "decide", not
+  "deci". The inherited glossary is unchanged; the characterisation seal was
+  re-pinned with every difference attributed to a reviewed term.
+- **Profiles say what they change**: the CLI, the desktop and HOW_IT_WORKS.md
+  state that a profile changes which observations are reported, not the SAFE
+  changes or what is protected.
+- The desktop smoke output is now `ca5d501239c0…`: the self-test document says
+  "the panel approved the request", which every build since Phase 10 had
+  pinned as "the panel approved the ask".
+
+### Fixed
+- The migration builder assigned rule IDs by position, so reclassifying one
+  rule would renumber the rest. `migration/rule-ids.json` binds each ID to its
+  term.
+
 ## [1.0.0rc1] — release candidate, not published
 
 The first release candidate of PlainSpeak Next: everything since the fork at

@@ -50,32 +50,34 @@ FIXTURES = Path(__file__).resolve().parent / "style" / "stylefix"
 #: identifier, the plan it belongs to, the approval, the finished document — is
 #: derived from content and must be identical everywhere.
 #:
-#: Re-pinned for V1 (engine 1.0.0rc1, ruleset 2026.4, integrity 2026.2, style
-#: 2026.2) — the engine version is part of every plan's identity. The two
-#: concessive-heavy proposals that remain keep exactly the identifiers they had,
-#: because a proposal identifier is derived from its content; the other two were
-#: never needed once "Even so," was counted. `signposted` under plain now has a
-#: density finding and nothing to propose, so its output is its source.
+#: Re-pinned for 1.0.0 (ruleset 2026.5, integrity 2026.2, style 2026.2) — the
+#: engine version is part of every plan's identity. For 1.0.0 the fixture's
+#: "produce" became "obtain", keeping one SAFE change after "objective" became a
+#: diagnostic. A proposal identifier is derived from its content, including its
+#: position, so the proposal before the edit keeps its identifier and the one
+#: after it moves. Two proposals, not four, since "Even so," was counted.
+#: `signposted` under plain has a density finding and nothing to propose, so
+#: its output is its source.
 PINNED = {
     "concessive-heavy": {
         "profile": "natural",
         "proposal_ids": [
             "SP-5de1cbe21aedf1ea",
-            "SP-0cf6c1273b06490c",
+            "SP-58df68f7f42b847b",
         ],
-        "plan_hash": "5b3a2bbe88982c94187ff31c4227424eb3cae26789c315b48d7be9ac2832e973",
-        "plan_digest": "015e75a9ad18d35725d697d48067aec2e219c73281d2ec3b7ac19ae170d1044d",
-        "approved_digest": "01b678874a8aa54164fd144b35c92f8317638a5645512b1a19178240edc4bc3b",
-        "result_digest": "f8a67377ff9301a72eb271f79ec47e529c3e7775a09170e162687223933cabce",
-        "output_hash": "cbd6b0fd0b630ab43fabe73c54cd8bd4070b2dd5384d6fcff4b4b0178fa6e125",
+        "plan_hash": "cdf43666a339875d9945b167bc970da0e7bf47873faa5a4a401b129f1746e2a7",
+        "plan_digest": "b1f2a60d4c7a08cd4c741fec8a51eff710ea783158fe393a59cd4728f5247010",
+        "approved_digest": "1434db826d554c695a28e740381d4959e19cd45a120a954b7dc464c85d6a02b0",
+        "result_digest": "4d9b5773f4e21164852d0ce6da4b9881e83d2838587c65df19c0f9817e664c89",
+        "output_hash": "37f9937a9f45961e71b703b9c39d24504222c250802329c438fde86db6ce4e1a",
     },
     "signposted": {
         "profile": "plain",
         "proposal_ids": [],
-        "plan_hash": "98556c148af8ca008956a8957f86196eb930aa5023ff0400d12ce4d411b018e0",
-        "plan_digest": "8fabc9f9f7a4e566025cc0c9e0a20d25ee4e8afcb3ccd73ee6028b7f9f7e6ee3",
-        "approved_digest": "0a15363fcb9453c2b1ef49ae1d8b1bd26b5f544f348b24bbe46c61752a25857a",
-        "result_digest": "ead0be5b8ceb3b5371616533d301fcb8d684185e13e24cf6dc63d67e928b37c4",
+        "plan_hash": "e97987120a7028ac0ee9bcc0586dc08c307bf1f4f5204c21cc71f8cfcebf606e",
+        "plan_digest": "873dba9becd80d53d8159fc79dcc26744ba5e97b38d36f56a5edcc9c7308bbb7",
+        "approved_digest": "27afd9696894200130996328c85dafbc8625a2b89bbc22c813a89029e650f4e9",
+        "result_digest": "4846dd626e12f65add9a8b78173373353fa9ec54bc55f092bd656e2e0c49597a",
         "output_hash": "00ddb376fe3145c8e7768571e9c1d8f32cad021bdaeddcf5019359471fbd1c7c",
     },
 }

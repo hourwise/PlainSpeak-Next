@@ -96,9 +96,9 @@
   "reporter": {
     "outcome": "ok",
     "value": {
-      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 6.6\n  Fairly easy (approximately lower secondary level)\n\n  Text Statistics:\n    Words:               95\n    Sentences:           13\n    Avg Sentence Length:  7.3 words\n    Avg Word Length:      4.7 characters\n    Complex Words (3+ syl): 13\n\n  Readability Scores:\n    Flesch Reading Ease:        72.1\n      Fairly easy — plain English suitable for general audience.\n    Flesch-Kincaid Grade Level:  5.0\n    Gunning Fog Index:           8.4\n    SMOG Index:                  8.8\n    Automated Readability Index: 4.1\n\n  Found 20 readability issue(s) across 13 sentence(s): 10 warning(s), 10 suggestion(s).\n\n  Top issues:\n    [INFO] Complex Word: \"applicant\"\n           -> \"applicant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"provide\"\n           -> Consider using \"give\" instead. Direct.\n    [INFO] Redundant Pair: \"first and foremost\"\n           -> Use just \"first\". Use one word.\n    [WARNING] Passive Voice: \"is required\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"declaration\"\n           -> \"declaration\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"applicant\"\n           -> \"applicant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"required\"\n           -> Consider using \"need\" instead. A shorter, more direct word.\n    [INFO] Redundant Pair: \"each and every\"\n           -> Use just \"each\". Use one or the other, not both.\n    [INFO] Jargon / Formal Language: \"terms\"\n           -> Consider using \"length of cover\" instead. How long the insurance lasts.\n    [WARNING] Complex Word: \"conditions\"\n           -> \"conditions\" has 3 syllables. Is there a simpler word you could use?\n    ... and 10 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 22472,
-      "html_sha256": "3d19cfc4367344302e78bca3a7b9a7842de27d63fac096f9524caa80c731ae4c",
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 6.6\n  Fairly easy (approximately lower secondary level)\n\n  Text Statistics:\n    Words:               95\n    Sentences:           13\n    Avg Sentence Length:  7.3 words\n    Avg Word Length:      4.7 characters\n    Complex Words (3+ syl): 13\n\n  Readability Scores:\n    Flesch Reading Ease:        72.1\n      Fairly easy — plain English suitable for general audience.\n    Flesch-Kincaid Grade Level:  5.0\n    Gunning Fog Index:           8.4\n    SMOG Index:                  8.8\n    Automated Readability Index: 4.1\n\n  Found 18 readability issue(s) across 13 sentence(s): 10 warning(s), 8 suggestion(s).\n\n  Top issues:\n    [INFO] Complex Word: \"applicant\"\n           -> \"applicant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"provide\"\n           -> Consider using \"give\" instead. Direct.\n    [INFO] Redundant Pair: \"first and foremost\"\n           -> Use just \"first\". Use one word.\n    [WARNING] Passive Voice: \"is required\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"declaration\"\n           -> \"declaration\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"applicant\"\n           -> \"applicant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"required\"\n           -> Consider using \"need\" instead. A shorter, more direct word.\n    [INFO] Redundant Pair: \"each and every\"\n           -> Use just \"each\". Use one or the other, not both.\n    [WARNING] Complex Word: \"conditions\"\n           -> \"conditions\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"conclusive\"\n           -> \"conclusive\" has 3 syllables. Is there a simpler word you could use?\n    ... and 8 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 21242,
+      "html_sha256": "65d1a6ee8a61fa10058c0005a6a6c06ede20bdb249de2c6647a741f7a4921285",
       "json_report": {
         "consensus": {
           "description": "Fairly easy (approximately lower secondary level)",
@@ -187,15 +187,6 @@
               "type": "redundant_pair"
             },
             {
-              "explanation": "\"terms\" can often be replaced with a simpler word.",
-              "matched_text": "terms",
-              "sentence_context": "The terms and",
-              "sentence_index": 2,
-              "severity": "info",
-              "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts.",
-              "type": "jargon"
-            },
-            {
               "explanation": "\"conditions\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
               "matched_text": "conditions",
               "sentence_context": "conditions are null and void unless the form is properly signed.",
@@ -221,15 +212,6 @@
               "severity": "info",
               "suggestion": "Consider using \"give\" instead. Direct.",
               "type": "complex_word"
-            },
-            {
-              "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
-              "matched_text": "provide a true",
-              "sentence_context": "Please provide a true and accurate account of the events.",
-              "sentence_index": 6,
-              "severity": "info",
-              "suggestion": "Consider using \"true\" instead of \"provide a true\". This makes the action more direct.",
-              "type": "hidden_verb"
             },
             {
               "explanation": "\"assistance\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
@@ -296,9 +278,9 @@
             }
           ],
           "critical_count": 0,
-          "info_count": 10,
-          "summary": "Found 20 readability issue(s) across 13 sentence(s): 10 warning(s), 10 suggestion(s).",
-          "total_barriers": 20,
+          "info_count": 8,
+          "summary": "Found 18 readability issue(s) across 13 sentence(s): 10 warning(s), 8 suggestion(s).",
+          "total_barriers": 18,
           "warning_count": 10
         },
         "statistics": {
@@ -321,26 +303,6 @@
     "outcome": "ok",
     "value": {
       "grouped_barriers": [
-        {
-          "issues": [
-            {
-              "confidence": "medium",
-              "count": 1,
-              "explanation": "\"terms\" can often be replaced with a simpler word.",
-              "label": "Jargon or formal language",
-              "matched_text": "terms",
-              "priority": "high",
-              "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts.",
-              "type": "jargon"
-            }
-          ],
-          "priority": "high",
-          "sentence_index": 2,
-          "sentence_text": "The terms and",
-          "total_issues": 1,
-          "unique_issue_types": 1,
-          "word_count": 3
-        },
         {
           "issues": [
             {
@@ -502,23 +464,13 @@
               "priority": "consider",
               "suggestion": "Consider using \"give\" instead. Direct.",
               "type": "complex_word"
-            },
-            {
-              "confidence": "uncertain",
-              "count": 1,
-              "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
-              "label": "Hidden verb",
-              "matched_text": "provide a true",
-              "priority": "consider",
-              "suggestion": "Consider using \"true\" instead of \"provide a true\". This makes the action more direct.",
-              "type": "hidden_verb"
             }
           ],
           "priority": "consider",
           "sentence_index": 6,
           "sentence_text": "Please provide a true and accurate account of the events.",
-          "total_issues": 2,
-          "unique_issue_types": 2,
+          "total_issues": 1,
+          "unique_issue_types": 1,
           "word_count": 10
         },
         {
@@ -582,7 +534,7 @@
           "word_count": 9
         }
       ],
-      "replacement_count": 7,
+      "replacement_count": 6,
       "result": {
         "barriers": [
           {
@@ -674,17 +626,6 @@
             "suggestion": "Use just \"each\". Use one or the other, not both."
           },
           {
-            "barrier_type": "jargon",
-            "end_char": 0,
-            "explanation": "\"terms\" can often be replaced with a simpler word.",
-            "matched_text": "terms",
-            "sentence_index": 2,
-            "sentence_text": "The terms and",
-            "severity": "info",
-            "start_char": 0,
-            "suggestion": "Consider using \"length of cover\" instead. How long the insurance lasts."
-          },
-          {
             "barrier_type": "complex_word",
             "end_char": 0,
             "explanation": "\"conditions\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
@@ -716,17 +657,6 @@
             "severity": "info",
             "start_char": 0,
             "suggestion": "Consider using \"give\" instead. Direct."
-          },
-          {
-            "barrier_type": "hidden_verb",
-            "end_char": 21,
-            "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
-            "matched_text": "provide a true",
-            "sentence_index": 6,
-            "sentence_text": "Please provide a true and accurate account of the events.",
-            "severity": "info",
-            "start_char": 7,
-            "suggestion": "Consider using \"true\" instead of \"provide a true\". This makes the action more direct."
           },
           {
             "barrier_type": "complex_word",
@@ -807,7 +737,7 @@
           }
         ],
         "critical_count": 0,
-        "info_count": 10,
+        "info_count": 8,
         "original_text": "The applicant must first and foremost provide full and complete details.\n\nEach and every applicant is required to sign the declaration. The terms and\nconditions are null and void unless the form is properly signed.\n\nWe will consider any and all evidence. The decision is final and conclusive.\n\nPlease provide a true and accurate account of the events. Any aid and assistance\ngiven must be declared.\n\nThe plan is basic and fundamental to the project. This is due to the fact that\nthe deadline has passed. In the event that you disagree, you may appeal.\n",
         "sentences": [
           "The applicant must first and foremost provide full and complete details.",
@@ -824,19 +754,12 @@
           "the deadline has passed.",
           "In the event that you disagree, you may appeal."
         ],
-        "summary": "Found 20 readability issue(s) across 13 sentence(s): 10 warning(s), 10 suggestion(s).",
-        "total_barriers": 20,
+        "summary": "Found 18 readability issue(s) across 13 sentence(s): 10 warning(s), 8 suggestion(s).",
+        "total_barriers": 18,
         "warning_count": 10
       },
-      "simplified_text": "The applicant must first and foremost **give** full and complete details.\n\nEach and every applicant is **need** to sign the declaration. The **length of cover** and\nconditions are null and void unless the form is properly signed.\n\nWe will consider any and all evidence. The decision is final and conclusive.\n\nPlease **give** a true and accurate account of the events. Any aid and **help**\ngiven must be declared.\n\nThe plan is basic and **basic** to the project. This is **because**\nthe deadline has passed. **if** you disagree, you may appeal.\n",
+      "simplified_text": "The applicant must first and foremost **give** full and complete details.\n\nEach and every applicant is **need** to sign the declaration. The terms and\nconditions are null and void unless the form is properly signed.\n\nWe will consider any and all evidence. The decision is final and conclusive.\n\nPlease **give** a true and accurate account of the events. Any aid and **help**\ngiven must be declared.\n\nThe plan is basic and **basic** to the project. This is **because**\nthe deadline has passed. **if** you disagree, you may appeal.\n",
       "top_improvements": [
-        {
-          "action": "Consider replacing with: Consider using \"length of cover\" instead. How long the insurance lasts.",
-          "impact": "Jargon is the most common barrier for non-specialist readers.",
-          "issue": "Contains jargon or formal language: 'terms'",
-          "location": "Sentence 3",
-          "priority": "high"
-        },
         {
           "action": "Consider replacing with: Consider using \"because\" instead. Five words become one.",
           "impact": "Jargon is the most common barrier for non-specialist readers.",
@@ -877,6 +800,13 @@
           "impact": "Familiar words reduce cognitive load for all readers.",
           "issue": "Contains complex words (e.g. 'conditions')",
           "location": "Sentence 4",
+          "priority": "consider"
+        },
+        {
+          "action": "Replace complex words with shorter, more common alternatives where possible.",
+          "impact": "Familiar words reduce cognitive load for all readers.",
+          "issue": "Contains complex words (e.g. 'conclusive')",
+          "location": "Sentence 6",
           "priority": "consider"
         }
       ]

@@ -105,9 +105,9 @@
   "reporter": {
     "outcome": "ok",
     "value": {
-      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 6.2\n  Fairly easy (approximately lower secondary level)\n\n  Text Statistics:\n    Words:               158\n    Sentences:           22\n    Avg Sentence Length:  7.2 words\n    Avg Word Length:      4.3 characters\n    Complex Words (3+ syl): 23\n\n  Readability Scores:\n    Flesch Reading Ease:        66.8\n      Standard — understood by 13-15 year olds.\n    Flesch-Kincaid Grade Level:  5.7\n    Gunning Fog Index:           8.7\n    SMOG Index:                  9.0\n    Automated Readability Index: 2.3\n    Coleman-Liau Index:          5.3\n\n  Found 33 readability issue(s) across 22 sentence(s): 17 warning(s), 16 suggestion(s).\n\n  Top issues:\n    [INFO] Jargon / Formal Language: \"dose\"\n           -> \"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first u\n    [INFO] Jargon / Formal Language: \"dose\"\n           -> \"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first u\n    [INFO] Jargon / Formal Language: \"may\"\n           -> \"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.\n    [WARNING] Passive Voice: \"is affected\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [INFO] Nominalization: \"Version\"\n           -> \"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more dire\n    [WARNING] Passive Voice: \"is unaffected\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"unaffected\"\n           -> \"unaffected\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Nominalization: \"Version\"\n           -> \"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more dire\n    [WARNING] Passive Voice: \"are treated\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"is at\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    ... and 23 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 31820,
-      "html_sha256": "0dc79703812de1e9f64542168b3d61a983ad132f7e7241d3097bc85e7dae50fc",
+      "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 6.2\n  Fairly easy (approximately lower secondary level)\n\n  Text Statistics:\n    Words:               158\n    Sentences:           22\n    Avg Sentence Length:  7.2 words\n    Avg Word Length:      4.3 characters\n    Complex Words (3+ syl): 23\n\n  Readability Scores:\n    Flesch Reading Ease:        66.8\n      Standard — understood by 13-15 year olds.\n    Flesch-Kincaid Grade Level:  5.7\n    Gunning Fog Index:           8.7\n    SMOG Index:                  9.0\n    Automated Readability Index: 2.3\n    Coleman-Liau Index:          5.3\n\n  Found 30 readability issue(s) across 22 sentence(s): 17 warning(s), 13 suggestion(s).\n\n  Top issues:\n    [INFO] Jargon / Formal Language: \"dose\"\n           -> \"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first u\n    [INFO] Jargon / Formal Language: \"dose\"\n           -> \"dose\" is a medical term of art with specific meaning. Consider defining or explaining it on first u\n    [INFO] Jargon / Formal Language: \"may\"\n           -> \"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.\n    [WARNING] Passive Voice: \"is affected\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"is unaffected\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"unaffected\"\n           -> \"unaffected\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Passive Voice: \"are treated\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"is at\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [INFO] Nominalization: \"guidance\"\n           -> \"guidance\" is a nominalization. Consider using the verb \"guide\" instead to make the sentence more di\n    [INFO] Complex Word: \"enquiries\"\n           -> \"enquiries\" has 3 syllables. Is there a simpler word you could use?\n    ... and 20 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
+      "html_chars": 29756,
+      "html_sha256": "4d67d545b9c1516e316819b6f17f0c1d0ffc2bb7e572bf80087e88eb473488a0",
       "json_report": {
         "consensus": {
           "description": "Fairly easy (approximately lower secondary level)",
@@ -160,15 +160,6 @@
               "type": "passive_voice"
             },
             {
-              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
-              "matched_text": "Version",
-              "sentence_context": "Version 1.5.0 is affected by this issue.",
-              "sentence_index": 6,
-              "severity": "info",
-              "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct.",
-              "type": "nominalization"
-            },
-            {
               "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
               "matched_text": "is unaffected",
               "sentence_context": "Version 1.5.1 is unaffected.",
@@ -185,15 +176,6 @@
               "severity": "warning",
               "suggestion": "\"unaffected\" has 4 syllables. Is there a simpler word you could use?",
               "type": "complex_word"
-            },
-            {
-              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
-              "matched_text": "Version",
-              "sentence_context": "Version 1.5.1 is unaffected.",
-              "sentence_index": 7,
-              "severity": "info",
-              "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct.",
-              "type": "nominalization"
             },
             {
               "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
@@ -302,15 +284,6 @@
               "severity": "info",
               "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.",
               "type": "jargon"
-            },
-            {
-              "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
-              "matched_text": "provide a utility",
-              "sentence_context": "Applicants may provide a utility",
-              "sentence_index": 14,
-              "severity": "info",
-              "suggestion": "Consider using \"utility\" instead of \"provide a utility\". This makes the action more direct.",
-              "type": "hidden_verb"
             },
             {
               "explanation": "\"applicants\" has 3 syllables and 10 characters. Shorter, more common words are understood by more readers.",
@@ -422,9 +395,9 @@
             }
           ],
           "critical_count": 0,
-          "info_count": 16,
-          "summary": "Found 33 readability issue(s) across 22 sentence(s): 17 warning(s), 16 suggestion(s).",
-          "total_barriers": 33,
+          "info_count": 13,
+          "summary": "Found 30 readability issue(s) across 22 sentence(s): 17 warning(s), 13 suggestion(s).",
+          "total_barriers": 30,
           "warning_count": 17
         },
         "statistics": {
@@ -538,23 +511,13 @@
               "priority": "consider",
               "suggestion": "\"applicants\" has 3 syllables. Is there a simpler word you could use?",
               "type": "complex_word"
-            },
-            {
-              "confidence": "uncertain",
-              "count": 1,
-              "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
-              "label": "Hidden verb",
-              "matched_text": "provide a utility",
-              "priority": "consider",
-              "suggestion": "Consider using \"utility\" instead of \"provide a utility\". This makes the action more direct.",
-              "type": "hidden_verb"
             }
           ],
           "priority": "high",
           "sentence_index": 14,
           "sentence_text": "Applicants may provide a utility",
-          "total_issues": 5,
-          "unique_issue_types": 3,
+          "total_issues": 4,
+          "unique_issue_types": 2,
           "word_count": 5
         },
         {
@@ -598,23 +561,13 @@
               "priority": "consider",
               "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject.",
               "type": "passive_voice"
-            },
-            {
-              "confidence": "medium",
-              "count": 1,
-              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
-              "label": "Nominalization",
-              "matched_text": "Version",
-              "priority": "consider",
-              "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct.",
-              "type": "nominalization"
             }
           ],
           "priority": "consider",
           "sentence_index": 6,
           "sentence_text": "Version 1.5.0 is affected by this issue.",
-          "total_issues": 2,
-          "unique_issue_types": 2,
+          "total_issues": 1,
+          "unique_issue_types": 1,
           "word_count": 7
         },
         {
@@ -638,23 +591,13 @@
               "priority": "consider",
               "suggestion": "\"unaffected\" has 4 syllables. Is there a simpler word you could use?",
               "type": "complex_word"
-            },
-            {
-              "confidence": "medium",
-              "count": 1,
-              "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
-              "label": "Nominalization",
-              "matched_text": "Version",
-              "priority": "consider",
-              "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct.",
-              "type": "nominalization"
             }
           ],
           "priority": "consider",
           "sentence_index": 7,
           "sentence_text": "Version 1.5.1 is unaffected.",
-          "total_issues": 3,
-          "unique_issue_types": 3,
+          "total_issues": 2,
+          "unique_issue_types": 2,
           "word_count": 4
         },
         {
@@ -876,17 +819,6 @@
             "suggestion": "Consider rewriting in active voice. Identify who is doing the action and make them the subject."
           },
           {
-            "barrier_type": "nominalization",
-            "end_char": 7,
-            "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
-            "matched_text": "Version",
-            "sentence_index": 6,
-            "sentence_text": "Version 1.5.0 is affected by this issue.",
-            "severity": "info",
-            "start_char": 0,
-            "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct."
-          },
-          {
             "barrier_type": "passive_voice",
             "end_char": 27,
             "explanation": "Passive voice can hide who is responsible for an action, making text harder to follow. Active voice is usually clearer and more direct.",
@@ -907,17 +839,6 @@
             "severity": "warning",
             "start_char": 0,
             "suggestion": "\"unaffected\" has 4 syllables. Is there a simpler word you could use?"
-          },
-          {
-            "barrier_type": "nominalization",
-            "end_char": 7,
-            "explanation": "Nominalizations (verbs turned into nouns) make writing feel heavy and abstract. Using the verb form directly usually makes sentences shorter and clearer.",
-            "matched_text": "Version",
-            "sentence_index": 7,
-            "sentence_text": "Version 1.5.1 is unaffected.",
-            "severity": "info",
-            "start_char": 0,
-            "suggestion": "\"Version\" is a nominalization. Consider using the verb \"vere\" instead to make the sentence more direct."
           },
           {
             "barrier_type": "passive_voice",
@@ -1050,17 +971,6 @@
             "severity": "info",
             "start_char": 0,
             "suggestion": "\"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use."
-          },
-          {
-            "barrier_type": "hidden_verb",
-            "end_char": 32,
-            "explanation": "Hidden verbs (noun phrases where a verb would work) make sentences longer and less direct.",
-            "matched_text": "provide a utility",
-            "sentence_index": 14,
-            "sentence_text": "Applicants may provide a utility",
-            "severity": "info",
-            "start_char": 15,
-            "suggestion": "Consider using \"utility\" instead of \"provide a utility\". This makes the action more direct."
           },
           {
             "barrier_type": "complex_word",
@@ -1196,7 +1106,7 @@
           }
         ],
         "critical_count": 0,
-        "info_count": 16,
+        "info_count": 13,
         "original_text": "You must apply before 31 March 2027. You must not apply more than once.\n\nThe dose is 0.5 mg taken twice daily. Do not exceed 2.5 mg in any 24-hour\nperiod. A dose of 5 mg may cause serious harm.\n\nVersion 1.5.0 is affected by this issue. Version 1.5.1 is unaffected.\n\nThe fee is £1,250.00 plus VAT at 20%, payable to Account 12345678, sort code\n20-00-00. Payments received after 17:00 GMT are treated as next-day.\n\nFull guidance is at https://www.gov.uk/example-guidance/apply-online and\nenquiries should go to casework.team@example.gov.uk.\n\nApplicants shall provide evidence of residence. Applicants may provide a utility\nbill. Applicants shall not provide originals.\n\nThe configuration file is at C:\\ProgramData\\Example\\config.ini on Windows and\n/etc/example/config.ini on Linux.\n\nThe checksum is 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08.\nYour reference number is HB-2026-004417.\n\nApproximately 68% of applications are decided within 15 working days.\n",
         "sentences": [
           "You must apply before 31 March 2027.",
@@ -1222,8 +1132,8 @@
           "Your reference number is HB-2026-004417.",
           "Approximately 68% of applications are decided within 15 working days."
         ],
-        "summary": "Found 33 readability issue(s) across 22 sentence(s): 17 warning(s), 16 suggestion(s).",
-        "total_barriers": 33,
+        "summary": "Found 30 readability issue(s) across 22 sentence(s): 17 warning(s), 13 suggestion(s).",
+        "total_barriers": 30,
         "warning_count": 17
       },
       "simplified_text": "You must apply before 31 March 2027. You must not apply more than once.\n\nThe dose is 0.5 mg taken twice daily. Do not exceed 2.5 mg in any 24-hour\nperiod. A dose of 5 mg may cause serious harm.\n\nVersion 1.5.0 is affected by this issue. Version 1.5.1 is unaffected.\n\nThe fee is £1,250.00 plus VAT at 20%, payable to Account 12345678, sort code\n20-00-00. Payments received after 17:00 GMT are treated as next-day.\n\nFull guidance is at https://www.gov.uk/example-guidance/apply-online and\nenquiries should go to casework.team@example.gov.uk.\n\nApplicants **must** **give** evidence of residence. Applicants may **give** a utility\nbill. Applicants **must** not **give** originals.\n\nThe **setup** file is at C:\\ProgramData\\Example\\config.ini on Windows and\n/etc/example/config.ini on Linux.\n\nThe checksum is 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08.\nYour reference number is HB-2026-004417.\n\n**about** 68% of applications are decided within 15 working days.\n",
