@@ -1150,7 +1150,7 @@ def create_app():
     except ImportError:
         print(
             "Error: Flask is required for the web interface.\n"
-            "Install it with: pip install plainspeak[web]\n"
+            "Install it with: pip install flask\n"
             "Or: pip install flask",
             file=sys.stderr,
         )

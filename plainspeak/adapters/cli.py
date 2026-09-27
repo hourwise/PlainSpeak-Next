@@ -449,15 +449,14 @@ def web(host: str, port: int, no_open: bool):
     Opens a browser-based readability analyzer that runs entirely
     on your computer. No data is ever sent anywhere.
 
-    Install web dependencies with: pip install plainspeak[web]
+    The web interface needs Flask: pip install flask
     """
     try:
         from .web import create_app
     except ImportError:
         click.echo(
             "Error: Flask is required for the web interface.\n"
-            "Install it with: pip install plainspeak[web]\n"
-            "Or: pip install flask",
+            "Install it with: pip install flask",
             err=True,
         )
         sys.exit(1)

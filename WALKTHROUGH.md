@@ -10,16 +10,19 @@ For what PlainSpeak is and what it promises, read
 
 ## 1. Install
 
-PlainSpeak 1.0 is at the release-candidate stage and not yet on PyPI, so
-install it from the repository:
+Install PlainSpeak Next from its repository:
 
 ```bash
 python -m pip install "plainspeak[desktop] @ git+https://github.com/hourwise/PlainSpeak-Next"
 ```
 
 Leave out `[desktop]` if you only want the command-line tool; it then needs no
-graphical toolkit at all. Once 1.0 is published the command will simply be
-`python -m pip install "plainspeak[desktop]"`.
+graphical toolkit at all.
+
+> **Do not run `pip install plainspeak`.** The name `plainspeak` on PyPI
+> belongs to an unrelated project — a tool that turns English into terminal
+> commands — which also installs a Python package called `plainspeak`.
+> PlainSpeak Next is not on PyPI.
 
 Check it worked:
 

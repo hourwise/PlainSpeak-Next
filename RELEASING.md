@@ -66,7 +66,12 @@ candidate. Each requires an explicit decision to release:
    the tag.
 3. Create the GitHub release from the tag and attach every artifact above,
    including `SHA256SUMS`.
-4. Upload the wheel and sdist to PyPI: `python -m twine upload plainspeak-1.0.0*`.
+4. Upload the wheel and sdist to PyPI — **blocked until a distribution name is
+   chosen.** `plainspeak` on PyPI is an unrelated project (English-to-terminal
+   commands) that also installs a top-level package called `plainspeak`.
+   Publishing needs a free distribution name (such as `plainspeak-next`) and a
+   decision on whether the import name changes too; until then a release is
+   the GitHub release and its attached wheel.
 
 A release candidate is **ready** when *Building and certifying* is green. It is
 **published** only after the four steps above. The two are not the same.

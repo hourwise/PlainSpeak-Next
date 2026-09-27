@@ -47,6 +47,10 @@ python -m pip install "plainspeak[desktop] @ git+https://github.com/hourwise/Pla
 python -m pip install "plainspeak @ git+https://github.com/hourwise/PlainSpeak-Next"   # no Qt
 ```
 
+> **Not on PyPI.** `pip install plainspeak` installs an unrelated project that
+> happens to share the name, and the same import name. Install PlainSpeak Next
+> from the repository as above.
+
 Python 3.10 or later. Tested on Windows, Linux and macOS. Portable desktop
 builds for Windows and Linux, which need no Python, are produced for each
 release — see [RELEASING.md](RELEASING.md). From a checkout, use
