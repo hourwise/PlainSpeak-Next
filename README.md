@@ -30,11 +30,11 @@ See [V1_SCOPE.md](V1_SCOPE.md) for exactly what it does and does not promise.
 
 ## Status
 
-**Version 1.0.0** — certified, not yet published. Phases 0–10, the V1 blockers
-and the pre-release acceptance review are accepted on `main`; the certification
-evidence is in [RELEASE_READINESS.md](RELEASE_READINESS.md), what 1.0 promises
-is in [V1_SCOPE.md](V1_SCOPE.md), and what reading its output on real writing
-found is in [V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md).
+**Version 1.0.0.** Phases 0–10, the V1 blockers and the pre-release acceptance
+review are accepted on `main`; the certification evidence is in
+[RELEASE_READINESS.md](RELEASE_READINESS.md), what 1.0 promises is in
+[V1_SCOPE.md](V1_SCOPE.md), and what reading its output on real writing found
+is in [V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md).
 
 New here? [WALKTHROUGH.md](WALKTHROUGH.md) takes you from installation to a
 reviewed document in about ten minutes, and [HOW_IT_WORKS.md](HOW_IT_WORKS.md)
@@ -43,13 +43,28 @@ explains what PlainSpeak does and guarantees in plain terms.
 ## Install
 
 ```bash
-python -m pip install "plainspeak[desktop] @ git+https://github.com/hourwise/PlainSpeak-Next"
-python -m pip install "plainspeak @ git+https://github.com/hourwise/PlainSpeak-Next"   # no Qt
+python -m pip install "plainspeak-next[desktop]"
+python -m pip install plainspeak-next             # no Qt
 ```
 
-> **Not on PyPI.** `pip install plainspeak` installs an unrelated project that
-> happens to share the name, and the same import name. Install PlainSpeak Next
-> from the repository as above.
+Three names, on purpose:
+
+| | name |
+|---|---|
+| install from PyPI | `pip install plainspeak-next` |
+| import in Python | `import plainspeak` |
+| run on the command line | `plainspeak` (and `plainspeak-desktop`, `plainspeak-web`) |
+
+> **`plainspeak-next` is the only PyPI name for this project.** The PyPI
+> distribution called `plainspeak` is an unrelated project (it turns English
+> into terminal commands) that also installs a Python package named
+> `plainspeak`. Do not install it for PlainSpeak Next. The two are not
+> supported side by side in the same Python environment: whichever was
+> installed last owns `import plainspeak`. Use a separate virtual environment
+> if you need both.
+
+To install the development version from the repository instead:
+`python -m pip install "plainspeak-next[desktop] @ git+https://github.com/hourwise/PlainSpeak-Next"`.
 
 Python 3.10 or later. Tested on Windows, Linux and macOS. Portable desktop
 builds for Windows and Linux, which need no Python, are produced for each

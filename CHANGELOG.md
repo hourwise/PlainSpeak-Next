@@ -4,13 +4,14 @@ All notable changes to PlainSpeak will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-PlainSpeak Next has not yet published a release. Everything since the fork is
-under the **1.0.0rc1** release candidate. Entries for `0.3.0` and earlier
+PlainSpeak Next's first release is **1.0.0**, published on PyPI as
+`plainspeak-next`. Everything since the fork is under it and the **1.0.0rc1**
+release candidate. Entries for `0.3.0` and earlier
 describe the upstream project
 ([Project-PlainSpeak](https://github.com/hourwise/Project-PlainSpeak)), whose
 history this repository preserves; see [UPSTREAM.md](UPSTREAM.md).
 
-## [1.0.0] — certified, not yet published
+## [1.0.0]
 
 The release candidate after a pre-release acceptance review that ran PlainSpeak
 over 27 realistic documents and read the output
@@ -35,6 +36,19 @@ over 27 realistic documents and read the output
 - The desktop smoke output is now `ca5d501239c0…`: the self-test document says
   "the panel approved the request", which every build since Phase 10 had
   pinned as "the panel approved the ask".
+
+### Packaging
+- **Published as `plainspeak-next`.** `plainspeak` on PyPI is an unrelated
+  project that also installs a `plainspeak` package, so the distribution is
+  `plainspeak-next`: `pip install plainspeak-next`. The import package and the
+  command are unchanged — `import plainspeak`, `plainspeak` — and the two
+  distributions cannot share an environment. The first 1.0.0 artifacts, built
+  as `plainspeak`, could not be published under that name; the release was
+  rebuilt and certified again (see [RELEASE_READINESS.md](RELEASE_READINESS.md)).
+- **Trusted Publishing.** `.github/workflows/release.yml` publishes the
+  certified wheel and sdist to PyPI through GitHub OIDC, from the `pypi`
+  environment, after checking the tag, the version, the CI run and every
+  checksum. No PyPI token exists.
 
 ### Fixed
 - The migration builder assigned rule IDs by position, so reclassifying one

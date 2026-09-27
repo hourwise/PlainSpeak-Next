@@ -3,7 +3,11 @@ requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "plainspeak"
+# The distribution is `plainspeak-next`; the import package and the command
+# stay `plainspeak`. `plainspeak` on PyPI is an unrelated project that also
+# installs a top-level `plainspeak` package, so the two cannot share an
+# environment. See RELEASING.md.
+name = "plainspeak-next"
 version = "1.0.0"
 description = "Deterministic, integrity-protected presentation of prose: readability analysis, governed rewriting and human review"
 readme = "README.md"

@@ -7,13 +7,19 @@ are deliberately manual.
 
 | artifact | built by | contents |
 |---|---|---|
-| `plainspeak-<version>-py3-none-any.whl` | CI `package` job | the engine, CLI, web adapter and desktop code; the syllable dictionary, the ruleset (220 rules) and five profiles |
-| `plainspeak-<version>.tar.gz` | CI `package` job | the source distribution |
+| `plainspeak_next-<version>-py3-none-any.whl` | CI `package` job | the engine, CLI, web adapter and desktop code; the syllable dictionary, the ruleset (220 rules) and five profiles |
+| `plainspeak_next-<version>.tar.gz` | CI `package` job | the source distribution |
 | `plainspeak-desktop-<version>-windows.zip` | CI `desktop-build` job (Windows) | portable desktop bundle, `PlainSpeak.dist/desktop_main.exe` |
 | `plainspeak-desktop-<version>-linux.tar.gz` | CI `desktop-build` job (Linux) | portable desktop bundle, `PlainSpeak.dist/desktop_main.bin` |
 | `plainspeak-desktop-<version>-<os>.manifest.json` | `tools/record_desktop_build.py` | every file in the bundle, the executable's SHA-256, the data-file checks |
 | `SHA256SUMS` | `tools/package_release.py` | a checksum for every artifact, readable by `sha256sum --check` |
 | `certification-python.json` | `tools/certify_release.py` | the installed-wheel certification report, including a pinned output hash for a fixed sample |
+
+The wheel and sdist are the distribution `plainspeak-next`: that is the name on
+PyPI and in the file names. The Python package they install is still
+`plainspeak` and the command is still `plainspeak`. The PyPI distribution named
+`plainspeak` is an unrelated project that also installs a `plainspeak` package;
+the two cannot be installed side by side in one environment.
 
 There is no installer, no macOS build and no code signing. See
 [V1_SCOPE.md](V1_SCOPE.md) and [LIMITATIONS.md](LIMITATIONS.md).
@@ -55,23 +61,45 @@ presented text. Changing the version therefore needs the pinned plan hashes in
 
 ## Publishing — manual, and only when authorised
 
-None of these is automated, and none happens as part of preparing a release
-candidate. Each requires an explicit decision to release:
+None of these happens as part of preparing a release candidate. Each requires
+an explicit decision to release:
 
 1. Set the final version (for example `1.0.0`) in the four places above,
    update the pinned plan hashes, and move the CHANGELOG entry from its
    pre-release heading to the release. Merge that commit to `main` through the
    usual green-checkpoint process and repeat *Building and certifying* on it.
-2. Tag the certified commit: `git tag -a v1.0.0 -m "PlainSpeak 1.0.0"` and push
-   the tag.
+   Record the evidence in RELEASE_READINESS.md in the commit after it: that
+   file is the only one allowed to differ between the certified commit and the
+   tag, and the release workflow checks it.
+2. Tag `main`: `git tag -a v1.0.0 -m "PlainSpeak 1.0.0"` and push the tag.
 3. Create the GitHub release from the tag and attach every artifact above,
-   including `SHA256SUMS`.
-4. Upload the wheel and sdist to PyPI — **blocked until a distribution name is
-   chosen.** `plainspeak` on PyPI is an unrelated project (English-to-terminal
-   commands) that also installs a top-level package called `plainspeak`.
-   Publishing needs a free distribution name (such as `plainspeak-next`) and a
-   decision on whether the import name changes too; until then a release is
-   the GitHub release and its attached wheel.
+   from the certified CI run, including each `SHA256SUMS`.
+4. Publish the wheel and sdist to PyPI as `plainspeak-next` by dispatching the
+   release workflow on the tag, naming the certified CI run:
+   `gh workflow run release.yml --ref v1.0.0 -f ci-run-id=<run-id>`.
+   It verifies the tag, the version, the CI run and every checksum, then waits
+   for approval in the `pypi` environment before uploading the certified files
+   themselves — not a rebuild.
+
+### Trusted Publishing
+
+PyPI accepts uploads for `plainspeak-next` only from GitHub Actions, through
+OpenID Connect; there is no PyPI token in the repository, in its secrets or on
+any machine. PyPI's trusted publisher for the project is:
+
+| | |
+|---|---|
+| PyPI project | `plainspeak-next` |
+| owner | `hourwise` |
+| repository | `PlainSpeak-Next` |
+| workflow | `release.yml` |
+| environment | `pypi` |
+
+Before the first release this is a *pending* publisher, added by the PyPI
+account owner at <https://pypi.org/manage/account/publishing/>; the first
+upload creates the project. The `pypi` environment in the repository settings
+admits only `v*` tags and requires a reviewer's approval, so a workflow run
+alone cannot publish.
 
 A release candidate is **ready** when *Building and certifying* is green. It is
 **published** only after the four steps above. The two are not the same.

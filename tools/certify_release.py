@@ -13,6 +13,9 @@ failed.
 What it checks:
 
 - the package is installed, not imported from a source tree;
+- it was installed as the distribution `plainspeak-next`, is the only
+  distribution providing `import plainspeak`, and installed the `plainspeak`
+  command;
 - the version and every engine identity are the ones this release pins;
 - the syllable dictionary, all rules and all five profiles are present;
 - `plainspeak present`, run as a user runs it, produces the pinned output
@@ -36,6 +39,9 @@ import tempfile
 from pathlib import Path
 
 EXPECTED_VERSION = "1.0.0"
+#: The PyPI distribution. The import package and the command stay `plainspeak`;
+#: `plainspeak` on PyPI is an unrelated project.
+EXPECTED_DISTRIBUTION = "plainspeak-next"
 EXPECTED_SCHEMA = "plainspeak.present.v1"
 
 #: A fixed input and the SHA-256 of what every profile must present it as.
@@ -78,6 +84,21 @@ def main() -> int:
     source_tree = any((parent / "pyproject.toml").exists() for parent in location.parents)
     check("installed, not a source checkout", not source_tree, str(location.parent))
     check("version", plainspeak.__version__ == EXPECTED_VERSION, plainspeak.__version__)
+
+    from importlib import metadata
+
+    try:
+        distribution = metadata.distribution(EXPECTED_DISTRIBUTION)
+        name, installed = distribution.metadata["Name"], distribution.version
+    except metadata.PackageNotFoundError:
+        name, installed = None, None
+    check("installed as the plainspeak-next distribution",
+          name == EXPECTED_DISTRIBUTION and installed == EXPECTED_VERSION, f"{name} {installed}")
+    providers = sorted(set(metadata.packages_distributions().get("plainspeak", [])))
+    check("no other distribution provides import plainspeak",
+          providers == [EXPECTED_DISTRIBUTION], ", ".join(providers))
+    command = shutil.which("plainspeak", path=str(Path(sys.executable).parent))
+    check("the plainspeak command is installed", command is not None, str(command))
 
     identity = engine_identities()
     for key in ("ruleset_version", "ruleset_sha256", "ruleset_count", "style_fix_count",

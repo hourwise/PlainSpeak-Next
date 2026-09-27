@@ -1,0 +1,229 @@
+name: Release
+
+# Publishes a certified release to PyPI as `plainspeak-next`, through Trusted
+# Publishing (GitHub OIDC). There is no PyPI token anywhere: PyPI trusts this
+# workflow, in this repository, deploying to the `pypi` environment, and
+# nothing else.
+#
+# It publishes the files a dispatched CI run built and certified, byte for
+# byte, not a fresh build: builds are not byte-reproducible, and a rebuild
+# would not be the thing that was certified. Every identity is checked before
+# the publish job can start, and any mismatch stops the run:
+#
+#   - dispatched on an annotated `vX.Y.Z` tag whose commit is on `main`;
+#   - pyproject.toml and plainspeak/__init__.py state that version, and the
+#     distribution is `plainspeak-next`;
+#   - the CI run is this repository's CI workflow, dispatched, fully green,
+#     desktop builds included, on the tagged commit or on an ancestor that
+#     differs from it only in RELEASE_READINESS.md;
+#   - every artifact passes `sha256sum --check`, the wheel and sdist metadata
+#     say `plainspeak-next` and the version, and the certification report has
+#     no failure;
+#   - the version is not already on PyPI.
+#
+# Run it only when publication has been authorised (see RELEASING.md):
+#
+#   gh workflow run release.yml --ref v1.0.0 -f ci-run-id=<certified run>
+
+on:
+  workflow_dispatch:
+    inputs:
+      ci-run-id:
+        description: "ID of the dispatched CI run that certified the tagged commit"
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    name: verify the certified release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      version: ${{ steps.identity.outputs.version }}
+      sums: ${{ steps.stage.outputs.sums }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RUN_ID: ${{ inputs.ci-run-id }}
+      DISTRIBUTION: plainspeak-next
+    steps:
+      - name: Dispatched on a release tag
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          [ "$REF_TYPE" = tag ] || { echo "::error::dispatch on a release tag, not a $REF_TYPE"; exit 1; }
+          [[ "$REF_NAME" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "::error::$REF_NAME is not a vX.Y.Z tag"; exit 1; }
+          [[ "$RUN_ID" =~ ^[0-9]+$ ]] || { echo "::error::ci-run-id must be a run number"; exit 1; }
+
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: The tag is annotated, on main, and states the release version
+        id: identity
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          # checkout can leave an annotated tag lightweight; read the real one.
+          git fetch --force --no-tags origin "refs/tags/$TAG:refs/tags/$TAG" "refs/heads/main:refs/remotes/origin/main"
+          [ "$(git cat-file -t "refs/tags/$TAG")" = tag ] || { echo "::error::$TAG is not an annotated tag"; exit 1; }
+          [ "$(git rev-parse "refs/tags/$TAG^{commit}")" = "$GITHUB_SHA" ] || { echo "::error::$TAG does not point at $GITHUB_SHA"; exit 1; }
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main || { echo "::error::$GITHUB_SHA is not on main"; exit 1; }
+          VERSION="${TAG#v}"
+          python3 - "$VERSION" "$DISTRIBUTION" <<'EOF'
+          import re, sys, tomllib
+          version, distribution = sys.argv[1:]
+          project = tomllib.load(open("pyproject.toml", "rb"))["project"]
+          declared = re.search(r'^__version__ = "([^"]+)"', open("plainspeak/__init__.py", encoding="utf-8").read(), re.M).group(1)
+          problems = [
+              f"{label} is {value!r}, expected {expected!r}"
+              for label, value, expected in (
+                  ("pyproject name", project["name"], distribution),
+                  ("pyproject version", project["version"], version),
+                  ("plainspeak.__version__", declared, version),
+              )
+              if value != expected
+          ]
+          for problem in problems:
+              print(f"::error::{problem}")
+          sys.exit(1 if problems else 0)
+          EOF
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: The CI run certified this commit's package source
+        run: |
+          set -euo pipefail
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID" > run.json
+          jq -e --arg repo "$GITHUB_REPOSITORY" '
+            .path == ".github/workflows/ci.yml"
+            and .event == "workflow_dispatch"
+            and .status == "completed" and .conclusion == "success"
+            and .head_repository.full_name == $repo' run.json > /dev/null \
+            || { echo "::error::run $RUN_ID is not a green, dispatched CI run"; jq '{path,event,status,conclusion,head_sha}' run.json; exit 1; }
+          # The certification evidence is recorded in a commit after the one
+          # certified, because the checksums only exist once the run has built
+          # the artifacts. So the certified commit is the tag or an ancestor
+          # of it, and the only file allowed to differ is that record.
+          CERTIFIED=$(jq -r .head_sha run.json)
+          git merge-base --is-ancestor "$CERTIFIED" "$GITHUB_SHA" \
+            || { echo "::error::certified commit $CERTIFIED is not the tagged commit or an ancestor of it"; exit 1; }
+          CHANGED=$(git diff --name-only "$CERTIFIED" "$GITHUB_SHA")
+          if [ -n "$CHANGED" ] && [ "$CHANGED" != "RELEASE_READINESS.md" ]; then
+            echo "::error::files changed since the certified commit $CERTIFIED:"; echo "$CHANGED"; exit 1
+          fi
+          echo "certified $CERTIFIED; changed since: ${CHANGED:-nothing}"
+          gh api --paginate "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID/jobs" --jq '.jobs[] | [.name, .conclusion] | @tsv' > jobs.tsv
+          cat jobs.tsv
+          if awk -F'\t' '$2 != "success"' jobs.tsv | grep -q .; then echo "::error::a job in run $RUN_ID was not green"; exit 1; fi
+          for job in "built distributions carry their data" "frozen desktop build (windows-latest)" "frozen desktop build (ubuntu-latest)"; do
+            grep -qF "$job" jobs.tsv || { echo "::error::run $RUN_ID has no '$job' job"; exit 1; }
+          done
+
+      - uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ inputs.ci-run-id }}
+          github-token: ${{ github.token }}
+          path: certified
+
+      - name: Every artifact matches its checksums, metadata and certification
+        env:
+          VERSION: ${{ steps.identity.outputs.version }}
+        run: |
+          set -euo pipefail
+          for directory in certified/plainspeak-python certified/plainspeak-desktop-windows-latest/release certified/plainspeak-desktop-ubuntu-latest/release; do
+            (cd "$directory" && sha256sum --check --strict SHA256SUMS)
+          done
+          python3 - "$VERSION" "$DISTRIBUTION" <<'EOF'
+          import json, sys, tarfile, zipfile
+          from email.parser import HeaderParser
+          from pathlib import Path
+          version, distribution = sys.argv[1:]
+          stem = distribution.replace("-", "_") + "-" + version
+          python = Path("certified/plainspeak-python")
+          expected = {f"{stem}-py3-none-any.whl", f"{stem}.tar.gz", "certification-python.json", "SHA256SUMS"}
+          found = {path.name for path in python.iterdir()}
+          assert found == expected, f"Python artifacts are {sorted(found)}, expected {sorted(expected)}"
+          with zipfile.ZipFile(python / f"{stem}-py3-none-any.whl") as wheel:
+              wheel_meta = wheel.read(f"{stem}.dist-info/METADATA").decode("utf-8")
+          with tarfile.open(python / f"{stem}.tar.gz") as sdist:
+              sdist_meta = sdist.extractfile(f"{stem}/PKG-INFO").read().decode("utf-8")
+          for label, text in (("wheel", wheel_meta), ("sdist", sdist_meta)):
+              headers = HeaderParser().parsestr(text)
+              assert headers["Name"] == distribution, f"{label} Name is {headers['Name']!r}"
+              assert headers["Version"] == version, f"{label} Version is {headers['Version']!r}"
+              print(f"{label}: Name: {headers['Name']}  Version: {headers['Version']}")
+          report = json.loads((python / "certification-python.json").read_text(encoding="utf-8"))
+          assert report["failed"] == 0 and report["passed"] == len(report["checks"]), "certification failed"
+          assert report["plainspeak_version"] == version, f"certified {report['plainspeak_version']}"
+          print(f"certification: {report['passed']} passed, {report['failed']} failed")
+          for runner, platform, extension in (("windows", "windows", "zip"), ("ubuntu", "linux", "tar.gz")):
+              names = {path.name for path in Path(f"certified/plainspeak-desktop-{runner}-latest/release").iterdir()}
+              stem = f"plainspeak-desktop-{version}-{platform}"
+              assert names == {f"{stem}.{extension}", f"{stem}.manifest.json", "SHA256SUMS"}, sorted(names)
+          EOF
+
+      - name: The version is not already on PyPI
+        env:
+          VERSION: ${{ steps.identity.outputs.version }}
+        run: |
+          set -euo pipefail
+          status=$(curl -sS -o /dev/null -w '%{http_code}' "https://pypi.org/pypi/$DISTRIBUTION/$VERSION/json")
+          [ "$status" = 404 ] || { echo "::error::$DISTRIBUTION $VERSION answered $status on PyPI; refusing to publish"; exit 1; }
+
+      - name: Stage the certified wheel and sdist
+        id: stage
+        env:
+          VERSION: ${{ steps.identity.outputs.version }}
+        run: |
+          set -euo pipefail
+          stem="${DISTRIBUTION//-/_}-$VERSION"
+          mkdir dist
+          cp "certified/plainspeak-python/$stem-py3-none-any.whl" "certified/plainspeak-python/$stem.tar.gz" dist/
+          (cd dist && sha256sum -- * | tee ../dist.sums)
+          # The staged files must be the ones listed in the certified SHA256SUMS.
+          grep -F -x -f dist.sums certified/plainspeak-python/SHA256SUMS | wc -l | grep -qx 2
+          echo "sums=$(base64 -w0 dist.sums)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pypi-dist
+          path: dist/
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: publish to PyPI
+    needs: verify
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/plainspeak-next/${{ needs.verify.outputs.version }}/
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: pypi-dist
+          path: dist
+
+      - name: The files are the verified, certified files
+        env:
+          SUMS: ${{ needs.verify.outputs.sums }}
+        run: |
+          set -euo pipefail
+          [ "$(ls dist | wc -l)" = 2 ] || { echo "::error::expected exactly a wheel and an sdist"; ls dist; exit 1; }
+          echo "$SUMS" | base64 -d > dist.sums
+          (cd dist && sha256sum --check --strict ../dist.sums)
+
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2

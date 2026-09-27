@@ -173,6 +173,25 @@ def test_the_version_is_stated_consistently_everywhere() -> None:
 
 
 
+def test_the_distribution_is_plainspeak_next_and_everything_else_stays_plainspeak() -> None:
+    """PyPI name `plainspeak-next`; import package and command `plainspeak`.
+
+    `plainspeak` on PyPI is an unrelated project, so the distribution needed a
+    free name. Only the distribution name changed: renaming the import or the
+    command would break every user of 1.0 for no benefit.
+    """
+    if tomllib is None:
+        pytest.skip("needs tomllib (Python 3.11+); the 3.13 jobs run this on every platform")
+
+    root = Path(__file__).resolve().parent.parent
+    pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
+    project = pyproject["project"]
+    assert project["name"] == "plainspeak-next"
+    assert project["scripts"]["plainspeak"] == "plainspeak.adapters.cli:main"
+    assert pyproject["tool"]["setuptools"]["packages"]["find"]["include"] == ["plainspeak*"]
+    assert (root / "plainspeak" / "__init__.py").is_file()
+
+
 def test_the_runtime_dependencies_are_declared_where_installers_read_them() -> None:
     """A table placed in the middle of `[project]` captures the keys after it.
 

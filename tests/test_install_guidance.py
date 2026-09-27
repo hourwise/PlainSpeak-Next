@@ -66,3 +66,35 @@ def test_a_recommendation_is_still_caught():
 def test_a_wrapped_warning_is_not_a_recommendation():
     text = "Preparing publication found that `pip install plainspeak` installs an\nunrelated project.\n"
     assert not any(_recommends(paragraph) for _, paragraph in _paragraphs(text))
+
+
+def test_the_pypi_name_is_not_mistaken_for_the_unrelated_one():
+    """`plainspeak-next` is the right install, with or without extras."""
+    for text in ("pip install plainspeak-next", 'pip install "plainspeak-next[desktop]"'):
+        assert not _FROM_PYPI.search(text), text
+
+
+def test_the_readme_installs_plainspeak_next_from_pypi():
+    """The README is also the PyPI project page, so it must say which name to use."""
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "pip install plainspeak-next" in readme
+    assert "import plainspeak" in readme
+
+
+#: A direct-reference install of this repository: `<name>[extras] @ git+...`.
+_FROM_REPOSITORY = re.compile(r"([\w.-]+)(\[[^\]]*\])?\s*@\s*git\+https://github\.com/hourwise/PlainSpeak-Next")
+
+
+def test_repository_installs_name_the_distribution_they_install():
+    """pip refuses `plainspeak @ git+...` once the project is called `plainspeak-next`.
+
+    The requirement's name must match the distribution the repository builds,
+    so every documented repository install has to use the new name.
+    """
+    offences = [
+        f"{path.relative_to(ROOT)}: {match.group(0)}"
+        for path in _user_facing_files()
+        for match in _FROM_REPOSITORY.finditer(path.read_text(encoding="utf-8"))
+        if match.group(1) != "plainspeak-next"
+    ]
+    assert not offences, "\n".join(offences)

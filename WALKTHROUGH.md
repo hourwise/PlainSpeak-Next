@@ -10,19 +10,20 @@ For what PlainSpeak is and what it promises, read
 
 ## 1. Install
 
-Install PlainSpeak Next from its repository:
+Install PlainSpeak Next from PyPI, where it is published as `plainspeak-next`:
 
 ```bash
-python -m pip install "plainspeak[desktop] @ git+https://github.com/hourwise/PlainSpeak-Next"
+python -m pip install "plainspeak-next[desktop]"
 ```
 
 Leave out `[desktop]` if you only want the command-line tool; it then needs no
-graphical toolkit at all.
+graphical toolkit at all. Once installed, the command is `plainspeak` and the
+Python package is `import plainspeak` — only the PyPI name has the `-next`.
 
 > **Do not run `pip install plainspeak`.** The name `plainspeak` on PyPI
 > belongs to an unrelated project — a tool that turns English into terminal
-> commands — which also installs a Python package called `plainspeak`.
-> PlainSpeak Next is not on PyPI.
+> commands — which also installs a Python package called `plainspeak`. The two
+> cannot share a Python environment.
 
 Check it worked:
 

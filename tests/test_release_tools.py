@@ -30,8 +30,8 @@ def test_checksums_are_written_in_the_format_sha256sum_reads(package_release, tm
 
     dist = tmp_path / "dist"
     dist.mkdir()
-    (dist / f"plainspeak-{__version__}-py3-none-any.whl").write_bytes(b"wheel")
-    (dist / f"plainspeak-{__version__}.tar.gz").write_bytes(b"sdist")
+    (dist / f"plainspeak_next-{__version__}-py3-none-any.whl").write_bytes(b"wheel")
+    (dist / f"plainspeak_next-{__version__}.tar.gz").write_bytes(b"sdist")
     produced = package_release.package_python(dist)
     sums = package_release.write_sums(produced)
 
@@ -40,7 +40,7 @@ def test_checksums_are_written_in_the_format_sha256sum_reads(package_release, tm
     lines = raw.decode("utf-8").splitlines()
     assert len(lines) == 2
     for line in lines:
-        assert re.fullmatch(r"[0-9a-f]{64}  plainspeak-[^ ]+", line), line
+        assert re.fullmatch(r"[0-9a-f]{64}  plainspeak_next-[^ ]+", line), line
 
 
 def test_checksums_accumulate_without_duplicates(package_release, tmp_path):
@@ -48,7 +48,7 @@ def test_checksums_accumulate_without_duplicates(package_release, tmp_path):
 
     dist = tmp_path / "dist"
     dist.mkdir()
-    (dist / f"plainspeak-{__version__}-py3-none-any.whl").write_bytes(b"wheel")
+    (dist / f"plainspeak_next-{__version__}-py3-none-any.whl").write_bytes(b"wheel")
     produced = package_release.package_python(dist)
     package_release.write_sums(produced)
     sums = package_release.write_sums(produced)
