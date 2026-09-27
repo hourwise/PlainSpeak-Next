@@ -26,6 +26,14 @@ history this repository preserves; see [UPSTREAM.md](UPSTREAM.md).
   deterministic receipt (`plainspeak.verify.receipt.v1`), verification policy
   `2026.1`, and exit statuses for CI (0 accepted, 1 refused, 3 inconclusive,
   4 input error, 5 internal error). See [VERIFY.md](VERIFY.md).
+- **GitHub Action** (`action.yml`): `uses: hourwise/PlainSpeak-Next@<ref>` with
+  `before` and `after`. Fails on REFUSED or INCONCLUSIVE by default
+  (`fail-on: refused` or `never` to relax), annotates the lines concerned,
+  writes a job summary, exposes the result and receipt as outputs and uploads
+  them as an artifact. Installs PlainSpeak from its own source at the pinned ref
+  into an isolated environment; inputs reach it only through the environment,
+  paths are confined to the workspace, and document text written back out is
+  escaped. Dogfooded by the `Verify action` workflow on Linux and Windows.
 - `plainspeak.pipeline.verify`, `verify_text` and `verify_files`. Architecture
   tests forbid any interface from containing a verifier of its own, and require
   each versioned contract to be defined in exactly one module.

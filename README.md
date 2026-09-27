@@ -150,6 +150,15 @@ protected was lost but something changed that the model cannot vouch for. It
 does **not** establish that two texts mean the same thing. The result carries a
 deterministic receipt. See [VERIFY.md](VERIFY.md).
 
+The same check runs in CI as a GitHub Action:
+
+```yaml
+- uses: hourwise/PlainSpeak-Next@<tag or commit SHA>
+  with:
+    before: docs/original.md
+    after: docs/revised.md
+```
+
 ### Inspecting the engine
 
 ```bash

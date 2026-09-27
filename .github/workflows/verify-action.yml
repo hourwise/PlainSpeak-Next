@@ -1,0 +1,110 @@
+name: Verify action
+
+# Runs the PlainSpeak Verify GitHub Action from this repository (`uses: ./`)
+# against the fixtures in tests/fixtures/verify, on Linux and Windows, and
+# checks that each result, output and failure policy is what the action
+# promises. The action is exercised at the commit being tested, so there is no
+# dependency on a published release.
+
+on:
+  # Every branch: the job is short, and a change to the action or the verifier
+  # should be exercised before it reaches main.
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: verify-action-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  dogfood:
+    name: action (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+
+      - name: An accepted transformation passes
+        id: accepted
+        uses: ./
+        with:
+          before: tests/fixtures/verify/original.md
+          after: tests/fixtures/verify/accepted.md
+          artifact-name: verify-accepted-${{ matrix.os }}
+
+      - name: A refused transformation fails
+        id: refused
+        continue-on-error: true
+        uses: ./
+        with:
+          before: tests/fixtures/verify/original.md
+          after: tests/fixtures/verify/refused.md
+          artifact-name: verify-refused-${{ matrix.os }}
+
+      - name: An inconclusive transformation fails by default
+        id: inconclusive
+        continue-on-error: true
+        uses: ./
+        with:
+          before: tests/fixtures/verify/original.md
+          after: tests/fixtures/verify/inconclusive.md
+          artifact-name: verify-inconclusive-${{ matrix.os }}
+
+      - name: fail-on refused lets an inconclusive result pass
+        id: lenient
+        uses: ./
+        with:
+          before: tests/fixtures/verify/original.md
+          after: tests/fixtures/verify/inconclusive.md
+          fail-on: refused
+          upload-receipt: "false"
+
+      - name: A path outside the workspace is refused
+        id: escape
+        continue-on-error: true
+        uses: ./
+        with:
+          before: ../outside.md
+          after: tests/fixtures/verify/accepted.md
+          upload-receipt: "false"
+
+      - name: Every result is what the action promised
+        shell: bash
+        env:
+          ACCEPTED: ${{ steps.accepted.outputs.result }}
+          ACCEPTED_OUTCOME: ${{ steps.accepted.outcome }}
+          ACCEPTED_RECEIPT: ${{ steps.accepted.outputs.receipt-sha256 }}
+          ACCEPTED_RECEIPT_PATH: ${{ steps.accepted.outputs.receipt-path }}
+          REFUSED: ${{ steps.refused.outputs.result }}
+          REFUSED_OUTCOME: ${{ steps.refused.outcome }}
+          REFUSED_COUNT: ${{ steps.refused.outputs.refusals }}
+          INCONCLUSIVE: ${{ steps.inconclusive.outputs.result }}
+          INCONCLUSIVE_OUTCOME: ${{ steps.inconclusive.outcome }}
+          LENIENT: ${{ steps.lenient.outputs.result }}
+          LENIENT_OUTCOME: ${{ steps.lenient.outcome }}
+          ESCAPE_OUTCOME: ${{ steps.escape.outcome }}
+        run: |
+          set -euo pipefail
+          check() { if [ "$1" != "$2" ]; then echo "::error::$3: expected $2, got $1"; exit 1; fi; }
+          check "$ACCEPTED" ACCEPTED "accepted result"
+          check "$ACCEPTED_OUTCOME" success "accepted step"
+          check "$REFUSED" REFUSED "refused result"
+          check "$REFUSED_OUTCOME" failure "refused step"
+          check "$INCONCLUSIVE" INCONCLUSIVE "inconclusive result"
+          check "$INCONCLUSIVE_OUTCOME" failure "inconclusive step"
+          check "$LENIENT" INCONCLUSIVE "lenient result"
+          check "$LENIENT_OUTCOME" success "lenient step"
+          check "$ESCAPE_OUTCOME" failure "outside-workspace step"
+          [ "$REFUSED_COUNT" -ge 1 ] || { echo "::error::no refusals counted"; exit 1; }
+          [[ "$ACCEPTED_RECEIPT" =~ ^[0-9a-f]{64}$ ]] || { echo "::error::receipt is not a SHA-256"; exit 1; }
+          python -c "import json,sys;d=json.load(open(sys.argv[1]));assert d['sha256']==sys.argv[2];assert d['payload']['result']=='ACCEPTED'" "$ACCEPTED_RECEIPT_PATH" "$ACCEPTED_RECEIPT"
+          echo "all action results as promised; accepted receipt $ACCEPTED_RECEIPT"

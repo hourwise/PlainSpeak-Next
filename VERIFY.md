@@ -97,6 +97,57 @@ exits 0, so a CI step fails on anything else unless told otherwise.
 - Alignment is quadratic in the worst case; documents of tens of thousands of
   words are slow.
 
+## In GitHub Actions
+
+```yaml
+permissions:
+  contents: read
+
+steps:
+  - uses: actions/checkout@v5
+  - uses: hourwise/PlainSpeak-Next@<tag or commit SHA>
+    with:
+      before: docs/original.md
+      after: docs/revised.md
+      # fail-on: inconclusive   # default: fail on REFUSED or INCONCLUSIVE
+      # fail-on: refused        # fail on REFUSED only
+      # fail-on: never          # report, never fail
+```
+
+| Input | Default | |
+|---|---|---|
+| `before`, `after` | — | paths inside the workspace; anything resolving outside it is refused |
+| `fail-on` | `inconclusive` | `inconclusive`, `refused` or `never` |
+| `input-format` | from `before`'s extension | `markdown` or `text` |
+| `upload-receipt` | `true` | upload `result.json` and `receipt.json` as an artifact |
+| `artifact-name` | `plainspeak-verify` | make it unique if the action runs twice in one job |
+| `python-version` | `3.12` | the Python PlainSpeak runs on, in its own environment |
+
+Outputs: `result`, `receipt-sha256`, `before-sha256`, `after-sha256`,
+`refusals`, `unresolved`, `result-path`, `receipt-path`. Refusals are annotated
+as errors on the lines they concern; unresolved differences are errors when
+they fail the step and warnings when they do not. The job summary shows the
+result, the policy, every finding and the receipt.
+
+**Why `inconclusive` fails by default.** A change the model cannot vouch for is
+not known to be safe, and a gate that passed it would be claiming more than
+verification established. A repository that only wants its facts guarded —
+numbers, dates, obligations, negation — can choose `fail-on: refused`.
+
+**How it is packaged.** The action installs PlainSpeak from its own source, at
+exactly the ref the workflow names, into a virtual environment of its own. The
+verifier that runs is the one that ref contains — pin a tag or a commit SHA —
+and nothing is added to the job's Python. Installing needs the network to fetch
+PlainSpeak's three dependencies from PyPI; verification itself is offline and
+deterministic. The action needs no secrets and no permission beyond reading the
+repository.
+
+**Pull-request input is treated as hostile.** Inputs reach the verifier through
+environment variables and are never interpolated into a shell script; paths are
+confined to the workspace, symbolic links out of it included; every snippet of
+document text written back to the log or the job summary is escaped, so it
+cannot become a workflow command, a link, an image or a table cell.
+
 ## The `plainspeak.verify.v1` contract
 
 Canonical JSON — sorted keys, no insignificant whitespace, a final newline, no

@@ -1,0 +1,117 @@
+name: PlainSpeak Verify
+description: >
+  Check that a rewritten text preserved what PlainSpeak's integrity model
+  protects — numbers, dates, amounts, negation, obligations, identifiers,
+  terms of art, code and quotations. Deterministic and offline; not a claim
+  that two texts mean the same thing.
+author: hourwise
+branding:
+  icon: check-square
+  color: blue
+
+inputs:
+  before:
+    description: Path to the original text (.md, .markdown or .txt), inside the workspace.
+    required: true
+  after:
+    description: Path to the transformed text, inside the workspace.
+    required: true
+  fail-on:
+    description: >
+      When the step fails. `inconclusive` (default): on REFUSED or INCONCLUSIVE.
+      `refused`: on REFUSED only. `never`: report without failing.
+    required: false
+    default: inconclusive
+  input-format:
+    description: Parse both files as `markdown` or `text`. Default from the `before` file's extension.
+    required: false
+    default: ""
+  upload-receipt:
+    description: Upload result.json and receipt.json as a workflow artifact (`true` or `false`).
+    required: false
+    default: "true"
+  artifact-name:
+    description: Name of the uploaded artifact. Make it unique if the action runs more than once in a job.
+    required: false
+    default: plainspeak-verify
+  python-version:
+    description: Python used to run PlainSpeak, in an isolated environment. It does not change the job's own Python.
+    required: false
+    default: "3.12"
+
+outputs:
+  result:
+    description: ACCEPTED, REFUSED or INCONCLUSIVE.
+    value: ${{ steps.verify.outputs.result }}
+  receipt-sha256:
+    description: SHA-256 identifying the verification receipt.
+    value: ${{ steps.verify.outputs.receipt-sha256 }}
+  before-sha256:
+    description: SHA-256 of the before file.
+    value: ${{ steps.verify.outputs.before-sha256 }}
+  after-sha256:
+    description: SHA-256 of the after file.
+    value: ${{ steps.verify.outputs.after-sha256 }}
+  refusals:
+    description: Number of refusals.
+    value: ${{ steps.verify.outputs.refusals }}
+  unresolved:
+    description: Number of differences not accounted for.
+    value: ${{ steps.verify.outputs.unresolved }}
+  result-path:
+    description: Path to the plainspeak.verify.v1 result (JSON).
+    value: ${{ steps.verify.outputs.result-path }}
+  receipt-path:
+    description: Path to the receipt (JSON).
+    value: ${{ steps.verify.outputs.receipt-path }}
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python for PlainSpeak
+      id: python
+      uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+      with:
+        python-version: ${{ inputs.python-version }}
+        update-environment: false
+
+    # PlainSpeak is installed from this action's own source, at exactly the ref
+    # the workflow pinned, into an environment of its own. The verifier that
+    # runs is the one that ref contains — never a newer release — and nothing
+    # is added to the job's own Python.
+    - name: Install PlainSpeak
+      shell: bash
+      env:
+        PLAINSPEAK_PYTHON: ${{ steps.python.outputs.python-path }}
+        PLAINSPEAK_SOURCE: ${{ github.action_path }}
+      run: |
+        set -euo pipefail
+        venv="$RUNNER_TEMP/plainspeak-verify-env"
+        "$PLAINSPEAK_PYTHON" -m venv "$venv"
+        if [ -x "$venv/bin/python" ]; then py="$venv/bin/python"; else py="$venv/Scripts/python.exe"; fi
+        "$py" -m pip install --quiet --disable-pip-version-check "$PLAINSPEAK_SOURCE"
+        echo "PLAINSPEAK_VERIFY_PYTHON=$py" >> "$GITHUB_ENV"
+
+    # Inputs reach the verifier through the environment only. Nothing a
+    # workflow or a pull request supplies is spliced into this script.
+    - name: Verify
+      id: verify
+      shell: bash
+      env:
+        PLAINSPEAK_BEFORE: ${{ inputs.before }}
+        PLAINSPEAK_AFTER: ${{ inputs.after }}
+        PLAINSPEAK_FAIL_ON: ${{ inputs.fail-on }}
+        PLAINSPEAK_INPUT_FORMAT: ${{ inputs.input-format }}
+        PLAINSPEAK_OUTPUT_DIR: ${{ runner.temp }}/plainspeak-verify
+      run: '"$PLAINSPEAK_VERIFY_PYTHON" -m plainspeak.adapters.github_action'
+
+    - name: Upload the receipt
+      if: ${{ always() && inputs.upload-receipt == 'true' && steps.verify.outputs.receipt-path != '' }}
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+      with:
+        name: ${{ inputs.artifact-name }}
+        path: |
+          ${{ steps.verify.outputs.result-path }}
+          ${{ steps.verify.outputs.receipt-path }}
+        if-no-files-found: error
+        retention-days: 30
