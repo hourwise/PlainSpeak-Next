@@ -6,7 +6,8 @@ published set of rules, and it refuses any change that would alter the facts
 the writing states.
 
 This page explains what that means in practice. For the formal list of what
-version 1 promises, see [V1_SCOPE.md](V1_SCOPE.md).
+version 1 promises, see [V1_SCOPE.md](V1_SCOPE.md); for what the Verify, GitHub
+Action and MCP additions promise, [V2_SCOPE.md](V2_SCOPE.md).
 
 ## The short version
 
@@ -22,6 +23,9 @@ version 1 promises, see [V1_SCOPE.md](V1_SCOPE.md).
   with the reason, and cannot be forced through.
 - **It tells you what it could not judge.** If a text is too short for a style
   check to mean anything, it says so, rather than implying the text is fine.
+- **It can check other people's rewrites.** `plainspeak verify` compares a text
+  with a rewrite of it, whoever made it, and says whether every protected fact
+  survived — without claiming to know whether the two mean the same thing.
 
 ## What PlainSpeak changes
 
@@ -130,6 +134,42 @@ instead; `--format text` prints only the presented document.
 
 It never writes to the file it reads.
 
+## `plainspeak verify`
+
+For a rewrite PlainSpeak did not make — by a colleague, an AI assistant,
+another tool:
+
+```bash
+plainspeak verify original.md rewritten.md
+```
+
+It answers one of three things:
+
+- **ACCEPTED** — every protected fact survived, in order, and every other
+  difference is one PlainSpeak can account for: layout, a spelling the rules
+  treat as the same fact, one of its own SAFE changes, or a time phrase moved to
+  the other end of a simple sentence.
+- **REFUSED** — a number, date, amount, unit, "not", "must", "before" or other
+  protected word was lost, added or changed; or a term of art was replaced; or
+  code, a quotation, a table or a link address changed.
+- **INCONCLUSIVE** — nothing protected was lost, but something changed that
+  PlainSpeak cannot vouch for: a reworded sentence, facts in a different order.
+
+What it does **not** do is decide whether the two texts mean the same thing. "The
+payment was approved" and "the payment was rejected" contain no fact for
+PlainSpeak to protect, so it cannot call that change wrong; it will not call it
+safe either. The result carries a receipt — a fingerprint of the two texts, the
+result and every rule it was decided under — that anyone can recompute. The same
+check runs in CI as a GitHub Action. See [VERIFY.md](VERIFY.md).
+
+## For AI agents: `plainspeak serve`
+
+`plainspeak serve` makes `present`, `verify` and `diagnose` available to an AI
+agent as tools, over the Model Context Protocol. The agent gets exactly the
+answer the command line gives. The server runs on your computer, talks only
+through its standard input and output, reads no files and runs nothing; the
+agent hands it text and gets a result back. See [MCP.md](MCP.md).
+
 ## The desktop application
 
 `plainspeak-desktop` shows the original on the left and the revised version on
@@ -158,5 +198,8 @@ This is enforced by tests that run the engine with networking disabled.
   safety-critical text.
 - **It is not an AI detector.** Nothing PlainSpeak reports is a judgement about
   whether a person or a machine wrote the text.
+- **Verify is not a meaning checker.** It checks the facts its rules protect,
+  and says INCONCLUSIVE about everything else it cannot account for. It is
+  strict: an equivalent rewording such as "at most 5" for "up to 5" is refused.
 
 [LIMITATIONS.md](LIMITATIONS.md) has the full list.

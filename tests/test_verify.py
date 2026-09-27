@@ -118,9 +118,39 @@ def test_a_paragraph_break_between_sentences_is_formatting():
     assert result.result == ACCEPTED
 
 
-def test_capitalisation_at_the_start_of_a_sentence_is_formatting():
-    result = verify_text("The deadline is 5pm. you must attend.\n", "The deadline is 5pm. You must attend.\n")
-    assert result.result == ACCEPTED
+def test_capitalisation_is_formatting_only_when_a_word_changes_position():
+    """A word that became, or stopped being, a sentence's first word may change case.
+
+    A word that is first in both texts and changed case is not accounted for:
+    without a lexicon, "you" to "You" cannot be told from "Polish" to "polish"
+    (validation study case X04, a false acceptance under policy 2026.1).
+    """
+    moved = verify_text("You must submit the form before 5pm.\n", "Before 5pm, you must submit the form.\n")
+    assert moved.result == ACCEPTED
+    assert verify_text("Polish workers must register.\n", "polish workers must register.\n").result \
+        == INCONCLUSIVE
+    assert verify_text("The deadline is 5pm. you must attend.\n",
+                       "The deadline is 5pm. You must attend.\n").result == INCONCLUSIVE
+
+
+@pytest.mark.parametrize(
+    "before,after",
+    [
+        # Study case X02: the fronted deadline now reads as governing both actions.
+        ("You must submit the form before 5pm and pay the fee.\n",
+         "Before 5pm, you must submit the form and pay the fee.\n"),
+        # Study case X01: the deadline moved onto a different action.
+        ("Submit the form within 5 days and pay the fee.\n",
+         "Submit the form and pay the fee within 5 days.\n"),
+        ("If you can, submit the form before 5pm.\n", "Before 5pm, if you can, submit the form.\n"),
+        ("Submit the form before 5pm unless told otherwise.\n",
+         "Before 5pm, submit the form unless told otherwise.\n"),
+        # The phrase moved, and the rest of the sentence was reworded too.
+        ("You must submit the form before 5pm.\n", "Before 5pm, you must send the form.\n"),
+    ],
+)
+def test_a_time_phrase_moves_only_in_a_single_clause_sentence(before, after):
+    assert verify_text(before, after).result == INCONCLUSIVE
 
 
 # ── Refused: protected facts ───────────────────────────────────────────────
@@ -182,6 +212,15 @@ def test_adding_protected_meaning_is_refused():
 def test_near_equivalences_do_not_pass(before, after):
     """Plausible paraphrases the model cannot establish are never accepted."""
     assert verify_text(before, after).result == REFUSED
+
+
+def test_a_refusal_points_at_the_occurrence_that_changed():
+    """A lost "will" is the one that went, not every "will" in the text."""
+    before = "It will rain.\n\nThe bus will stop.\n\nWe will see.\n"
+    after = "It will rain.\n\nThe bus stops.\n\nWe will see.\n"
+    refusal = verify_text(before, after).refusals[0]
+    assert refusal["kind"] == "modal"
+    assert refusal["before_lines"] == [3]
 
 
 def test_the_refusal_says_where():
@@ -418,3 +457,26 @@ def test_every_corpus_document_verifies_against_its_own_presentation(path):
     presented = present_text(text, "natural").text
     result = verify_text(text, presented)
     assert result.result == ACCEPTED, (result.refusals, result.unresolved)
+
+
+def test_the_walkthrough_verify_example_does_what_the_walkthrough_says():
+    """WALKTHROUGH.md step 7 shows real output. If the engine changes it, the page is wrong."""
+    root = Path(__file__).resolve().parent.parent
+    original = (root / "examples" / "agent_reply.md").read_text(encoding="utf-8")
+    walkthrough = (root / "WALKTHROUGH.md").read_text(encoding="utf-8")
+
+    presented = present_text(original, "natural").text
+    accepted = verify_text(original, presented)
+    assert accepted.result == ACCEPTED
+    for item in accepted.equivalences:
+        assert f"PlainSpeak SAFE rule {item['kind']} '{item['before']}' -> '{item['after']}'" in walkthrough
+
+    edited = original.replace("Nevertheless, some features will move.", "Some features are moving.") \
+        .replace("at least 12 characters", "at least 10 characters")
+    refused = verify_text(original, edited)
+    assert refused.result == REFUSED
+    assert [(item["kind"], item["before_lines"], item["after_lines"]) for item in refused.refusals] == [
+        ("modal", [7], []), ("number", [11], [11]),
+    ]
+    assert "[modal] modal removed: will  (before line 7)" in walkthrough
+    assert "[number] number changed: 12 became 10  (before line 11; after line 11)" in walkthrough

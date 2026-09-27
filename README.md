@@ -30,8 +30,11 @@ See [V1_SCOPE.md](V1_SCOPE.md) for exactly what it does and does not promise.
 
 ## Status
 
-**Version 1.0.0.** Phases 0–10, the V1 blockers and the pre-release acceptance
-review are accepted on `main`; the certification evidence is in
+**Version 1.0.0** is published. **V2** — `verify`, the GitHub Action, the MCP
+server and `diagnose` — is a release candidate on this branch and is **not in
+the published 1.0.0**; its scope is [V2_SCOPE.md](V2_SCOPE.md) and its
+validation [VERIFY_STUDY.md](VERIFY_STUDY.md). Phases 0–10, the V1 blockers and
+the pre-release acceptance review are accepted on `main`; the certification evidence is in
 [RELEASE_READINESS.md](RELEASE_READINESS.md), what 1.0 promises is in
 [V1_SCOPE.md](V1_SCOPE.md), and what reading its output on real writing found
 is in [V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md).
@@ -236,6 +239,8 @@ The full accounting is in [LIMITATIONS.md](LIMITATIONS.md) and
 - [VERIFY.md](VERIFY.md) — `plainspeak verify`: what it guarantees, what it does not, the contract and the receipt
 - [MCP.md](MCP.md) — `plainspeak serve`: the tools, the setup, and what the server will not do
 - [V1_SCOPE.md](V1_SCOPE.md) — what 1.0 guarantees, what it does not, and what counts as breaking
+- [V2_SCOPE.md](V2_SCOPE.md) — what Verify, the GitHub Action and the MCP server add, and what stays unchanged
+- [VERIFY_STUDY.md](VERIFY_STUDY.md) — 97 transformations checked by hand against Verify, and what that found
 - [V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md) — what running PlainSpeak on 27 real documents found, and what changed
 - [RELEASING.md](RELEASING.md) and [RELEASE_READINESS.md](RELEASE_READINESS.md) — how a release is built and certified, and the evidence for this one
 - [ROADMAP.md](ROADMAP.md) — accepted phases, V1 blockers, and what comes after

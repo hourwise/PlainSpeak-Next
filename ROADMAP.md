@@ -63,50 +63,86 @@ labelled as such; [V1_SCOPE.md](V1_SCOPE.md) written before any V1 feature code.
 5. ✅ **Short-text honesty.** Below a diagnostic's minimum sample, PlainSpeak says
    there was not enough text to judge rather than implying the text is clean.
 
-## Stage 2 — V1 release *(1.0.0 certified; not published)*
+## Stage 2 — V1 release *(1.0.0 published)*
 
-A certified release candidate: Python package, portable Windows and Linux
-desktop bundles, a "how it works and what it guarantees" document, and a
-walkthrough a new user can follow without reading the source. `1.0.0` is tagged
-and published only after the release-readiness report is green **and**
-publication has been explicitly authorised.
+`1.0.0` is published on PyPI as `plainspeak-next` and on GitHub as `v1.0.0`,
+with portable Windows and Linux desktop bundles, a "how it works and what it
+guarantees" document, and a walkthrough. The evidence is in
+[RELEASE_READINESS.md](RELEASE_READINESS.md). V1's public contracts are the
+compatibility baseline for everything below.
 
-## After V1 — recorded, not scheduled
+## V2 — Verify, the GitHub Action and MCP *(implemented and validated on `codex/plainspeak-v2-verify`; not yet accepted)*
 
-These are directions, not commitments. None is implemented.
+What V2 promises is in [V2_SCOPE.md](V2_SCOPE.md). Every V1 contract is
+unchanged; V2 is additive.
 
-### Stage 3 — Verify *(V2-A implemented on the V2 branch; see [VERIFY.md](VERIFY.md))*
+### Stage 3 — Verify *(V2-A)*
 
-`plainspeak verify before.txt after.txt` exposes the integrity firewall for any
-pair of texts, whoever produced the rewrite: PlainSpeak, another model, a
-person, an agent, or third-party software. A GitHub Action would follow. This
-may become PlainSpeak's strongest standalone capability, because it is useful
-even to people who never use PlainSpeak's own transformations.
+`plainspeak verify BEFORE AFTER` judges a transformation made by anyone —
+PlainSpeak, a person, a language model, an agent, other software — against the
+integrity model: `ACCEPTED`, `REFUSED` or `INCONCLUSIVE`, never collapsing
+unknown into safe. `plainspeak.verify.v1`, a deterministic receipt, exit
+statuses for CI. See [VERIFY.md](VERIFY.md).
 
-*Backlog, not before V1:* `plainspeak explain before.txt after.txt` — a
-semantic/style diff that classifies each difference as SAFE, PRESERVED, REVIEW
-or REFUSED.
+### Stage 3b — GitHub Action *(V2-B)*
 
-### Stage 4 — MCP *(V2-C implemented on the V2 branch; see [MCP.md](MCP.md))*
+`uses: hourwise/PlainSpeak-Next@<ref>` runs the same verifier in a workflow,
+fails on `REFUSED` or `INCONCLUSIVE` by default, annotates the lines concerned
+and keeps the receipt. Dogfooded on Linux and Windows.
 
-`plainspeak serve` exposes thin adapters over canonical pipeline operations
-(`present`, `verify`, `diagnose`). MCP must not become another engine; the
-architecture tests keep it at the edge exactly as they keep the CLI and desktop
-there.
+### Stage 4 — MCP *(V2-C)*
+
+`plainspeak serve` exposes `present`, `verify` and `diagnose` to an agent as MCP
+tools over stdio, returning the CLI's contracts byte for byte. MCP is an
+adapter: the architecture tests keep it at the edge exactly as they keep the CLI
+and desktop there. See [MCP.md](MCP.md).
+
+### Stage 4b — Validation *(V2-D)*
+
+97 transformations from ten classes, judged by hand before Verify ran. The first
+run found a false acceptance of protected meaning; it was fixed and the final
+run has none. See [VERIFY_STUDY.md](VERIFY_STUDY.md).
+
+*Backlog:* `plainspeak explain before.txt after.txt` — a semantic/style diff that
+classifies each difference as SAFE, PRESERVED, REVIEW or REFUSED.
+
+## After V2 — recorded, not scheduled
+
+These are directions, not commitments. None is implemented, and nothing below
+was begun as part of V2.
+
+### Findings from the V2 validation study
+
+Verify's false refusals come from the integrity model's deliberate strictness.
+Each of these would widen what the V1 firewall admits, so each is an integrity
+policy change — versioned, adversarially tested in both directions, and weighed
+against the V1 breaking-change boundary — never a Verify-only shortcut:
+
+- reviewed comparator equivalences: "at most" ≡ "up to" ≡ "no more than";
+  "not less than" ≡ "at least"; "no longer than" ≡ "up to";
+- directional words as protected comparators: "above", "below", "under",
+  "over", "exceeds" (today a change between them is INCONCLUSIVE, not REFUSED);
+- date equivalences across written forms (`12/08/2026` and `12 August 2026`),
+  which need a locale decision;
+- modal ellipsis: "must be encrypted and tested" carrying the "must" of "must be
+  encrypted and must be tested".
 
 ### Stage 5 — Speech
 
-Two guarantees, kept distinct and never described as one another.
+Two modes, kept distinct and never described as one another.
 
-**Deterministic.** Rules convert text into a spoken-friendly representation:
-contractions, safe sentence splitting, number/date/unit/currency rendering,
-spoken transitions, pause metadata, pronunciation handling and SSML. Same input,
-profile and ruleset produce the same spoken script.
+**Deterministic Speech.** Rules convert text into a spoken-friendly
+representation — contractions, safe sentence splitting, number, date, unit and
+currency rendering, spoken transitions, pause metadata, pronunciation handling
+and SSML delivery. The same input, profile and ruleset produce the same spoken
+script.
 
-**Verified.** A model may propose more substantial spoken restructuring, and
-PlainSpeak decides whether to admit it: *the model proposes, PlainSpeak
-disposes*. The proposal is probabilistic; the admission decision is
-deterministic. This mode is never described as deterministic generation.
+**Verified Speech.** A model proposes more substantial spoken restructuring, and
+PlainSpeak Verify decides whether the proposed spoken version is admissible:
+*the model proposes, PlainSpeak disposes*. The proposal is probabilistic; the
+admission decision is deterministic. This mode is never described as
+deterministic generation. Deterministic verification is not deterministic
+generation.
 
 Spoken-form integrity equivalences (currency, numbers, dates, units) come first,
 because without them the firewall correctly refuses "£1,200" becoming "twelve
@@ -115,13 +151,16 @@ does not become a speech synthesiser.
 
 ### Stage 6 — Commercial boundary
 
-Decided only after Verify and MCP have real users. The working hypothesis:
+Decided only after Verify, the Action and MCP have real users; V2's real-world
+use should inform it. Not implemented, and not to be implemented early:
+organisation policy packs, central rule management, signed receipts, a hosted
+gateway, an enterprise audit dashboard, licence enforcement.
 
 | Open | Possible commercial layer |
 |---|---|
 | Deterministic engine, core profiles | Organisation-specific policy packs (e.g. GOV.UK style, Simplified Technical English, Consumer Duty) |
-| CLI, `present`, `verify` | Central policy administration and rule distribution |
-| Desktop application | Audit histories and signed presentation receipts |
+| CLI, `present`, `verify`, the GitHub Action | Central policy administration and rule distribution |
+| Desktop application | Audit histories and signed receipts |
 | Local MCP server | Hosted or on-premises gateway, integration and support |
 | Basic policy tooling | |
 

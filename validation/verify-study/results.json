@@ -1,0 +1,1467 @@
+{
+  "A01": {
+    "accounted_for": [],
+    "class": "aggressive",
+    "meaning": "changed",
+    "note": "assignment, emergency exception and reasonableness dropped; \"not less than\" gone",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "b9ba69fbabede758bf15a847aad47a83bf7aa7406ca3808d51de3e5f7f298e67",
+    "refused": [
+      "comparator",
+      "measurement",
+      "modal",
+      "negation",
+      "number",
+      "term"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/legal-tenancy-clause",
+    "unresolved": []
+  },
+  "A02": {
+    "accounted_for": [],
+    "class": "aggressive",
+    "meaning": "changed",
+    "note": "\"no later than\" and the managers' duty dropped",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "3f60e69017abdc6c0ed695bcb7230095a51ec1244a7650c83cc636e45de84cdd",
+    "refused": [
+      "comparator",
+      "modal"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/gov-hr-policy",
+    "unresolved": []
+  },
+  "A03": {
+    "accounted_for": [],
+    "class": "aggressive",
+    "meaning": "changed",
+    "note": "\"more than two claims in any 12-month period\" became \"after two claims in a year\"",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "9ce027853c4afbb2e419d628aacd91499362eedc7666ed0a2340abdfa73c04b5",
+    "refused": [
+      "comparator",
+      "modal",
+      "number"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/finance-policy-excerpt",
+    "unresolved": []
+  },
+  "A04": {
+    "accounted_for": [],
+    "class": "aggressive",
+    "meaning": "changed",
+    "note": "\"no earlier than 7 days\" became \"after 7 days\"; the \"do not revoke\" rule dropped",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "b95204a972b4f40f3a9b56277d17aacc09c80b31dfb509fa8c59ae085483f1ed",
+    "refused": [
+      "comparator",
+      "negation",
+      "number"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/tech-runbook",
+    "unresolved": []
+  },
+  "A05": {
+    "accounted_for": [],
+    "class": "aggressive",
+    "meaning": "changed",
+    "note": "\"usually within\" became \"in about\"; \"no paper copy\" dropped",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "8d4e48f9ef30c856ce31fdd4dada30d8c0def5f0120db6ab180c017303423c9f",
+    "refused": [
+      "comparator",
+      "modal",
+      "negation"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/good-plain-guide",
+    "unresolved": []
+  },
+  "C01": {
+    "accounted_for": [],
+    "class": "claude",
+    "meaning": "preserved",
+    "note": "shall→must, \"not less than\"→\"at least\", \"save in the case of\"→\"except in\"",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "4fe1b61fd152eca42e9d5cab1811ffd82c711588bdd74f70c40d7ffa0a25d8b6",
+    "refused": [
+      "comparator",
+      "modal",
+      "negation",
+      "term"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/legal-tenancy-clause",
+    "unresolved": []
+  },
+  "C02": {
+    "accounted_for": [],
+    "class": "claude",
+    "meaning": "preserved",
+    "note": "plain rewrite; \"may request\"→\"can ask\", \"would be required\"→\"have to\"",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "5785336d30cbd9e6ac09dd6bb8f9e16615d20b40031c41c420bf9f66fddcaf6f",
+    "refused": [
+      "modal",
+      "negation",
+      "term"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/gov-benefits-eligibility",
+    "unresolved": []
+  },
+  "C03": {
+    "accounted_for": [],
+    "class": "claude",
+    "meaning": "preserved",
+    "note": "imperative instead of should/must; \"prior to\"→\"before\"",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "64671f9f5100b8cae92c1ce2d99a5c4c73f8e20f176184aaed44ded5a992b733",
+    "refused": [
+      "comparator",
+      "modal",
+      "negation"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/gov-nhs-appointment",
+    "unresolved": []
+  },
+  "C04": {
+    "accounted_for": [],
+    "class": "claude",
+    "meaning": "preserved",
+    "note": "opening two sentences merged with \"only\" and \"never\"",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "2b6ef97aaf489c458ba5c54fe5ff8f8d7c42ed8b725df0702fa594a0c662ffa9",
+    "refused": [
+      "comparator"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/tech-runbook",
+    "unresolved": []
+  },
+  "C05": {
+    "accounted_for": [],
+    "class": "claude",
+    "meaning": "preserved",
+    "note": "apology and stock phrases removed",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "66a682e3f244214343f442c117a1e032de5a2b4382a1c81ceb9f23750d8c6505",
+    "refused": [
+      "modal",
+      "negation"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/ai-support-reply",
+    "unresolved": []
+  },
+  "C06": {
+    "accounted_for": [],
+    "class": "claude",
+    "meaning": "preserved",
+    "note": "\"limited to\"→\"up to\", \"subsequent\"→\"after the second\"",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "f5319d952e099b0e42856339b02c4577a94d89220aff08606e58eadd04548172",
+    "refused": [
+      "comparator",
+      "modal"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/finance-policy-excerpt",
+    "unresolved": []
+  },
+  "C07": {
+    "accounted_for": [],
+    "class": "claude",
+    "meaning": "preserved",
+    "note": "wording only; every keyword and value kept in order",
+    "outcome": "caution (cost)",
+    "protected": false,
+    "receipt": "14c0be7e877359f028507d6ae01a9bfc3e5161d6c56f7a2bee6578b250d7abcf",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "sources/spec-password-reset",
+    "unresolved": [
+      "protected_item_moved",
+      "unexplained_change"
+    ]
+  },
+  "C08": {
+    "accounted_for": [],
+    "class": "claude",
+    "meaning": "preserved",
+    "note": "\"must be encrypted ... and must be tested\" → one \"must\" covering both",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "7b978d59adb4b57ec2ab465311b828d095be490d56a918129a1aa9d7b188fce4",
+    "refused": [
+      "modal"
+    ],
+    "result": "REFUSED",
+    "source": "sources/spec-data-retention",
+    "unresolved": []
+  },
+  "C09": {
+    "accounted_for": [],
+    "class": "claude",
+    "meaning": "preserved",
+    "note": "two sentences joined with \"and\"",
+    "outcome": "caution (cost)",
+    "protected": false,
+    "receipt": "102843550b35c61cb4e623b93632033407039e6881805a12b06add45d4a8f8dc",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "corpus/good-plain-guide",
+    "unresolved": [
+      "unexplained_change"
+    ]
+  },
+  "C10": {
+    "accounted_for": [],
+    "class": "claude",
+    "meaning": "preserved",
+    "note": "rate limit restated as \"can make up to 100\"",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "c378554d06f20b26015c51ff3a28d7c7dc17892bbbc3794c1e941a0d966dfaf5",
+    "refused": [
+      "comparator",
+      "modal"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/tech-api-reference",
+    "unresolved": []
+  },
+  "G01": {
+    "accounted_for": [],
+    "class": "chatgpt-style",
+    "meaning": "preserved",
+    "note": "bulleted, cheerful; same instructions",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "c8bb8f457ae19dcef4e612701209d63a759a0ee330d559aa887cc107936dcf20",
+    "refused": [
+      "comparator",
+      "modal",
+      "negation"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/gov-nhs-appointment",
+    "unresolved": []
+  },
+  "G02": {
+    "accounted_for": [],
+    "class": "chatgpt-style",
+    "meaning": "changed",
+    "note": "\"should appear\" became \"guaranteed\"",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "5c942035b5f7d06d08e2c845275eb40046a172a6a43d7097c6445cc9137cabe2",
+    "refused": [
+      "modal"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/ai-support-reply",
+    "unresolved": []
+  },
+  "G03": {
+    "accounted_for": [],
+    "class": "chatgpt-style",
+    "meaning": "changed",
+    "note": "application date dropped; \"of the date of this letter\" dropped",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "5674d63395ae6671e6ff39dd3d1274dbaf3fc73eb0125adc19e421a0c8ea8e5f",
+    "refused": [
+      "date",
+      "modal",
+      "term"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/gov-benefits-eligibility",
+    "unresolved": []
+  },
+  "G04": {
+    "accounted_for": [],
+    "class": "chatgpt-style",
+    "meaning": "changed",
+    "note": "assignment dropped; \"not less than 24 hours\" became \"with 24 hours\"",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "cc035eebfb017f28fb0d59b635d3d9fc97daf47105ff2ca0452cdf2a55c480bd",
+    "refused": [
+      "comparator",
+      "modal",
+      "number",
+      "term"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/legal-tenancy-clause",
+    "unresolved": []
+  },
+  "G05": {
+    "accounted_for": [],
+    "class": "chatgpt-style",
+    "meaning": "preserved",
+    "note": "prose into a numbered list",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "957fec9974a3157e1edfd6978e218d3bdcc02358be5178aacbbd1a30d7866aa1",
+    "refused": [
+      "comparator",
+      "modal",
+      "number"
+    ],
+    "result": "REFUSED",
+    "source": "sources/spec-release-gate",
+    "unresolved": []
+  },
+  "G06": {
+    "accounted_for": [],
+    "class": "chatgpt-style",
+    "meaning": "changed",
+    "note": "headings gone; \"which reached end of life\" dropped",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "ced5ae1aa3da1cab0d7eda04df275b7ff033cfbdcbd436cb54758f3e920e880a",
+    "refused": [
+      "comparator",
+      "number"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/tech-release-notes",
+    "unresolved": []
+  },
+  "H01": {
+    "accounted_for": [],
+    "class": "human",
+    "meaning": "preserved",
+    "note": "\"thereof\" and the consent clause reworded; adds \"will\"",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "d3fa1d71baf569e6b7b01164b98115ac1f10e649511d458b6068d19709de89e0",
+    "refused": [
+      "modal",
+      "term"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/legal-tenancy-clause",
+    "unresolved": []
+  },
+  "H02": {
+    "accounted_for": [],
+    "class": "human",
+    "meaning": "changed",
+    "note": "application date 12 August became 21 August",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "542b3dc9e08cee3a88c977bf53849a51b5baa1a21fdaa4a955db08c3be9739b2",
+    "refused": [
+      "date"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/gov-benefits-eligibility",
+    "unresolved": []
+  },
+  "H03": {
+    "accounted_for": [],
+    "class": "human",
+    "meaning": "preserved",
+    "note": "fasting instruction moved first",
+    "outcome": "caution (cost)",
+    "protected": false,
+    "receipt": "4474f3bcd50a243e2d8786f8756859e46bc19317aa6d9c8319672ab5b3780a7f",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "corpus/gov-nhs-appointment",
+    "unresolved": [
+      "protected_item_moved"
+    ]
+  },
+  "H04": {
+    "accounted_for": [],
+    "class": "human",
+    "meaning": "preserved",
+    "note": "adds \"only\" for emphasis",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "1496770f99b4b39dd0c1edbc54b7d21b3d232c3947acf80db653c8a8df48cfc1",
+    "refused": [
+      "comparator"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/good-plain-guide",
+    "unresolved": []
+  },
+  "H05": {
+    "accounted_for": [],
+    "class": "human",
+    "meaning": "preserved",
+    "note": "exclusions as a bulleted list",
+    "outcome": "caution (cost)",
+    "protected": false,
+    "receipt": "5dd28a98c00e5d2a6d0645e19555adb9299e7d972d30b2e7d41f8816d1473ba4",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "corpus/finance-policy-excerpt",
+    "unresolved": [
+      "unexplained_change"
+    ]
+  },
+  "H06": {
+    "accounted_for": [],
+    "class": "human",
+    "meaning": "preserved",
+    "note": "\"no longer freezes\" became \"Fixed ... freezing\"",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "3388fc4563a6e916153dd65b2fbf380ab96a08792936126971bb0d5442892971",
+    "refused": [
+      "negation"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/tech-release-notes",
+    "unresolved": []
+  },
+  "H07": {
+    "accounted_for": [],
+    "class": "human",
+    "meaning": "preserved",
+    "note": "apology sentence removed (tone only)",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "321bbbd3f27d504e6bb140eb5381ed6027262d052c117d7f959dc09d54488c4b",
+    "refused": [
+      "modal"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/ai-support-reply",
+    "unresolved": []
+  },
+  "H08": {
+    "accounted_for": [],
+    "class": "human",
+    "meaning": "changed",
+    "note": "\"shall endeavour\" (a duty) became \"will try\" (an intention)",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "78885643a160dd004feaacfaf2001309bafc48167abf013c6ae5765477532e8d",
+    "refused": [
+      "modal"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/gov-hr-policy",
+    "unresolved": []
+  },
+  "H09": {
+    "accounted_for": [],
+    "class": "human",
+    "meaning": "preserved",
+    "note": "step 2 fronted \"before switching\"",
+    "outcome": "caution (cost)",
+    "protected": false,
+    "receipt": "705a41114ac14209cbaafe2109f2b4a42e3ccb0d003ce56e14c4f01d83259f7a",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "corpus/tech-runbook",
+    "unresolved": [
+      "protected_item_moved"
+    ]
+  },
+  "H10": {
+    "accounted_for": [
+      "fact_equivalence"
+    ],
+    "class": "human",
+    "meaning": "preserved",
+    "note": "£1,250 written as £1250",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "c1e6843e5912f744d31a7d7a4e2d9e8c63b2768d4df70b6f996d87bd0f410f14",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/legal-tenancy-clause",
+    "unresolved": []
+  },
+  "K01": {
+    "accounted_for": [],
+    "class": "already-good",
+    "meaning": "preserved",
+    "note": "identical",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "9c8513b1934cba71ff931f528af231eab5c4a98da51afa61d908913669b46eb7",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/good-plain-guide",
+    "unresolved": []
+  },
+  "K02": {
+    "accounted_for": [],
+    "class": "already-good",
+    "meaning": "preserved",
+    "note": "adds \"easily\" and \"just\"",
+    "outcome": "caution (cost)",
+    "protected": false,
+    "receipt": "e06f89a60f7423c7a84033f899c114d123f252b595b7d1979ec041587156c91d",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "corpus/good-plain-guide",
+    "unresolved": [
+      "unexplained_change"
+    ]
+  },
+  "K03": {
+    "accounted_for": [
+      "formatting"
+    ],
+    "class": "already-good",
+    "meaning": "preserved",
+    "note": "line breaks only",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "82993c34969f885eb43424e7c0b0d214441df8ae06c65ed390937d78044486cb",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/good-plain-guide",
+    "unresolved": []
+  },
+  "L01": {
+    "accounted_for": [],
+    "class": "local-model-style",
+    "meaning": "changed",
+    "note": "48 hours became 24 hours",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "63c37f579b6a9f6871f12e7beec9fe10d93b85ab4f826e6769502aa9c4616ceb",
+    "refused": [
+      "number"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/gov-nhs-appointment",
+    "unresolved": []
+  },
+  "L02": {
+    "accounted_for": [],
+    "class": "local-model-style",
+    "meaning": "changed",
+    "note": "\"must not eat\" became \"must eat\"",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "bdf4faf3baafed77c6317702b3c07fd9fde511193ed132e62fcfc0b01c1a71aa",
+    "refused": [
+      "negation"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/gov-nhs-appointment",
+    "unresolved": []
+  },
+  "L03": {
+    "accounted_for": [],
+    "class": "local-model-style",
+    "meaning": "changed",
+    "note": "\"3% above\" became \"3% below\" — \"above\" is not a protected comparator",
+    "outcome": "caution (correct)",
+    "protected": true,
+    "receipt": "c0d0ceb8a44c2be39c6c17695d7d3b236eb6a2c2334abdeafe2a8ca0eeb4ce01",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "corpus/legal-tenancy-clause",
+    "unresolved": [
+      "unexplained_change"
+    ]
+  },
+  "L04": {
+    "accounted_for": [],
+    "class": "local-model-style",
+    "meaning": "preserved",
+    "note": "dates written as DD/MM/YYYY",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "0192aa3b24c90e0881c16cd2d6a0f8e10b9aae305dbc7f85f2ea29ac52773934",
+    "refused": [
+      "date"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/gov-benefits-eligibility",
+    "unresolved": []
+  },
+  "L05": {
+    "accounted_for": [],
+    "class": "local-model-style",
+    "meaning": "changed",
+    "note": "\"more than two claims\" became \"two or more claims\"",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "3f06eca3eae65d50d0660fc8c96897c7a45e0348ee33b8999b107fda32912f58",
+    "refused": [
+      "comparator"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/finance-policy-excerpt",
+    "unresolved": []
+  },
+  "L06": {
+    "accounted_for": [],
+    "class": "local-model-style",
+    "meaning": "changed",
+    "note": "\"must not exceed 64 KB\" (≤) became \"must be under 64 KB\" (<)",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "109c7aeef1e7642c152f4fe6d71444c7130b5dbc1575aeccb57e5a6121aacf9d",
+    "refused": [
+      "negation"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/tech-api-reference",
+    "unresolved": []
+  },
+  "L07": {
+    "accounted_for": [],
+    "class": "local-model-style",
+    "meaning": "changed",
+    "note": "command in a code span changed",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "ad4edfc8992b18f7e9e3166bf2934fce708df8e0574d346ca20aa1bd58a26d5f",
+    "refused": [
+      "code"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/tech-runbook",
+    "unresolved": []
+  },
+  "L08": {
+    "accounted_for": [],
+    "class": "local-model-style",
+    "meaning": "changed",
+    "note": "invented a pay-out rule that contradicts forfeiture",
+    "outcome": "caution (correct)",
+    "protected": false,
+    "receipt": "ac174af53fe9558cf1a3332fa335b645771cfcc2cd475be44c3da1d83bb7d996",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "corpus/gov-hr-policy",
+    "unresolved": [
+      "unexplained_change"
+    ]
+  },
+  "L09": {
+    "accounted_for": [],
+    "class": "local-model-style",
+    "meaning": "changed",
+    "note": "last paragraph (no restocking fee) missing",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "d223d8275bb988d5c13c9bd01cc557ae1851a8dbe7afc530cb4b051f460cfe5d",
+    "refused": [
+      "modal",
+      "negation"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/ai-support-reply",
+    "unresolved": []
+  },
+  "L10": {
+    "accounted_for": [],
+    "class": "local-model-style",
+    "meaning": "changed",
+    "note": "\"MUST NOT be usable more than once\" became \"MUST be usable once\"",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "23c2fa7fc89e92e1dda211cd852b21d16354f9f3f3b7552cc23bac5f5a36e128",
+    "refused": [
+      "comparator",
+      "negation"
+    ],
+    "result": "REFUSED",
+    "source": "sources/spec-password-reset",
+    "unresolved": []
+  },
+  "P-ai-blog-intro": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "ed62b28274c28c11f77f45c1ba09447ef8f45e435cafa9ae988d1717054f3768",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/ai-blog-intro",
+    "unresolved": []
+  },
+  "P-ai-cover-letter": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "c478c51cba94de8ccbd559be232c2cae185792881f623b7f1b4cfcf4a46c2a17",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/ai-cover-letter",
+    "unresolved": []
+  },
+  "P-ai-guide": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "e6ed322e63673a642863db7e3d3a47ec20e315da08e0b73307ca790f9695432f",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/ai-guide",
+    "unresolved": []
+  },
+  "P-ai-product-answer": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "932ce0f9a27720145c97e1f01280d18a9c082582374a1bf684756be1d434dda3",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/ai-product-answer",
+    "unresolved": []
+  },
+  "P-ai-summary-email": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "ad91e23e17dc423eb515fa45cd8c1b922c0632636fd7ff31eb6cb764d70cc5aa",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/ai-summary-email",
+    "unresolved": []
+  },
+  "P-ai-support-reply": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "628f440619b3094dfcd171f8357b8def89861f41dc3eb8a3aa3c8da4f780d0a8",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/ai-support-reply",
+    "unresolved": []
+  },
+  "P-finance-policy-excerpt": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "6fca9679f103c6129a49d72dffc208aa05ecbae7324a54a1a292424948694df8",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/finance-policy-excerpt",
+    "unresolved": []
+  },
+  "P-good-essay": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "44743b2afb9da906c7ec5af3df8c7794b3eea85ba6b2d45f8c7e8916af5f61ed",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/good-essay",
+    "unresolved": []
+  },
+  "P-good-news": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "946d70c1b61b4325d902dcbb273d7cd4e9c463c1d67d30183ffd6942fc8091d7",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/good-news",
+    "unresolved": []
+  },
+  "P-good-plain-guide": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "9c8513b1934cba71ff931f528af231eab5c4a98da51afa61d908913669b46eb7",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/good-plain-guide",
+    "unresolved": []
+  },
+  "P-good-story": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "a29f46b42bb603c872478d0c0b4d17b795744e18c19d6d38694b72e1d0c9a280",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/good-story",
+    "unresolved": []
+  },
+  "P-gov-benefits-eligibility": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "8c671f1ff37c7264c252e9daa648639c786685066097656c665797866cd20010",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/gov-benefits-eligibility",
+    "unresolved": []
+  },
+  "P-gov-council-tax": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "6478c189f2efa3b35eaba2eb692e23e45d818e84de6b20908927e9fc03ab7000",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/gov-council-tax",
+    "unresolved": []
+  },
+  "P-gov-hr-policy": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "1e3173050c50ea5c3eca7de77b3cf62ace6834144508ac655a3aae93a955c87c",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/gov-hr-policy",
+    "unresolved": []
+  },
+  "P-gov-nhs-appointment": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "573a92af755cead30ce44111fe094bd07f74f5f0520c0173cb61b275eea08e37",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/gov-nhs-appointment",
+    "unresolved": []
+  },
+  "P-gov-planning-response": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "e9237a907253c0ac2ecfcefa4138ad66392b824de3795d13564f99fe006494e5",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/gov-planning-response",
+    "unresolved": []
+  },
+  "P-legal-tenancy-clause": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "1fd5a99aa163200bc6882eab1908c7cb58cb8c7470ceee72bdc2d2512918981b",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/legal-tenancy-clause",
+    "unresolved": []
+  },
+  "P-short-agent-reply-1": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "8914cd71d9e5c8aae5ce00a3003f6469793aaa47dc7c8609e09398f730f0e83d",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/short-agent-reply-1",
+    "unresolved": []
+  },
+  "P-short-agent-reply-2": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "9a95d0d971d08f3c93ccea618bec2a288faf61d53149d0fe98ad82a14ab36c14",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/short-agent-reply-2",
+    "unresolved": []
+  },
+  "P-short-agent-reply-3": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "8c879c25e0fa9fc87bea752bca575e607a2a8e85f3dd60b45edece50fde3fdec",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/short-agent-reply-3",
+    "unresolved": []
+  },
+  "P-short-error-message": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "2c417ed04a256867ddf23157779960735d422c58a6820fdd383658752a51ee1a",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/short-error-message",
+    "unresolved": []
+  },
+  "P-short-notification": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "6f31064d81b9efee5df07f38178a4976390bc0427d930507ee81affe3e32a74d",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/short-notification",
+    "unresolved": []
+  },
+  "P-tech-api-reference": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "60c942f607903f7278326aae37647e6f9881ef2eced25af3cc3bc623083632fa",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/tech-api-reference",
+    "unresolved": []
+  },
+  "P-tech-postmortem": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "abfa95aac3e65d3a683c4c2a680b5529938f34d8eb27e3f0de5106e35a9a9ca8",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/tech-postmortem",
+    "unresolved": []
+  },
+  "P-tech-readme-install": {
+    "accounted_for": [
+      "safe_rule"
+    ],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "0bf375453909bfacf1bc00d54232cc6093ab44da6d1dd15a2f70f76baa8f1873",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/tech-readme-install",
+    "unresolved": []
+  },
+  "P-tech-release-notes": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "6d4d1dee7d25307cdab1c600a3ac614134b695c7f4132c8822943df687f7cc5d",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/tech-release-notes",
+    "unresolved": []
+  },
+  "P-tech-runbook": {
+    "accounted_for": [],
+    "class": "plainspeak",
+    "meaning": "preserved",
+    "note": "PlainSpeak's own SAFE changes",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "1393c5940f3c55e2f6ddfa1709636303955d4515561ffc4875a3bc755a131c4f",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "corpus/tech-runbook",
+    "unresolved": []
+  },
+  "S01": {
+    "accounted_for": [],
+    "class": "specification",
+    "meaning": "changed",
+    "note": "expiry MUST became SHOULD",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "0552ff3c1938950aa86e4d01ad8fb596749b8d1276b83a26299274bd8595d6e1",
+    "refused": [
+      "modal"
+    ],
+    "result": "REFUSED",
+    "source": "sources/spec-password-reset",
+    "unresolved": []
+  },
+  "S02": {
+    "accounted_for": [],
+    "class": "specification",
+    "meaning": "preserved",
+    "note": "\"at most 5\" became \"up to 5\"",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "87f702d4809ec0cca06b3265c9a18a7d710c9e28935ccb2e89e9ba2d150dadc5",
+    "refused": [
+      "comparator"
+    ],
+    "result": "REFUSED",
+    "source": "sources/spec-password-reset",
+    "unresolved": []
+  },
+  "S03": {
+    "accounted_for": [],
+    "class": "specification",
+    "meaning": "preserved",
+    "note": "last paragraph moved first",
+    "outcome": "caution (cost)",
+    "protected": false,
+    "receipt": "e11356d66c230a4960de0e2c8184b76e5094622ad00e9b1141af5842e5e4d729",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "sources/spec-password-reset",
+    "unresolved": [
+      "protected_item_moved"
+    ]
+  },
+  "S04": {
+    "accounted_for": [],
+    "class": "specification",
+    "meaning": "preserved",
+    "note": "\"no longer than 6 years\" became \"up to 6 years\"",
+    "outcome": "false refusal",
+    "protected": false,
+    "receipt": "082ea71691b1bedf6dc868a6056c0384b5127ddc7c2bc520412d64848feb2806",
+    "refused": [
+      "comparator",
+      "negation"
+    ],
+    "result": "REFUSED",
+    "source": "sources/spec-data-retention",
+    "unresolved": []
+  },
+  "S05": {
+    "accounted_for": [],
+    "class": "specification",
+    "meaning": "changed",
+    "note": "\"at least once every 90 days\" became \"every 90 days\"",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "398a91a126ec14da5b97f9dad0bb10d360623726c888b88564d6c2596439675a",
+    "refused": [
+      "comparator"
+    ],
+    "result": "REFUSED",
+    "source": "sources/spec-data-retention",
+    "unresolved": []
+  },
+  "S06": {
+    "accounted_for": [],
+    "class": "specification",
+    "meaning": "changed",
+    "note": "the legal-hold exception dropped",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "bf697faca93943beccd16aff644d5c5de2bd6f030fb0c293bdc5a123d0cf4b64",
+    "refused": [
+      "comparator"
+    ],
+    "result": "REFUSED",
+    "source": "sources/spec-data-retention",
+    "unresolved": []
+  },
+  "S07": {
+    "accounted_for": [],
+    "class": "specification",
+    "meaning": "preserved",
+    "note": "\"below\" became \"under\"",
+    "outcome": "caution (cost)",
+    "protected": false,
+    "receipt": "2deab2015dfe549ae5298a10f8d03d921cf5ebcf2c88fd17c46daaec02583362",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "sources/spec-release-gate",
+    "unresolved": [
+      "unexplained_change"
+    ]
+  },
+  "S08": {
+    "accounted_for": [],
+    "class": "specification",
+    "meaning": "changed",
+    "note": "800 ms became 500 ms",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "2fb554ae81762ce5734d882404677b618da6f21af08dd5579ee8829b232e9576",
+    "refused": [
+      "measurement"
+    ],
+    "result": "REFUSED",
+    "source": "sources/spec-release-gate",
+    "unresolved": []
+  },
+  "S09": {
+    "accounted_for": [],
+    "class": "specification",
+    "meaning": "changed",
+    "note": "the negation now applies to promotions, not rollbacks",
+    "outcome": "caution (correct)",
+    "protected": true,
+    "receipt": "02a7975bfc767570030b8014ea72254550d0475eb25c0c23d8fe3ca0679a7ce4",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "sources/spec-release-gate",
+    "unresolved": [
+      "unexplained_change"
+    ]
+  },
+  "S10": {
+    "accounted_for": [],
+    "class": "specification",
+    "meaning": "changed",
+    "note": "\"only if\" became \"if\"",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "9c96cbaf4662baa58615b3d95db3a5599e361d9c386aea0ad7592534f9eb666a",
+    "refused": [
+      "comparator"
+    ],
+    "result": "REFUSED",
+    "source": "sources/spec-release-gate",
+    "unresolved": []
+  },
+  "T01": {
+    "accounted_for": [],
+    "class": "technical",
+    "meaning": "changed",
+    "note": "422 became 400",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "299b7c381d52160690e4a65f787384ede0c138a0b4e6caf2e202b7cc05053325",
+    "refused": [
+      "code",
+      "number"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/tech-api-reference",
+    "unresolved": []
+  },
+  "T02": {
+    "accounted_for": [],
+    "class": "technical",
+    "meaning": "changed",
+    "note": "100 per minute became 1,000",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "f59592384af65a09fea36fc80805a9f208eaa217e12cfd8533f61c96c0cecf97",
+    "refused": [
+      "number"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/tech-api-reference",
+    "unresolved": []
+  },
+  "T03": {
+    "accounted_for": [],
+    "class": "technical",
+    "meaning": "preserved",
+    "note": "the two Added bullets swapped",
+    "outcome": "caution (cost)",
+    "protected": false,
+    "receipt": "25dd7e2ec5e7305ecb52868cf146ce67dc0dc81ba7057b2581e07b3de4e20ad5",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "corpus/tech-release-notes",
+    "unresolved": [
+      "unexplained_change"
+    ]
+  },
+  "T04": {
+    "accounted_for": [],
+    "class": "technical",
+    "meaning": "preserved",
+    "note": "step 4 reworded",
+    "outcome": "caution (cost)",
+    "protected": false,
+    "receipt": "de04105ad648d8ef597b4e430d3371190ef5197c3b4ada4db01b792953de2948",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "corpus/tech-runbook",
+    "unresolved": [
+      "unexplained_change"
+    ]
+  },
+  "T05": {
+    "accounted_for": [],
+    "class": "technical",
+    "meaning": "changed",
+    "note": "3.2.0 became 3.2.1",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "2c042e6e0ba02acafb2531bd15d2e0d9c7115bd131402df48646f674c886f981",
+    "refused": [
+      "version"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/tech-release-notes",
+    "unresolved": []
+  },
+  "T06": {
+    "accounted_for": [],
+    "class": "technical",
+    "meaning": "changed",
+    "note": "\"cannot be modified after 24 hours\" became \"can be modified within 24 hours\"",
+    "outcome": "correct",
+    "protected": true,
+    "receipt": "9116e0cb7e3c25e974f6526e9c877c7de134e93c6a4045fab6441b4495454a5b",
+    "refused": [
+      "comparator",
+      "modal",
+      "negation"
+    ],
+    "result": "REFUSED",
+    "source": "corpus/tech-api-reference",
+    "unresolved": []
+  },
+  "X01": {
+    "accounted_for": [],
+    "class": "probe",
+    "meaning": "changed",
+    "note": "the 5-day deadline now governs paying, not submitting",
+    "outcome": "caution (correct)",
+    "protected": true,
+    "receipt": "b0367f6e93c3955d1e2d35ecb3c812db69980e27211b607a809b549d8c6ad516",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "inline",
+    "unresolved": [
+      "protected_item_moved"
+    ]
+  },
+  "X02": {
+    "accounted_for": [],
+    "class": "probe",
+    "meaning": "changed",
+    "note": "the 5pm deadline now reads as governing both actions",
+    "outcome": "caution (correct)",
+    "protected": true,
+    "receipt": "d3f3eb658baf6f530effb9920532eac18bacd9a7bd9eb6d5043cf5637d22ac21",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "inline",
+    "unresolved": [
+      "protected_item_moved"
+    ]
+  },
+  "X03": {
+    "accounted_for": [
+      "permitted_move"
+    ],
+    "class": "probe",
+    "meaning": "preserved",
+    "note": "fronting in a single-clause sentence",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "1fdcc5d841c7738c51ea9fc93b9bfedf660e759367a5d2b98fdc8b46cb2fa0b0",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "inline",
+    "unresolved": []
+  },
+  "X04": {
+    "accounted_for": [],
+    "class": "probe",
+    "meaning": "changed",
+    "note": "nationality became a verb or adjective",
+    "outcome": "caution (correct)",
+    "protected": false,
+    "receipt": "8f0117541d764f38eb1202a4dd5dc868fa8efd187aca6ce7098735b0fad90b87",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "inline",
+    "unresolved": [
+      "unexplained_change"
+    ]
+  },
+  "X05": {
+    "accounted_for": [],
+    "class": "probe",
+    "meaning": "changed",
+    "note": "\"before Friday\" moved from paying to submitting",
+    "outcome": "caution (correct)",
+    "protected": true,
+    "receipt": "f23d26c8ab7ff87969af68d9e0272b77b8acae1ae3729bf59e1147cbb0420e7f",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "inline",
+    "unresolved": [
+      "protected_item_moved"
+    ]
+  },
+  "X06": {
+    "accounted_for": [],
+    "class": "probe",
+    "meaning": "changed",
+    "note": "amounts swapped",
+    "outcome": "caution (correct)",
+    "protected": true,
+    "receipt": "972c44c2faebda90846e8c3dd481c249d879cf5ca9468b3cd2990c0a484f64ba",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "inline",
+    "unresolved": [
+      "protected_item_moved"
+    ]
+  },
+  "X07": {
+    "accounted_for": [],
+    "class": "probe",
+    "meaning": "changed",
+    "note": "\"only\" moved from members to voting",
+    "outcome": "caution (correct)",
+    "protected": true,
+    "receipt": "643241772ea36a9d1d83423b2b7b7ecd4e65066a327a9b4f51d6a4a13c9134a0",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "inline",
+    "unresolved": [
+      "protected_item_moved"
+    ]
+  },
+  "X08": {
+    "accounted_for": [
+      "formatting"
+    ],
+    "class": "probe",
+    "meaning": "preserved",
+    "note": "emphasis removed",
+    "outcome": "correct",
+    "protected": false,
+    "receipt": "ec49e5bece5c9674218008b631262bab4fca8c68ffd8698f486895436d6029e7",
+    "refused": [],
+    "result": "ACCEPTED",
+    "source": "inline",
+    "unresolved": []
+  },
+  "X09": {
+    "accounted_for": [],
+    "class": "probe",
+    "meaning": "changed",
+    "note": "direction of payment reversed",
+    "outcome": "caution (correct)",
+    "protected": true,
+    "receipt": "3f15e7d02b130f40142ec1d7356120fd88196d595dd9d0bf062f679e848fa21d",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "inline",
+    "unresolved": [
+      "unexplained_change"
+    ]
+  },
+  "X10": {
+    "accounted_for": [],
+    "class": "probe",
+    "meaning": "changed",
+    "note": "amounts swapped between days",
+    "outcome": "caution (correct)",
+    "protected": true,
+    "receipt": "ec37a4120e99e73558b65379633fe04c4ce83d85a40aef9018a33ea7996a7cd7",
+    "refused": [],
+    "result": "INCONCLUSIVE",
+    "source": "inline",
+    "unresolved": [
+      "protected_item_moved"
+    ]
+  }
+}

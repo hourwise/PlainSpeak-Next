@@ -182,10 +182,57 @@ Press **Save As…** on the toolbar (`Ctrl+Shift+S`) and choose a new name, such
 the document you opened, and it writes the engine's result rather than
 whatever is on screen.
 
+## 7. Check someone else's rewrite
+
+PlainSpeak can also judge a rewrite it did not make — by a colleague, an AI
+assistant, another tool. First, give it one it can vouch for: its own.
+
+```bash
+plainspeak present reply.md --profile natural --format text -o reply-presented.md
+plainspeak verify reply.md reply-presented.md
+```
+
+```text
+PlainSpeak verify — ACCEPTED
+  every protected item survived, and every difference is one the integrity model accounts for.
+...
+Accounted for: 3
+  PlainSpeak SAFE rule PS.CLARITY.001 'in order to' -> 'to'
+  PlainSpeak SAFE rule PS.CLARITY.009 'prior to' -> 'before'
+  PlainSpeak SAFE rule PS.LEXICAL.001 'utilize' -> 'use'
+```
+
+Now make a copy of `reply.md` called `reply-edited.md`, and in it change
+"Nevertheless, some features will move." to "Some features are moving." and
+"at least 12 characters" to "at least 10 characters" — the kind of slip a
+hurried rewrite makes. Then:
+
+```bash
+plainspeak verify reply.md reply-edited.md
+```
+
+```text
+PlainSpeak verify — REFUSED
+  a protected item or a region PlainSpeak never rewrites was lost, added or changed.
+...
+Refused: 2
+  [modal] modal removed: will  (before line 7)
+  [number] number changed: 12 became 10  (before line 11; after line 11)
+```
+
+The exit status is 0 for `ACCEPTED`, 1 for `REFUSED` and 3 for `INCONCLUSIVE`
+— nothing protected was lost, but something changed that PlainSpeak cannot
+vouch for, which is what most free rewrites get. None of the three means the
+two texts say the same thing; `ACCEPTED` means only that every protected item
+survived and every difference is accounted for. [VERIFY.md](VERIFY.md) says
+exactly what is and is not checked, and how to run the same check in CI.
+
 ## What next
 
 - Try the same document under `--profile technical` or `--profile academic`
   and compare the style observations.
 - `plainspeak profiles explain natural` shows exactly what a profile expects.
 - `plainspeak rules list` shows the whole rulebook.
+- `plainspeak serve` lets an AI agent call `present`, `verify` and `diagnose`
+  as tools; see [MCP.md](MCP.md).
 - [LIMITATIONS.md](LIMITATIONS.md) says what PlainSpeak cannot do.

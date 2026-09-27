@@ -110,3 +110,26 @@ will not fit every context — "provide → give" is often right and sometimes n
 2. **Accessibility audit.** The HTML report template should be reviewed by an accessibility specialist using real assistive technology.
 3. **Plain-language expert review.** The suggestion glossary should be reviewed by a plain-language professional.
 4. **Legal review.** If the tool is used for legal or medical documents, the limitations of automated analysis in these domains should be clearly understood.
+
+## Verify
+
+- **Not a meaning checker.** Verify checks the properties the integrity model
+  represents. A reworded sentence with every protected fact intact is
+  INCONCLUSIVE, not ACCEPTED; a changed word the model does not protect ("pay"
+  to "receive", "approved" to "rejected") cannot be called wrong.
+- **Strict about equivalent wording.** "at most" and "up to", "no longer than"
+  and "up to", "not less than" and "at least", "shall" and "must", a date
+  written `12/08/2026` instead of `12 August 2026`: each is refused, because the
+  integrity policy treats different spellings as different facts unless a
+  reviewed equivalence says otherwise, and its table of equivalences is
+  deliberately tiny. The validation study counts 17 such false refusals in 97
+  cases ([VERIFY_STUDY.md](VERIFY_STUDY.md)).
+- **Directional words that are not comparators.** "above", "below", "under",
+  "over" and "exceeds" are not protected comparators in integrity policy
+  2026.2, so "3% above" becoming "3% below" is INCONCLUSIVE rather than REFUSED.
+- **Counts modals, not their scope.** "must be encrypted and must be tested"
+  becoming "must be encrypted and tested" loses a "must" and is refused, though
+  the obligation is the same.
+- **English, plain text and Markdown only.** Alignment is quadratic in the worst
+  case; very long documents are slow.
+

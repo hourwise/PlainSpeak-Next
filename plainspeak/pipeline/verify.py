@@ -101,7 +101,7 @@ RECEIPT_SCHEMA = "plainspeak.verify.receipt.v1"
 #: The verification policy: what counts as accounted for. Versioned and hashed
 #: like the integrity policy, because changing it changes which transformations
 #: are accepted, and a receipt must say which rules it was decided under.
-VERIFY_POLICY_VERSION = "2026.1"
+VERIFY_POLICY_VERSION = "2026.2"
 
 ACCEPTED = "ACCEPTED"
 REFUSED = "REFUSED"
@@ -160,6 +160,18 @@ MOVE_JOINERS: tuple[str, ...] = (",",)
 #: it governs for the two to move as one phrase ("before the 5 pm cut-off").
 MAX_UNIT_GAP = 2
 
+#: Words and marks that join clauses. A time or limit phrase may only move in a
+#: sentence that has none of them, because in a sentence with two clauses,
+#: moving the phrase changes which clause it governs: "submit the form before
+#: 5pm and pay the fee" is not "before 5pm, submit the form and pay the fee".
+#: Found by the V2 validation study (case X02).
+CLAUSE_WORDS: tuple[str, ...] = (
+    "although", "and", "because", "but", "if", "nor", "once", "or", "since", "so", "that",
+    "then", "though", "when", "whenever", "where", "whereas", "which", "while", "who",
+    "whom", "whose", "yet",
+)
+CLAUSE_MARKS: tuple[str, ...] = (";", ":", "(", ")", "—", "–")
+
 #: Tokenisation of analysis text. Whitespace is not a token, so reflowing lines
 #: or changing line endings is never a difference; a blank line between blocks
 #: is, because paragraphing can separate a condition from what it governs.
@@ -175,14 +187,17 @@ def verify_policy_document() -> dict[str, Any]:
         "sentence_boundaries": sorted(SENTENCE_BOUNDARIES),
         "move_joiners": sorted(MOVE_JOINERS),
         "max_unit_gap": MAX_UNIT_GAP,
+        "clause_words": sorted(CLAUSE_WORDS),
+        "clause_marks": sorted(CLAUSE_MARKS),
         "token_pattern": TOKEN_PATTERN,
         "accounted_for": [
             "identical token streams (whitespace, line endings, inline markup)",
             "fact equivalence under the integrity policy",
             "PlainSpeak SAFE rules, applied to either side",
-            "capitalisation of a sentence's first word",
+            "capitalisation of a word that became, or stopped being, a sentence's first word",
             "paragraph breaks between sentences",
-            "a comparator and the value it governs moved within one sentence",
+            "a comparator and the value it governs moved between the start and the end of a "
+            "single-clause sentence whose other words are unchanged",
         ],
     }
 
@@ -709,6 +724,8 @@ class _Verification:
         facts_before, facts_after = snapshot(before.source), snapshot(after.source)
         lost = facts_before.signature - facts_after.signature
         gained = facts_after.signature - facts_before.signature
+        unmatched_b, unmatched_a = _unmatched_facts(before.source, facts_before.facts,
+                                                    after.source, facts_after.facts)
         for violation in verdict.violations:
             self.refusals.append({
                 "code": REFUSAL_FACT,
@@ -716,8 +733,8 @@ class _Verification:
                 "before": list(violation.before),
                 "after": list(violation.after),
                 "detail": violation.detail,
-                "before_lines": _lines(before, facts_before.facts, violation.kind, lost),
-                "after_lines": _lines(after, facts_after.facts, violation.kind, gained),
+                "before_lines": _lines(before, unmatched_b, violation.kind, lost),
+                "after_lines": _lines(after, unmatched_a, violation.kind, gained),
             })
 
     def _check_regions(self, before: _Side, after: _Side) -> None:
@@ -810,6 +827,7 @@ class _Verification:
                                           autojunk=False)
         opcodes = matcher.get_opcodes()
         moved_b, moved_a = self._moves(before, after, opcodes)
+        self._relocated = _relocated(before, after, opcodes, moved_b, moved_a)
 
         for tag, i1, i2, j1, j2 in opcodes:
             if tag == "equal":
@@ -839,10 +857,14 @@ class _Verification:
                 continue
             if tb.rule_id or ta.rule_id:
                 continue  # a SAFE replacement's own casing
-            if _sentence_initial(before.tokens, i1 + offset) or _sentence_initial(after.tokens, j1 + offset):
-                continue  # capitalisation of a sentence's first word
+            if _sentence_initial(before.tokens, i1 + offset) != _sentence_initial(after.tokens, j1 + offset):
+                # The word became, or stopped being, the first of its sentence.
+                # A word that is first in both and changed case is a different
+                # word: "Polish" is not "polish" (study case X04).
+                continue
             self.unresolved.append(self._unexplained(
-                before, after, [tb], [ta], "capitalisation changed mid-sentence"))
+                before, after, [tb], [ta], "capitalisation changed in a way the integrity model "
+                                           "cannot vouch for"))
 
     def _changed_region(self, before, after, i1, i2, j1, j2, moved_b, moved_a) -> None:
         removed = before.tokens[i1:i2]
@@ -866,16 +888,27 @@ class _Verification:
                 if after.tokens else None,
             })
             return
-        # Every protected item is on both sides by now, so one that sits in a
-        # changed stretch has moved: the text around it is not where it was.
-        protected = [t for t in residual_b + residual_a if t.is_protected]
-        entry = self._unexplained(
-            before, after, removed, added,
-            "a protected item moved to a different place in the text, and the integrity "
-            "model cannot establish that it still applies to the same thing" if protected else
-            "wording changed in a way the integrity model cannot vouch for",
-            anchor_b=i1, anchor_a=j1)
-        if protected:
+        # Every protected item is on both sides by now. One that sits in a
+        # changed stretch either moved to another sentence, or stayed in its
+        # sentence while the words around it changed. Both are unresolved; they
+        # are reported for what they are.
+        relocated_b, relocated_a = self._relocated
+        kinds = {relocated_b.get(i) for i in range(i1, i2)} | {relocated_a.get(j) for j in range(j1, j2)}
+        moved = bool(kinds & {"sentence", "place"})
+        around = any(t.is_protected for t in residual_b + residual_a)
+        if "sentence" in kinds:
+            detail = ("a protected item moved to a different sentence, and the integrity model "
+                      "cannot establish that it still applies to the same thing")
+        elif "place" in kinds:
+            detail = ("a protected item moved within its sentence, and the integrity model "
+                      "cannot establish that it still applies to the same thing")
+        elif around:
+            detail = ("wording around protected items changed in a way the integrity model "
+                      "cannot vouch for")
+        else:
+            detail = "wording changed in a way the integrity model cannot vouch for"
+        entry = self._unexplained(before, after, removed, added, detail, anchor_b=i1, anchor_a=j1)
+        if moved:
             entry["code"] = UNRESOLVED_MOVED
         self.unresolved.append(entry)
 
@@ -914,6 +947,7 @@ class _Verification:
 
         permitted = skeleton_b == skeleton_a and Counter(unit_keys_b) == Counter(unit_keys_a)
         anchors = _anchors(opcodes)
+        aligned = dict(anchors)
         pairs: list[tuple[list[int], list[int]]] = []
         if permitted:
             remaining = list(range(len(units_a)))
@@ -924,7 +958,10 @@ class _Verification:
                     break
                 remaining.remove(match)
                 unit_a = units_a[match]
-                if not _same_sentence(before, after, unit_b[0], unit_a[0], anchors):
+                if all(aligned.get(i) == j for i, j in zip(unit_b, unit_a)):
+                    continue  # did not move
+                if not (_same_sentence(before, after, unit_b[0], unit_a[0], anchors)
+                        and _edge_move(before, after, unit_b, unit_a)):
                     permitted = False
                     break
                 pairs.append((unit_b, unit_a))
@@ -944,13 +981,9 @@ class _Verification:
             return set(), set()
 
         moved_b, moved_a = set(), set()
-        aligned = {i: j for tag, i1, i2, j1, j2 in opcodes if tag == "equal"
-                   for i, j in zip(range(i1, i2), range(j1, j2))}
         for unit_b, unit_a in pairs:
             span_b = range(unit_b[0], unit_b[-1] + 1)
             span_a = range(unit_a[0], unit_a[-1] + 1)
-            if all(aligned.get(i) == j for i, j in zip(span_b, span_a)):
-                continue  # did not move
             moved_b.update(span_b)
             moved_a.update(span_a)
             self.equivalences.append({
@@ -958,7 +991,8 @@ class _Verification:
                 "kind": "comparator",
                 "before": _snippet(before, [before.tokens[i] for i in span_b]),
                 "after": _snippet(after, [after.tokens[j] for j in span_a]),
-                "detail": "a comparator and the value it governs moved within one sentence",
+                "detail": "a comparator and the value it governs moved between the start and "
+                          "the end of a single-clause sentence",
                 "before_line": before.line(before.tokens[unit_b[0]].source_start),
                 "after_line": after.line(after.tokens[unit_a[0]].source_start),
             })
@@ -1023,6 +1057,81 @@ def _units(side: _Side) -> list[list[int]]:
     return units
 
 
+def _sentence_indices(side: _Side, index: int) -> list[int]:
+    sentence = side.sentence_of[index]
+    return [i for i, number in enumerate(side.sentence_of) if number == sentence]
+
+
+def _edge_move(before: _Side, after: _Side, unit_b: Sequence[int], unit_a: Sequence[int]) -> bool:
+    """Whether a unit moved between the ends of a one-clause sentence and nothing else changed.
+
+    The rest of the sentence (everything but the unit, the commas that join it
+    and the closing punctuation) must be the same words in both texts, must
+    contain no word or mark that joins clauses and no other comparator, and the
+    unit must sit at the start or the end of the sentence in each.
+    """
+    def shape(side: _Side, unit: Sequence[int]) -> Optional[list]:
+        indices = [i for i in _sentence_indices(side, unit[0]) if not side.tokens[i].is_boundary]
+        inside = set(unit)
+        rest = [i for i in indices if i not in inside]
+        # Commas are allowed only where they join the unit to the sentence.
+        joiners = {unit[0] - 1, unit[-1] + 1}
+        if any(side.tokens[i].key == ("P", ",") and i not in joiners for i in rest):
+            return None
+        rest = [i for i in rest if side.tokens[i].key != ("P", ",")]
+        keys = [side.tokens[i].key for i in rest]
+        if any(key[0] == "W" and key[1] in CLAUSE_WORDS for key in keys):
+            return None
+        if any(key[0] == "P" and key[1] in CLAUSE_MARKS for key in keys):
+            return None
+        if any(side.tokens[i].fact_kind == "comparator" for i in rest):
+            return None
+        core = [i for i in indices if side.tokens[i].key != ("P", ",")]
+        if core[: len(unit)] != list(unit) and core[-len(unit):] != list(unit):
+            return None
+        return keys
+
+    found_b, found_a = shape(before, unit_b), shape(after, unit_a)
+    return found_b is not None and found_a is not None and found_b == found_a
+
+
+def _relocated(before: _Side, after: _Side, opcodes, moved_b, moved_a) -> tuple[dict, dict]:
+    """Protected items in changed stretches, and how far their counterpart is.
+
+    Items are paired by identity in document order across all changed
+    stretches. The result maps a token position to "sentence" when its
+    counterpart is in a sentence that does not correspond (or it has none),
+    and to "place" when the counterpart is in the same sentence but a
+    different changed stretch. An item whose counterpart is in the same
+    stretch stayed where it was while the words around it changed.
+    """
+    hunk_b, hunk_a = {}, {}
+    for number, (tag, i1, i2, j1, j2) in enumerate(opcodes):
+        if tag == "equal":
+            continue
+        hunk_b.update({i: number for i in range(i1, i2)
+                       if before.tokens[i].is_protected and i not in moved_b})
+        hunk_a.update({j: number for j in range(j1, j2)
+                       if after.tokens[j].is_protected and j not in moved_a})
+    anchors = _anchors(opcodes)
+    found_b: dict[int, str] = {}
+    found_a: dict[int, str] = {}
+    remaining = sorted(hunk_a)
+    for i in sorted(hunk_b):
+        j = next((j for j in remaining if after.tokens[j].key == before.tokens[i].key), None)
+        if j is None:
+            found_b[i] = "sentence"
+            continue
+        remaining.remove(j)
+        if not _same_sentence(before, after, i, j, anchors):
+            found_b[i] = found_a[j] = "sentence"
+        elif hunk_b[i] != hunk_a[j]:
+            found_b[i] = found_a[j] = "place"
+    for j in remaining:
+        found_a[j] = "sentence"
+    return found_b, found_a
+
+
 def _anchors(opcodes) -> list[tuple[int, int]]:
     return [(i, j) for tag, i1, i2, j1, j2 in opcodes if tag == "equal"
             for i, j in zip(range(i1, i2), range(j1, j2))]
@@ -1083,6 +1192,39 @@ def _line_of(side: _Side, tokens: Sequence[_Token], anchor: Optional[int]) -> Op
 
 def _first_line(side: _Side, tokens: Sequence[_Token]) -> Optional[int]:
     return side.line(tokens[0].source_start) if tokens else None
+
+
+_WORD_RE = re.compile(r"\w+")
+
+
+def _in_context(source: str, fact: IntegrityFact) -> tuple:
+    """A fact's identity with the word either side of it, for telling repeats apart."""
+    earlier = _WORD_RE.findall(source[max(0, fact.start - 40):fact.start])
+    later = _WORD_RE.findall(source[fact.end:fact.end + 40])
+    return (fact.identity, earlier[-1].lower() if earlier else "", later[0].lower() if later else "")
+
+
+def _unmatched_facts(
+    before_source: str, before: Sequence[IntegrityFact],
+    after_source: str, after: Sequence[IntegrityFact],
+) -> tuple[list[IntegrityFact], list[IntegrityFact]]:
+    """The facts that did not survive, located.
+
+    The firewall knows *which* identities were lost or gained, but a lost
+    "will" could be any of five. Aligning the two ordered fact sequences —
+    each fact with the word either side of it — finds the occurrences that
+    have no counterpart, so a report points at the line that changed rather
+    than every line containing the same word. Only for pointing: the verdict
+    is the firewall's.
+    """
+    matcher = difflib.SequenceMatcher(None, [_in_context(before_source, f) for f in before],
+                                      [_in_context(after_source, f) for f in after], autojunk=False)
+    unmatched_b, unmatched_a = [], []
+    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+        if tag != "equal":
+            unmatched_b.extend(before[i1:i2])
+            unmatched_a.extend(after[j1:j2])
+    return unmatched_b, unmatched_a
 
 
 def _lines(side: _Side, facts: Sequence[IntegrityFact], kind: str, changed: Counter) -> list[int]:

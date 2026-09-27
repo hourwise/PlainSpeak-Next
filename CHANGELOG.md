@@ -13,6 +13,10 @@ history this repository preserves; see [UPSTREAM.md](UPSTREAM.md).
 
 ## [Unreleased]
 
+The V2 release candidate. Additive: every 1.0.0 contract is unchanged, and
+`plainspeak.present.v1` output is byte-identical to 1.0.0's. Recommended
+version: 1.1.0 ([V2_SCOPE.md](V2_SCOPE.md)).
+
 ### Added
 - **`plainspeak verify BEFORE AFTER`** judges a transformation made by anyone —
   a person, a language model, an agent, other software — against the integrity
@@ -45,7 +49,29 @@ history this repository preserves; see [UPSTREAM.md](UPSTREAM.md).
 - **`plainspeak diagnose`** and the `plainspeak.diagnose.v1` contract:
   everything `present` observes, applied to nothing, built from the same review
   bundle so the two cannot disagree; plus readability, rounded to two places.
-- `plainspeak.pipeline.verify`, `verify_text` and `verify_files`. Architecture
+- `plainspeak.pipeline.verify`, `verify_text` and `verify_files`.
+- **Validation study** ([VERIFY_STUDY.md](VERIFY_STUDY.md)): 97
+  transformations in ten classes, judged by hand before Verify ran. Final run:
+  no false acceptance; every PlainSpeak transformation accepted; 35 changes of
+  protected meaning all refused (26) or inconclusive (9); 17 false refusals,
+  all from the integrity model's deliberate strictness. Re-run by
+  `tests/test_verify_study.py` on every build.
+
+### Fixed (during V2 development)
+- **Verification policy 2026.2.** The validation study found two false
+  acceptances under 2026.1: a time phrase fronted in a two-clause sentence
+  ("Before 5pm, you must submit the form and pay the fee") and a
+  sentence-initial case change ("Polish" → "polish"). A comparator phrase may
+  now move only between the ends of a single-clause sentence whose other words
+  are unchanged, and capitalisation is accounted for only when a word became or
+  stopped being first in its sentence. 2026.1 was never published.
+- Verify's refusals point at the occurrence that changed, not every line
+  holding the same word; unresolved protected items are described as moved to
+  another sentence, moved within it, or unmoved with the words around them
+  changed.
+- The GitHub Action gave every run in a job the same output directory, so a
+  later run overwrote an earlier run's receipt while its output still pointed
+  at it (found by the dogfood workflow). Architecture
   tests forbid any interface from containing a verifier of its own, and require
   each versioned contract to be defined in exactly one module.
 
