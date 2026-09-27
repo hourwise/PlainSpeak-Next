@@ -17,7 +17,8 @@ anything but text.
     PLAINSPEAK_AFTER           path to the transformed text (required)
     PLAINSPEAK_FAIL_ON         inconclusive (default) | refused | never
     PLAINSPEAK_INPUT_FORMAT    markdown | text (default: from BEFORE's extension)
-    PLAINSPEAK_OUTPUT_DIR      where result.json and receipt.json are written
+    PLAINSPEAK_OUTPUT_DIR      under which <receipt sha256>/result.json and
+                               receipt.json are written
 """
 from __future__ import annotations
 
@@ -238,8 +239,13 @@ def run(environ: Mapping[str, str], stdout: TextIO) -> int:
     except (ActionError, VerifyError) as error:
         return _fatal(stdout, str(error))
 
-    output_dir = Path(environ.get("PLAINSPEAK_OUTPUT_DIR") or (Path(environ.get("RUNNER_TEMP") or ".")
-                                                             / "plainspeak-verify"))
+    base = Path(environ.get("PLAINSPEAK_OUTPUT_DIR") or (Path(environ.get("RUNNER_TEMP") or ".")
+                                                        / "plainspeak-verify"))
+    # One directory per decision, named by its receipt. A job may run the
+    # action several times; a shared directory would let a later run replace
+    # an earlier run's files while its outputs still pointed at them. Two runs
+    # that reach the same decision write the same bytes, so they may share.
+    output_dir = base / result.receipt_id
     output_dir.mkdir(parents=True, exist_ok=True)
     result_path, receipt_path = output_dir / "result.json", output_dir / "receipt.json"
     with open(result_path, "w", encoding="utf-8", newline="") as handle:

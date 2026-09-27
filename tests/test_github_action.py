@@ -145,6 +145,19 @@ def test_inconclusive_findings_are_errors_only_when_they_fail_the_step(workspace
     assert any(line.startswith("::warning ") for line in lenient.splitlines())
 
 
+def test_several_runs_in_one_job_keep_their_own_files(workspace):
+    """Found by the dogfood workflow: a shared directory let a later run
+    overwrite an earlier run's receipt while its output still pointed at it."""
+    runs = [invoke(workspace, name, fail_on="never")[2]
+            for name in ("accepted.md", "refused.md", "inconclusive.md")]
+    assert len({values["receipt-path"] for values in runs}) == 3
+    for values in runs:
+        receipt = json.loads(Path(values["receipt-path"]).read_text(encoding="utf-8"))
+        result = json.loads(Path(values["result-path"]).read_text(encoding="utf-8"))
+        assert receipt["sha256"] == values["receipt-sha256"]
+        assert result["result"] == values["result"]
+
+
 def test_the_same_inputs_give_the_same_receipt(workspace):
     _c, _o, first, _s = invoke(workspace, "accepted.md")
     _c, _o, second, _s = invoke(workspace, "accepted.md")
