@@ -158,9 +158,23 @@ def test_a_quiet_diagnostic_produces_no_proposals() -> None:
 
 
 def test_a_firing_diagnostic_produces_proposals() -> None:
-    plan = plan_style_changes(fixture("signposted"), "plain")
+    plan = plan_style_changes(fixture("concessive-heavy"), "natural")
     assert plan.review_required
-    assert all(p.trigger_diagnostic == policy.TRANSITION_DENSITY for p in plan.review_required)
+    assert all(p.trigger_diagnostic == policy.REPEATED_TRANSITION for p in plan.review_required)
+
+
+def test_a_finding_no_rule_can_honestly_resolve_produces_no_proposals() -> None:
+    """`signposted.md` is too densely signposted for the plain profile.
+
+    Ruleset 2026.3 answered that with "In addition," -> "Also," and "That said,"
+    -> "Even so,", which looked like it lowered the density only because the
+    measure did not count "Also" or "Even so". With style policy 2026.2 counting
+    them, a swap leaves the density exactly where it was, both rules were
+    retired, and the honest result is the diagnostic with nothing to review.
+    """
+    plan = plan_style_changes(fixture("signposted"), "plain")
+    assert [f["id"] for f in plan.findings] == [policy.TRANSITION_DENSITY]
+    assert plan.review_required == ()
 
 
 def test_a_rule_only_acts_on_a_finding_that_names_its_label() -> None:
@@ -209,23 +223,28 @@ def test_the_planner_uses_the_style_layers_own_tokeniser() -> None:
 # ── The cross-profile contrast ─────────────────────────────────────────────
 
 
-def test_the_same_document_gets_different_proposals_by_profile() -> None:
-    """The proof that Phase 8 is actually governing Phase 9.
+def test_the_same_document_gets_different_findings_by_profile() -> None:
+    """The proof that Phase 8 governs what Phase 9 plans from.
 
     `signposted.md` measures 0.2027 transition density. The plain, technical and
     government profiles draw their line at 0.20 and the document crosses it; the
     natural profile draws it at 0.24 and academic at 0.30, and it does not. Same
-    prose, same metrics, different reading — and therefore three profiles with a
-    review item and two with nothing to review.
+    prose, same metrics, different reading, and the planner reads the profile's
+    findings rather than measuring anything itself.
+
+    Until ruleset 2026.4 this contrast also showed up as proposals, through the
+    two density style fixes. They were retired because a connective swap cannot
+    lower density, so the contrast now ends at the findings: no bundled rule can
+    honestly act on this one.
     """
     doc = fixture("signposted")
-    counts = {name: len(plan_style_changes(doc, name).review_required) for name in ALL}
-
-    assert counts["plain"] >= 1
-    assert counts["technical"] >= 1
-    assert counts["government"] >= 1
-    assert counts["natural"] == 0
-    assert counts["academic"] == 0
+    fired = {
+        name: [f["id"] for f in plan_style_changes(doc, name).findings] for name in ALL
+    }
+    for name in ("plain", "technical", "government"):
+        assert fired[name] == [policy.TRANSITION_DENSITY], name
+    for name in ("natural", "academic"):
+        assert fired[name] == [], name
 
 
 def test_the_metrics_are_identical_across_that_contrast() -> None:
@@ -243,9 +262,8 @@ def test_the_contrast_is_visible_in_the_audit() -> None:
     quiet = json.loads(style_plan_to_json(plan_style_changes(doc, "natural")))
     loud = json.loads(style_plan_to_json(plan_style_changes(doc, "plain")))
 
-    assert quiet["proposals"] == []
-    assert loud["proposals"]
-    assert loud["proposals"][0]["profile"] == "plain"
+    assert quiet["findings"] == []
+    assert [f["id"] for f in loud["findings"]] == [policy.TRANSITION_DENSITY]
     assert loud["identity"]["profile_id"] == "plain"
     assert quiet["identity"]["profile_id"] == "natural"
     # Same document, same style policy, different profile identity.
@@ -258,7 +276,7 @@ def test_the_contrast_is_visible_in_the_audit() -> None:
 
 
 def test_the_earliest_occurrences_survive() -> None:
-    """Six "Nevertheless"es, four proposals, and the first two are kept.
+    """Six "Nevertheless"es, two proposals, and the first four are kept.
 
     The earliest uses established the connective; the later ones are the
     repetition. Source order is a total order over a fixed document, so this is
@@ -275,25 +293,46 @@ def test_the_earliest_occurrences_survive() -> None:
         start = found + 1
 
     assert len(all_positions) == 6
-    assert positions == all_positions[2:], "the first two occurrences must be left alone"
+    assert positions == all_positions[4:], "the first four occurrences must be left alone"
 
 
 def test_the_number_proposed_is_the_smallest_that_resolves_the_finding() -> None:
-    """Not every occurrence: only enough to bring the document under the line."""
+    """Not every occurrence: only enough to bring the document under the line.
+
+    Two. "Nevertheless" is 6 of 7 counted connectives. Each proposal writes
+    "Even so,", which style policy 2026.2 counts, so two leave 4 of 7 (0.57),
+    under the natural line of 0.70. Under policy 2026.1 the replacement was
+    invisible, the simulation thought the connectives were disappearing, and it
+    asked for four.
+    """
     plan = plan_style_changes(fixture("concessive-heavy"), "natural")
-    assert len(plan.review_required) == 4
+    assert len(plan.review_required) == 2
 
 
 def test_one_budget_is_shared_across_rules_for_one_finding() -> None:
     """Two rules that could each act do not each propose a full fix.
 
-    `signposted.md` contains both "In addition," and "That said,", and either
-    substitution alone brings the density under the plain profile's line. One
-    proposal is correct; two would ask a reviewer to approve an edit that was
-    not needed.
+    One budget per finding, whatever the number of rules. No bundled rule acts
+    on transition density any more, so this is checked on the budget itself:
+    two rules, one finding, one number.
     """
-    plan = plan_style_changes(fixture("signposted"), "plain")
-    assert len(plan.review_required) == 1
+    from types import SimpleNamespace
+
+    from plainspeak.pipeline.style_plan import _budget
+    from plainspeak.style.profiles import load_profile
+
+    def density_rule(replacement):
+        return SimpleNamespace(
+            action=SimpleNamespace(replacement=replacement),
+            trigger=SimpleNamespace(diagnostic=policy.TRANSITION_DENSITY, evidence_label="x"),
+        )
+
+    finding = SimpleNamespace(id=policy.TRANSITION_DENSITY, sample_size=20)
+    hits = ["however"] * 5  # 5 of 20 sentences is 0.25, over the plain line of 0.20
+    plain = load_profile("plain")
+    one = _budget(finding, [density_rule("")], hits, plain)
+    two = _budget(finding, [density_rule(""), density_rule("")], hits, plain)
+    assert one == two == 2  # 3 of 20 is 0.15, the first count under the line
 
 
 def test_proposals_are_capped_and_the_cap_is_disclosed() -> None:
@@ -375,7 +414,6 @@ def measure(doc, profile: str, diagnostic: str):
     "name,profile,diagnostic",
     [
         ("concessive-heavy", "natural", policy.REPEATED_TRANSITION),
-        ("signposted", "plain", policy.TRANSITION_DENSITY),
     ],
 )
 def test_applying_the_proposals_does_not_worsen_the_targeted_metric(
@@ -455,6 +493,15 @@ def test_a_counted_replacement_cannot_reduce_density() -> None:
                 f"{rule.id} replaces a connective with another connective, which "
                 f"cannot move the density it is triggered by"
             )
+
+    # The forms PlainSpeak's own rules write are counted, so the check above is
+    # not vacuous. Before style policy 2026.2 "Also," and "Even so," were not,
+    # which is how two density rules passed it while doing nothing.
+    for replacement, key in (
+        ("Also,", "also"), ("Even so,", "even so"), ("So,", "so"),
+        ("By contrast,", "by contrast"), ("After that,", "after that"),
+    ):
+        assert _counted(replacement) == key
 
 
 def test_an_unresolvable_finding_produces_a_diagnostic_and_no_proposals() -> None:

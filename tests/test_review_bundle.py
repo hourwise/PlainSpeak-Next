@@ -156,9 +156,14 @@ def test_mapping_survives_multiple_earlier_edits() -> None:
     """
     from itertools import combinations
 
-    bundle = bundle_for(FIXTURES / "concessive-heavy.md")
+    # Three copies of the fixture: since style policy 2026.2 counts the "Even so,"
+    # each proposal writes, one copy honestly needs only two changes, and four
+    # proposals interleaved with safe fixes are what this test is for.
+    source = (FIXTURES / "concessive-heavy.md").read_text(encoding="utf-8")
+    bundle = build_review_bundle(parse_source("\n\n".join([source] * 3)), "natural")
     identifiers = [item.proposal_id for item in bundle.reviewable]
     assert len(identifiers) == 4
+    assert len(bundle.safe_plan.accepted) >= 2
 
     for size in range(len(identifiers) + 1):
         for accepted in combinations(identifiers, size):
@@ -313,9 +318,9 @@ def test_engine_identities_reports_every_family() -> None:
     """The desktop needs these and may not gather them from five packages."""
     identity = engine_identities()
 
-    assert identity["ruleset_version"] == "2026.3"
-    assert identity["ruleset_count"] == 222
-    assert identity["style_fix_count"] == 8
+    assert identity["ruleset_version"] == "2026.4"
+    assert identity["ruleset_count"] == 220
+    assert identity["style_fix_count"] == 6
     assert identity["style_fixes_all_review_required"] is True
     assert identity["profiles"] == ("natural", "plain", "technical", "government", "academic")
     assert len(identity["profile_hashes"]) == 5

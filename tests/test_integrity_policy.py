@@ -35,11 +35,12 @@ from plainspeak.integrity import policy as policy_module
 #: Updating it is correct when the policy changes, and a diff that touches
 #: `policy.py` without touching this line has changed something it did not mean
 #: to.
-POLICY_HASH = "21532115747ceb12218b6f388d885f26d0fbcbbd09f7f895a11c6aa61c9b4720"
+#: 2026.2: "prior to" became a comparator, equivalent to "before".
+POLICY_HASH = "ac617b5499557c17a61ff5a4fa6ce7b123109b3aacd2029887b7b7108808fda2"
 
 
 def test_the_policy_has_its_expected_identity() -> None:
-    assert POLICY_VERSION == "2026.1"
+    assert POLICY_VERSION == "2026.2"
     assert policy_hash() == POLICY_HASH, (
         "The integrity policy hash changed.\n"
         "  If you changed the policy deliberately, update POLICY_HASH here and say so\n"

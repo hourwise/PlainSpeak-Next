@@ -19,7 +19,7 @@ guarantee structural rather than remembered.
 
 ## What a style fix is
 
-Eight rules, all substitutions of one exact phrase for one exact phrase of the
+Six rules, all substitutions of one exact phrase for one exact phrase of the
 same discourse class. Nothing is deleted, nothing is reordered, and no sentence
 changes shape.
 
@@ -31,8 +31,9 @@ changes shape.
 | `PS.STYLEFIX.004` | `Subsequently,` | `After that,` | repeated transition |
 | `PS.STYLEFIX.005` | `For instance,` | `For example,` | repeated transition |
 | `PS.STYLEFIX.006` | `Likewise,` | `Similarly,` | repeated transition |
-| `PS.STYLEFIX.007` | `In addition,` | `Also,` | transition density |
-| `PS.STYLEFIX.008` | `That said,` | `Even so,` | transition density |
+
+Phase 9 shipped eight. The two below were retired in ruleset 2026.4; see
+[Two rules retired in V1](#two-rules-retired-in-v1).
 
 Diagnostic and transformation identities are kept apart on purpose.
 `PS.STYLE.REPEATED_TRANSITION` observes; `PS.STYLEFIX.001` proposes. A reader
@@ -54,6 +55,51 @@ were removed rather than shipped as evidence of effort.
 `test_no_style_fix_duplicates_an_existing_safe_fix` is what stops them coming
 back: it compares every style-fix surface against every automatic one and fails
 on an overlap.
+
+## Two rules retired in V1
+
+`PS.STYLEFIX.007` (`In addition,` → `Also,`) and `PS.STYLEFIX.008`
+(`That said,` → `Even so,`) were triggered by **transition density** and
+described themselves as genuinely reducing it, because "Also" and "Even so"
+were not counted discourse markers. That was the whole mechanism: the
+measurement fell because it could not see the word that replaced the one it
+could. A document with twelve connectives before the change had twelve after
+it.
+
+Style policy 2026.2 counts the connectives PlainSpeak's own rules write —
+"also", "so", "even so", "by contrast", "after that" — when they open a
+sentence, which is the only place those rules put them. With the measurement
+honest, Phase 9's own invariant (`test_a_counted_replacement_cannot_reduce_density`:
+a density rule may not have a counted replacement) failed for both rules. It had
+only ever passed because the count was blind.
+
+Neither was given a different replacement. Another connective is the same trick,
+and deleting "That said," would remove the contrast it carries. Both were
+retired, and the consequences are recorded rather than hidden:
+
+- `signposted.md` under the plain, technical and government profiles still gets
+  its transition-density finding, and now gets no proposal, because no bundled
+  rule can honestly lower density. That is the planner's documented behaviour
+  for a finding it cannot resolve.
+- The cross-profile contrast Phase 8 established now shows in **findings** only.
+  All five profiles draw the same repeated-transition line, so the six remaining
+  rules propose the same changes under every profile.
+- `concessive-heavy.md` under natural needs two proposals, not four. Each
+  "Even so," is now counted, so the budget simulation no longer believes the
+  connectives are disappearing as it swaps them. The two proposals that remain
+  keep the identifiers they had.
+
+## The style guard on safe fixes
+
+Separately from style *suggestions*, V1 checks safe fixes against style. Three
+different safe fixes turn `Furthermore,`, `Moreover,` and `Additionally,` into
+`Also,`; applied together to a document that uses all three, they made twelve of
+twenty sentences begin with the same word. `pipeline.style_guard` now measures
+the document as its safe fixes would leave it, and if any baseline diagnostic
+becomes more severe it admits the fixes rule by rule, in identifier order, and
+refuses the ones that would make it worse — with the diagnostic named. It judges
+against the baseline policy rather than a profile, so a safe fix means the same
+thing for every reader.
 
 ## What is deliberately not here
 
@@ -295,6 +341,16 @@ renumbered.
 
 The profile thresholds were **not** touched. Phase 9 consumes Phase 8 profiles;
 it does not recalibrate them to make style fixes easier to trigger.
+
+V1 moved four of these, each deliberately:
+
+| | Phase 9 | V1 |
+|---|---|---|
+| Ruleset | 2026.3 / `7eddd0710ec1` / 222 rules | **2026.4 / `b2068de58272` / 220 rules** — two density style fixes retired |
+| Integrity | 2026.1 / `21532115747c` | **2026.2 / `ac617b549955`** — "prior to" ≡ "before" |
+| Morphology | 2026.1 / `93fba6907f87` | unchanged |
+| Style policy | 2026.1 / `bedae926205a` | **2026.2 / `80ef39cef5f5`** — sentence-initial connectives, sample units |
+| Profile pack | 2026.1 / `cb305d331a31` | 2026.1 / **`73deed35d673`** — profiles unchanged; the pack names its base policy |
 
 ## Still true from Phase 7
 

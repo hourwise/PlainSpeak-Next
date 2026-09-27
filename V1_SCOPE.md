@@ -5,9 +5,10 @@ count as breaking. Written before V1 feature work began, so that the features
 are built to a contract rather than the contract being written around whatever
 the features turned out to do.
 
-Items marked *(Stage 1)* are part of the V1 contract but were not yet
-implemented when this document was first written; the V1 release candidate is
-not ready until they are.
+Some items were part of the V1 contract before they were implemented; all of
+them were delivered in Stage 1 and the markers have been removed. The engine
+identities V1 ships with are ruleset 2026.4, integrity policy 2026.2, morphology
+2026.1, style policy 2026.2 and profile pack 2026.1.
 
 ## Guaranteed in V1
 
@@ -57,8 +58,16 @@ Every change PlainSpeak considers is exactly one of:
 | `REVIEW` | A profile-triggered style suggestion. **Never** applied without an explicit human decision bound to the plan it came from. |
 | `REFUSED` | A change PlainSpeak will not make: the firewall vetoed it, or applying it would damage the text. There is no override. |
 
-- *(Stage 1)* SAFE changes are admitted only if applying them does not make a
-  governed style diagnostic worse.
+- SAFE changes are admitted only if, together, they make no baseline style
+  diagnostic more severe. Otherwise they are admitted rule by rule in
+  identifier order, and a rule whose changes would make a diagnostic worse is
+  REFUSED with the diagnostic named. The judgement uses the baseline style
+  policy, not the selected profile, so SAFE output is the same under every
+  profile.
+- The connectives PlainSpeak's own rules write ("also", "so", "even so",
+  "by contrast", "after that") are counted by the transition measures when they
+  open a sentence, so no substitution can make those measures look better by
+  hiding from them.
 
 ### Integrity protection
 
@@ -71,9 +80,9 @@ of comparators and qualifiers ("at least", "no later than", "before",
 "unless", …).
 
 - The firewall cannot be disabled by any rule, profile, flag or adapter.
-- *(Stage 1)* A small, versioned table of equivalent forms (for example
-  "prior to" and "before") is treated as the same fact. Each entry is
-  deliberately chosen and adversarially tested.
+- A small, versioned table of equivalent forms is treated as the same fact. In
+  V1 it has one entry: "prior to" is "before". Each entry is deliberately
+  chosen and adversarially tested, and admitting a form also protects it.
 
 ### Review
 
@@ -83,9 +92,12 @@ of comparators and qualifiers ("at least", "no later than", "before",
 
 ### Short texts
 
-- *(Stage 1)* Where a text is too short for a diagnostic's minimum sample, the
-  result says so explicitly. Absence of a finding is never presented as
-  evidence that the text is stylistically clean.
+- Where a text is too short for a diagnostic's minimum sample under the
+  selected profile, the result says so explicitly: `insufficient_sample` in
+  `style_coverage` and `counts.insufficient_sample` in the JSON contract, a
+  line in the CLI summary, and a NOT ENOUGH TEXT row in the desktop's Style
+  table. Absence of a finding is never presented as evidence that the text is
+  stylistically clean.
 
 ### Public contracts
 
@@ -95,7 +107,9 @@ of comparators and qualifiers ("at least", "no later than", "before",
   text), `engine` (every authority's version and hash, the plan hash),
   `counts`, `applied`, `review`, `refused`, `protected` (policy identity,
   `preserved`, and each fact's kind, surface, normalised form and source
-  offsets) and `diagnostics`. Canonical JSON: sorted keys, no insignificant
+  offsets), `diagnostics` and `style_coverage` (every diagnostic's status —
+  `assessed`, `insufficient_sample` or `disabled` — with its sample, the
+  profile's minimum and the unit). Canonical JSON: sorted keys, no insignificant
   whitespace, a final newline, and no timestamps, paths or host details.
 - Errors in the same schema: `{"schema", "status": "error", "error": {"code",
   "message"}}`, with codes `empty_input`, `unsupported_input`,

@@ -42,7 +42,11 @@ from ..document.model import Document, Span
 from .review import (
     REVIEWABLE_SUFFIXES,
     UNSUPPORTED_MESSAGE,
+    COVERAGE_ASSESSED,
+    COVERAGE_DISABLED,
+    COVERAGE_INSUFFICIENT,
     ChangeView,
+    CoverageView,
     DiagnosticView,
     PreviewResult,
     ReviewBundle,

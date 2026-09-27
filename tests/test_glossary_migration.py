@@ -41,17 +41,19 @@ INVENTORY_HASH = "b1657b20e4a4a0768d9c4b6b9d783d2293e1b20f98b6ae8bfbed91d72bc5fc
 #: The ruleset as it currently ships. Phase 4 was 2026.1 / 38 / 2110d4ed…;
 #: the glossary migration made it 2026.2 / 214 / e5aaf376…; Phase 9 activated
 #: the `style-fix` mode and added eight transition substitutions, making it
-#: 2026.3 / 222. Each step bumps the version rather than quietly retaining an
+#: 2026.3 / 222; V1 retired the two density style fixes, which could never
+#: lower the density that triggered them once it was measured honestly, making
+#: it 2026.4 / 220. Each step bumps the version rather than quietly retaining an
 #: old hash, because each changes what the engine will do to a document.
 #:
 #: The migration figures below are unchanged: Phase 9 added rules in a new
-#: family and renumbered nothing.
-RULESET_VERSION = "2026.3"
-RULESET_COUNT = 222
+#: family and renumbered nothing, and V1 removed two of those.
+RULESET_VERSION = "2026.4"
+RULESET_COUNT = 220
 #: How many of those came from the glossary migration. Pinned separately so a
 #: later phase adding rules cannot silently change what this file is about.
 MIGRATED_RULESET_COUNT = 214
-RULESET_HASH = "7eddd0710ec15b7bdc940321d08dd2c4882e1561e11f8473fb1f2148709c0461"
+RULESET_HASH = "b2068de58272bc2f48564a3cb643a6a2341f9b35fee6e0aa9961b5e5e2de44a0"
 
 #: Rule IDs that existed before the migration. These must never be renumbered:
 #: an ID is a permanent public identity that an audit record may already name.

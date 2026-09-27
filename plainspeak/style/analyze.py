@@ -85,6 +85,7 @@ def observe(text: str, structure: Optional[DocumentStructure] = None) -> StyleOb
         observations=tuple(
             sorted((item for item in found if item is not None), key=lambda item: item.id)
         ),
+        samples=patterns.available_samples(text, shape),
     )
 
 

@@ -20,6 +20,7 @@ from typing import Optional
 
 from .model import IntegrityFact, IntegritySnapshot, text_hash
 from .policy import (
+    EQUIVALENCES,
     CATEGORIES,
     CURRENCY_CODES,
     CURRENCY_SYMBOLS,
@@ -200,6 +201,15 @@ def _normalize_lower(surface: str) -> str:
     return _collapse(surface).lower()
 
 
+def _normalize_comparator(surface: str) -> str:
+    """Lower-cased, then mapped through the reviewed equivalence table.
+
+    "Prior to" and "before" become one fact; "before" and "after" stay two.
+    """
+    lowered = _normalize_lower(surface)
+    return EQUIVALENCES.get("comparator", {}).get(lowered, lowered)
+
+
 def _normalize_exact(surface: str) -> str:
     """Kept character for character. Used where any difference is a difference."""
     return surface
@@ -212,7 +222,7 @@ _NORMALIZERS = {
     "measurement": _normalize_measurement,
     "negation": _normalize_negation,
     "modal": _normalize_lower,
-    "comparator": _normalize_lower,
+    "comparator": _normalize_comparator,
     "time": _normalize_lower,
     "cve": _normalize_lower,
     "uuid": _normalize_lower,

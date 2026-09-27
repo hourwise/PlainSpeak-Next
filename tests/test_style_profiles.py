@@ -41,7 +41,9 @@ BUNDLED = Path(__file__).resolve().parent.parent / "plainspeak" / "style" / "pro
 
 #: The pack as it currently ships. Pinned so Windows, Linux and macOS all assert
 #: the same number rather than each comparing itself to itself.
-PROFILE_PACK_HASH = "cb305d331a312e1a839a35ff3cd016039dd4b666cbca9f2f58ff407743885575"
+#: Moved with style policy 2026.2, which the pack document names. Every
+#: profile below is byte-identical to Phase 8.
+PROFILE_PACK_HASH = "73deed35d6738804e431dfdbdc9e908abf43ab21f06f4d52d75ed4ff50b54676"
 
 PROFILE_HASHES = {
     "natural": "e6c391c6b1ee8c65eaa292048aaed8b1233429421bb94ad804d4f45e0c7d73c4",

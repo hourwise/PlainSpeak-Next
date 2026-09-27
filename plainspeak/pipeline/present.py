@@ -164,6 +164,7 @@ class PresentResult:
                 "refused": len(self.refused),
                 "protected": len(protected),
                 "diagnostics": len(self.bundle.diagnostics()),
+                "insufficient_sample": len(self.bundle.insufficient_sample()),
             },
             "applied": [item.as_dict() for item in self.applied],
             "review": [item.as_dict() for item in self.review],
@@ -184,6 +185,10 @@ class PresentResult:
                 ],
             },
             "diagnostics": [item.as_dict() for item in self.bundle.diagnostics()],
+            # Every diagnostic, and whether the text was long enough for it. A
+            # diagnostic with `insufficient_sample` did not judge the text; its
+            # absence from `diagnostics` is not evidence of anything.
+            "style_coverage": [item.as_dict() for item in self.bundle.coverage()],
         }
 
     def to_json(self) -> str:

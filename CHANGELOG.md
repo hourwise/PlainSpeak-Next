@@ -45,14 +45,36 @@ described in full in its commit messages and in the document linked.
   self-tests ([DESKTOP_MVP.md](DESKTOP_MVP.md)).
 - [ROADMAP.md](ROADMAP.md) rewritten for PlainSpeak Next, and
   [V1_SCOPE.md](V1_SCOPE.md) defining what 1.0 will and will not promise.
-
 - **`plainspeak present`** — the governed, non-interactive transformation:
   every SAFE change applied, REVIEW proposals reported and never applied,
   refusals explained. Emits the versioned `plainspeak.present.v1` JSON contract
   (or `text`, `marked`, `summary`), reads a file or standard input, and never
   writes its input. `plainspeak.pipeline.present` / `present_text` in Python.
+- **Style guard on safe fixes.** Safe fixes that together would make a baseline
+  style diagnostic more severe are refused rule by rule, with the diagnostic
+  named. Three rules turning "Furthermore", "Moreover" and "Additionally" into
+  "Also" had been able to make most of a document's sentences begin with it.
+- **Integrity equivalences** (policy 2026.2): a versioned, adversarially tested
+  table of spellings that are the same fact. One entry: "prior to" is "before",
+  so `PS.CLARITY.009` now applies — and deleting "prior to" or turning it into
+  "after", which the firewall previously did not protect, is now refused.
+- **Short-text honesty.** Every style diagnostic reports whether the document
+  had enough text for it (`style_coverage` in the JSON contract, the CLI
+  summary, NOT ENOUGH TEXT rows in the desktop), so a short text is reported as
+  not judged rather than clean.
 
 ### Changed
+- **Style policy 2026.2** counts the connectives PlainSpeak's own rules write
+  ("also", "so", "even so", "by contrast", "after that") when they open a
+  sentence, and declares each diagnostic's sample unit. No threshold moved, and
+  no baseline finding in the Phase 7 corpus changed. One Phase 8 false positive
+  (`allotment-year.md`, repeated transition) no longer fires under the baseline.
+- **Ruleset 2026.4** retires `PS.STYLEFIX.007` and `PS.STYLEFIX.008`, which
+  answered transition density by swapping one connective for another and only
+  appeared to lower it because the replacements were not counted. Six style
+  fixes remain; a density finding now comes with nothing to review.
+- Repeated-transition proposals are budgeted honestly: `concessive-heavy.md`
+  under natural needs two, not four.
 - **One engine.** `plainspeak simplify` is now a deprecated alias for
   `present --format marked`, and requires `--profile`. The web interface's
   simplified text is the governed presentation. Both previously called the

@@ -298,6 +298,14 @@ def _present_summary(result) -> str:
     diagnostics = result.bundle.diagnostics()
     lines.append(f"Style observations under {result.bundle.profile_id}: {len(diagnostics)}")
     lines += [f"  [{item.severity}] {item.message}" for item in diagnostics]
+    short = result.bundle.insufficient_sample()
+    if short:
+        total = sum(1 for item in result.bundle.coverage() if item.status != "disabled")
+        lines.append(
+            f"Not enough text to judge {len(short)} of {total} style diagnostics "
+            f"(INSUFFICIENT_SAMPLE) — their silence is not a clean result:"
+        )
+        lines += [f"  {item.id.rsplit('.', 1)[-1]}: {item.message}" for item in short]
     return BLANK.join(lines) + BLANK
 
 

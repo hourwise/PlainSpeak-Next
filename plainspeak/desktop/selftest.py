@@ -26,19 +26,19 @@ NL = chr(10)
 #: self-consistent: a frozen application comparing itself to itself would pass
 #: while carrying a completely different ruleset.
 EXPECTED = {
-    "ruleset_version": "2026.3",
-    "ruleset_count": 222,
-    "ruleset_sha256": "7eddd0710ec15b7bdc940321d08dd2c4882e1561e11f8473fb1f2148709c0461",
-    "integrity_version": "2026.1",
-    "integrity_sha256": "21532115747ceb12218b6f388d885f26d0fbcbbd09f7f895a11c6aa61c9b4720",
+    "ruleset_version": "2026.4",
+    "ruleset_count": 220,
+    "ruleset_sha256": "b2068de58272bc2f48564a3cb643a6a2341f9b35fee6e0aa9961b5e5e2de44a0",
+    "integrity_version": "2026.2",
+    "integrity_sha256": "ac617b5499557c17a61ff5a4fa6ce7b123109b3aacd2029887b7b7108808fda2",
     "morphology_version": "2026.1",
     "morphology_sha256": "93fba6907f874be5ec2832b5784874754c366f4c37ea5820a55a48513cf13263",
-    "style_policy_version": "2026.1",
-    "style_policy_sha256": "bedae926205a22cd6f2e9421d652c9d7fd7fa2f502e124210b29afbf773f421c",
+    "style_policy_version": "2026.2",
+    "style_policy_sha256": "80ef39cef5f5435fc47cc2d883f74048e2db9db5f5cea049a1fefb7815589de2",
     "profile_pack_version": "2026.1",
-    "profile_pack_sha256": "cb305d331a312e1a839a35ff3cd016039dd4b666cbca9f2f58ff407743885575",
+    "profile_pack_sha256": "73deed35d6738804e431dfdbdc9e908abf43ab21f06f4d52d75ed4ff50b54676",
     "profiles": ("natural", "plain", "technical", "government", "academic"),
-    "style_fix_count": 8,
+    "style_fix_count": 6,
     "syllable_minimum": 100_000,
 }
 

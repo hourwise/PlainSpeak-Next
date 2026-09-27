@@ -118,9 +118,15 @@ def test_evidence_does_not_move_between_profiles(path: Path) -> None:
 # ── Baseline compatibility ─────────────────────────────────────────────────
 
 #: Pinned before Phase 8 began, from the Phase 7 suite. Profiles must not move it.
+#:
+#: Re-pinned once, for style policy 2026.2, which the analysis record names. The
+#: Phase 7 values were `903209e3…` and `4d0a1510…`. Before re-pinning, every
+#: baseline finding in the Phase 7 corpus — diagnostic, severity and value — was
+#: compared under both policies and none differed; only the policy identity in
+#: the record moved.
 BASELINE_DIGESTS = {
-    "transition_heavy": "903209e323beff7326aa496a025fcc1d33e17bf49542d7f7b867e0a7dc37cd4a",
-    "long_natural": "4d0a1510e029d798cf094142c0224fcd76c9e264652550d29974f719051722ca",
+    "transition_heavy": "1153ce61153a9bd766bbb044c15fc838e9076446859667bd9982973ca4a14789",
+    "long_natural": "bfa53eaaf6c6c349c5a68e0107d3ba8552464f21ae0ad554ff8946b514a415a7",
 }
 
 

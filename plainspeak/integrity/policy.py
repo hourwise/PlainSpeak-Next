@@ -14,8 +14,10 @@ that would mean applying edits nobody checked.
 Two design commitments run through it.
 
 **Bounded, not clever.** There is no attempt at arbitrary scientific-unit
-parsing, no locale resolution for ambiguous slash dates, and no semantic
-equivalence. Every vocabulary here is a list somebody reviewed. A pattern that
+parsing, no locale resolution for ambiguous slash dates, and no open-ended
+semantic equivalence — only `EQUIVALENCES`, a short table of spellings that
+are the same fact, each chosen deliberately and tested adversarially. Every
+vocabulary here is a list somebody reviewed. A pattern that
 would need judgement to apply is a pattern that belongs in a diagnostic.
 
 **Conservative on both sides.** Where a category might over-match ordinary
@@ -33,7 +35,7 @@ from typing import Any
 #: Bumped when the protected categories or their recognition change in a way
 #: that alters what would be accepted. The hash below moves with any change at
 #: all; the version is the human-facing label for it.
-POLICY_VERSION = "2026.1"
+POLICY_VERSION = "2026.2"
 
 #: Bumped only if the canonical rendering itself changes shape, so that a hash
 #: computed under an older layout can never be mistaken for a current one.
@@ -121,7 +123,32 @@ COMPARATOR_PHRASES: tuple[str, ...] = (
     "at least", "at most", "more than", "less than", "greater than",
     "fewer than", "up to", "as many as", "as few as",
     "before", "after", "within", "until", "unless", "only", "except",
+    "prior to",
 )
+
+#: Spellings of one protected fact, by kind: `{surface: canonical}`.
+#:
+#: The firewall compares facts by kind and normalised form, so two spellings
+#: of the same comparator are ordinarily two different facts and a rewrite
+#: between them is refused. An entry here makes them one fact. That is a
+#: decision about meaning, so the table is deliberately tiny, every entry is
+#: reviewed, and every entry is tested in both directions and against its near
+#: misses — see `tests/test_integrity_equivalence.py`.
+#:
+#: Admitting a spelling also *protects* it. Before 2026.2 "prior to" was not a
+#: comparator at all, so deleting it, or turning it into "after", passed the
+#: firewall; now both are refused. An equivalence never makes the firewall
+#: weaker about anything it already protected.
+#:
+#: Keys are lower-case with single spaces, the form comparator matches are
+#: normalised to before the table is consulted.
+EQUIVALENCES: dict[str, dict[str, str]] = {
+    "comparator": {
+        # Preposition only: the pattern needs the following "to", so the
+        # adjectival "prior agreement" is never matched.
+        "prior to": "before",
+    },
+}
 
 
 # ── Categories ─────────────────────────────────────────────────────────────
@@ -186,7 +213,7 @@ NORMALIZERS: dict[str, str] = {
     "measurement": "measurement",
     "negation": "single-token",
     "modal": "lowercase",
-    "comparator": "lowercase",
+    "comparator": "lowercase-equivalence",
     "time": "lowercase",
     "cve": "lowercase",
     "uuid": "lowercase",
@@ -302,6 +329,10 @@ def policy_document() -> dict[str, Any]:
             "negation": sorted(NEGATION_WORDS),
             "modal": sorted(MODAL_WORDS),
             "comparators": sorted(COMPARATOR_PHRASES),
+        },
+        "equivalences": {
+            kind: {surface: EQUIVALENCES[kind][surface] for surface in sorted(EQUIVALENCES[kind])}
+            for kind in sorted(EQUIVALENCES)
         },
     }
 

@@ -109,6 +109,12 @@ Three ordinary natural documents fire under the baseline:
 
 None of these is repetitive prose. They are conversational and essayistic writing
 in which one connective happens to be the most common of the eight or ten used.
+
+*Since style policy 2026.2:* `allotment-year.md` no longer fires under the
+baseline either. Two of its sentences open with "So,", which 2026.2 counts as a
+connective, so "first" is 5 of 12 (0.417) rather than 5 of 10. The other two
+documents still fire under the baseline and are still corrected by every
+profile.
 Phase 7 could not have found this: no document in that corpus reached the
 six-transition minimum from the quiet side. `transition_heavy.md` measures 1.0
 and is still `strong` at 0.88.
@@ -143,6 +149,14 @@ tells them to update this page.
 This is the honest position and not a comfortable one. The baseline is known to
 be over-sensitive on three diagnostics, and a caller using the unprofiled path
 gets those false positives.
+
+**V1 did change the base policy**, to 2026.2, for a different reason: the
+connectives PlainSpeak's own rules write were invisible to the transition
+measures, which let a swap look like an improvement (see
+[STYLE_TRANSFORMATIONS.md](STYLE_TRANSFORMATIONS.md#two-rules-retired-in-v1)).
+No threshold moved. Every baseline finding in the Phase 7 corpus was compared
+under both policies before the digests were re-pinned, and none differed; the
+Phase 7 digests changed only because the analysis record names its policy.
 
 ## Target ranges
 

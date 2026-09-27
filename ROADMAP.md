@@ -52,13 +52,15 @@ labelled as such; [V1_SCOPE.md](V1_SCOPE.md) written before any V1 feature code.
    and output hashes, engine identities, applied changes, pending reviews,
    refusals, protected facts and diagnostics. MCP and other adapters will reuse
    this contract rather than invent their own.
-3. **Post-fix style validation.** Style is re-measured after SAFE changes, and a
+3. ✅ **Post-fix style validation.** Style is re-measured after SAFE changes, and a
    set of changes that makes a governed diagnostic worse is not applied. The
    engine's own replacements must not be able to evade its own metrics.
-4. **First integrity equivalences.** A small, versioned, adversarially tested
+   Delivered with honest connective counting, which also exposed two style
+   fixes that only ever appeared to work; they were retired.
+4. ✅ **First integrity equivalences.** A small, versioned, adversarially tested
    table of forms the firewall treats as the same fact (starting with
    "prior to" ≡ "before"). The firewall stays fail-closed.
-5. **Short-text honesty.** Below a diagnostic's minimum sample, PlainSpeak says
+5. ✅ **Short-text honesty.** Below a diagnostic's minimum sample, PlainSpeak says
    there was not enough text to judge rather than implying the text is clean.
 
 ## Stage 2 — V1 release

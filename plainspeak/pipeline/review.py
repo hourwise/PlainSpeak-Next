@@ -42,6 +42,7 @@ from ..integrity import check as integrity_check
 from ..rules import Ruleset, load_ruleset
 from ..rules.canonical import canonical_json
 from ..style.model import ProfiledAnalysis, StyleObservations
+from ..style.policy import DIAGNOSTIC_IDS, SAMPLE_UNITS
 from ..style.profiles import StyleProfile, load_profile, profile_ids
 from .apply import ApplicationError
 from .planner import TransformationPlan, build_plan
@@ -229,6 +230,49 @@ class DiagnosticView:
         }
 
 
+#: Whether a diagnostic could speak about this document under this profile.
+COVERAGE_ASSESSED = "assessed"
+COVERAGE_INSUFFICIENT = "insufficient_sample"
+COVERAGE_DISABLED = "disabled"
+
+
+@dataclass(frozen=True)
+class CoverageView:
+    """Whether one style diagnostic had enough text to judge.
+
+    `assessed` means the diagnostic had at least the profile's minimum sample,
+    so its silence is a result. `insufficient_sample` means it did not, so its
+    silence says nothing about the text. `disabled` means the profile does not
+    consider it at all.
+    """
+
+    id: str
+    status: str
+    sample_size: int
+    minimum: int
+    unit: str
+
+    @property
+    def message(self) -> str:
+        if self.status == COVERAGE_INSUFFICIENT:
+            return (
+                f"Needs {self.minimum} {self.unit}; this document has {self.sample_size}. "
+                f"Too short to judge, not judged clean."
+            )
+        if self.status == COVERAGE_DISABLED:
+            return "Not considered under this profile."
+        return f"Assessed on {self.sample_size} {self.unit}."
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "id": self.id,
+            "minimum": self.minimum,
+            "sample_size": self.sample_size,
+            "status": self.status,
+            "unit": self.unit,
+        }
+
+
 @dataclass(frozen=True)
 class ReviewBundle:
     """One document, one profile, one immutable reading of both.
@@ -292,6 +336,39 @@ class ReviewBundle:
             )
             for finding in self.analysis.findings
         )
+
+    def coverage(self) -> tuple[CoverageView, ...]:
+        """Every style diagnostic, and whether the document was long enough for it.
+
+        The profile's minimum decides, because the profile is what interpreted
+        the measurements: a diagnostic silent for want of evidence must never be
+        mistaken for one that looked and found nothing.
+        """
+        observed = self.observations.by_id()
+        rows = []
+        for identifier in sorted(DIAGNOSTIC_IDS):
+            rule = self.profile.rule(identifier)
+            item = observed.get(identifier)
+            sample = item.sample_size if item is not None else self.observations.samples.get(identifier, 0)
+            if rule is None or not rule.enabled:
+                status, minimum = COVERAGE_DISABLED, 0
+            else:
+                minimum = rule.minimum_sample
+                status = COVERAGE_ASSESSED if sample >= minimum else COVERAGE_INSUFFICIENT
+            rows.append(
+                CoverageView(
+                    id=identifier,
+                    status=status,
+                    sample_size=sample,
+                    minimum=minimum,
+                    unit=SAMPLE_UNITS[identifier],
+                )
+            )
+        return tuple(rows)
+
+    def insufficient_sample(self) -> tuple[CoverageView, ...]:
+        """The diagnostics that could not judge this document, for want of text."""
+        return tuple(item for item in self.coverage() if item.status == COVERAGE_INSUFFICIENT)
 
     def preview(
         self,
@@ -589,7 +666,7 @@ def build_review_bundle(
     view = project_document(document)
     observed = observe_style(document, view)
     analysis = interpret_style(observed, resolved)
-    safe_plan = build_plan(document, rules, view)
+    safe_plan = build_plan(document, rules, view, observed=observed)
     style = plan_style_changes(
         document, resolved, ruleset=rules, projection=view,
         observed=observed, safe_plan=safe_plan,

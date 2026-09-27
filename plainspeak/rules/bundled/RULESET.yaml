@@ -1,4 +1,4 @@
-ruleset_version: "2026.3"
+ruleset_version: "2026.4"
 description: >
   The rules PlainSpeak Next ships with. Every rule states what it matches,
   what it would do, why, where it came from, and the cases where it must stay
@@ -19,3 +19,9 @@ description: >
   chosen style profile, it may propose nothing until the style layer has
   produced the finding that justifies it, and it always requires human review.
   No style fix can enter the accepted set of a plan.
+
+  2026.4 retires PS.STYLEFIX.007 and PS.STYLEFIX.008, the two style fixes that
+  answered transition density by replacing one connective with another. They
+  seemed to lower the density only because the measure did not count the
+  connective they wrote; with style policy 2026.2 counting it, neither could
+  ever resolve the finding that triggered it. Six style fixes remain.

@@ -303,6 +303,31 @@ def test_style_diagnostics_are_listed_with_evidence(window) -> None:
     assert first.evidence
 
 
+def test_a_short_document_says_it_is_too_short_rather_than_clean(window, tmp_path) -> None:
+    """An empty Style table on a short document would read as "nothing wrong".
+
+    Every diagnostic that had too little text gets a row saying so, badged in
+    words, so a reader can see the difference between not judged and clean.
+    """
+    short = tmp_path / "short.md"
+    short.write_text("Please reset your password. Then sign in again.\n", encoding="utf-8")
+    opened(window, short)
+    model = window.diagnostics_model
+
+    assert model.rowCount() == 13
+    for row in range(model.rowCount()):
+        assert model.data(model.index(row, 0)) == "NOT ENOUGH TEXT"
+        assert "not judged clean" in model.data(model.index(row, 2))
+
+
+def test_a_long_document_lists_findings_before_any_short_sample_rows(window) -> None:
+    opened(window, FIXTURES / "concessive-heavy.md")
+    model = window.diagnostics_model
+    badges = [model.data(model.index(row, 0)) for row in range(model.rowCount())]
+    findings = [b for b in badges if b != "NOT ENOUGH TEXT"]
+    assert findings and badges[: len(findings)] == findings
+
+
 def test_the_diagnostics_panel_makes_no_authorship_claim(window) -> None:
     """The desktop inherits the engine's policy in full."""
     opened(window, FIXTURES / "concessive-heavy.md")

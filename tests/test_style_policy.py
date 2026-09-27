@@ -36,14 +36,16 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 #: The style policy as it currently ships. Pinned so the Windows, Linux and
 #: macOS jobs all assert the same number rather than each comparing itself to
 #: itself, and so that a threshold cannot move without a reviewer seeing it.
-STYLE_POLICY_HASH = "bedae926205a22cd6f2e9421d652c9d7fd7fa2f502e124210b29afbf773f421c"
+#: 2026.2: sentence-initial connectives are counted, and each diagnostic
+#: declares its sample unit.
+STYLE_POLICY_HASH = "80ef39cef5f5435fc47cc2d883f74048e2db9db5f5cea049a1fefb7815589de2"
 
 
 # ── Identity ───────────────────────────────────────────────────────────────
 
 
 def test_the_policy_has_its_expected_identity() -> None:
-    assert STYLE_POLICY_VERSION == "2026.1"
+    assert STYLE_POLICY_VERSION == "2026.2"
     assert policy_hash() == STYLE_POLICY_HASH, (
         "The style policy hash changed.\n"
         "  If you moved a threshold or edited a vocabulary deliberately, update\n"

@@ -471,7 +471,7 @@ class MainWindow(QMainWindow):
             self.revised_view.setPlainText(snapshot.revised_text)
 
         self.changes_model.set_changes(snapshot.changes)
-        self.diagnostics_model.set_diagnostics(snapshot.diagnostics)
+        self.diagnostics_model.set_diagnostics(snapshot.diagnostics, snapshot.insufficient)
         self.refusals_model.set_refusals(snapshot.changes)
         self.details_view.setPlainText(_details_text(snapshot))
 

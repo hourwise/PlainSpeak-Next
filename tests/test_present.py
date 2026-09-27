@@ -27,7 +27,7 @@ from plainspeak.pipeline import (
 from plainspeak.style.profiles import load_profile
 
 REPO = Path(__file__).resolve().parents[1]
-#: Four transition suggestions under Natural, plus one SAFE change.
+#: Two transition suggestions under Natural, plus one SAFE change.
 REVIEW_FIXTURE = REPO / "tests" / "style" / "stylefix" / "concessive-heavy.md"
 
 SAMPLE = (
@@ -131,7 +131,7 @@ def test_safe_changes_are_applied():
 
 def test_review_proposals_are_reported_and_never_applied():
     result = present(load_reviewable(REVIEW_FIXTURE), "natural")
-    assert len(result.review) == 4
+    assert len(result.review) == len(result.bundle.reviewable) == 2
     for item in result.review:
         assert item.badge == "REVIEW" and item.status == "review_required"
         # Unapplied: the original wording is where the proposal points.
@@ -140,7 +140,7 @@ def test_review_proposals_are_reported_and_never_applied():
 
 def test_review_proposals_appear_in_the_json_and_not_in_the_output():
     data = present(load_reviewable(REVIEW_FIXTURE), "natural").as_dict()
-    assert data["counts"]["review"] == len(data["review"]) == 4
+    assert data["counts"]["review"] == len(data["review"]) == 2
     for item in data["review"]:
         assert item["badge"] == "REVIEW"
         assert data["output"]["text"][item["revised_start"]:item["revised_end"]] == item["before"]

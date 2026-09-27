@@ -60,6 +60,8 @@ def plan_to_dict(plan: TransformationPlan) -> dict[str, Any]:
         "ruleset_sha256": plan.ruleset_hash,
         "integrity_policy_version": plan.integrity_policy_version,
         "integrity_policy_sha256": plan.integrity_policy_hash,
+        "style_policy_version": plan.style_policy_version,
+        "style_policy_sha256": plan.style_policy_hash,
         "input_sha256": plan.input_hash,
         "projection_sha256": plan.projection_hash,
         "counts": {

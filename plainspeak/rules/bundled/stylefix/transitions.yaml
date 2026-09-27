@@ -34,6 +34,17 @@
 #
 # **Anything ambiguous.** "Meanwhile" is sometimes temporal and sometimes
 # contrastive, and no exact replacement covers both readings.
+#
+# **Anything that answers transition density by swapping connectives.** Ruleset
+# 2026.3 had two: "In addition," -> "Also," and "That said," -> "Even so,",
+# triggered by transition density. They appeared to work only because the
+# density measure did not count "Also" or "Even so" — the substitution left
+# exactly as many connectives as before and the measurement failed to notice.
+# Style policy 2026.2 counts the connectives these rules write when they open a
+# sentence, and with the measurement honest both rules can never resolve the
+# finding that triggers them. They were retired in ruleset 2026.4 rather than
+# given a different replacement: another connective would be the same trick,
+# and deleting "That said," would lose the contrast it carries.
 
 id: PS.STYLEFIX.001
 version: 1
@@ -288,91 +299,3 @@ examples:
   transform:
     - before: "Likewise, the second site reported no faults."
       after: "Similarly, the second site reported no faults."
-
----
-id: PS.STYLEFIX.007
-version: 1
-name: dense-in-addition
-mode: style-fix
-description: >
-  A three-word connective replaced by a one-word one that does the same job.
-  This rule exists for transition *density* rather than concentration: where a
-  document signposts more heavily than the chosen profile expects, the padded
-  forms are the ones worth shortening first, and "Also" carries the same additive
-  relation in a quarter of the words. "Also" is not itself a counted discourse
-  marker, so the substitution genuinely reduces the measurement rather than
-  moving it.
-match:
-  type: phrase
-  text: "In addition,"
-  case: sensitive
-action:
-  type: replace
-  replacement: "Also,"
-case:
-  policy: exact
-scope:
-  include: [prose]
-  exclude: [heading]
-priority: 40
-requires_diagnostic:
-  id: PS.STYLE.TRANSITION_DENSITY
-  evidence_label: "in addition"
-review:
-  required: true
-reason:
-  short: "Shortens a padded connective where the chosen profile finds signposting dense"
-provenance:
-  source: "PlainSpeak project style research"
-  reference: ""
-  licence: "project-authored"
-examples:
-  positive:
-    - "In addition, the fee is waived for anyone on a low income."
-  negative:
-    - "The clause in addition, as amended, was withdrawn."
-  transform:
-    - before: "In addition, the fee is waived for anyone on a low income."
-      after: "Also, the fee is waived for anyone on a low income."
-
----
-id: PS.STYLEFIX.008
-version: 1
-name: dense-that-said
-mode: style-fix
-description: >
-  "That said" and "Even so" are the same concessive move, and the shorter of the
-  two is not a discourse marker the density measure counts. Offered where the
-  chosen profile finds the prose heavily signposted.
-match:
-  type: phrase
-  text: "That said,"
-  case: sensitive
-action:
-  type: replace
-  replacement: "Even so,"
-case:
-  policy: exact
-scope:
-  include: [prose]
-  exclude: [heading]
-priority: 40
-requires_diagnostic:
-  id: PS.STYLE.TRANSITION_DENSITY
-  evidence_label: "that said"
-review:
-  required: true
-reason:
-  short: "Shortens a padded connective where the chosen profile finds signposting dense"
-provenance:
-  source: "PlainSpeak project style research"
-  reference: ""
-  licence: "project-authored"
-examples:
-  positive:
-    - "That said, the deadline has not moved."
-  negative:
-    - "Everything that said, in the minutes, was recorded."
-  transform:
-    - before: "That said, the deadline has not moved."
-      after: "Even so, the deadline has not moved."

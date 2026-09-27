@@ -83,6 +83,8 @@ class SessionSnapshot:
     rejected: frozenset
     message: str = ""
     saved_to: Optional[Path] = None
+    #: Style diagnostics that could not judge this document for want of text.
+    insufficient: tuple = ()
 
     @property
     def revised_text(self) -> str:
@@ -171,6 +173,7 @@ class ReviewSession:
             source_text=self._source,
             preview=self._preview,
             diagnostics=self._bundle.diagnostics() if self._bundle else (),
+            insufficient=self._bundle.insufficient_sample() if self._bundle else (),
             identities=self._bundle.identities() if self._bundle else {},
             accepted=frozenset(self._accepted),
             rejected=frozenset(self._rejected),

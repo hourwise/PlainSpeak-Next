@@ -60,6 +60,7 @@ from ..style.model import ProfiledAnalysis, StyleObservations
 from ..style.patterns import transition_hits
 from ..style.policy import (
     REPEATED_TRANSITION,
+    SENTENCE_INITIAL_TRANSITIONS,
     TRANSITION_DENSITY,
     TRANSITIONS,
     TRANSITION_PHRASES,
@@ -113,7 +114,14 @@ MAX_PROPOSALS_PER_DIAGNOSTIC = 25
 #: Everything the connective tokeniser counts, for deciding whether a
 #: replacement is itself a counted transition. Read from the style policy rather
 #: than restated, so the two cannot drift.
-_COUNTED = frozenset(TRANSITIONS) | frozenset(TRANSITION_PHRASES)
+#: Style fixes act on connectives that open a sentence, and write their
+#: replacement in the same place, so the sentence-initial connectives are
+#: counted too. Without them "In addition," -> "Also," looked like it lowered
+#: transition density, and a density finding could be "resolved" by a swap that
+#: left exactly as many transitions as before.
+_COUNTED = (
+    frozenset(TRANSITIONS) | frozenset(TRANSITION_PHRASES) | frozenset(SENTENCE_INITIAL_TRANSITIONS)
+)
 
 
 class StylePlanError(ValueError):
@@ -446,7 +454,7 @@ def plan_style_changes(
         # there is something for it to outrank.
         proposals = _settle_against_safe_fixes(
             document, view, proposals,
-            safe_plan if safe_plan is not None else build_plan(document, rules, view),
+            safe_plan if safe_plan is not None else build_plan(document, rules, view, observed=seen),
         )
         proposals = _settle_among_styles(proposals)
 

@@ -49,29 +49,33 @@ FIXTURES = Path(__file__).resolve().parent / "style" / "stylefix"
 #: each comparing itself to itself. Everything downstream of a proposal — its
 #: identifier, the plan it belongs to, the approval, the finished document — is
 #: derived from content and must be identical everywhere.
+#:
+#: Re-pinned for V1 (ruleset 2026.4, integrity 2026.2, style 2026.2). The two
+#: concessive-heavy proposals that remain keep exactly the identifiers they had,
+#: because a proposal identifier is derived from its content; the other two were
+#: never needed once "Even so," was counted. `signposted` under plain now has a
+#: density finding and nothing to propose, so its output is its source.
 PINNED = {
     "concessive-heavy": {
         "profile": "natural",
         "proposal_ids": [
-            "SP-b4e361bc7d682ebb",
-            "SP-9b5cb53f11ce23e2",
             "SP-5de1cbe21aedf1ea",
             "SP-0cf6c1273b06490c",
         ],
-        "plan_hash": "700d00d88f1234863aeea33811846890d61ff124e95aacafac2722eb1d0991bd",
-        "plan_digest": "7cf722ccbfdcd3ac6cc6214506136d50e924a7f27f2827e57600ab2f2843b649",
-        "approved_digest": "5e0be9f0fc91e9882c97475dab9a279ea9e2eddf9f3e5dc74f6d941cdf12af50",
-        "result_digest": "0091e3a988de24fba78d6b1d51810d0f16c4e9f9e789217589cf4f268c8cb74a",
-        "output_hash": "2c941db92783c38f2113bd7311fe32b64c3812b732aad578f969e3d5c762f191",
+        "plan_hash": "587deabce8023aa3a6d7f8a3877dc80162f887216d835f6c20e15d8f0596e0b9",
+        "plan_digest": "8bf2fb7dea1f6afaa3917e9d553fcc27cf05e44cad229bc79aa02921617e1d58",
+        "approved_digest": "a88c6b3647a329650d23ad2f80e8bc954d98b05361bda4b4f6065d2ce971b7f6",
+        "result_digest": "48f6e7c7e26571e02812c4578fda4ad233703668f47a65a272562d3305f63fcd",
+        "output_hash": "cbd6b0fd0b630ab43fabe73c54cd8bd4070b2dd5384d6fcff4b4b0178fa6e125",
     },
     "signposted": {
         "profile": "plain",
-        "proposal_ids": ["SP-d7e2921c0024cf0b"],
-        "plan_hash": "480b408107659d5b4af8298567ab341a5935fd9ba89ff3f8230c75efeb32335f",
-        "plan_digest": "609ad61e04bcc2d719cf9718165b00ce498ce56ddb7e67092927b47de338f86f",
-        "approved_digest": "490febe9e6d1bf7f8f28bb6a4d0c2ace051e6a4f0c49ded84499606e406e16df",
-        "result_digest": "950dd7a743ef7e007aaecfde5cad451f8a7c379e55f456bb4bf1edddd12a611c",
-        "output_hash": "bcddb6d030aba7d37452f8591b0b585e1989da2a82a87b52ba15c9e43b16e807",
+        "proposal_ids": [],
+        "plan_hash": "c8d5e09515e70d159a152bb5ff1b2ce105b3b008ac1450146d991cc05acc8adb",
+        "plan_digest": "4293564107ea1d95c7438c891a180c9538c3c3cba8f059406f04bb53a0a72aba",
+        "approved_digest": "e8ae2c2e3ecdc428c34e69ef90b9036b9a614566927ec8569a48cbdd5b66cb4a",
+        "result_digest": "38724aa871e53ee489f28b32fe510af543560be1fa5242f5da8aac0f2253ec79",
+        "output_hash": "00ddb376fe3145c8e7768571e9c1d8f32cad021bdaeddcf5019359471fbd1c7c",
     },
 }
 
@@ -499,6 +503,11 @@ def test_the_audit_shows_what_a_review_interface_needs(plan) -> None:
 def test_planning_measures_and_interprets_once(monkeypatch) -> None:
     """Not once per style rule, and not once per proposal.
 
+    The document is measured once. Since the style guard, the document as its
+    safe fixes would leave it is measured once more — that measurement is the
+    guard, and cannot be shared — and the document's own measurement is handed
+    to the guard rather than repeated. Two, then, and never more.
+
     Asserted by counting calls rather than by timing, so it fails for exactly one
     reason and cannot go flaky on a loaded runner.
     """
@@ -527,7 +536,7 @@ def test_planning_measures_and_interprets_once(monkeypatch) -> None:
 
     plan_style_changes(fixture("concessive-heavy"), "natural")
 
-    assert counts["measure"] == 1, f"measured {counts['measure']} times"
+    assert counts["measure"] == 2, f"measured {counts['measure']} times"
     assert counts["interpret"] == 1, f"interpreted {counts['interpret']} times"
 
 

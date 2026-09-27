@@ -524,22 +524,18 @@ reason conflict resolution gave it. A later run reconsiders the document afresh.
 
 ### What it costs the shipped ruleset
 
-Two of the 24 bundled safe fixes are now refused, and both refusals are correct
-under a policy that deliberately cannot read meaning:
+One of the 24 bundled safe fixes is refused, correctly, under a policy that
+deliberately cannot read meaning: `PS.FRAMING.003` deletes "it should be noted
+that", which happens to contain the modal "should". The modal is part of the
+idiom rather than an obligation, but knowing that requires reading meaning, and
+exempting modals inside deletions would allow "you should not apply" to lose its
+"should".
 
-- `PS.CLARITY.009` replaces "prior to" with "before". "Before" is a protected
-  comparator, and the firewall cannot tell that substitution from one that
-  reverses an ordering.
-- `PS.FRAMING.003` deletes "it should be noted that", which happens to contain
-  the modal "should". The modal is part of the idiom rather than an obligation,
-  but knowing that requires reading meaning.
-
-Neither rule was changed and the ruleset hash is unaffected. Softening the
-firewall to let them through would mean dropping "before" from the comparators —
-which would allow a genuine ordering reversal — or exempting modals inside
-deletions, which would allow "you should not apply" to lose its "should". Both
-cost more than two missed simplifications do. The set is pinned by a test, so it
-can only grow deliberately.
+Until integrity policy 2026.2 there were two. `PS.CLARITY.009` replaces "prior
+to" with "before", and "before" is a protected comparator the firewall could not
+tell from an ordering reversal. It was not let through by dropping "before" from
+the comparators; see *Reviewed equivalences, not semantic equivalence* below.
+The set is pinned by a test, so it changes only deliberately.
 
 ### Two authorities, not one
 
@@ -549,12 +545,23 @@ art with no integrity facts in it at all. The firewall refuses turning "must"
 into "may" — a word the register has never heard of. Neither can weaken the
 other, and a test drives all three outcomes through one document.
 
-### Not semantic equivalence
+### Reviewed equivalences, not semantic equivalence
 
-The firewall does not attempt to prove that "prior to" means "before" or that
-"cannot" means "is unable to". Uncertainty resolves to refusal. A later reviewed
-mechanism may let a rule *declare* an integrity-preserving equivalence; inferring
-one is not something this layer will ever do.
+The firewall does not attempt to prove that one wording means the same as
+another, and it will never infer that. Uncertainty resolves to refusal.
+
+What it has, since policy 2026.2, is `EQUIVALENCES`: a table in the versioned,
+hashed policy of spellings that are the same fact. It has one entry — the
+comparator "prior to" is "before" — and every entry is tested in both directions,
+against its near misses ("prior agreement", "prior approval") and against every
+neighbouring change (reversal, deletion, a different comparator, an added "only",
+a moved date, a weakened modal, a lost negation).
+
+Admitting a spelling also protects it. Before 2026.2 "prior to" was not a
+comparator at all, so deleting it or turning it into "after" passed; now both
+are refused. An equivalence never makes the firewall weaker about anything it
+already protected — a stricter firewall is a new version, a looser one would be
+a new contract.
 
 ## Morphology
 
@@ -701,6 +708,14 @@ no threshold anywhere in the layer fires on a single occurrence.
 A ratio over four sentences is arithmetic, not evidence. Each diagnostic
 declares the smallest sample it will speak about and returns nothing beneath it,
 and in this corpus the minimums do more work than the thresholds.
+
+Silence is the right output and the wrong message, if a reader cannot tell it
+from a clean result. Since style policy 2026.2 each diagnostic declares its
+sample unit (`SAMPLE_UNITS`), `observe` records how much of each unit the
+document had, and `ReviewBundle.coverage()` reports every diagnostic as
+`assessed`, `insufficient_sample` or `disabled` against the selected profile's
+minimum. `present`, the CLI summary and the desktop all show it: a two-sentence
+reply is *too short to judge* on all thirteen diagnostics, not clean on them.
 
 The eight-paragraph minimum on `PARAGRAPH_UNIFORMITY` exists because at five it
 produced a false positive on `government.md` — a plain-English public-service
@@ -967,6 +982,29 @@ That is not hypothetical: four rules in the first draft of this family targeted
 6 already replaces automatically. Every one was permanently superseded, could
 never have produced a review item, and was deleted rather than shipped.
 
+### The style guard on safe fixes
+
+A safe fix is judged one span at a time; style is a property of the whole
+document, and the two can disagree. Three safe fixes each turn a heavy
+connective into "Also,", and applied together to a document that used all three
+they made twelve of twenty sentences begin with "Also".
+
+`pipeline.style_guard` runs inside `build_plan`, after the firewall. It measures
+the document as the accepted safe fixes would leave it; if no baseline
+diagnostic has become more severe, every fix stands. If one has, fixes are
+admitted rule by rule in identifier order, a rule whose changes would make any
+diagnostic worse is refused with the diagnostic named, and a rule's occurrences
+are always admitted or refused together. It judges against the **baseline**
+policy, not a profile, so a safe fix means the same for every reader, and by
+severity band rather than raw value, so a shortened sentence nudging a length
+statistic refuses nothing. The plan records the style policy it was guarded
+under.
+
+It rewrites nothing and never admits anything the firewall refused. The cost is
+one extra measurement of the document when nothing gets worse — about a fifth
+more time on a 13,500-word document — and one more per rule when something
+does.
+
 ### A defect this phase exposed
 
 `load_ruleset()` was uncached at about 520 ms a call. Nothing noticed, because
@@ -983,7 +1021,7 @@ The build plan describes several layers that this codebase has not earned the
 right to yet. They are absent rather than stubbed, because an empty package
 implies a decision that has not been made:
 
-- **Syntax-sensitive style rewrites.** The eight shipped style fixes are exact
+- **Syntax-sensitive style rewrites.** The six shipped style fixes are exact
   phrase substitutions. Nothing splits a sentence, moves one between paragraphs,
   rewrites a repeated opener or picks between synonyms, because none of those can
   be done from a document-level measurement without guessing.
@@ -1012,21 +1050,21 @@ implies a decision that has not been made:
   review, not lexical substitution.
 - **No comparatives or superlatives.** No shipped rule needs them, and an
   untested form class is a liability.
-- **The CLI cannot apply rules.** `rules list` and `rules explain` are
-  read-only. A destructive `fix` command should wait until the engine has been
-  used in anger.
-- **No declared equivalences.** A rule cannot yet say "this substitution
-  preserves the comparator", which is what would let `prior to` → `before`
-  through. Designing that safely is its own piece of work.
+- **The CLI applies SAFE changes only.** `plainspeak present` writes a new
+  document or standard output and never its input; no command applies a
+  REVIEW proposal, and there is still no in-place `fix`.
+- **One integrity equivalence.** The table is policy-level and deliberately
+  small. A rule cannot declare its own equivalence, and no equivalence is
+  inferred.
 - **Dates are protected by surface, not by value.** `29/08/2026` and
   `08/29/2026` are different facts; no locale is resolved and none is guessed.
 - **Units are matched, not understood.** A reviewed list, not a unit grammar.
   `5 mg` → `5 g` is caught because the unit changed, not because the engine
   knows what a milligram is.
-- **No adapter offers the structured path yet.** `analyze_document` exists and
-  is tested, and the CLI now takes its input through `pipeline.sources`, but
-  the CLI's own commands still run the inherited flat-text path. Wiring that up
-  is a separate, reviewable change.
+- **`analyze` and `score` still run the inherited flat-text path.** Their
+  readability numbers and suggestions are sealed with it. Every command that
+  transforms text — `present`, `simplify`, the web page, the desktop — goes
+  through the governed pipeline.
 - **Table cells are not parsed.** The whole table is opaque, so prose inside a
   cell is neither analysed nor editable. Parsing cell spans would make it both.
 - **Findings that cross markup are diagnostics only.** `provides a robust` in

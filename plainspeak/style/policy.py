@@ -46,7 +46,7 @@ import json
 from typing import Any
 
 #: Bumped when what a reader is told changes. The hash moves on any change.
-STYLE_POLICY_VERSION = "2026.1"
+STYLE_POLICY_VERSION = "2026.2"
 
 #: Bumped only if the canonical rendering changes shape.
 CANONICAL_FORM_VERSION = 1
@@ -163,6 +163,25 @@ THRESHOLDS: dict[str, tuple[float, float]] = {
 #: whole family: prose that never varies is the thing being reported.
 INVERTED: frozenset = frozenset({SENTENCE_UNIFORMITY, PARAGRAPH_UNIFORMITY})
 
+#: What each diagnostic counts as its sample, so a report can say "needs 8
+#: sentences; this document has 2" rather than falling silent. Silence below a
+#: minimum is correct; silence that a reader mistakes for a clean result is not.
+SAMPLE_UNITS: dict[str, str] = {
+    SENTENCE_UNIFORMITY: "sentences",
+    PARAGRAPH_UNIFORMITY: "paragraphs",
+    REPEATED_SENTENCE_OPENER: "sentences",
+    REPEATED_PARAGRAPH_OPENER: "paragraphs",
+    TRANSITION_DENSITY: "sentences",
+    REPEATED_TRANSITION: "transitions",
+    CANNED_FRAMING: "paragraphs",
+    VOCABULARY_OVERUSE: "words",
+    RHETORICAL_REPETITION: "sentences",
+    TRIADIC_REPETITION: "sentences",
+    REPEATED_PHRASE: "sentences",
+    LEXICAL_OVERLAP: "paragraphs",
+    LIST_DOMINANCE: "blocks",
+}
+
 
 # ── Vocabularies ───────────────────────────────────────────────────────────
 
@@ -177,6 +196,20 @@ TRANSITIONS: tuple[str, ...] = (
     "overall", "regardless", "second", "secondly", "similarly", "specifically",
     "subsequently", "then", "thereafter", "therefore", "third", "thirdly",
     "thus", "ultimately",
+)
+
+#: Connectives counted only when they open a sentence.
+#:
+#: These are the forms PlainSpeak's own rules write in place of the heavier
+#: transitions above — "Furthermore," becomes "Also,", "Consequently," becomes
+#: "So,", "Nevertheless," becomes "Even so,". Before 2026.2 none of them was
+#: counted, so a document could shed its transitions by having them rewritten
+#: and look less scaffolded to the very diagnostic that flagged it. Counting
+#: them anywhere would be wrong the other way: "so much" and a mid-sentence
+#: "also" are ordinary prose, not signposting. At the start of a sentence they
+#: are doing exactly the job the word they replaced was doing.
+SENTENCE_INITIAL_TRANSITIONS: tuple[str, ...] = (
+    "after that", "also", "by contrast", "even so", "so",
 )
 
 #: Multi-word transitions, matched as phrases.
@@ -353,9 +386,11 @@ def policy_document() -> dict[str, Any]:
         "minimum_samples": {key: MINIMUM_SAMPLES[key] for key in sorted(MINIMUM_SAMPLES)},
         "thresholds": {key: list(THRESHOLDS[key]) for key in sorted(THRESHOLDS)},
         "inverted": sorted(INVERTED),
+        "sample_units": {key: SAMPLE_UNITS[key] for key in sorted(SAMPLE_UNITS)},
         "vocabularies": {
             "transitions": sorted(TRANSITIONS),
             "transition_phrases": sorted(TRANSITION_PHRASES),
+            "sentence_initial_transitions": sorted(SENTENCE_INITIAL_TRANSITIONS),
             "framing_phrases": sorted(FRAMING_PHRASES),
             "flagged_vocabulary": sorted(FLAGGED_VOCABULARY),
             "contractions": sorted(CONTRACTIONS),

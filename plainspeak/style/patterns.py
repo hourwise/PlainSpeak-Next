@@ -53,6 +53,7 @@ from .policy import (
     SURFACE_TEMPLATES,
     THRESHOLDS,
     TRANSITION_DENSITY,
+    SENTENCE_INITIAL_TRANSITIONS,
     TRANSITION_PHRASES,
     TRANSITIONS,
     TRIADIC_REPETITION,
@@ -73,6 +74,17 @@ _TRANSITION_PHRASE_RE = re.compile(
     r"\b(?:"
     + "|".join(sorted((re.escape(item) for item in TRANSITION_PHRASES), key=len, reverse=True))
     + r")\b",
+    re.IGNORECASE,
+)
+#: Anchored at the start of a sentence, after any opening quote or bracket.
+OPENING_PUNCTUATION = "\"'([{“‘ "
+_OPENING_TRANSITION_RE = re.compile(
+    r"^[\W_]*(?:"
+    + "|".join(
+        sorted((re.escape(item) for item in SENTENCE_INITIAL_TRANSITIONS), key=len, reverse=True)
+    )
+    # Not followed by a hyphen or apostrophe: "also-rans" and "so's" are not connectives.
+    + r")(?![\w'-])",
     re.IGNORECASE,
 )
 _FRAMING_RE = re.compile(
@@ -279,7 +291,36 @@ def transition_hits(text: str) -> list[str]:
         " ".join(match.group(0).lower().split())
         for match in _TRANSITION_PHRASE_RE.finditer(text)
     ]
+    for sentence in sentences_of(text):
+        match = _OPENING_TRANSITION_RE.match(sentence)
+        if match is not None:
+            found.append(" ".join(match.group(0).lower().strip(OPENING_PUNCTUATION).split()))
     return found
+
+
+def available_samples(text: str, structure: DocumentStructure) -> dict[str, int]:
+    """How much of each diagnostic's sample unit this document contains.
+
+    Counted with the same expressions the diagnostics themselves use, so a
+    diagnostic and its coverage cannot disagree about how long a document is.
+    """
+    sentences = len(sentences_of(text))
+    paragraphs = len(structure.paragraphs)
+    return {
+        SENTENCE_UNIFORMITY: sentences,
+        PARAGRAPH_UNIFORMITY: paragraphs,
+        REPEATED_SENTENCE_OPENER: sentences,
+        REPEATED_PARAGRAPH_OPENER: paragraphs,
+        TRANSITION_DENSITY: sentences,
+        REPEATED_TRANSITION: len(transition_hits(text)),
+        CANNED_FRAMING: len(structure.paragraphs or structure.blocks),
+        VOCABULARY_OVERUSE: len(words(text)),
+        RHETORICAL_REPETITION: sentences,
+        TRIADIC_REPETITION: sentences,
+        REPEATED_PHRASE: sentences,
+        LEXICAL_OVERLAP: paragraphs,
+        LIST_DOMINANCE: len(structure.blocks),
+    }
 
 
 def transition_density(text: str) -> Optional[StyleObservation]:

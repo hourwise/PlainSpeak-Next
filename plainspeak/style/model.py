@@ -266,6 +266,11 @@ class StyleObservations:
     document_hash: str
     metrics: StyleMetrics
     observations: tuple[StyleObservation, ...] = ()
+    #: Diagnostic ID -> how much of its sample unit the document contains,
+    #: whether or not the diagnostic produced an observation. Many diagnostics
+    #: produce none at all on a short text, and without this a reader could not
+    #: tell "measured and clean" from "too short to measure".
+    samples: dict[str, int] = field(default_factory=dict)
 
     def by_id(self) -> dict[str, StyleObservation]:
         return {item.id: item for item in self.observations}

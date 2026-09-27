@@ -312,11 +312,28 @@ def test_no_rule_field_can_disable_the_firewall(ruleset_from) -> None:
 
 
 def test_no_planner_argument_can_disable_the_firewall() -> None:
-    """`build_plan` takes a document, a ruleset and a projection. Nothing else."""
+    """`build_plan` takes a document, a ruleset, a projection and a measurement.
+
+    `observed` is the document's style measurement, passed so the style guard
+    does not measure twice. It cannot reach the firewall, which runs before the
+    guard and never reads it, and the guard refuses a measurement of any other
+    text — see `test_a_measurement_of_another_document_is_refused`.
+    """
     import inspect
 
     parameters = set(inspect.signature(build_plan).parameters)
-    assert parameters == {"document", "ruleset", "projection"}
+    assert parameters == {"document", "ruleset", "projection", "observed"}
+
+
+def test_a_measurement_of_another_document_is_refused() -> None:
+    from plainspeak.pipeline.styling import observe_style
+
+    document = parse_markdown.parse(
+        "Staff utilise the register. Furthermore, they utilise the archive.\n"
+    )
+    other = parse_markdown.parse("A different document entirely.\n")
+    with pytest.raises(ValueError, match="not of this document"):
+        build_plan(document, observed=observe_style(other))
 
 
 def test_no_application_argument_can_disable_the_firewall() -> None:

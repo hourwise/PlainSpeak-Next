@@ -5,21 +5,26 @@ All known limitations, uncertainties, and gaps. This document is maintained hone
 ## The governed engine (PlainSpeak Next)
 
 - **Bounded transformations.** Safe fixes are word- and phrase-level rules from
-  a versioned ruleset; the eight style fixes are transition substitutions that
+  a versioned ruleset; the six style fixes are transition substitutions that
   always require review. Nothing restructures a sentence, so output can still
   read stiffly ("To help the successful completion of…").
 - **The firewall is deliberately strict.** It compares protected facts, not
-  meaning, so some correct changes are refused — "prior to" → "before" is
-  refused because "before" is a protected comparator — and a change that alters
-  meaning without touching a protected category is not detected.
+  meaning, so some correct changes are refused — deleting "it should be noted
+  that" is refused because it contains the modal "should" — and a change that
+  alters meaning without touching a protected category is not detected. The
+  equivalence table that lets "prior to" become "before" has one entry.
 - **Mid-sentence deletions are refused** where removing a phrase would leave
   broken spacing or punctuation, so some framing phrases survive.
 - **Style diagnostics need enough text.** Each has a minimum sample (four to
-  eight sentences or paragraphs, 200 words for vocabulary). Short texts
-  currently produce no findings, which is not evidence that they are clean.
-- **Safe fixes are not yet re-checked against style.** Several transitions map
-  to the same replacement, which can create the repetition the style layer
-  would flag. Addressed in Stage 1 (see [ROADMAP.md](ROADMAP.md)).
+  eight sentences or paragraphs, 200 words for vocabulary). A short text is
+  reported as too short to judge — most agent replies will be — so the style
+  layer has little to say about them.
+- **The style guard declines; it does not repair.** When safe fixes would make
+  a document read worse, some are refused rather than replaced with something
+  better, so a document can keep several of the heavy connectives it started
+  with.
+- **Transition density has no fix.** No bundled rule can lower it honestly, so
+  a density finding comes with nothing to review.
 - **Transformation formats.** Only plain text and Markdown can be transformed
   and saved. DOCX, PDF and HTML are analysed through a plain-text fallback and
   refused for editing.

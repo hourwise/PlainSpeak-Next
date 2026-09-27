@@ -26,6 +26,10 @@ from ..pipeline.review import (
 )
 from ..pipeline.style_plan import STATUS_REVIEW_REQUIRED
 
+#: The severity column for a diagnostic that had too little text to judge. A
+#: word, like every other badge, so nothing depends on colour.
+INSUFFICIENT_BADGE = "not enough text"
+
 #: Custom roles, so a view can retrieve the identifier without parsing a label.
 CHANGE_ID_ROLE = int(Qt.ItemDataRole.UserRole) + 1
 CHANGE_ROLE = int(Qt.ItemDataRole.UserRole) + 2
@@ -128,9 +132,27 @@ class DiagnosticsModel(QAbstractTableModel):
         super().__init__(parent)
         self._rows: tuple[DiagnosticView, ...] = ()
 
-    def set_diagnostics(self, diagnostics: tuple[DiagnosticView, ...]) -> None:
+    def set_diagnostics(
+        self, diagnostics: tuple[DiagnosticView, ...], insufficient: tuple = ()
+    ) -> None:
+        """Findings first, then a row for each diagnostic that had too little text.
+
+        The second kind is shown rather than omitted, because an empty table on
+        a short document reads as "nothing wrong" when the truth is "not enough
+        text to say".
+        """
         self.beginResetModel()
-        self._rows = tuple(diagnostics)
+        self._rows = tuple(diagnostics) + tuple(
+            DiagnosticView(
+                id=item.id,
+                severity=INSUFFICIENT_BADGE,
+                message=item.message,
+                value=0.0,
+                threshold=0.0,
+                sample_size=item.sample_size,
+            )
+            for item in insufficient
+        )
         self.endResetModel()
 
     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:

@@ -254,13 +254,27 @@ def test_the_baseline_still_disagrees_where_the_corpus_says_it_should() -> None:
 
 
 def test_repeated_transition_was_a_baseline_false_positive() -> None:
-    for name in ("natural/allotment-year.md", "natural/packing-for-the-hills.md",
-                 "natural/learning-to-cook-late.md"):
+    for name in ("natural/packing-for-the-hills.md", "natural/learning-to-cook-late.md"):
         baseline = {f.id for f in analyze_style(document(name)).findings}
         assert policy.REPEATED_TRANSITION in baseline, name
 
         under_natural = compare_style_profiles(document(name))["natural"]
         assert policy.REPEATED_TRANSITION not in {f.id for f in under_natural.findings}, name
+
+
+def test_counting_sentence_initial_connectives_removed_one_false_positive() -> None:
+    """`allotment-year.md` was the third baseline false positive, until 2026.2.
+
+    "First" was 5 of its 10 counted connectives — exactly the baseline line.
+    Style policy 2026.2 counts the two sentences that open with "So,", which
+    were always doing a connective's job, and "first" becomes 5 of 12. The
+    baseline no longer flags a document the natural profile always cleared.
+    """
+    name = "natural/allotment-year.md"
+    baseline = {f.id for f in analyze_style(document(name)).findings}
+    assert policy.REPEATED_TRANSITION not in baseline
+    under_natural = compare_style_profiles(document(name))["natural"]
+    assert policy.REPEATED_TRANSITION not in {f.id for f in under_natural.findings}
 
 
 # ── Snapshot ───────────────────────────────────────────────────────────────

@@ -30,14 +30,14 @@ CORPUS = Path(__file__).resolve().parent / "style" / "corpus"
 #: platform compares against the same number rather than against itself.
 REPRESENTATIVE = "transition_heavy"
 METRIC_DIGEST = "41b82bc3c56c1e39bb584bd94d0dd55719b66833994f6aaa2a833a5eb12a7ed5"
-ANALYSIS_DIGEST = "903209e323beff7326aa496a025fcc1d33e17bf49542d7f7b867e0a7dc37cd4a"
+ANALYSIS_DIGEST = "1153ce61153a9bd766bbb044c15fc838e9076446859667bd9982973ca4a14789"
 
 #: A document that produces nothing, pinned for the same reason: silence is an
 #: answer, and a refactor that made a quiet document speak would be the single
 #: worst regression this layer could have.
 QUIET = "long_natural"
 QUIET_METRIC_DIGEST = "ef029b9ca1018a0039ae0d5cf0e3b1e43ec371410f42992be63c93df1ea099bf"
-QUIET_ANALYSIS_DIGEST = "4d0a1510e029d798cf094142c0224fcd76c9e264652550d29974f719051722ca"
+QUIET_ANALYSIS_DIGEST = "bfa53eaaf6c6c349c5a68e0107d3ba8552464f21ae0ad554ff8946b514a415a7"
 
 
 def analyse(name: str):

@@ -138,12 +138,11 @@ def test_negative_examples_do_not_match(rule: Rule) -> None:
 
 #: Rules whose stated transformation the integrity firewall vetoes.
 #:
-#: Both are correct refusals under a policy that cannot read meaning, and both
-#: are recorded here rather than fixed, because the alternatives are worse. See
+#: A correct refusal under a policy that cannot read meaning, recorded here
+#: rather than fixed, because the alternative is worse. See
 #: `test_integrity_vetoes_exactly_the_documented_rules` for the reasoning; the
 #: point of pinning the set is that adding to it has to be a deliberate act.
 INTEGRITY_VETOED = {
-    "PS.CLARITY.009": "replacing 'prior to' with 'before' introduces a protected comparator",
     "PS.FRAMING.003": "deleting 'it should be noted that' removes the modal 'should'",
 }
 
@@ -201,23 +200,24 @@ def test_stated_transformations_survive_to_the_output(rule: Rule) -> None:
 def test_integrity_vetoes_exactly_the_documented_rules() -> None:
     """The firewall's effect on the shipped ruleset, pinned.
 
-    Two of the 24 safe fixes are refused, and both refusals are correct under a
-    policy that deliberately cannot read meaning:
+    One of the 24 safe fixes is refused, correctly, under a policy that
+    deliberately cannot read meaning:
 
-    - `PS.CLARITY.009` replaces "prior to" with "before". "Before" is a
-      protected comparator, and the firewall cannot tell that substitution from
-      one that reverses an ordering.
     - `PS.FRAMING.003` deletes "it should be noted that", which happens to
       contain the modal "should". The modal is part of the idiom rather than an
-      obligation, but knowing that requires reading meaning.
+      obligation, but knowing that requires reading meaning. Exempting modals
+      inside deletions would allow "you should not apply" to lose its "should",
+      which costs more than the missed simplification does.
 
-    Neither rule was changed, and the ruleset hash is unaffected. Softening the
-    firewall to let them through would mean either dropping "before" from the
-    comparators — which would allow a genuine ordering reversal — or exempting
-    modals inside deletions, which would allow "you should not apply" to lose
-    its "should". Both cost more than the two missed simplifications do.
+    Until integrity policy 2026.2 there were two. `PS.CLARITY.009` replaces
+    "prior to" with "before", and "before" is a protected comparator the
+    firewall could not tell from an ordering reversal. It was not let through
+    by dropping "before" from the comparators: "prior to" became a comparator
+    itself, with a reviewed equivalence to "before", so the substitution passes
+    while "prior to" becoming "after" — or disappearing — is now refused where
+    before it was not protected at all.
 
-    This test exists so that the set can only grow deliberately.
+    This test exists so that the set changes only deliberately.
     """
     vetoed = set()
     for rule in SAFE_FIXES:

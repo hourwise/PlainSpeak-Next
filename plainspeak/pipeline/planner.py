@@ -52,8 +52,10 @@ from ..rules import (
     load_ruleset,
     sha256_text,
 )
+from ..style.model import StyleObservations
 from .plan import ProposedChange, propose_change
 from .projection import Projection, project_document
+from .style_guard import guard_style, style_policy_identity
 
 #: Why a proposal was refused at the planning stage, after the projection has
 #: already had its say.
@@ -135,6 +137,11 @@ class TransformationPlan:
     conflicts: tuple[Conflict, ...]
     #: Proposals the firewall vetoed after conflict resolution had chosen them.
     integrity_refusals: tuple[IntegrityRefusal, ...] = ()
+    #: The style policy the accepted set was checked against — see
+    #: `pipeline.style_guard`. A safe change that would have made a style
+    #: diagnostic worse is in `refused`, with the diagnostic named.
+    style_policy_version: str = ""
+    style_policy_hash: str = ""
 
     @property
     def rule_ids(self) -> tuple[str, ...]:
@@ -153,8 +160,13 @@ def build_plan(
     document: Document,
     ruleset: Optional[Ruleset] = None,
     projection: Optional[Projection] = None,
+    observed: Optional[StyleObservations] = None,
 ) -> TransformationPlan:
-    """Run a ruleset against a document and return an immutable plan."""
+    """Run a ruleset against a document and return an immutable plan.
+
+    `observed` is the document's style measurement, for a caller that already
+    has it; the style guard needs it and would otherwise measure again.
+    """
     rules = ruleset if ruleset is not None else load_ruleset()
     view = projection if projection is not None else project_document(document)
 
@@ -184,7 +196,11 @@ def build_plan(
     # which would be a second, implicit conflict-resolution path — see
     # `_integrity_preflight`.
     accepted, vetoed, integrity_refusals = _integrity_preflight(view, index, accepted)
-    refused = tuple(sorted(refused + vetoed, key=_order))
+    # Then style, on what the firewall let through: individually safe changes
+    # must not together make the document read worse than it did.
+    accepted, withheld = guard_style(document, accepted, projection=view, observed=observed)
+    refused = tuple(sorted(refused + vetoed + withheld, key=_order))
+    style_version, style_hash = style_policy_identity()
 
     return TransformationPlan(
         engine_version=ENGINE_VERSION,
@@ -200,6 +216,8 @@ def build_plan(
         diagnostics=diagnostics,
         conflicts=conflicts,
         integrity_refusals=integrity_refusals,
+        style_policy_version=style_version,
+        style_policy_hash=style_hash,
     )
 
 
