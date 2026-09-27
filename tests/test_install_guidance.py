@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parent.parent
 _FROM_PYPI = re.compile(r"pip install ['\"]?plainspeak(\[[^\]]*\])?['\"]?(?![\[\w-]|\s*@)")
 
 #: Historical records of the original experiment, kept as evidence and not
-#: updated, and this test itself.
+#: updated.
 _HISTORICAL = {"DECISIONS.md", "PROGRESS.md", "FINAL_REPORT.md", "Experiment Report.md"}
 
 
@@ -25,10 +25,44 @@ def _user_facing_files():
     yield from (ROOT / "plainspeak").rglob("*.py")
 
 
+def _paragraphs(text: str):
+    """Paragraphs with their first line number, so a wrapped warning is read whole."""
+    start, lines = 1, []
+    for number, line in enumerate(text.splitlines() + [""], start=1):
+        if line.strip():
+            if not lines:
+                start = number
+            lines.append(line.strip())
+        elif lines:
+            yield start, " ".join(lines)
+            lines = []
+
+
+def _recommends(paragraph: str) -> bool:
+    """Mentions the PyPI install without warning against it."""
+    return bool(_FROM_PYPI.search(paragraph)) and "unrelated" not in paragraph and "Do not" not in paragraph
+
+
 def test_no_user_facing_text_recommends_installing_plainspeak_from_pypi():
+    """A paragraph that mentions the command must be warning against it.
+
+    Judged by paragraph, not by line: a warning wrapped across two lines was
+    once read as a recommendation.
+    """
     offences = []
     for path in _user_facing_files():
-        for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), start=1):
-            if _FROM_PYPI.search(line) and "Do not" not in line and "installs an unrelated" not in line:
-                offences.append(f"{path.relative_to(ROOT)}:{number}: {line.strip()}")
+        for number, paragraph in _paragraphs(path.read_text(encoding="utf-8")):
+            if _recommends(paragraph):
+                offences.append(f"{path.relative_to(ROOT)}:{number}: {paragraph[:120]}")
     assert not offences, "\n".join(offences)
+
+
+def test_a_recommendation_is_still_caught():
+    """The paragraph rule does not make the check toothless."""
+    text = "Install the web extra with:\n\npip install plainspeak[web]\n"
+    assert any(_recommends(paragraph) for _, paragraph in _paragraphs(text))
+
+
+def test_a_wrapped_warning_is_not_a_recommendation():
+    text = "Preparing publication found that `pip install plainspeak` installs an\nunrelated project.\n"
+    assert not any(_recommends(paragraph) for _, paragraph in _paragraphs(text))

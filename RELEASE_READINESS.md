@@ -12,7 +12,7 @@ unrelated project (see *Publication* below).
 
 | | |
 |---|---|
-| commit | `ff067c4` on `codex/plainspeak-v1-final` (this page is added by the commit after it, and changes nothing else) |
+| commit | `ff067c4` on `codex/plainspeak-v1-final`; the two commits after it change only this page and one test (see *Checkpoint note*) |
 | CI run | [36325087790](https://github.com/hourwise/PlainSpeak-Next/actions/runs/36325087790), dispatched, all nine jobs green |
 | version | `1.0.0` |
 | ruleset | 2026.5 / `6494a92617e6` / 220 rules, 139 automatic, 6 style fixes |
@@ -67,6 +67,17 @@ readability suggestions withdrawn and 5 corrected, verbs for nominalisations
 from a reviewed table, stable rule IDs, and profiles that say what they change.
 Preparing publication then found that `pip install plainspeak` installs an
 unrelated project; nothing in PlainSpeak Next now tells anyone to run it.
+
+## Checkpoint note
+
+`adc523b`, which added this page, reached `main` with one failing test: the
+install-guidance test read a sentence on this page that *warns* against
+`pip install plainspeak` as a recommendation, because the warning was wrapped
+across two lines. The suite's result was piped through `tail`, whose success
+hid pytest's failure, and the commit was pushed. It was fixed forward in the
+next commit — the test now judges whole paragraphs — rather than by rewriting
+`main`. No package code differs from the certified `ff067c4`; the tag, when one
+is authorised, belongs on the current `main`.
 
 ## Publication
 
