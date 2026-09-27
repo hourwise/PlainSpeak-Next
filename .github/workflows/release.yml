@@ -19,6 +19,8 @@ name: Release
 #   - every artifact passes `sha256sum --check`, the wheel and sdist metadata
 #     say `plainspeak-next` and the version, and the certification report has
 #     no failure;
+#   - every classifier, declared and in the built metadata, is one PyPI
+#     accepts, checked against the current `trove-classifiers`;
 #   - the version is not already on PyPI.
 #
 # Run it only when publication has been authorised (see RELEASING.md):
@@ -172,6 +174,15 @@ jobs:
               stem = f"plainspeak-desktop-{version}-{platform}"
               assert names == {f"{stem}.{extension}", f"{stem}.manifest.json", "SHA256SUMS"}, sorted(names)
           EOF
+
+      - name: Every classifier is one PyPI accepts
+        run: |
+          set -euo pipefail
+          # The newest classifier list, in a throwaway environment: PyPI's own
+          # list is the authority, and the runner's Python is not ours to change.
+          python3 -m venv "$RUNNER_TEMP/classifiers"
+          "$RUNNER_TEMP/classifiers/bin/python" -m pip install --quiet --upgrade trove-classifiers
+          "$RUNNER_TEMP/classifiers/bin/python" tools/check_classifiers.py pyproject.toml certified/plainspeak-python
 
       - name: The version is not already on PyPI
         env:

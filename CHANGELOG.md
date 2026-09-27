@@ -49,6 +49,13 @@ over 27 realistic documents and read the output
   certified wheel and sdist to PyPI through GitHub OIDC, from the `pypi`
   environment, after checking the tag, the version, the CI run and every
   checksum. No PyPI token exists.
+- **Valid classifiers only.** `Intended Audience :: Government`, inherited and
+  never a real classifier, is removed: PyPI refused the first 1.0.0 upload
+  over it, after the release had been certified, tagged and approved.
+  `tools/check_classifiers.py` now checks every classifier, declared and in
+  the built metadata, against PyPI's own list, in CI and before release
+  approval. The first `v1.0.0` tag and GitHub release were withdrawn and
+  reissued (see [RELEASE_READINESS.md](RELEASE_READINESS.md)).
 
 ### Fixed
 - The migration builder assigned rule IDs by position, so reclassifying one

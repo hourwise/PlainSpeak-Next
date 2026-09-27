@@ -52,6 +52,10 @@ presented text. Changing the version therefore needs the pinned plan hashes in
    - built the wheel and sdist, checked they carry their data, installed the
      wheel into a fresh environment and run `tools/certify_release.py` against
      it from outside the checkout;
+   - checked every classifier, in `pyproject.toml` and in the built wheel and
+     sdist, against PyPI's own list (`trove-classifiers`), with
+     `tools/check_classifiers.py`: PyPI refuses an unknown classifier, and
+     otherwise says so only at upload;
    - built both desktop bundles and run `--self-test` on each from a directory
      containing neither the checkout nor the build environment.
 5. Verify the checksums: `sha256sum --check SHA256SUMS` in each downloaded
@@ -77,7 +81,8 @@ an explicit decision to release:
 4. Publish the wheel and sdist to PyPI as `plainspeak-next` by dispatching the
    release workflow on the tag, naming the certified CI run:
    `gh workflow run release.yml --ref v1.0.0 -f ci-run-id=<run-id>`.
-   It verifies the tag, the version, the CI run and every checksum, then waits
+   It verifies the tag, the version, the CI run, every checksum and every
+   classifier against the current PyPI list, then waits
    for approval in the `pypi` environment before uploading the certified files
    themselves — not a rebuild.
 

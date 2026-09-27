@@ -1,10 +1,66 @@
 # Release readiness: PlainSpeak 1.0.0
 
-**Status: 1.0.0 CERTIFIED as `plainspeak-next`. Not published.**
+**Status: 1.0.0 NOT PUBLISHED. The first publication attempt failed at PyPI
+and is being withdrawn and reissued.**
 
-Nothing here records a publication. No tag exists, no GitHub release has been
-created, and nothing has been uploaded to PyPI. See [RELEASING.md](RELEASING.md)
-for the steps that would, each of which requires an explicit decision.
+The `v1.0.0` tag and GitHub release made from `6ded4e5` are being withdrawn:
+PyPI refused their wheel because its metadata carried a classifier PyPI does
+not know. Nothing reached PyPI. See *Withdrawn publication attempt*, which
+records it in full, and [RELEASING.md](RELEASING.md) for the steps a
+publication takes.
+
+Status as recorded before that attempt, kept as it was:
+
+> **Status: 1.0.0 CERTIFIED as `plainspeak-next`. Not published.**
+>
+> Nothing here records a publication. No tag exists, no GitHub release has
+> been created, and nothing has been uploaded to PyPI.
+
+## Withdrawn publication attempt
+
+The first attempt to publish 1.0.0, on 2026-09-27. Recorded before the tag
+and release were deleted, so what existed stays on record.
+
+| | |
+|---|---|
+| accepted release commit | `6ded4e5a33ac2784147463708c9336f4d9e5f7e1` (`main`); certified package source `2423c03`, CI run 36329522785 |
+| tag | `v1.0.0`, annotated, tag object `4be733bb2aa9683b3cae58e314f892d51b6aec69`, tagger pcgsoft, 2026-09-27 16:21:08 UTC |
+| GitHub release | "PlainSpeak 1.0.0", release ID `397720344` (`RE_kwDOUIHgY84XtLsY`), published 2026-09-27 16:22:20 UTC, <https://github.com/hourwise/PlainSpeak-Next/releases/tag/v1.0.0> |
+| release workflow | [36333000273](https://github.com/hourwise/PlainSpeak-Next/actions/runs/36333000273), dispatched on `v1.0.0` with `ci-run-id=36329522785` |
+| verification job | green, 16:22:33–16:22:41 UTC: annotated tag on `main`; version and distribution name; CI run green and differing from the tag only in this page; `sha256sum --check` on all six artifacts; wheel and sdist `Name: plainspeak-next`, `Version: 1.0.0`; certification 54 / 0; 1.0.0 not on PyPI |
+| approval | the `pypi` environment, approved by hourwise |
+| publish job | 17:47:17–17:47:35 UTC. Both files re-verified against the certified hashes. Trusted Publishing worked: the OIDC token was exchanged and PyPI attestations generated for both files. The wheel upload was then refused |
+| PyPI's answer | `400 'Intended Audience :: Government' is not a valid classifier` |
+| on PyPI | nothing: the sdist was never sent, and neither the project `plainspeak-next` nor any 1.0.0 file was created (`/pypi/plainspeak-next/json` answers 404) |
+
+The GitHub release carried these assets, with GitHub's own digests:
+
+| asset | SHA-256 |
+|---|---|
+| `plainspeak_next-1.0.0-py3-none-any.whl` | `1c3c5464930d07487362fd58c49c669447c3d7841c30e4e2ff1c2d00e2a3aab2` |
+| `plainspeak_next-1.0.0.tar.gz` | `2ad392742c548528b290668daf9ce59559f72408e2b36843e7f7d0af82c8bba4` |
+| `plainspeak-desktop-1.0.0-windows.zip` | `681aa76aeda59e7e0c477b4ba6a3524737e01ac96699e000c52bb876b9d8bd53` |
+| `plainspeak-desktop-1.0.0-windows.manifest.json` | `5597926fa8401ce5e4c1161ce8ec50a425c561eb0f5742f3e5b364ce099472ac` |
+| `plainspeak-desktop-1.0.0-linux.tar.gz` | `e147bfcfffbcf0176a584c675fb342d9606ee45285e6dc0dbd21799f14d4c65b` |
+| `plainspeak-desktop-1.0.0-linux.manifest.json` | `045a33ee276edd8c47f3828921a0c804ecd1a565fea4025c426e2b3d18acd335` |
+| `certification-python.json` | `0dfcb8b01691c828de38480f1b7571b828a580c00443dda8305aeb943962c261` |
+| `SHA256SUMS` | `1565c6cd770faf6d7996db44eb5cf852c7385be049e73a3bc0dbc5cead569920` |
+
+**Cause.** `pyproject.toml` declared `Intended Audience :: Government`, which
+is not a Trove classifier; it had been there since before the fork. Nothing
+checked classifiers: not the tests, not the certification, not the release
+workflow. PyPI checks them on upload, so the problem surfaced only after
+certification, tagging, the GitHub release and approval. The package itself
+was not at fault.
+
+**Resolution.** The classifier is removed, and `tools/check_classifiers.py`
+now checks every classifier — in `pyproject.toml` and in the built wheel and
+sdist — against `trove-classifiers`, PyPI's own list, in CI's package job and
+in the release workflow's verification, before the `pypi` approval. Because
+the metadata changed, 1.0.0 is rebuilt and certified again. Then the `v1.0.0`
+tag and GitHub release above are deleted and made again on the certified
+`main`. The version stays 1.0.0: no 1.0.0 was ever published anywhere a user
+could install it from PyPI.
 
 1.0.0 was certified twice. The first certification, of `ff067c4`, produced
 artifacts whose distribution metadata said `Name: plainspeak`; they could not

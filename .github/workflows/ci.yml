@@ -77,7 +77,14 @@ jobs:
           cache: pip
 
       - name: Build wheel and sdist
-        run: python -m pip install --upgrade pip build && python -m build
+        run: python -m pip install --upgrade pip build trove-classifiers && python -m build
+
+      # PyPI refuses a classifier it does not know, and only says so at upload:
+      # the first 1.0.0 publication attempt was certified, tagged and approved
+      # before PyPI rejected `Intended Audience :: Government`. Checked here,
+      # in the declaration and in the built metadata, so certification fails.
+      - name: Every classifier is one PyPI accepts
+        run: python tools/check_classifiers.py pyproject.toml dist
 
       # The syllable dictionary was omitted from wheels before Phase 2,
       # because pyproject declared no package data. Editable installs hid it:
