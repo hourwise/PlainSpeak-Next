@@ -70,12 +70,15 @@ unrelated project; nothing in PlainSpeak Next now tells anyone to run it.
 
 ## Checkpoint note
 
-`adc523b`, which added this page, reached `main` with one failing test: the
-install-guidance test read a sentence on this page that *warns* against
-`pip install plainspeak` as a recommendation, because the warning was wrapped
-across two lines. The suite's result was piped through `tail`, whose success
-hid pytest's failure, and the commit was pushed. It was fixed forward in the
-next commit — the test now judges whole paragraphs — rather than by rewriting
+Two commits reached `main` red. `adc523b`, which added this page, failed the
+install-guidance test: a sentence here that *warns* against installing the
+unrelated PyPI package was wrapped across two lines, and the test, reading line
+by line, took it for a recommendation. The suite's output was piped through
+`tail`, whose success hid pytest's failure, and the commit was pushed.
+`006043d`, which made the test read whole paragraphs, was red for the same
+reason: its own note quoted the command, and the focused run that caught it did
+not stop the push. Both were fixed forward in the commit after `006043d`, with
+the suite's own exit status gating the commit, rather than by rewriting
 `main`. No package code differs from the certified `ff067c4`; the tag, when one
 is authorised, belongs on the current `main`.
 
