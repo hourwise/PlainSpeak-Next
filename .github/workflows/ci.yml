@@ -93,6 +93,27 @@ jobs:
           /tmp/wheeltest/bin/python -m plainspeak.adapters.cli version
           /tmp/wheeltest/bin/python tools/check_installed_data.py
 
+      # Certify the wheel as a user would meet it: installed into a fresh
+      # environment, run from a directory that is not the checkout. See
+      # tools/certify_release.py for what is checked.
+      - name: Certify the installed wheel outside the source tree
+        run: |
+          mkdir -p "$RUNNER_TEMP/elsewhere"
+          cp tools/certify_release.py "$RUNNER_TEMP/elsewhere/"
+          cd "$RUNNER_TEMP/elsewhere"
+          /tmp/wheeltest/bin/python certify_release.py --report certification-python.json
+
+      - name: Package the Python distributions
+        run: python tools/package_release.py python dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plainspeak-python
+          path: |
+            release/
+            ${{ runner.temp }}/elsewhere/certification-python.json
+          retention-days: 14
+
   desktop-build:
     name: frozen desktop build (${{ matrix.os }})
     # Manually dispatched. A Nuitka compile takes many minutes and would triple
@@ -151,10 +172,14 @@ jobs:
           echo "running ./dist/$EXE --self-test"
           "./dist/$EXE" --self-test
 
+      - name: Package the bundle as a release artifact
+        shell: bash
+        run: python tools/package_release.py desktop deploy/dist ${{ runner.os == 'Windows' && 'windows' || 'linux' }}
+
       - uses: actions/upload-artifact@v4
         with:
           name: plainspeak-desktop-${{ matrix.os }}
           path: |
-            deploy/dist
+            release/
             deploy/build-manifest.json
           retention-days: 14

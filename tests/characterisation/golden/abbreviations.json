@@ -93,8 +93,8 @@
     "outcome": "ok",
     "value": {
       "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 4.2\n  Easy (approximately upper primary level)\n\n  Text Statistics:\n    Words:               95\n    Sentences:           9\n    Avg Sentence Length:  10.6 words\n    Avg Word Length:      3.6 characters\n    Complex Words (3+ syl): 3\n\n  Readability Scores:\n    Flesch Reading Ease:        84.8\n      Easy — conversational English.\n    Flesch-Kincaid Grade Level:  4.1\n    Gunning Fog Index:           5.5\n    SMOG Index:                  6.4\n    Automated Readability Index: 1.0\n\n  Found 3 readability issue(s) across 9 sentence(s): 3 warning(s).\n\n  Top issues:\n    [WARNING] Passive Voice: \"was founded\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"is based\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"contractors\"\n           -> \"contractors\" has 3 syllables. Is there a simpler word you could use?\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 11573,
-      "html_sha256": "a5b1d763ea138d0d60ec925966e9405634150d3a6e80b7c00ff845ba226898ee",
+      "html_chars": 11581,
+      "html_sha256": "e60d5995d461d42c6a3af7005cf55f0bfdbb5d7dcacd3030a01cb3908405606d",
       "json_report": {
         "consensus": {
           "description": "Easy (approximately upper primary level)",
@@ -156,7 +156,7 @@
         },
         "text_preview": "Dr. Smith met Mr. Jones and Mrs. Patel at 3 p.m. on Tuesday.\n\nThe report covers the U.S. and the U.K. markets, e.g. New York and London. It\ndoes not cover other regions, i.e. Asia and Africa.\n\nProf. Alan Bird (Ph.D., St. Andrews) will chair the panel. The Rt. Hon. Member\nfor Bristol will respond.\n\nThe company was founded in 1987 by J. R. Hartley and is based at 14 St. James's\nSquare. Approx. 400 people work there, incl. contractors.\n\nSee Fig. 3 and Table 2 for details, or refer to vol. 4, no. 2, pp. 118-­130.\n",
         "tool": "PlainSpeak",
-        "version": "0.3.0"
+        "version": "<VERSION>"
       }
     }
   },

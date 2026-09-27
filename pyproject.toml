@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "plainspeak"
-version = "0.3.0"
+version = "1.0.0rc1"
 description = "Deterministic, integrity-protected presentation of prose: readability analysis, governed rewriting and human review"
 readme = "README.md"
 license = {text = "MIT"}
@@ -12,9 +12,12 @@ requires-python = ">=3.10"
 authors = [
     {name = "PlainSpeak Project"}
 ]
-keywords = ["readability", "plain-language", "accessibility", "text-analysis"]
+keywords = [
+    "readability", "plain-language", "accessibility", "text-analysis",
+    "deterministic", "integrity", "review",
+]
 classifiers = [
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Education",
     "Intended Audience :: Healthcare Industry",
     "Intended Audience :: Government",
@@ -26,7 +29,11 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Topic :: Text Processing",
     "Topic :: Text Processing :: Linguistic",
+    "Natural Language :: English",
+    "Environment :: Console",
+    "Environment :: X11 Applications :: Qt",
 ]
+
 dependencies = [
     "click>=8.0",
     # CommonMark parsing for the document representation. Reports a line
@@ -37,6 +44,12 @@ dependencies = [
     # nothing in a rule file can reach the interpreter.
     "PyYAML>=6.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/hourwise/PlainSpeak-Next"
+Documentation = "https://github.com/hourwise/PlainSpeak-Next/blob/main/HOW_IT_WORKS.md"
+Changelog = "https://github.com/hourwise/PlainSpeak-Next/blob/main/CHANGELOG.md"
+Issues = "https://github.com/hourwise/PlainSpeak-Next/issues"
 
 [project.optional-dependencies]
 # The desktop application. Deliberately optional: importing `plainspeak`

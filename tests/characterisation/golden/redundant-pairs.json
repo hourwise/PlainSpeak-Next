@@ -97,8 +97,8 @@
     "outcome": "ok",
     "value": {
       "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 6.6\n  Fairly easy (approximately lower secondary level)\n\n  Text Statistics:\n    Words:               95\n    Sentences:           13\n    Avg Sentence Length:  7.3 words\n    Avg Word Length:      4.7 characters\n    Complex Words (3+ syl): 13\n\n  Readability Scores:\n    Flesch Reading Ease:        72.1\n      Fairly easy — plain English suitable for general audience.\n    Flesch-Kincaid Grade Level:  5.0\n    Gunning Fog Index:           8.4\n    SMOG Index:                  8.8\n    Automated Readability Index: 4.1\n\n  Found 20 readability issue(s) across 13 sentence(s): 10 warning(s), 10 suggestion(s).\n\n  Top issues:\n    [INFO] Complex Word: \"applicant\"\n           -> \"applicant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"provide\"\n           -> Consider using \"give\" instead. Direct.\n    [INFO] Redundant Pair: \"first and foremost\"\n           -> Use just \"first\". Use one word.\n    [WARNING] Passive Voice: \"is required\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"declaration\"\n           -> \"declaration\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"applicant\"\n           -> \"applicant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"required\"\n           -> Consider using \"need\" instead. A shorter, more direct word.\n    [INFO] Redundant Pair: \"each and every\"\n           -> Use just \"each\". Use one or the other, not both.\n    [INFO] Jargon / Formal Language: \"terms\"\n           -> Consider using \"length of cover\" instead. How long the insurance lasts.\n    [WARNING] Complex Word: \"conditions\"\n           -> \"conditions\" has 3 syllables. Is there a simpler word you could use?\n    ... and 10 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 22464,
-      "html_sha256": "fec34c4aefde71e364ee3d1628812381802d78ad1802e38b1b28d558bb00bb3b",
+      "html_chars": 22472,
+      "html_sha256": "3d19cfc4367344302e78bca3a7b9a7842de27d63fac096f9524caa80c731ae4c",
       "json_report": {
         "consensus": {
           "description": "Fairly easy (approximately lower secondary level)",
@@ -313,7 +313,7 @@
         },
         "text_preview": "The applicant must first and foremost provide full and complete details.\n\nEach and every applicant is required to sign the declaration. The terms and\nconditions are null and void unless the form is properly signed.\n\nWe will consider any and all evidence. The decision is final and conclusive.\n\nPlease provide a true and accurate account of the events. Any aid and assistance\ngiven must be declared.\n\nThe plan is basic and fundamental to the project. This is due to the fact that\nthe deadline has passed. In the event that you disagree, you may appeal.\n",
         "tool": "PlainSpeak",
-        "version": "0.3.0"
+        "version": "<VERSION>"
       }
     }
   },

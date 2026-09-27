@@ -19,6 +19,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 try:  # Python 3.11+
     import tomllib
 except ModuleNotFoundError:  # pragma: no cover - exercised on 3.10 only
@@ -137,3 +139,53 @@ def test_the_bundled_profiles_are_present() -> None:
 
     for identifier in profile_ids():
         assert (BUNDLED / f"{identifier}.yaml").exists()
+
+
+def test_the_version_is_stated_consistently_everywhere() -> None:
+    """`pyproject.toml`, `plainspeak.__version__`, the Windows build spec and the
+    release certification script agree.
+
+    The version is part of every plan's identity, so a wheel reporting one
+    version while the engine reports another would produce plans nobody could
+    match to a release. Windows file versions are four numbers, so the spec
+    carries the release without its pre-release suffix.
+    """
+    import re
+
+    from plainspeak import __version__
+
+    if tomllib is None:
+        pytest.skip("needs tomllib (Python 3.11+); the 3.13 jobs run this on every platform")
+
+    root = Path(__file__).resolve().parent.parent
+    declared = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))["project"]["version"]
+    assert declared == __version__
+
+    spec = (root / "deploy" / "pysidedeploy.spec").read_text(encoding="utf-8")
+    release = re.match(r"\d+\.\d+\.\d+", __version__).group(0)
+    assert f"--product-version={release}.0" in spec
+    assert f"--file-version={release}.0" in spec
+
+    # The certification script pins the version independently of the package it
+    # certifies — that independence is its point — so it is checked here too.
+    certify = (root / "tools" / "certify_release.py").read_text(encoding="utf-8")
+    assert f'EXPECTED_VERSION = "{__version__}"' in certify
+
+
+
+def test_the_runtime_dependencies_are_declared_where_installers_read_them() -> None:
+    """A table placed in the middle of `[project]` captures the keys after it.
+
+    Found while preparing the release candidate: `[project.urls]` inserted above
+    `dependencies` made TOML read the dependency list as a URL, and the build
+    refused the metadata. An installer given such a wheel would install
+    PlainSpeak without click, markdown-it or PyYAML.
+    """
+    if tomllib is None:
+        pytest.skip("needs tomllib (Python 3.11+); the 3.13 jobs run this on every platform")
+
+    root = Path(__file__).resolve().parent.parent
+    project = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))["project"]
+    names = {entry.split(">")[0].split("=")[0].strip().lower() for entry in project["dependencies"]}
+    assert names == {"click", "markdown-it-py", "pyyaml"}
+    assert all(isinstance(value, str) for value in project["urls"].values())

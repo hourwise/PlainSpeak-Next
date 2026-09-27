@@ -34,3 +34,7 @@ htmlcov/
 # Project output
 *.html.report/
 examples/plain_report.html
+
+# Release artifacts (tools/package_release.py)
+release/
+certification-*.json

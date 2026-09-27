@@ -95,8 +95,8 @@
     "outcome": "ok",
     "value": {
       "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 11.6\n  Fairly difficult (approximately upper secondary level)\n\n  Text Statistics:\n    Words:               97\n    Sentences:           11\n    Avg Sentence Length:  8.8 words\n    Avg Word Length:      5.3 characters\n    Complex Words (3+ syl): 29\n\n  Readability Scores:\n    Flesch Reading Ease:        37.4\n      Difficult — best understood by college graduates.\n    Flesch-Kincaid Grade Level:  10.2\n    Gunning Fog Index:           15.5\n    SMOG Index:                  12.4\n    Automated Readability Index: 8.1\n\n  Found 31 readability issue(s) across 11 sentence(s): 23 warning(s), 8 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"implementation\"\n           -> Consider using \"setup\" instead. A more concrete term.\n    [WARNING] Complex Word: \"improvement\"\n           -> \"improvement\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"procedure\"\n           -> \"procedure\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"processing\"\n           -> \"processing\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"examination\"\n           -> \"examination\" has 5 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"determination\"\n           -> \"determination\" has 5 syllables. Is there a simpler word you could use?\n    [WARNING] Jargon / Formal Language: \"make a determination\"\n           -> Consider using \"decide\" instead. Noun-heavy phrase -> verb.\n    [INFO] Complex Word: \"undertake\"\n           -> Consider using \"do\" instead. Direct verb.\n    [WARNING] Complex Word: \"allegations\"\n           -> \"allegations\" has 4 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"department\"\n           -> \"department\" has 3 syllables. Is there a simpler word you could use?\n    ... and 21 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 30733,
-      "html_sha256": "4d050d0c9e21ffb1ad0e88f569b7e6ca390650f589b091f08d329cebe98db190",
+      "html_chars": 30741,
+      "html_sha256": "b5e372e7df4019889d611fe1747c53fa8e5200ece93491aca9971058ba553235",
       "json_report": {
         "consensus": {
           "description": "Fairly difficult (approximately upper secondary level)",
@@ -410,7 +410,7 @@
         },
         "text_preview": "The implementation of the new procedure resulted in the improvement of\nprocessing times.\n\nWe will undertake an examination of the evidence and make a determination as to\nwhether the allegations have merit. The Department is in receipt of your\napplication and will give consideration to it in due course.\n\nThe utilisation of these resources requires the authorisation of the director.\nVerification of the documentation is a requirement prior to the commencement of\nthe assessment.\n\nPlease make an application for a review of the decision.\n\nThe provision of information to the registrar is the responsibility of the\napplicant.\n",
         "tool": "PlainSpeak",
-        "version": "0.3.0"
+        "version": "<VERSION>"
       }
     }
   },

@@ -96,8 +96,8 @@
     "outcome": "ok",
     "value": {
       "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 11.8\n  Fairly difficult (approximately upper secondary level)\n\n  Text Statistics:\n    Words:               106\n    Sentences:           12\n    Avg Sentence Length:  8.8 words\n    Avg Word Length:      5.5 characters\n    Complex Words (3+ syl): 29\n\n  Readability Scores:\n    Flesch Reading Ease:        33.5\n      Difficult — best understood by college graduates.\n    Flesch-Kincaid Grade Level:  10.8\n    Gunning Fog Index:           14.5\n    SMOG Index:                  12.0\n    Automated Readability Index: 8.8\n    Coleman-Liau Index:          13.1\n\n  Found 32 readability issue(s) across 12 sentence(s): 16 warning(s), 16 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"consideration\"\n           -> \"consideration\" has 5 syllables. Is there a simpler word you could use?\n    [INFO] Jargon / Formal Language: \"damages\"\n           -> \"damages\" is a legal term of art with specific meaning. Consider defining or explaining it on first \n    [WARNING] Complex Word: \"consideration\"\n           -> \"consideration\" has 5 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"essential\"\n           -> \"essential\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"agreement\"\n           -> \"agreement\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"material\"\n           -> \"material\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"defendant\"\n           -> \"defendant\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Nominalization: \"motion\"\n           -> \"motion\" is a nominalization. Consider using the verb \"moe\" instead to make the sentence more direct\n    [INFO] Jargon / Formal Language: \"material fact\"\n           -> \"material fact\" is a domain term of art. Consider defining or explaining it on first use rather than\n    [WARNING] Passive Voice: \"was admitted\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    ... and 22 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 31460,
-      "html_sha256": "766d01dc00859fc3f9ca3667ca521ffd02f9d1dbbeccb03f8bed6ae71a51b3af",
+      "html_chars": 31468,
+      "html_sha256": "d83698fced87d6ed9cd1ed0f90be0ba5f5997cda89e776b1ca2f65926c1f1434",
       "json_report": {
         "consensus": {
           "description": "Fairly difficult (approximately upper secondary level)",
@@ -420,7 +420,7 @@
         },
         "text_preview": "The court will remand the case for further consideration of the damages award.\n\nConsideration is an essential element of any valid contract, and without it the\nagreement fails. The defendant filed a motion for summary judgment, arguing that\nno genuine issue of material fact remained.\n\nThe patient presented with an acute abdomen and was admitted for observation.\nInformed consent was obtained prior to the procedure.\n\nThe trustee holds the property subject to an equitable interest in favour of the\nbeneficiaries. Consideration of the beneficiaries' interests must precede any\ndistribution.\n\nThe security interest was perfected by filing. The negligence claim was barred by\nthe statute of limitations.\n",
         "tool": "PlainSpeak",
-        "version": "0.3.0"
+        "version": "<VERSION>"
       }
     }
   },

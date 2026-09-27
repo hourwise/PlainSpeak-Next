@@ -89,6 +89,9 @@ of comparators and qualifiers ("at least", "no later than", "before",
 - The desktop application never overwrites the file it opened, writes
   atomically, and saves the engine's output rather than a widget's contents.
 - Accepting or rejecting a suggestion never re-plans the document.
+- A review decision is bound to the plan it was made against, and the plan's
+  identity includes the engine version, every rule-set identity and the
+  document. A decision made under one release cannot be replayed under another.
 
 ### Short texts
 

@@ -54,6 +54,19 @@ def redact_timestamps(text: str) -> str:
     return _ISO_TIMESTAMP.sub("<TIMESTAMP>", text)
 
 
+def redact_version(text: str) -> str:
+    """Replace the package version with a fixed placeholder.
+
+    The inherited reports stamp the version into their output. A version is
+    not behaviour, and sealing it would make every release a change to the
+    seal — so it is redacted exactly as timestamps are, and the seal pins what
+    the engine does rather than what it is called this week.
+    """
+    from plainspeak import __version__
+
+    return text.replace(__version__, "<VERSION>")
+
+
 def sha256(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
@@ -151,17 +164,19 @@ def capture_document(text: str) -> dict:
     def reporter_section() -> dict:
         scores = analyzer.analyze(text)
         simplification = simplifier.analyze_simplification(text)
-        html = redact_timestamps(reporter.generate_report(scores, simplification, text))
+        html = redact_version(redact_timestamps(reporter.generate_report(scores, simplification, text)))
         return {
             # The JSON report is the machine-readable contract, so it is sealed
             # in full. The HTML report is large and presentational; a hash plus
             # its length catches any change without the diff noise.
-            "json_report": normalise(json.loads(reporter.generate_json(scores, simplification, text))),
+            "json_report": normalise(
+                json.loads(redact_version(reporter.generate_json(scores, simplification, text)))
+            ),
             "html_sha256": sha256(html),
             "html_chars": len(html),
-            "console_report": redact_timestamps(
+            "console_report": redact_version(redact_timestamps(
                 reporter.format_console_report(scores, simplification)
-            ),
+            )),
         }
 
     return {
@@ -231,7 +246,8 @@ def capture_globals() -> dict:
     from plainspeak import __version__, analyzer, glossary, grammar, reader, simplifier
 
     return {
-        "version": __version__,
+        # Redacted, like every version stamp in the seal; see `redact_version`.
+        "version": "<VERSION>" if __version__ else "",
         "data": {
             "glossary": digest_mapping(glossary.GLOSSARY),
             "simple_word_map": digest_mapping(glossary.SIMPLE_WORD_MAP),

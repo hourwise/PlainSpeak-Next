@@ -97,8 +97,8 @@
     "outcome": "ok",
     "value": {
       "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 3.9\n  Easy (approximately upper primary level)\n\n  Text Statistics:\n    Words:               75\n    Sentences:           13\n    Avg Sentence Length:  5.8 words\n    Avg Word Length:      4.3 characters\n    Complex Words (3+ syl): 5\n\n  Readability Scores:\n    Flesch Reading Ease:        88.2\n      Easy — conversational English.\n    Flesch-Kincaid Grade Level:  2.4\n    Gunning Fog Index:           5.0\n    SMOG Index:                  6.7\n    Automated Readability Index: 1.5\n\n  Found 5 readability issue(s) across 13 sentence(s): 2 warning(s), 3 suggestion(s).\n\n  Top issues:\n    [INFO] Complex Word: \"documents\"\n           -> \"documents\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"information\"\n           -> \"information\" has 4 syllables. Is there a simpler word you could use?\n    [INFO] Jargon / Formal Language: \"may\"\n           -> \"may\" is a legal term of art with specific meaning. Consider defining or explaining it on first use.\n    [INFO] Complex Word: \"telephone\"\n           -> \"telephone\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Complex Word: \"ordinary\"\n           -> \"ordinary\" has 4 syllables. Is there a simpler word you could use?\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 12663,
-      "html_sha256": "8e46a89e0544c5b387f3299062c5ad7b644f65e7831d297fbc5adf6622c06277",
+      "html_chars": 12671,
+      "html_sha256": "b36cfe7f6ffde585de9a155db83ef9e403fbf2f17fec0107c65fac0bfd90f568",
       "json_report": {
         "consensus": {
           "description": "Easy (approximately upper primary level)",
@@ -178,7 +178,7 @@
         },
         "text_preview": "HOW TO APPLY\n\nRead these notes before you start\n\n1. Collect your documents\n2. Fill in every section\n3. Sign and date the form\n\nWHAT HAPPENS NEXT\n\n- We check your form\n- We may ask for more information\n- We write to you with our decision\n\nContact us\n\nTelephone 0300 123 4567\nMonday to Friday, 9am to 5pm\n\nA heading with no full stop\n\nSome ordinary prose follows the heading, and this sentence does end with a full\nstop. So does this one.\n",
         "tool": "PlainSpeak",
-        "version": "0.3.0"
+        "version": "<VERSION>"
       }
     }
   },

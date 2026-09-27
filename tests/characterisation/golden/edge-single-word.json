@@ -46,8 +46,8 @@
     "outcome": "ok",
     "value": {
       "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 0.9\n  Very easy (approximately early primary level)\n\n  Text Statistics:\n    Words:               1\n    Sentences:           1\n    Avg Sentence Length:  1.0 words\n    Avg Word Length:      3.0 characters\n    Complex Words (3+ syl): 0\n\n  Readability Scores:\n    Flesch Reading Ease:        100.0\n      Very easy — understood by an average 11-year-old.\n    Flesch-Kincaid Grade Level:  0.0\n    Gunning Fog Index:           0.4\n    SMOG Index:                  3.1\n    Automated Readability Index: 0.0\n\n  Found 0 readability issue(s) across 1 sentence(s): No significant readability barriers found.\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 8916,
-      "html_sha256": "318e23dfd58e19ea7756bddbcac19790d703570ab479c332763f7cc50021d669",
+      "html_chars": 8924,
+      "html_sha256": "92c39b26a38e814ee4fbbcf09aa8489e7430fadf87361ed77fc257355d3694c3",
       "json_report": {
         "consensus": {
           "description": "Very easy (approximately early primary level)",
@@ -81,7 +81,7 @@
         },
         "text_preview": "Yes\n",
         "tool": "PlainSpeak",
-        "version": "0.3.0"
+        "version": "<VERSION>"
       }
     }
   },

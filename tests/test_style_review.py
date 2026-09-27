@@ -50,7 +50,8 @@ FIXTURES = Path(__file__).resolve().parent / "style" / "stylefix"
 #: identifier, the plan it belongs to, the approval, the finished document — is
 #: derived from content and must be identical everywhere.
 #:
-#: Re-pinned for V1 (ruleset 2026.4, integrity 2026.2, style 2026.2). The two
+#: Re-pinned for V1 (engine 1.0.0rc1, ruleset 2026.4, integrity 2026.2, style
+#: 2026.2) — the engine version is part of every plan's identity. The two
 #: concessive-heavy proposals that remain keep exactly the identifiers they had,
 #: because a proposal identifier is derived from its content; the other two were
 #: never needed once "Even so," was counted. `signposted` under plain now has a
@@ -62,19 +63,19 @@ PINNED = {
             "SP-5de1cbe21aedf1ea",
             "SP-0cf6c1273b06490c",
         ],
-        "plan_hash": "587deabce8023aa3a6d7f8a3877dc80162f887216d835f6c20e15d8f0596e0b9",
-        "plan_digest": "8bf2fb7dea1f6afaa3917e9d553fcc27cf05e44cad229bc79aa02921617e1d58",
-        "approved_digest": "a88c6b3647a329650d23ad2f80e8bc954d98b05361bda4b4f6065d2ce971b7f6",
-        "result_digest": "48f6e7c7e26571e02812c4578fda4ad233703668f47a65a272562d3305f63fcd",
+        "plan_hash": "5b3a2bbe88982c94187ff31c4227424eb3cae26789c315b48d7be9ac2832e973",
+        "plan_digest": "015e75a9ad18d35725d697d48067aec2e219c73281d2ec3b7ac19ae170d1044d",
+        "approved_digest": "01b678874a8aa54164fd144b35c92f8317638a5645512b1a19178240edc4bc3b",
+        "result_digest": "f8a67377ff9301a72eb271f79ec47e529c3e7775a09170e162687223933cabce",
         "output_hash": "cbd6b0fd0b630ab43fabe73c54cd8bd4070b2dd5384d6fcff4b4b0178fa6e125",
     },
     "signposted": {
         "profile": "plain",
         "proposal_ids": [],
-        "plan_hash": "c8d5e09515e70d159a152bb5ff1b2ce105b3b008ac1450146d991cc05acc8adb",
-        "plan_digest": "4293564107ea1d95c7438c891a180c9538c3c3cba8f059406f04bb53a0a72aba",
-        "approved_digest": "e8ae2c2e3ecdc428c34e69ef90b9036b9a614566927ec8569a48cbdd5b66cb4a",
-        "result_digest": "38724aa871e53ee489f28b32fe510af543560be1fa5242f5da8aac0f2253ec79",
+        "plan_hash": "98556c148af8ca008956a8957f86196eb930aa5023ff0400d12ce4d411b018e0",
+        "plan_digest": "8fabc9f9f7a4e566025cc0c9e0a20d25ee4e8afcb3ccd73ee6028b7f9f7e6ee3",
+        "approved_digest": "0a15363fcb9453c2b1ef49ae1d8b1bd26b5f544f348b24bbe46c61752a25857a",
+        "result_digest": "ead0be5b8ceb3b5371616533d301fcb8d684185e13e24cf6dc63d67e928b37c4",
         "output_hash": "00ddb376fe3145c8e7768571e9c1d8f32cad021bdaeddcf5019359471fbd1c7c",
     },
 }

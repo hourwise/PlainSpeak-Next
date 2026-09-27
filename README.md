@@ -30,18 +30,26 @@ See [V1_SCOPE.md](V1_SCOPE.md) for exactly what it does and does not promise.
 
 ## Status
 
-Pre-release. The package still reports the last upstream version, `0.3.0`;
-PlainSpeak Next has not yet made a release. Phases 0–10 and Stage 0 are accepted
-on `main`, and the work towards 1.0 is in [ROADMAP.md](ROADMAP.md).
+**Release candidate `1.0.0rc1`** — not yet published. Phases 0–10 and the V1
+blockers are accepted on `main`; the certification evidence is in
+[RELEASE_READINESS.md](RELEASE_READINESS.md), and what 1.0 promises is in
+[V1_SCOPE.md](V1_SCOPE.md).
+
+New here? [WALKTHROUGH.md](WALKTHROUGH.md) takes you from installation to a
+reviewed document in about ten minutes, and [HOW_IT_WORKS.md](HOW_IT_WORKS.md)
+explains what PlainSpeak does and guarantees in plain terms.
 
 ## Install
 
 ```bash
-pip install -e ".[desktop]"     # engine, CLI and desktop application
-pip install -e .                # engine and CLI only — no Qt
+python -m pip install "plainspeak[desktop] @ git+https://github.com/hourwise/PlainSpeak-Next"
+python -m pip install "plainspeak @ git+https://github.com/hourwise/PlainSpeak-Next"   # no Qt
 ```
 
-Python 3.10 or later. Tested on Windows, Linux and macOS.
+Python 3.10 or later. Tested on Windows, Linux and macOS. Portable desktop
+builds for Windows and Linux, which need no Python, are produced for each
+release — see [RELEASING.md](RELEASING.md). From a checkout, use
+`pip install -e ".[desktop,dev]"`.
 
 ## Desktop application
 
@@ -163,7 +171,10 @@ The full accounting is in [LIMITATIONS.md](LIMITATIONS.md) and
 
 ## Documentation
 
+- [HOW_IT_WORKS.md](HOW_IT_WORKS.md) — what PlainSpeak changes, what it refuses to change, and why you can rely on it
+- [WALKTHROUGH.md](WALKTHROUGH.md) — install, present, review and save your first document
 - [V1_SCOPE.md](V1_SCOPE.md) — what 1.0 guarantees, what it does not, and what counts as breaking
+- [RELEASING.md](RELEASING.md) and [RELEASE_READINESS.md](RELEASE_READINESS.md) — how a release is built and certified, and the evidence for this one
 - [ROADMAP.md](ROADMAP.md) — accepted phases, V1 blockers, and what comes after
 - [ARCHITECTURE.md](ARCHITECTURE.md) — the layers, and what each may depend on
 - [DESKTOP_MVP.md](DESKTOP_MVP.md) — the desktop application: architecture, file safety, review semantics, build evidence

@@ -49,8 +49,8 @@
     "outcome": "ok",
     "value": {
       "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 13.8\n  Difficult (undergraduate university level)\n\n  Text Statistics:\n    Words:               4\n    Sentences:           1\n    Avg Sentence Length:  4.0 words\n    Avg Word Length:      6.2 characters\n    Complex Words (3+ syl): 2\n\n  Readability Scores:\n    Flesch Reading Ease:        12.4\n      Very difficult — university graduate level.\n    Flesch-Kincaid Grade Level:  12.5\n    Gunning Fog Index:           21.6\n    SMOG Index:                  11.2\n    Automated Readability Index: 10.0\n\n  Found 1 readability issue(s) across 1 sentence(s): 1 warning(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"punctuation\"\n           -> \"punctuation\" has 4 syllables. Is there a simpler word you could use?\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 9616,
-      "html_sha256": "762b31d9d603941fa2cc9ca9e27dc6fffcaca36f7877f5c5a04c2dd843b8c0e4",
+      "html_chars": 9624,
+      "html_sha256": "2d5fe27873da360ae206cb6eff367c1871373ee22df9006f1822b5bd80c656d7",
       "json_report": {
         "consensus": {
           "description": "Difficult (undergraduate university level)",
@@ -94,7 +94,7 @@
         },
         "text_preview": "No terminal punctuation here\n",
         "tool": "PlainSpeak",
-        "version": "0.3.0"
+        "version": "<VERSION>"
       }
     }
   },

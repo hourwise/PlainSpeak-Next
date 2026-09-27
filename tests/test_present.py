@@ -342,3 +342,21 @@ def test_output_does_not_replace_an_existing_file_without_overwrite(runner, tmp_
                                    "-o", str(existing), "--overwrite"])
     assert allowed.exit_code == 0
     assert json.loads(existing.read_text(encoding="utf-8"))["schema"] == PRESENT_SCHEMA
+
+
+def test_the_walkthrough_example_does_what_the_walkthrough_says():
+    """WALKTHROUGH.md shows real output. If the engine changes it, the page is wrong."""
+    result = present(load_reviewable(REPO / "examples" / "agent_reply.md"), "natural")
+    assert [item.rule_id for item in result.applied] == [
+        "PS.CLARITY.001", "PS.LEXICAL.001", "PS.CLARITY.009",
+    ]
+    assert [(item.before, item.after) for item in result.review] == [("Nevertheless,", "Even so,")] * 2
+    assert [item.rule_id for item in result.refused] == ["PS.FRAMING.003"]
+    assert [item.id.rsplit(".", 1)[-1] for item in result.bundle.insufficient_sample()] == [
+        "PARAGRAPH_UNIFORMITY", "VOCABULARY_OVERUSE",
+    ]
+    data = result.as_dict()
+    assert data["input"]["sha256"].startswith("2d3888ed")
+    assert data["output"]["sha256"].startswith("fcfa1aa3")
+    walkthrough = (REPO / "WALKTHROUGH.md").read_text(encoding="utf-8")
+    assert "input 2d3888ed6c930f0b  output fcfa1aa32c6e66e6" in walkthrough

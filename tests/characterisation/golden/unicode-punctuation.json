@@ -93,8 +93,8 @@
     "outcome": "ok",
     "value": {
       "console_report": "============================================================\n  PlainSpeak Readability Report\n============================================================\n\n  Consensus Grade Level: 6.3\n  Fairly easy (approximately lower secondary level)\n\n  Text Statistics:\n    Words:               72\n    Sentences:           9\n    Avg Sentence Length:  8.0 words\n    Avg Word Length:      4.1 characters\n    Complex Words (3+ syl): 11\n\n  Readability Scores:\n    Flesch Reading Ease:        76.5\n      Fairly easy — plain English suitable for general audience.\n    Flesch-Kincaid Grade Level:  4.6\n    Gunning Fog Index:           9.3\n    SMOG Index:                  9.4\n    Automated Readability Index: 2.1\n\n  Found 11 readability issue(s) across 9 sentence(s): 6 warning(s), 5 suggestion(s).\n\n  Top issues:\n    [WARNING] Complex Word: \"considerable\"\n           -> Consider using \"large\" instead. Or 'big' — a shorter word.\n    [WARNING] Complex Word: \"improvement\"\n           -> \"improvement\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Jargon / Formal Language: \"said\"\n           -> Consider using \"the\" instead. Legal reference word — replace.\n    [INFO] Complex Word: \"disagreed\"\n           -> \"disagreed\" has 3 syllables. Is there a simpler word you could use?\n    [WARNING] Passive Voice: \"be assessed\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Passive Voice: \"be written\"\n           -> Consider rewriting in active voice. Identify who is doing the action and make them the subject.\n    [WARNING] Complex Word: \"applicants\"\n           -> \"applicants\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Complex Word: \"provide\"\n           -> Consider using \"give\" instead. Direct.\n    [INFO] Complex Word: \"employees\"\n           -> \"employees\" has 3 syllables. Is there a simpler word you could use?\n    [INFO] Jargon / Formal Language: \"said\"\n           -> Consider using \"the\" instead. Legal reference word — replace.\n    ... and 1 more issue(s).\n\n  ————————————————————————————————————————————————————————\n  Note: Readability scores are proxies, not direct measures of\n  comprehension. All suggestions should be reviewed by a human.\n============================================================",
-      "html_chars": 16676,
-      "html_sha256": "463ce7c3465b228a1278bff155ba2d8f0508eea101f003a6dac5a50ea6d58eb2",
+      "html_chars": 16684,
+      "html_sha256": "536ad0f64034b6d8adbf3b77a3353cbfb9eaec40e493a2150f464fd89f192444",
       "json_report": {
         "consensus": {
           "description": "Fairly easy (approximately lower secondary level)",
@@ -228,7 +228,7 @@
         },
         "text_preview": "The Minister said the policy was “a considerable improvement” — though critics\ndisagreed.\n\nApplicants who don’t provide evidence can’t be assessed; they’ll be written to\nwithin 10 days.\n\nThe café’s naïve résumé policy affected 250 employees … or so it seemed.\n\n“We must act,” she said, “and we must act now.”\n\nThe range is 10–20 per cent (see § 4.2). Temperatures reached 21 °C.\n\nÜnlü, Müller and Añez co-authored the paper.\n",
         "tool": "PlainSpeak",
-        "version": "0.3.0"
+        "version": "<VERSION>"
       }
     }
   },

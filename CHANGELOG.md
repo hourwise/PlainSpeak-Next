@@ -4,16 +4,18 @@ All notable changes to PlainSpeak will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-PlainSpeak Next has not yet made a release. Everything since the fork is under
-**Unreleased**, and the package still reports the last upstream version,
-`0.3.0`. Entries for `0.3.0` and earlier describe the upstream project
+PlainSpeak Next has not yet published a release. Everything since the fork is
+under the **1.0.0rc1** release candidate. Entries for `0.3.0` and earlier
+describe the upstream project
 ([Project-PlainSpeak](https://github.com/hourwise/Project-PlainSpeak)), whose
 history this repository preserves; see [UPSTREAM.md](UPSTREAM.md).
 
-## [Unreleased] — PlainSpeak Next
+## [1.0.0rc1] — release candidate, not published
 
-Development after the fork at `74ecd51` (2026-08-29 onward). Each phase is
-described in full in its commit messages and in the document linked.
+The first release candidate of PlainSpeak Next: everything since the fork at
+`74ecd51` (2026-08-29 onward). Each phase is described in full in its commit
+messages and in the document linked. Certification evidence:
+[RELEASE_READINESS.md](RELEASE_READINESS.md).
 
 ### Added
 - **Phase 0–1.** Lineage record ([UPSTREAM.md](UPSTREAM.md)), cross-platform CI
@@ -75,6 +77,15 @@ described in full in its commit messages and in the document linked.
   fixes remain; a density finding now comes with nothing to review.
 - Repeated-transition proposals are budgeted honestly: `concessive-heavy.md`
   under natural needs two, not four.
+- **Version 1.0.0rc1.** The characterisation seal now redacts the package
+  version, as it already redacted timestamps: a version is not behaviour, and
+  sealing it made every release a change to the seal. Verified before
+  re-sealing: under redaction the only differences were the version stamps
+  themselves, and switching the version afterwards changes no golden file.
+- `HOW_IT_WORKS.md`, `WALKTHROUGH.md`, `RELEASING.md`, and release tooling:
+  `tools/package_release.py` (versioned archives and `SHA256SUMS`) and
+  `tools/certify_release.py` (certifies an installed wheel from outside the
+  checkout). CI now packages and certifies on every run.
 - **One engine.** `plainspeak simplify` is now a deprecated alias for
   `present --format marked`, and requires `--profile`. The web interface's
   simplified text is the governed presentation. Both previously called the
