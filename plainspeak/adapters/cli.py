@@ -48,18 +48,19 @@ BLANK = chr(10)
 @click.version_option(version=__version__, prog_name="PlainSpeak")
 def main():
     """
-    PlainSpeak — A readability analysis and text simplification toolkit.
+    PlainSpeak — deterministic, integrity-protected presentation of prose.
 
-    Helps you understand how readable your writing is and what you can
-    do to make it clearer. All processing is local and offline.
+    Makes only the changes it can show preserve the facts a text states, and
+    reports what it changed, what needs a person and what it refused. All
+    processing is local and offline.
 
     Examples:
 
-        plainspeak analyze document.txt
+        plainspeak present document.md --profile natural
+
+        plainspeak present document.md --profile natural --format summary
 
         plainspeak analyze document.txt --output report.html
-
-        plainspeak analyze --stdin < document.txt
     """
     pass
 
@@ -676,7 +677,7 @@ def style_preview(path: str, profile_id: str):
 def version():
     """Print version information."""
     click.echo(f"PlainSpeak v{__version__}")
-    click.echo("A readability analysis and text simplification toolkit.")
+    click.echo("Deterministic, integrity-protected presentation of prose.")
     click.echo("License: MIT")
 
 
