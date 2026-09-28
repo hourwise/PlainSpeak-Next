@@ -11,11 +11,74 @@ describe the upstream project
 ([Project-PlainSpeak](https://github.com/hourwise/Project-PlainSpeak)), whose
 history this repository preserves; see [UPSTREAM.md](UPSTREAM.md).
 
-## [Unreleased]
+## [1.1.0]
 
-The 1.1.0 release candidate: Verify, the GitHub Action and the MCP server, and
-fixes for defects found by field testing of the published 1.0.0. Every 1.0.0
-contract keeps its shape. Recommended version: 1.1.0 ([V2_SCOPE.md](V2_SCOPE.md)).
+PlainSpeak can now check a rewrite it did not make, from the command line, in
+CI and from an AI agent. It also makes far fewer automatic changes than 1.0.0,
+on purpose. Every 1.0.0 contract keeps its shape; scope in
+[V2_SCOPE.md](V2_SCOPE.md).
+
+### In brief
+- **`plainspeak verify BEFORE AFTER`** judges a rewrite made by anyone — a
+  person, a language model, other software — against PlainSpeak's integrity
+  model and answers `ACCEPTED`, `REFUSED` or `INCONCLUSIVE`. `ACCEPTED` means
+  every protected fact survived and every difference is one PlainSpeak can
+  account for. It does not mean the two texts say the same thing. `REFUSED`
+  means a protected fact or a region PlainSpeak never rewrites was lost, added
+  or changed. `INCONCLUSIVE` means nothing protected was lost but something
+  changed that PlainSpeak cannot vouch for — which is what most free rewrites
+  get. Exit statuses 0, 1 and 3 make it usable as a CI gate.
+- **Deterministic receipts.** Every verification can emit a
+  `plainspeak.verify.receipt.v1` receipt: the same inputs, engine and policies
+  always produce the same bytes, so a result can be checked later.
+- **A GitHub Action** (`uses: hourwise/PlainSpeak-Next@<ref>`) runs Verify in a
+  workflow, annotates the lines concerned, and uploads the result and receipt.
+- **`plainspeak serve`**, a local MCP server over stdio, gives an AI agent
+  `present`, `verify` and `diagnose` as tools, returning the CLI's contracts
+  byte for byte. No network, no file access, no dependencies.
+- **`plainspeak diagnose`** reports what `present` reports and changes nothing.
+- **Short texts are not given a verdict.** `analyze` reports a sample under
+  100 words or 3 sentences as an insufficient sample, not as "Very easy".
+- **Better help for piped text and profiles.** `analyze`, `present` and
+  `diagnose` say when text is piped without `--stdin`, and help shows that
+  `--profile` has no default.
+- **SAFE rules corrected from field testing.** 1.0.0 turned "In order to
+  facilitate the completion of the task" into "To help the completion of the
+  task". That rule and 41 others with the same kind of defect no longer apply.
+- **Every remaining automatic rule qualified.** The 97 rules still automatic
+  were each probed in ordinary, adversarial and specialist sentences; 23 held
+  in every one, and 74 no longer apply.
+
+### Fewer automatic changes, deliberately
+1.0.0 applied 139 rules automatically. 1.1.0 applies **23**, each qualified
+against legal, financial, clinical, technical and government sentences as
+well as ordinary ones ([SAFE_RULE_QUALIFICATION.md](SAFE_RULE_QUALIFICATION.md)).
+The other 116 are not lost by accident: each was found to break a realistic
+sentence — "keep you apprised" became "keep you told", "the beneficial owner"
+became "the helpful owner", "the income threshold" became "the income limit" —
+and PlainSpeak's rule is that an automatic change must be right wherever its
+rule can fire. They remain in the ruleset as diagnostic rules under the same
+IDs and are never applied. `present` and `diagnose` do not currently list
+them, so such a word is left as written and not flagged; surfacing them is
+future work ([ROADMAP.md](ROADMAP.md)).
+
+Expect `present` to change less than 1.0.0 did. 23 rules is not a claim that
+every one is safe everywhere: they held in every sentence tried, and a probe
+set is a sample. Nothing in 1.1.0 claims that a rewrite means the same as the
+original — Verify checks what it can account for and says `INCONCLUSIVE` about
+the rest.
+
+### Upgrading from 1.0.0
+- No contract changed shape: `plainspeak.present.v1` and the `analyze` JSON
+  report keep every field (the report gains a `sample` object).
+- `present` output differs from 1.0.0 only where a rule that no longer applies
+  had fired: of 145 outputs checked (29 documents under five profiles), 75
+  differ, each only by such a substitution being left out, and 70 are
+  identical apart from the engine identity.
+- The engine version is part of every plan's identity, so review decisions
+  recorded under 1.0.0 do not replay under 1.1.0.
+- Ruleset `2026.8` (220 rules, 23 automatic); verification policy `2026.2`;
+  integrity policy, morphology, style policy and profile pack unchanged.
 
 ### Fixed — found by field testing of 1.0.0
 - **An unsafe automatic rewrite (FIELD-001).** 1.0.0 turned "In order to
@@ -80,7 +143,7 @@ See [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md).
   values and obligations — which a count of protected facts alone would pass —
   are not accepted. Versioned `plainspeak.verify.v1` JSON contract, a
   deterministic receipt (`plainspeak.verify.receipt.v1`), verification policy
-  `2026.1`, and exit statuses for CI (0 accepted, 1 refused, 3 inconclusive,
+  `2026.2`, and exit statuses for CI (0 accepted, 1 refused, 3 inconclusive,
   4 input error, 5 internal error). See [VERIFY.md](VERIFY.md).
 - **GitHub Action** (`action.yml`): `uses: hourwise/PlainSpeak-Next@<ref>` with
   `before` and `after`. Fails on REFUSED or INCONCLUSIVE by default
@@ -98,9 +161,10 @@ See [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md).
   checked against the official MCP Python SDK client. A new `mcp` layer may
   import only `pipeline`, and only `plainspeak serve` may import it. See
   [MCP.md](MCP.md).
-- **`plainspeak diagnose`** and the `plainspeak.diagnose.v1` contract:
-  everything `present` observes, applied to nothing, built from the same review
-  bundle so the two cannot disagree; plus readability, rounded to two places.
+- **`plainspeak diagnose`** and the `plainspeak.diagnose.v1` contract: what
+  `present` reports, applied to nothing, built from the same review bundle so
+  the two cannot disagree; plus readability, rounded to two places. Like
+  `present`, it does not list rule diagnostics.
 - `plainspeak.pipeline.verify`, `verify_text` and `verify_files`.
 - **Validation study** ([VERIFY_STUDY.md](VERIFY_STUDY.md)): 97
   transformations in ten classes, judged by hand before Verify ran. Final run:
@@ -127,6 +191,7 @@ See [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md).
   tests forbid any interface from containing a verifier of its own, and require
   each versioned contract to be defined in exactly one module.
 
+## [1.0.0]
 
 The release candidate after a pre-release acceptance review that ran PlainSpeak
 over 27 realistic documents and read the output

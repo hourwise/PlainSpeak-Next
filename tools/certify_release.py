@@ -38,7 +38,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-EXPECTED_VERSION = "1.0.0"
+EXPECTED_VERSION = "1.1.0"
 #: The PyPI distribution. The import package and the command stay `plainspeak`;
 #: `plainspeak` on PyPI is an unrelated project.
 EXPECTED_DISTRIBUTION = "plainspeak-next"

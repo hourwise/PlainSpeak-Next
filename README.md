@@ -30,10 +30,13 @@ See [V1_SCOPE.md](V1_SCOPE.md) for exactly what it does and does not promise.
 
 ## Status
 
-**Version 1.0.0** is published. **V2** — `verify`, the GitHub Action, the MCP
-server and `diagnose` — is a release candidate on this branch and is **not in
-the published 1.0.0**; its scope is [V2_SCOPE.md](V2_SCOPE.md) and its
-validation [VERIFY_STUDY.md](VERIFY_STUDY.md). Phases 0–10, the V1 blockers and
+**Version 1.0.0** is published. **Version 1.1.0** — `verify`, the GitHub
+Action, the MCP server, `diagnose`, and a much smaller, qualified set of
+automatic rules — is prepared on this branch and is **not yet published**; what
+changed is in [CHANGELOG.md](CHANGELOG.md), its scope in
+[V2_SCOPE.md](V2_SCOPE.md) and its validation in
+[VERIFY_STUDY.md](VERIFY_STUDY.md) and
+[SAFE_RULE_QUALIFICATION.md](SAFE_RULE_QUALIFICATION.md). Phases 0–10, the V1 blockers and
 the pre-release acceptance review are accepted on `main`; the certification evidence is in
 [RELEASE_READINESS.md](RELEASE_READINESS.md), what 1.0 promises is in
 [V1_SCOPE.md](V1_SCOPE.md), and what reading its output on real writing found

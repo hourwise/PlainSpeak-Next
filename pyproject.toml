@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 # installs a top-level `plainspeak` package, so the two cannot share an
 # environment. See RELEASING.md.
 name = "plainspeak-next"
-version = "1.0.0"
+version = "1.1.0"
 description = "Deterministic, integrity-protected presentation of prose: readability analysis, governed rewriting and human review"
 readme = "README.md"
 license = {text = "MIT"}

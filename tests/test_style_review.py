@@ -65,6 +65,8 @@ FIXTURES = Path(__file__).resolve().parent / "style" / "stylefix"
 #: only SAFE change, so its last sentence gained "to scrutinize the evidence":
 #: after both proposals, so their identifiers are unchanged; the output hash
 #: moved with the text.
+#: Re-pinned for 1.1.0: the engine version is part of every plan's identity, so
+#: the plan hashes and digests moved; proposal IDs and output hashes did not.
 PINNED = {
     "concessive-heavy": {
         "profile": "natural",
@@ -72,19 +74,19 @@ PINNED = {
             "SP-5de1cbe21aedf1ea",
             "SP-58df68f7f42b847b",
         ],
-        "plan_hash": "15944fe78aeb683640a480586341ec6ab055a9a2905da2355034a039760a131a",
-        "plan_digest": "57b4c9eaa70dd86750c6296d7ed8327e2ed84be4bca53112663f20a59cf22b6e",
-        "approved_digest": "3fc685c2ceaa81966afffdb0af3650e882bce53f888698f0c57024d86719ca63",
-        "result_digest": "db6e42f71e883eaca30a70c95af420307936b48e2905015b2256d6a8f0680740",
+        "plan_hash": "5f22c3dbc251c296ebbbc47150e2e79d35047401f428ee1bac2392c832ab2fae",
+        "plan_digest": "22a0f8fc3898711560b06390671dc5454276773ef76a2d9da43042a043ca7994",
+        "approved_digest": "5be248ea9d9e030ba46554322cb0fc46316f6c05989e692e791791c500b7f6c1",
+        "result_digest": "546eaa41ce1dd35a214adc89bfeccd6928e260e69521bbb1d676fbd8384662a3",
         "output_hash": "8e6d88cccfc292f0743d0b92c79dd1b5b048b4be28eade3ed823b029deee9415",
     },
     "signposted": {
         "profile": "plain",
         "proposal_ids": [],
-        "plan_hash": "b927ee082cd473ed21a0ba7abeffc44714262c67039a4dfc35b032b248d8a8ff",
-        "plan_digest": "56385e2d043945019f01868a4d44a03763b87d21f7e3fb7a536979448dd39d7f",
-        "approved_digest": "1dc6e631f69fce013ac29ca41b97d4f6b4665ae0c48d015db2831cb076844cac",
-        "result_digest": "c311a89b55884ef13e7d2ec42fbf51836b033c33c363af4d028b1fe61345fd75",
+        "plan_hash": "32386eaf9f5d9d3369c200fa04fae338f43b364bf0f0c690f57f82dcc3b5ce5b",
+        "plan_digest": "58cfa51699069d593ecd512885ebbc87df16b037e1e1c96b3412435fb59fd4e6",
+        "approved_digest": "f0f85a0b9eb29bc437c5ca2ea82f997056bf1b844b1cc35f13087423b5e0dd0f",
+        "result_digest": "a8ea43478a234d286adf171a176bb187d779befd1aae5f0bd15a34c2accdd51b",
         "output_hash": "00ddb376fe3145c8e7768571e9c1d8f32cad021bdaeddcf5019359471fbd1c7c",
     },
 }
