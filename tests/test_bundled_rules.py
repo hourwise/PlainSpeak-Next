@@ -142,9 +142,8 @@ def test_negative_examples_do_not_match(rule: Rule) -> None:
 #: rather than fixed, because the alternative is worse. See
 #: `test_integrity_vetoes_exactly_the_documented_rules` for the reasoning; the
 #: point of pinning the set is that adding to it has to be a deliberate act.
-INTEGRITY_VETOED = {
-    "PS.FRAMING.003": "deleting 'it should be noted that' removes the modal 'should'",
-}
+#: Empty since ruleset 2026.8; see that test's docstring.
+INTEGRITY_VETOED: dict[str, str] = {}
 
 
 def _proposed_output(rule: Rule, before: str) -> str:
@@ -200,14 +199,18 @@ def test_stated_transformations_survive_to_the_output(rule: Rule) -> None:
 def test_integrity_vetoes_exactly_the_documented_rules() -> None:
     """The firewall's effect on the shipped ruleset, pinned.
 
-    One of the 24 safe fixes is refused, correctly, under a policy that
-    deliberately cannot read meaning:
+    None of the safe fixes is refused. Until ruleset 2026.8 one was, correctly,
+    under a policy that deliberately cannot read meaning:
 
     - `PS.FRAMING.003` deletes "it should be noted that", which happens to
       contain the modal "should". The modal is part of the idiom rather than an
       obligation, but knowing that requires reading meaning. Exempting modals
       inside deletions would allow "you should not apply" to lose its "should",
       which costs more than the missed simplification does.
+
+    Every match was refused, so the rule never changed any text. The safe-rule
+    qualification demoted it to a diagnostic, which reports the same thing
+    without claiming an attempt. The firewall was not changed.
 
     Until integrity policy 2026.2 there were two. `PS.CLARITY.009` replaces
     "prior to" with "before", and "before" is a protected comparator the

@@ -24,6 +24,7 @@ from plainspeak.pipeline import (
     present,
     present_text,
 )
+from plainspeak.rules import load_ruleset
 from plainspeak.style.profiles import load_profile
 
 REPO = Path(__file__).resolve().parents[1]
@@ -155,7 +156,10 @@ def test_there_is_no_way_to_accept_a_review_proposal_through_present():
 
 
 def test_refusals_are_reported_with_a_reason_and_not_applied():
-    result = present_text(SAMPLE, "natural")
+    # PS.FRAMING.003 as bundled in ruleset 2026.7. Every match was refused, so
+    # ruleset 2026.8 made it a diagnostic; the fixture keeps it as a safe fix.
+    rules = load_ruleset(REPO / "tests" / "fixtures" / "integrity-veto-rules")
+    result = present_text(SAMPLE, "natural", ruleset=rules)
     refused = {item.rule_id: item for item in result.refused}
     # "It should be noted that" contains the modal "should"; deleting it is refused.
     assert "PS.FRAMING.003" in refused
@@ -352,7 +356,8 @@ def test_the_walkthrough_example_does_what_the_walkthrough_says():
         "PS.LEXICAL.001", "PS.CLARITY.009",
     ]
     assert [(item.before, item.after) for item in result.review] == [("Nevertheless,", "Even so,")] * 2
-    assert [item.rule_id for item in result.refused] == ["PS.FRAMING.003"]
+    # PS.FRAMING.003 was refused here until ruleset 2026.8 made it a diagnostic.
+    assert [item.rule_id for item in result.refused] == []
     assert [item.id.rsplit(".", 1)[-1] for item in result.bundle.insufficient_sample()] == [
         "PARAGRAPH_UNIFORMITY", "VOCABULARY_OVERUSE",
     ]

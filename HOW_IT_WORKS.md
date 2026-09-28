@@ -30,10 +30,12 @@ Action and MCP additions promise, [V2_SCOPE.md](V2_SCOPE.md).
 ## What PlainSpeak changes
 
 **SAFE changes** are word- and phrase-level substitutions from a versioned
-rulebook of 220 rules, 97 of which may change text automatically — "utilise" becomes "use", "due to the fact that" becomes "because",
+rulebook of 220 rules, 23 of which may change text automatically — "utilise" becomes "use", "due to the fact that" becomes "because",
 "prior to" becomes "before". Each rule has been written down with examples of
-where it applies and where it must not, and each is tested. A SAFE change is
-applied automatically only if:
+where it applies and where it must not, and each is tested. Each of the 23
+has been qualified against ordinary, adversarial and specialist sentences;
+[SAFE_RULE_QUALIFICATION.md](SAFE_RULE_QUALIFICATION.md) records every one.
+A SAFE change is applied automatically only if:
 
 1. it passes the **integrity check** on its own, in its sentence, and together
    with every other change in the document; and
@@ -87,7 +89,7 @@ versioned rule sets:
 
 | | version |
 |---|---|
-| ruleset | 2026.7 |
+| ruleset | 2026.8 |
 | integrity policy | 2026.2 |
 | morphology | 2026.1 |
 | style policy | 2026.2 |

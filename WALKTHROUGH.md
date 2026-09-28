@@ -70,7 +70,7 @@ A profile is always required — PlainSpeak never chooses one for you. You will
 see:
 
 ```text
-PlainSpeak present — profile natural, ruleset 2026.7 (dc4146941049)
+PlainSpeak present — profile natural, ruleset 2026.8 (94ca278080c8)
 input 2d3888ed6c930f0b  output e6b9106a71f199f1
 
 Applied automatically (SAFE): 2
@@ -79,8 +79,7 @@ Applied automatically (SAFE): 2
 Awaiting a person (REVIEW, not applied): 2
   'Nevertheless,' -> 'Even so,'  [PS.STYLEFIX.001]
   'Nevertheless,' -> 'Even so,'  [PS.STYLEFIX.001]
-Refused (REFUSED, never applied): 1
-  'It should be noted that t': the change would alter protected information: integrity violation — modal: should -> nothing
+Refused (REFUSED, never applied): 0
 Style observations under natural: 5
   [strong] 6 of 7 paragraphs begin with “nevertheless”.
   [strong] “nevertheless” accounts for 6 of 6 transitions.
@@ -106,9 +105,10 @@ either.
 changes that fixes the habit, and it keeps the first four. Nothing happens to
 them until a person accepts them — step 5.
 
-**One change was REFUSED.** Deleting "It should be noted that" would also
-delete "should", and "should" is a protected word: PlainSpeak cannot tell an
-idiom from an obligation, so it refuses rather than guesses.
+**"It should be noted that" was left alone.** Deleting it would also delete
+"should", and "should" is a protected word: PlainSpeak cannot tell an idiom
+from an obligation, so no rule deletes it automatically. Nothing was REFUSED
+here; a refusal is a change a rule proposed and the integrity check stopped.
 
 **Nothing factual moved.** 30 June 2027, £42.50, ACC-20931, "within 5 working
 days", "at least 7 years", "at least 12 characters", 1 January 2028, the email
@@ -134,7 +134,7 @@ For programs and AI agents, leave out `--format`: the default is a JSON record,
   "schema": "plainspeak.present.v1",
   "status": "ok",
   "profile": { "id": "natural", "version": 1, "sha256": "e6c391c6…" },
-  "counts": { "applied": 2, "review": 2, "refused": 1, "protected": 31,
+  "counts": { "applied": 2, "review": 2, "refused": 0, "protected": 31,
               "diagnostics": 5, "insufficient_sample": 2 },
   "input":  { "format": "markdown", "sha256": "2d3888ed…" },
   "output": { "sha256": "e6b9106a…", "changed": true, "text": "…" }
@@ -163,7 +163,7 @@ plainspeak-desktop
 ```
 
 1. Press **Open…** on the toolbar (`Ctrl+O`) and choose `reply.md`. The original appears on
-   the left and the revised version on the right, with the three SAFE changes
+   the left and the revised version on the right, with the two SAFE changes
    already made.
 2. Choose a profile from the drop-down if you want something other than
    Natural. Changing it re-reads the document and clears any decisions.
@@ -174,8 +174,9 @@ plainspeak-desktop
 4. Select a `REVIEW` row and press **Accept** or **Reject**. Accept both
    "Nevertheless," suggestions and the right-hand pane updates.
 5. The **Style** tab shows the observations, and a `NOT ENOUGH TEXT` row for
-   each check the document was too short for. The **Integrity** tab shows the
-   refusal. **Details** shows every rule-set version and fingerprint.
+   each check the document was too short for. The **Integrity** tab lists any
+   refusals; this document has none. **Details** shows every rule-set version
+   and fingerprint.
 
 ## 6. Save
 

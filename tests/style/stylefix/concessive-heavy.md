@@ -27,4 +27,5 @@ Nevertheless, the panel recommends continuing the scheme for a further year.
 The evidence for a permanent change is not yet strong enough, and a second year
 would obtain enough data to settle the question either way.
 
-Nevertheless, the funding decision rests with the board, which meets in March.
+Nevertheless, the funding decision rests with the board, which meets in March
+to scrutinize the evidence.

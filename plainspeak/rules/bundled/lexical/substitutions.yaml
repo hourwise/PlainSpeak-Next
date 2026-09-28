@@ -221,24 +221,22 @@ examples:
 id: PS.LEXICAL.007
 version: 1
 name: approximately-to-about
-mode: safe-fix
+mode: diagnostic
 description: >
-  Both words mark an estimate. The number they qualify is untouched, which is
-  what matters: this rule must never change a figure, only the hedge in front
-  of it.
+  Before a number both words mark an estimate, but "about" is also a
+  preposition meaning "concerning": "The function returns approximately the
+  square root" became "The function returns about the square root", and "The
+  values are approximately equal" became "about equal". Reclassified from
+  safe-fix in the safe-rule qualification (ruleset 2026.8); reported, not
+  rewritten. The rule ID is unchanged.
 match:
   type: word
   text: "approximately"
-action:
-  type: replace
-  replacement: "about"
 scope:
   include: [prose]
-case:
-  policy: preserve
 priority: 100
 reason:
-  short: "\"about\" marks an estimate just as well"
+  short: "\"about\" marks an estimate before a number, but it is also a preposition"
 provenance:
   source: "PlainSpeak inherited glossary, re-authored as a rule"
   reference: "plainspeak/core/glossary.py"
@@ -248,30 +246,27 @@ examples:
     - "The journey takes approximately 40 minutes."
   negative:
     - "The approximation was close enough."
-  transform:
-    - before: "The journey takes approximately 40 minutes."
-      after: "The journey takes about 40 minutes."
 
 ---
 id: PS.LEXICAL.008
 version: 1
 name: sufficient-to-enough
-mode: safe-fix
+mode: diagnostic
 description: >
-  "Sufficient" and "enough" are the same quantity in different registers.
+  "Sufficient" and "enough" are usually the same quantity in different
+  registers, but "necessary and sufficient" is a fixed term in logic, law and
+  mathematics, and "sufficient consideration" a doctrine of contract law: "a
+  necessary and sufficient condition" became "a necessary and enough
+  condition". Reclassified from safe-fix in the safe-rule qualification
+  (ruleset 2026.8); reported, not rewritten. The rule ID is unchanged.
 match:
   type: word
   text: "sufficient"
-action:
-  type: replace
-  replacement: "enough"
 scope:
   include: [prose]
-case:
-  policy: preserve
 priority: 100
 reason:
-  short: "\"enough\" is the everyday word"
+  short: "\"enough\" is the everyday word, but \"sufficient\" is part of fixed terms"
 provenance:
   source: "PlainSpeak inherited glossary, re-authored as a rule"
   reference: "plainspeak/core/glossary.py"
@@ -281,9 +276,6 @@ examples:
     - "You have not provided sufficient evidence."
   negative:
     - "The evidence was sufficiently clear."
-  transform:
-    - before: "You have not provided sufficient evidence."
-      after: "You have not provided enough evidence."
 
 ---
 id: PS.LEXICAL.009
@@ -349,24 +341,21 @@ examples:
 id: PS.LEXICAL.011
 version: 1
 name: demonstrate-to-show
-mode: safe-fix
+mode: diagnostic
 description: >
-  "Demonstrate" in the sense of showing evidence. The protest sense takes a
-  different grammatical frame — "demonstrate against" — and would read oddly
-  rather than wrongly, which is the level of risk this rule accepts.
+  "Demonstrate" in the sense of showing evidence is "show", but the protest
+  sense is reached too, and it reads wrongly, not oddly: "Students plan to
+  demonstrate against the fees" became "Students plan to show against the
+  fees". Reclassified from safe-fix in the safe-rule qualification (ruleset
+  2026.8); reported, not rewritten. The rule ID is unchanged.
 match:
   type: word
   text: "demonstrate"
-action:
-  type: replace
-  replacement: "show"
 scope:
   include: [prose]
-case:
-  policy: preserve
 priority: 100
 reason:
-  short: "\"show\" is the everyday word"
+  short: "\"show\" is the everyday word, but not for the protest sense"
 provenance:
   source: "PlainSpeak inherited glossary, re-authored as a rule"
   reference: "plainspeak/core/glossary.py"
@@ -376,9 +365,6 @@ examples:
     - "You must demonstrate that you live in the area."
   negative:
     - "A demonstration was held outside."
-  transform:
-    - before: "You must demonstrate that you live in the area."
-      after: "You must show that you live in the area."
 
 ---
 id: PS.LEXICAL.012

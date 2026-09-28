@@ -1,0 +1,33 @@
+id: PS.CLARITY.009
+version: 1
+name: prior-to
+mode: safe-fix
+description: >
+  "Prior to" is "before" used as a preposition. The adjectival sense — "prior
+  agreement", "prior art" — is a different construction and is not matched,
+  because the word boundary requires the following "to".
+match:
+  type: phrase
+  text: "prior to"
+action:
+  type: replace
+  replacement: "before"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"prior to\" means \"before\""
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "Verification is required prior to the assessment."
+  negative:
+    - "There was no prior agreement between the parties."
+  transform:
+    - before: "Verification is required prior to the assessment."
+      after: "Verification is required before the assessment."

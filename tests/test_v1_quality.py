@@ -51,6 +51,11 @@ from plainspeak.rules import load_ruleset as _load_ruleset
 
 GUARD_RULES = _load_ruleset(_Path(__file__).resolve().parent / "fixtures" / "style-guard-rules")
 
+#: PS.FRAMING.003 and PS.CLARITY.009 as they were bundled in ruleset 2026.7.
+#: Ruleset 2026.8 reclassified PS.FRAMING.003 as a diagnostic because the
+#: firewall refused every match, so no bundled rule is refused by it any more.
+VETO_RULES = _load_ruleset(_Path(__file__).resolve().parent / "fixtures" / "integrity-veto-rules")
+
 #: Four paragraphs that lean on "Furthermore", "Moreover" and "Additionally".
 #: Three safe fixes turn all three into "Also,", which on its own would make
 #: twelve of twenty sentences begin with the same word.
@@ -285,7 +290,7 @@ def test_equivalence_and_protected_facts_survive_together():
 
 def test_equivalence_does_not_unlock_a_different_refusal():
     text = "It should be noted that staff must file it prior to the hearing.\n"
-    result = present_text(text, "natural")
+    result = present_text(text, "natural", ruleset=VETO_RULES)
     assert "before the hearing" in result.text
     assert "It should be noted that" in result.text
     assert "PS.FRAMING.003" in {item.rule_id for item in result.refused}

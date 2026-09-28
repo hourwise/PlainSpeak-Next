@@ -81,16 +81,17 @@ examples:
 id: PS.FRAMING.003
 version: 1
 name: it-should-be-noted-that
-mode: safe-fix
+mode: diagnostic
 description: >
-  A passive variant of the same frame. Deleting it removes an instruction to
-  the reader, not a claim about the world.
+  A passive variant of the same frame. Deleting it would remove an instruction
+  to the reader, not a claim about the world, but the phrase contains the modal
+  "should" and the integrity firewall refuses to delete a modal, so as a safe
+  fix every match was refused and none was ever applied. Reclassified from
+  safe-fix in the safe-rule qualification (ruleset 2026.8); reported, not
+  rewritten. The firewall is unchanged and the rule ID is unchanged.
 match:
   type: phrase
   text: "it should be noted that "
-action:
-  type: delete
-  recapitalize: true
 scope:
   include: [prose]
   exclude: [heading]
@@ -106,9 +107,6 @@ examples:
     - "It should be noted that the fee is non-refundable."
   negative:
     - "It should be signed before Friday."
-  transform:
-    - before: "It should be noted that the fee is non-refundable."
-      after: "The fee is non-refundable."
 
 ---
 id: PS.FRAMING.004

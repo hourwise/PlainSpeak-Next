@@ -164,6 +164,32 @@ examples:
     - "A different word entirely appears instead."
 
 ---
+id: PS.LEXICAL.100
+version: 1
+name: accomplish-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "accomplish" with
+  "do". This engine reports it instead: the result is ungrammatical: 'She hopes to accomplish her ambitions' became 'She hopes to do her ambitions'; 'We will accomplish our goals' became 'We will do our goals'.
+match:
+  type: word
+  text: "accomplish"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "the result is ungrammatical: 'She hopes to accomplish her ambitions' became 'She hopes to do her ambitions'..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word accomplish here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
 id: PS.LEXICAL.101
 version: 1
 name: accordingly-is-ambiguous
@@ -242,6 +268,214 @@ examples:
     - "A different word entirely appears instead."
 
 ---
+id: PS.LEXICAL.104
+version: 1
+name: advantageous-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "advantageous" with
+  "helpful". This engine reports it instead: the meaning changes: 'The company negotiated advantageous terms' became 'The company negotiated helpful terms'; 'They are in an advantageous position' became 'They are in a helpful position'.
+match:
+  type: word
+  text: "advantageous"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "the meaning changes: 'The company negotiated advantageous terms' became 'The company negotiated helpful ter..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word advantageous here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.106
+version: 1
+name: alter-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "alter" with
+  "change". This engine reports it instead: the result is ungrammatical: 'He acted as the company's alter ego' became 'He acted as the company's change ego'; 'The court may pierce the veil where the company is an alter ego' became 'The court may pierce the veil where the company is a change ego'.
+match:
+  type: word
+  text: "alter"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "the result is ungrammatical: 'He acted as the company's alter ego' became 'He acted as the company's change..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word alter here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.107
+version: 1
+name: ambiguous-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "ambiguous" with
+  "unclear". This engine reports it instead: a term of art: 'The sentence is ambiguous: it has two readings' became 'The sentence is unclear: it has two readings'; 'Where a term is ambiguous, it is construed against the party that drafted it' became 'Where a term is unclear, it is construed against the party that drafted it'.
+match:
+  type: word
+  text: "ambiguous"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "a term of art: 'The sentence is ambiguous: it has two readings' became 'The sentence is unclear: it has two..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word ambiguous here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.108
+version: 1
+name: ameliorate-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "ameliorate" with
+  "improve". This engine reports it instead: the meaning changes: 'Measures ameliorated the problem' became 'Measures improved the problem'.
+match:
+  type: word
+  text: "ameliorate"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "the meaning changes: 'Measures ameliorated the problem' became 'Measures improved the problem'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word ameliorate here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.109
+version: 1
+name: anticipate-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "anticipate" with
+  "expect". This engine reports it instead: the meaning changes: 'Good staff anticipate problems before they arise' became 'Good staff expect problems before they arise'; 'The borrower may anticipate repayment of the loan' became 'The borrower may expect repayment of the loan'.
+match:
+  type: word
+  text: "anticipate"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "the meaning changes: 'Good staff anticipate problems before they arise' became 'Good staff expect problems ..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word anticipate here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.110
+version: 1
+name: append-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "append" with
+  "add". This engine reports it instead: the meaning changes: 'The appended schedule forms part of this agreement' became 'The added schedule forms part of this agreement'; 'See the documents appended to this report' became 'See the documents added to this report'.
+match:
+  type: word
+  text: "append"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "the meaning changes: 'The appended schedule forms part of this agreement' became 'The added schedule forms ..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word append here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.111
+version: 1
+name: apprise-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "apprise" with
+  "tell". This engine reports it instead: the result is ungrammatical: 'We will keep you apprised' became 'We will keep you told'; 'Keep us apprised of progress' became 'Keep us told of progress'.
+match:
+  type: word
+  text: "apprise"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "the result is ungrammatical: 'We will keep you apprised' became 'We will keep you told'; 'Keep us apprised ..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word apprise here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.112
+version: 1
+name: attain-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "attain" with
+  "reach". This engine reports it instead: the result is ungrammatical: 'He attained a degree in law' became 'He reached a degree in law'; 'Staff attained the qualification' became 'Staff reached the qualification'.
+match:
+  type: word
+  text: "attain"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "the result is ungrammatical: 'He attained a degree in law' became 'He reached a degree in law'; 'Staff atta..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word attain here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
 id: PS.LEXICAL.113
 version: 1
 name: augment-is-ambiguous
@@ -264,6 +498,32 @@ provenance:
 examples:
   positive:
     - "The notice used the word augment here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.114
+version: 1
+name: beneficial-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "beneficial" with
+  "helpful". This engine reports it instead: a term of art: 'She is the beneficial owner of the shares' became 'She is the helpful owner of the shares'; 'He holds a beneficial interest in the property' became 'He holds a helpful interest in the property'.
+match:
+  type: word
+  text: "beneficial"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "a term of art: 'She is the beneficial owner of the shares' became 'She is the helpful owner of the shares';..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word beneficial here."
   negative:
     - "A different word entirely appears instead."
 
@@ -346,6 +606,32 @@ examples:
     - "A different word entirely appears instead."
 
 ---
+id: PS.LEXICAL.118
+version: 1
+name: component-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "component" with
+  "part". This engine reports it instead: a term of art: 'Import the Button component from the library' became 'Import the Button part from the library'; 'React components render the page' became 'React parts render the page'.
+match:
+  type: word
+  text: "component"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "a term of art: 'Import the Button component from the library' became 'Import the Button part from the libra..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word component here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
 id: PS.LEXICAL.119
 version: 1
 name: comprehensive-is-ambiguous
@@ -394,6 +680,32 @@ provenance:
 examples:
   positive:
     - "The notice used the word comprise here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.121
+version: 1
+name: concur-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "concur" with
+  "agree". This engine reports it instead: a term of art: 'Lord Smith delivered a concurring opinion' became 'Lord Smith delivered an agreeing opinion'.
+match:
+  type: word
+  text: "concur"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "a term of art: 'Lord Smith delivered a concurring opinion' became 'Lord Smith delivered an agreeing opinion'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word concur here."
   negative:
     - "A different word entirely appears instead."
 
@@ -472,317 +784,5 @@ provenance:
 examples:
   positive:
     - "The notice used the word consolidate here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.125
-version: 1
-name: constitute-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "constitute" with
-  "make up". This engine reports it instead: 'this constitutes a breach' became 'this makes up a breach'.
-match:
-  type: word
-  text: "constitute"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "'this constitutes a breach' became 'this makes up a breach'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word constitute here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.126
-version: 1
-name: construct-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "construct" with
-  "build". This engine reports it instead: also a noun: 'a social construct' became 'a social build'.
-match:
-  type: word
-  text: "construct"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "also a noun: 'a social construct' became 'a social build'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word construct here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.128
-version: 1
-name: contemporary-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "contemporary" with
-  "modern". This engine reports it instead: also means of the same period: 'contemporary accounts of the fire of 1666' became 'modern accounts'.
-match:
-  type: word
-  text: "contemporary"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "also means of the same period: 'contemporary accounts of the fire of 1666' became 'modern accounts'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word contemporary here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.130
-version: 1
-name: convene-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "convene" with
-  "meet". This engine reports it instead: 'convene a meeting' became 'meet a meeting'.
-match:
-  type: word
-  text: "convene"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "'convene a meeting' became 'meet a meeting'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word convene here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.136
-version: 1
-name: deprecated-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "deprecated" with
-  "outdated". This engine reports it instead: in software means officially discouraged, which 'outdated' does not say.
-match:
-  type: word
-  text: "deprecated"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "in software means officially discouraged, which 'outdated' does not say"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word deprecated here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.139
-version: 1
-name: disburse-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "disburse" with
-  "pay out". This engine reports it instead: a separable phrasal verb cannot precede a pronoun: 'disburse them' became 'pay out them'.
-match:
-  type: word
-  text: "disburse"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "a separable phrasal verb cannot precede a pronoun: 'disburse them' became 'pay out them'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word disburse here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.142
-version: 1
-name: effectuate-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "effectuate" with
-  "carry out". This engine reports it instead: a separable phrasal verb cannot precede a pronoun: 'effectuate it' became 'carry out it'.
-match:
-  type: word
-  text: "effectuate"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "a separable phrasal verb cannot precede a pronoun: 'effectuate it' became 'carry out it'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word effectuate here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.144
-version: 1
-name: empirical-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "empirical" with
-  "observed". This engine reports it instead: 'empirical evidence' is evidence from observation or experiment, not 'observed evidence'.
-match:
-  type: word
-  text: "empirical"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "'empirical evidence' is evidence from observation or experiment, not 'observed evidence'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word empirical here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.145
-version: 1
-name: endeavor-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "endeavor" with
-  "try". This engine reports it instead: also a noun: 'a worthwhile endeavor' became 'a worthwhile try'.
-match:
-  type: word
-  text: "endeavor"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "also a noun: 'a worthwhile endeavor' became 'a worthwhile try'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word endeavor here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.146
-version: 1
-name: endeavour-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "endeavour" with
-  "try". This engine reports it instead: also a noun: 'a worthwhile endeavour' became 'a worthwhile try'.
-match:
-  type: word
-  text: "endeavour"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "also a noun: 'a worthwhile endeavour' became 'a worthwhile try'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word endeavour here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.147
-version: 1
-name: enhance-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "enhance" with
-  "improve". This engine reports it instead: 'an enhanced DBS check' and 'enhanced due diligence' are defined terms; they became 'improved'.
-match:
-  type: word
-  text: "enhance"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "'an enhanced DBS check' and 'enhanced due diligence' are defined terms; they became 'improved'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word enhance here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.151
-version: 1
-name: expedite-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "expedite" with
-  "speed up". This engine reports it instead: a separable phrasal verb cannot precede a pronoun: 'expedite it' became 'speed up it'.
-match:
-  type: word
-  text: "expedite"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "a separable phrasal verb cannot precede a pronoun: 'expedite it' became 'speed up it'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word expedite here."
   negative:
     - "A different word entirely appears instead."

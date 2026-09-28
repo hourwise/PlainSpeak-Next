@@ -75,14 +75,14 @@ def test_the_original_document_is_never_mutated() -> None:
 
 def test_changes_are_applied_right_to_left_without_shifting_each_other() -> None:
     """Several edits in one line must all land where they were mapped."""
-    # "henceforth -> from now on" supplies the multi-word, length-changing edit
-    # that "ascertain -> find out" supplied until ruleset 2026.6 demoted it.
-    # "prior to" in place of "in order to" (ruleset 2026.7 reclassified PS.CLARITY.001, "in order to", as a diagnostic).
-    source = "Prior to utilising it henceforth, count approximately how many.\n"
+    # Every edit changes length; three of them replace several words with one.
+    # The vehicles have changed as rules were demoted: "ascertain" (2026.6),
+    # "in order to" (2026.7), "henceforth" and "approximately" (2026.8).
+    source = "Prior to utilising it on a regular basis, check the files in the event that they grow.\n"
     _, plan, result = run(source)
 
     assert len(plan.accepted) == 4
-    assert result.output == "Before using it from now on, count about how many.\n"
+    assert result.output == "Before using it regularly, check the files if they grow.\n"
 
 
 def test_a_document_with_nothing_to_fix_is_returned_unchanged() -> None:

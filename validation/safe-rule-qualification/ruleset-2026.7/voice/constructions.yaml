@@ -1,0 +1,118 @@
+# Constructions that hide who is doing what.
+#
+# Every rule in this family is a diagnostic, and that is not a gap to be filled
+# later. Turning a passive into an active requires knowing who the actor is,
+# and the actor is frequently not in the sentence — "the application was
+# refused" does not say by whom. A rule that invented one would be writing
+# rather than editing.
+
+id: PS.VOICE.001
+version: 1
+name: passive-construction
+mode: diagnostic
+description: >
+  A form of "to be" followed by a word shaped like a past participle. This is a
+  heuristic, not a parser: it finds real passives and it also finds "was
+  tired". It reports so that a person can look, which is all a pattern this
+  crude can honestly support.
+match:
+  type: regex
+  pattern: "\\b(?:is|are|was|were|been|being)\\s+[a-z]{3,}(?:ed|en)\\b"
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 50
+reason:
+  short: "Possible passive construction; who is doing this?"
+provenance:
+  source: "PlainSpeak inherited detector, re-authored as a bounded pattern"
+  reference: "plainspeak/core/barriers.py PASSIVE_PATTERNS"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The application was refused by the panel."
+    - "Decisions are made after all submissions are received."
+  negative:
+    - "The panel refused the application."
+
+---
+id: PS.VOICE.002
+version: 1
+name: it-is-recommended-that
+mode: diagnostic
+description: >
+  Recommended by whom? The construction removes the recommender, which matters
+  most in exactly the documents where it is most common. Naming them is a
+  rewrite, not a substitution.
+match:
+  type: phrase
+  text: "it is recommended that"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "Says what is recommended but not by whom"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "It is recommended that you keep a copy."
+  negative:
+    - "We recommend that you keep a copy."
+
+---
+id: PS.VOICE.003
+version: 1
+name: it-has-been-decided
+mode: diagnostic
+description: >
+  An agentless passive in the position where a reader most wants an agent. Who
+  decided is information the sentence is withholding, and no substitution can
+  supply it.
+match:
+  type: phrase
+  text: "it has been decided"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "Says a decision was made but not who made it"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "It has been decided that the scheme will close."
+  negative:
+    - "The board decided that the scheme will close."
+
+---
+id: PS.VOICE.004
+version: 1
+name: modal-shall
+mode: diagnostic
+description: >
+  "Shall" carries an obligation in legal drafting and a bare future elsewhere,
+  and the two readings are not interchangeable. It is already in the inherited
+  protected register, so no rule may substitute it; this one reports it so a
+  reader is told the ambiguity is there.
+match:
+  type: word
+  text: "shall"
+scope:
+  include: [prose]
+priority: 40
+reason:
+  short: "\"shall\" is read as obligation by some readers and futurity by others"
+provenance:
+  source: "PlainSpeak inherited protected-term register, re-authored as a diagnostic"
+  reference: "plainspeak/integrity/protected.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "Applicants shall provide evidence of residence."
+  negative:
+    - "Applicants must provide evidence of residence."

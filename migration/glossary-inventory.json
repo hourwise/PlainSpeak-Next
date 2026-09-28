@@ -18,35 +18,20 @@
       "term": "ab initio"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "accomplish",
-          "do"
-        ],
-        [
-          "accomplishes",
-          "does"
-        ],
-        [
-          "accomplishing",
-          "doing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'She hopes to accomplish her ambitions' became 'She hopes to do her ambitions'; 'We will accomplish our goals' became 'We will do our goals'",
       "replacement": "do",
       "rule_id": "PS.LEXICAL.100",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "do",
       "term": "accomplish"
     },
     {
@@ -289,27 +274,20 @@
       "term": "adult social care"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Avoid Latin-derived words when a simpler one exists.",
-      "forms": [
-        [
-          "advantageous",
-          "helpful"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The company negotiated advantageous terms' became 'The company negotiated helpful terms'; 'They are in an advantageous position' became 'They are in a helpful position'",
       "replacement": "helpful",
       "rule_id": "PS.LEXICAL.104",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "helpful",
       "term": "advantageous"
     },
     {
@@ -486,63 +464,37 @@
       "term": "allowable expense"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A simpler, more common word.",
-      "forms": [
-        [
-          "alter",
-          "change"
-        ],
-        [
-          "alters",
-          "changes"
-        ],
-        [
-          "altered",
-          "changed"
-        ],
-        [
-          "altering",
-          "changing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'He acted as the company's alter ego' became 'He acted as the company's change ego'; 'The court may pierce the veil where the company is an alter ego' became 'The court may pierce the veil where the company is a change ego'",
       "replacement": "change",
       "rule_id": "PS.LEXICAL.106",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "change",
       "term": "alter"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A plainer way to say it.",
-      "forms": [
-        [
-          "ambiguous",
-          "unclear"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The sentence is ambiguous: it has two readings' became 'The sentence is unclear: it has two readings'; 'Where a term is ambiguous, it is construed against the party that drafted it' became 'Where a term is unclear, it is construed against the party that drafted it'",
       "replacement": "unclear",
       "rule_id": "PS.LEXICAL.107",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "unclear",
       "term": "ambiguous"
     },
     {
@@ -563,39 +515,20 @@
       "term": "ambulate"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Plain words are understood by more people.",
-      "forms": [
-        [
-          "ameliorate",
-          "improve"
-        ],
-        [
-          "ameliorates",
-          "improves"
-        ],
-        [
-          "ameliorated",
-          "improved"
-        ],
-        [
-          "ameliorating",
-          "improving"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'Measures ameliorated the problem' became 'Measures improved the problem'",
       "replacement": "improve",
       "rule_id": "PS.LEXICAL.108",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "improve",
       "term": "ameliorate"
     },
     {
@@ -718,39 +651,20 @@
       "term": "antecedent to"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "anticipate",
-          "expect"
-        ],
-        [
-          "anticipates",
-          "expects"
-        ],
-        [
-          "anticipated",
-          "expected"
-        ],
-        [
-          "anticipating",
-          "expecting"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'Good staff anticipate problems before they arise' became 'Good staff expect problems before they arise'; 'The borrower may anticipate repayment of the loan' became 'The borrower may expect repayment of the loan'",
       "replacement": "expect",
       "rule_id": "PS.LEXICAL.109",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "expect",
       "term": "anticipate"
     },
     {
@@ -771,75 +685,37 @@
       "term": "apparent"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "append",
-          "add"
-        ],
-        [
-          "appends",
-          "adds"
-        ],
-        [
-          "appended",
-          "added"
-        ],
-        [
-          "appending",
-          "adding"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The appended schedule forms part of this agreement' became 'The added schedule forms part of this agreement'; 'See the documents appended to this report' became 'See the documents added to this report'",
       "replacement": "add",
       "rule_id": "PS.LEXICAL.110",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "add",
       "term": "append"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "apprise",
-          "tell"
-        ],
-        [
-          "apprises",
-          "tells"
-        ],
-        [
-          "apprised",
-          "told"
-        ],
-        [
-          "apprising",
-          "telling"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'We will keep you apprised' became 'We will keep you told'; 'Keep us apprised of progress' became 'Keep us told of progress'",
       "replacement": "tell",
       "rule_id": "PS.LEXICAL.111",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "tell",
       "term": "apprise"
     },
     {
@@ -1134,40 +1010,21 @@
       "term": "at the present time"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "A common, everyday verb.",
-      "forms": [
-        [
-          "attain",
-          "reach"
-        ],
-        [
-          "attains",
-          "reaches"
-        ],
-        [
-          "attained",
-          "reached"
-        ],
-        [
-          "attaining",
-          "reaching"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'He attained a degree in law' became 'He reached a degree in law'; 'Staff attained the qualification' became 'Staff reached the qualification'",
       "replacement": "reach",
       "rule_id": "PS.LEXICAL.112",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "reach",
       "term": "attain"
     },
     {
@@ -1256,27 +1113,20 @@
       "term": "basis point"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "beneficial",
-          "helpful"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'She is the beneficial owner of the shares' became 'She is the helpful owner of the shares'; 'He holds a beneficial interest in the property' became 'He holds a helpful interest in the property'",
       "replacement": "helpful",
       "rule_id": "PS.LEXICAL.114",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "helpful",
       "term": "beneficial"
     },
     {
@@ -1961,32 +1811,21 @@
       "term": "comply with"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Shorter words reduce reading grade level.",
-      "forms": [
-        [
-          "component",
-          "part"
-        ],
-        [
-          "components",
-          "parts"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'Import the Button component from the library' became 'Import the Button part from the library'; 'React components render the page' became 'React parts render the page'",
       "replacement": "part",
       "rule_id": "PS.LEXICAL.118",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "part",
       "term": "component"
     },
     {
@@ -2075,39 +1914,20 @@
       "term": "concerning the matter of"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "concur",
-          "agree"
-        ],
-        [
-          "concurs",
-          "agrees"
-        ],
-        [
-          "concurred",
-          "agreed"
-        ],
-        [
-          "concurring",
-          "agreeing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'Lord Smith delivered a concurring opinion' became 'Lord Smith delivered an agreeing opinion'",
       "replacement": "agree",
       "rule_id": "PS.LEXICAL.121",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "agree",
       "term": "concur"
     },
     {
@@ -2351,39 +2171,20 @@
       "term": "consummate"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "contemplate",
-          "think about"
-        ],
-        [
-          "contemplates",
-          "thinks about"
-        ],
-        [
-          "contemplated",
-          "thought about"
-        ],
-        [
-          "contemplating",
-          "thinking about"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The transactions contemplated by this Agreement are complete' became 'The transactions thought about by this Agreement are complete'; 'No such payment was contemplated by the parties' became 'No such payment was thought about by the parties'",
       "replacement": "think about",
       "rule_id": "PS.LEXICAL.127",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "think about",
       "term": "contemplate"
     },
     {
@@ -2455,31 +2256,20 @@
       "term": "contraindicated"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "The everyday word.",
-      "forms": [
-        [
-          "contusion",
-          "bruise"
-        ],
-        [
-          "contusions",
-          "bruises"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'CT showed a cerebral contusion' became 'CT showed a cerebral bruise'; 'The patient has a pulmonary contusion' became 'The patient has a pulmonary bruise'",
       "replacement": "bruise",
       "rule_id": "PS.LEXICAL.129",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "bruise",
       "term": "contusion"
     },
     {
@@ -2500,39 +2290,20 @@
       "term": "convene"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'confirm' — a simpler verb.",
-      "forms": [
-        [
-          "corroborate",
-          "support"
-        ],
-        [
-          "corroborates",
-          "supports"
-        ],
-        [
-          "corroborated",
-          "supported"
-        ],
-        [
-          "corroborating",
-          "supporting"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'There was no corroborating evidence' became 'There was no supporting evidence'; 'The confession must be corroborated' became 'The confession must be supported'",
       "replacement": "support",
       "rule_id": "PS.LEXICAL.131",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "support",
       "term": "corroborate"
     },
     {
@@ -2672,87 +2443,54 @@
       "term": "deem"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "deficient",
-          "lacking"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'The patient is vitamin D deficient' became 'The patient is vitamin D lacking'; 'They provided a deficient service' became 'They provided a lacking service'",
       "replacement": "lacking",
       "rule_id": "PS.LEXICAL.132",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "lacking",
       "term": "deficient"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'clear' — a simpler word.",
-      "forms": [
-        [
-          "definitive",
-          "final"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The parties signed a definitive agreement' became 'The parties signed a final agreement'; 'A biopsy is needed for a definitive diagnosis' became 'A biopsy is needed for a final diagnosis'",
       "replacement": "final",
       "rule_id": "PS.LEXICAL.133",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "final",
       "term": "definitive"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'describe' — a simpler verb.",
-      "forms": [
-        [
-          "delineate",
-          "outline"
-        ],
-        [
-          "delineates",
-          "outlines"
-        ],
-        [
-          "delineated",
-          "outlined"
-        ],
-        [
-          "delineating",
-          "outlining"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The map delineates the flood zone' became 'The map outlines the flood zone'; 'The plan delineates each role' became 'The plan outlines each role'",
       "replacement": "outline",
       "rule_id": "PS.LEXICAL.134",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "outline",
       "term": "delineate"
     },
     {
@@ -2942,36 +2680,21 @@
       "term": "dermatological"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "A word everyone knows.",
-      "forms": [
-        [
-          "designate",
-          "choose"
-        ],
-        [
-          "designates",
-          "chooses"
-        ],
-        [
-          "designating",
-          "choosing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The Secretary of State may designate an area as a conservation area' became 'The Secretary of State may choose an area as a conservation area'; 'The council designates land for housing' became 'The council chooses land for housing'",
       "replacement": "choose",
       "rule_id": "PS.LEXICAL.137",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "choose",
       "term": "designate"
     },
     {
@@ -3009,27 +2732,20 @@
       "term": "detriment"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "detrimental",
-          "harmful"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The claim rests on detrimental reliance' became 'The claim rests on harmful reliance'; 'Estoppel requires detrimental reliance on the promise' became 'Estoppel requires harmful reliance on the promise'",
       "replacement": "harmful",
       "rule_id": "PS.LEXICAL.138",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "harmful",
       "term": "detrimental"
     },
     {
@@ -3084,40 +2800,21 @@
       "term": "disburse"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Negative prefixes add decoding work.",
-      "forms": [
-        [
-          "discontinue",
-          "stop"
-        ],
-        [
-          "discontinues",
-          "stops"
-        ],
-        [
-          "discontinued",
-          "stopped"
-        ],
-        [
-          "discontinuing",
-          "stopping"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'Discontinued operations are shown separately in the accounts' became 'Stopped operations are shown separately in the accounts'; 'Profit from discontinued operations fell' became 'Profit from stopped operations fell'",
       "replacement": "stop",
       "rule_id": "PS.LEXICAL.140",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "stop",
       "term": "discontinue"
     },
     {
@@ -3155,40 +2852,21 @@
       "term": "dispositive"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Or 'share' — a simpler verb.",
-      "forms": [
-        [
-          "disseminate",
-          "spread"
-        ],
-        [
-          "disseminates",
-          "spreads"
-        ],
-        [
-          "disseminated",
-          "spread"
-        ],
-        [
-          "disseminating",
-          "spreading"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The patient developed disseminated intravascular coagulation' became 'The patient developed spread intravascular coagulation'",
       "replacement": "spread",
       "rule_id": "PS.LEXICAL.141",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "spread",
       "term": "disseminate"
     },
     {
@@ -3500,39 +3178,20 @@
       "term": "eligible"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A more common word.",
-      "forms": [
-        [
-          "elucidate",
-          "explain"
-        ],
-        [
-          "elucidates",
-          "explains"
-        ],
-        [
-          "elucidated",
-          "explained"
-        ],
-        [
-          "elucidating",
-          "explaining"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'NMR was used to elucidate the structure of the compound' became 'NMR was used to explain the structure of the compound'; 'The study elucidated the mechanism' became 'The study explained the mechanism'",
       "replacement": "explain",
       "rule_id": "PS.LEXICAL.143",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "explain",
       "term": "elucidate"
     },
     {
@@ -3757,40 +3416,21 @@
       "term": "entitled to"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "A shorter, more direct verb.",
-      "forms": [
-        [
-          "enumerate",
-          "list"
-        ],
-        [
-          "enumerates",
-          "lists"
-        ],
-        [
-          "enumerated",
-          "listed"
-        ],
-        [
-          "enumerating",
-          "listing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'Congress has only its enumerated powers' became 'Congress has only its listed powers'",
       "replacement": "list",
       "rule_id": "PS.LEXICAL.148",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "list",
       "term": "enumerate"
     },
     {
@@ -3845,27 +3485,20 @@
       "term": "equivalent"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "erroneous",
-          "wrong"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The finding was reviewed under the clearly erroneous standard' became 'The finding was reviewed under the clearly wrong standard'",
       "replacement": "wrong",
       "rule_id": "PS.LEXICAL.149",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "wrong",
       "term": "erroneous"
     },
     {
@@ -4319,31 +3952,20 @@
       "term": "fair wear and tear"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Direct language about serious outcomes.",
-      "forms": [
-        [
-          "fatality",
-          "death"
-        ],
-        [
-          "fatalities",
-          "deaths"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The case fatality rate was 2%' became 'The case death rate was 2%'",
       "replacement": "death",
       "rule_id": "PS.LEXICAL.154",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "death",
       "term": "fatality"
     },
     {
@@ -4381,39 +4003,20 @@
       "term": "fiduciary"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "'Finalize' is bureaucratic jargon.",
-      "forms": [
-        [
-          "finalize",
-          "finish"
-        ],
-        [
-          "finalizes",
-          "finishes"
-        ],
-        [
-          "finalized",
-          "finished"
-        ],
-        [
-          "finalizing",
-          "finishing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The deal was finalized yesterday' became 'The deal was finished yesterday'; 'The divorce was finalized in court' became 'The divorce was finished in court'",
       "replacement": "finish",
       "rule_id": "PS.LEXICAL.156",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "finish",
       "term": "finalize"
     },
     {
@@ -4536,40 +4139,21 @@
       "term": "foreclosure"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "A simpler word for making something.",
-      "forms": [
-        [
-          "formulate",
-          "create"
-        ],
-        [
-          "formulates",
-          "creates"
-        ],
-        [
-          "formulated",
-          "created"
-        ],
-        [
-          "formulating",
-          "creating"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The drug is formulated as a tablet' became 'The drug is created as a tablet'; 'The vaccine was formulated for children' became 'The vaccine was created for children'",
       "replacement": "create",
       "rule_id": "PS.LEXICAL.157",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "create",
       "term": "formulate"
     },
     {
@@ -4607,27 +4191,20 @@
       "term": "freehold"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Two syllables instead of three.",
-      "forms": [
-        [
-          "frequently",
-          "often"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'Frequently Asked Questions' became 'Often Asked Questions'; 'See the frequently asked questions' became 'See the often asked questions'",
       "replacement": "often",
       "rule_id": "PS.LEXICAL.158",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "often",
       "term": "frequently"
     },
     {
@@ -4989,27 +4566,20 @@
       "term": "hemorrhage"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "henceforth",
-          "from now on"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The Company (henceforth the Seller) agrees to sell' became 'The Company (from now on the Seller) agrees to sell'; 'This agreement, henceforth referred to as the Contract, is binding' became 'This agreement, from now on referred to as the Contract, is binding'",
       "replacement": "from now on",
       "rule_id": "PS.LEXICAL.163",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "from now on",
       "term": "henceforth"
     },
     {
@@ -5166,27 +4736,20 @@
       "term": "herewith"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'diverse' — explain.",
-      "forms": [
-        [
-          "heterogeneous",
-          "varied"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The reaction uses heterogeneous catalysis' became 'The reaction uses varied catalysis'; 'Heterogeneous treatment effects were found' became 'Varied treatment effects were found'",
       "replacement": "varied",
       "rule_id": "PS.LEXICAL.165",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "varied",
       "term": "heterogeneous"
     },
     {
@@ -5241,27 +4804,20 @@
       "term": "hold a meeting about"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'the same throughout' — explain.",
-      "forms": [
-        [
-          "homogeneous",
-          "uniform"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'Solve the homogeneous equation' became 'Solve the uniform equation'; 'Homogeneous catalysis occurs in one phase' became 'Uniform catalysis occurs in one phase'",
       "replacement": "uniform",
       "rule_id": "PS.LEXICAL.166",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "uniform",
       "term": "homogeneous"
     },
     {
@@ -6137,87 +5693,54 @@
       "term": "initialize"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "One of the most common plain-language substitutions.",
-      "forms": [
-        [
-          "initiate",
-          "start"
-        ],
-        [
-          "initiates",
-          "starts"
-        ],
-        [
-          "initiated",
-          "started"
-        ],
-        [
-          "initiating",
-          "starting"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'Only initiates may attend the ceremony' became 'Only starts may attend the ceremony'; 'New members are initiated into the society' became 'New members are started into the society'",
       "replacement": "start",
       "rule_id": "PS.LEXICAL.171",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "start",
       "term": "initiate"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A shorter, more direct word.",
-      "forms": [
-        [
-          "innovative",
-          "new"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'Innovative Finance ISAs hold peer-to-peer loans' became 'New Finance ISAs hold peer-to-peer loans'; 'The Innovative Medicines Initiative funds research' became 'The New Medicines Initiative funds research'",
       "replacement": "new",
       "rule_id": "PS.LEXICAL.172",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "new",
       "term": "innovative"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "inordinate",
-          "excessive"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'There was inordinate and inexcusable delay' became 'There was excessive and inexcusable delay'; 'The claim was struck out for inordinate delay' became 'The claim was struck out for excessive delay'",
       "replacement": "excessive",
       "rule_id": "PS.LEXICAL.173",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "excessive",
       "term": "inordinate"
     },
     {
@@ -6323,39 +5846,20 @@
       "term": "interlocutory"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "intervene",
-          "step in"
-        ],
-        [
-          "intervenes",
-          "steps in"
-        ],
-        [
-          "intervened",
-          "stepped in"
-        ],
-        [
-          "intervening",
-          "stepping in"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'The regulator may intervene in the market' became 'The regulator may step in in the market'; 'In the intervening years, prices rose' became 'In the stepping in years, prices rose'",
       "replacement": "step in",
       "rule_id": "PS.LEXICAL.174",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "step in",
       "term": "intervene"
     },
     {
@@ -6682,31 +6186,20 @@
       "term": "jurisdiction"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "The simpler word.",
-      "forms": [
-        [
-          "laceration",
-          "cut"
-        ],
-        [
-          "lacerations",
-          "cuts"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'There was a laceration of the spleen' became 'There was a cut of the spleen'; 'A 3 cm laceration was sutured' became 'A 3 cm cut was sutured'",
       "replacement": "cut",
       "rule_id": "PS.LEXICAL.175",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "cut",
       "term": "laceration"
     },
     {
@@ -7000,32 +6493,21 @@
       "term": "looked-after child"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "A simpler measurement word.",
-      "forms": [
-        [
-          "magnitude",
-          "size"
-        ],
-        [
-          "magnitudes",
-          "sizes"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'This is an order of magnitude cheaper' became 'This is an order of size cheaper'; 'The earthquake had a magnitude of 6' became 'The earthquake had a size of 6'",
       "replacement": "size",
       "rule_id": "PS.LEXICAL.177",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "size",
       "term": "magnitude"
     },
     {
@@ -7590,31 +7072,20 @@
       "term": "meritorious"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "The '-ology' is usually unnecessary.",
-      "forms": [
-        [
-          "methodology",
-          "method"
-        ],
-        [
-          "methodologies",
-          "methods"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The paper critiques positivist methodology' became 'The paper critiques positivist method'",
       "replacement": "method",
       "rule_id": "PS.LEXICAL.179",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "method",
       "term": "methodology"
     },
     {
@@ -7653,31 +7124,20 @@
       "term": "mitigate"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Shorter noun form.",
-      "forms": [
-        [
-          "modification",
-          "change"
-        ],
-        [
-          "modifications",
-          "changes"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'She applied for a loan modification' became 'She applied for a loan change'; 'Genetic modification of crops is regulated' became 'Genetic change of crops is regulated'",
       "replacement": "change",
       "rule_id": "PS.LEXICAL.181",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "change",
       "term": "modification"
     },
     {
@@ -7854,28 +7314,21 @@
       "term": "negate"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Or 'very small' — a simpler description.",
-      "forms": [
-        [
-          "negligible",
-          "tiny"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'Effects below the threshold are treated as negligible' became 'Effects below the limit are treated as tiny'; 'The dose is clinically negligible' became 'The dose is clinically tiny'",
       "replacement": "tiny",
       "rule_id": "PS.LEXICAL.185",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "tiny",
       "term": "negligible"
     },
     {
@@ -8033,28 +7486,21 @@
       "term": "notwithstanding"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "A shorter, more direct word.",
-      "forms": [
-        [
-          "numerous",
-          "many"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'The class is so numerous that joinder of all members is impracticable' became 'The class is so many that joinder of all members is impracticable'",
       "replacement": "many",
       "rule_id": "PS.LEXICAL.187",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "many",
       "term": "numerous"
     },
     {
@@ -8127,91 +7573,54 @@
       "term": "obligation"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "obsolete",
-          "outdated"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'Obsolete stock is written down in the accounts' became 'Outdated stock is written down in the accounts'; 'The function is obsolete and has been removed' became 'The function is outdated and has been removed'",
       "replacement": "outdated",
       "rule_id": "PS.LEXICAL.190",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "outdated",
       "term": "obsolete"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "The simplest word.",
-      "forms": [
-        [
-          "obtain",
-          "get"
-        ],
-        [
-          "obtains",
-          "gets"
-        ],
-        [
-          "obtained",
-          "got"
-        ],
-        [
-          "obtaining",
-          "getting"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'The same rule obtains in Scotland' became 'The same rule gets in Scotland'; 'The position that obtained before 2010 was different' became 'The position that got before 2010 was different'",
       "replacement": "get",
       "rule_id": "PS.LEXICAL.191",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "get",
       "term": "obtain"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Less abstract.",
-      "forms": [
-        [
-          "occurrence",
-          "event"
-        ],
-        [
-          "occurrences",
-          "events"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The insurer pays per occurrence, not per claim' became 'The insurer pays per event, not per claim'; 'The policy covers each occurrence up to £1m' became 'The policy covers each event up to £1m'",
       "replacement": "event",
       "rule_id": "PS.LEXICAL.192",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "event",
       "term": "occurrence"
     },
     {
@@ -8300,52 +7709,38 @@
       "term": "ophthalmic"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A shorter, more direct word.",
-      "forms": [
-        [
-          "optimal",
-          "best"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The allocation is Pareto optimal' became 'The allocation is Pareto best'",
       "replacement": "best",
       "rule_id": "PS.LEXICAL.193",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "best",
       "term": "optimal"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Avoid superlative jargon.",
-      "forms": [
-        [
-          "optimum",
-          "best"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'This is a Pareto optimum' became 'This is a Pareto best'",
       "replacement": "best",
       "rule_id": "PS.LEXICAL.194",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "best",
       "term": "optimum"
     },
     {
@@ -8366,39 +7761,20 @@
       "term": "oral"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "originate",
-          "start"
-        ],
-        [
-          "originates",
-          "starts"
-        ],
-        [
-          "originated",
-          "started"
-        ],
-        [
-          "originating",
-          "starting"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The bank originates mortgages for resale' became 'The bank starts mortgages for resale'; 'Proceedings began with an originating application' became 'Proceedings began with a starting application'",
       "replacement": "start",
       "rule_id": "PS.LEXICAL.195",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "start",
       "term": "originate"
     },
     {
@@ -8658,28 +8034,21 @@
       "term": "peril"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Easier to understand.",
-      "forms": [
-        [
-          "permissible",
-          "allowed"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The permissible exposure limit is 5 ppm' became 'The allowed exposure limit is 5 ppm'; 'Is it morally permissible to lie?' became 'Is it morally allowed to lie?'",
       "replacement": "allowed",
       "rule_id": "PS.LEXICAL.197",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "allowed",
       "term": "permissible"
     },
     {
@@ -8717,39 +8086,20 @@
       "term": "perpetrate"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "perpetuate",
-          "continue"
-        ],
-        [
-          "perpetuates",
-          "continues"
-        ],
-        [
-          "perpetuated",
-          "continued"
-        ],
-        [
-          "perpetuating",
-          "continuing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'Such myths perpetuate stigma' became 'Such myths continue stigma'; 'The rule perpetuates disadvantage' became 'The rule continues disadvantage'",
       "replacement": "continue",
       "rule_id": "PS.LEXICAL.198",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "continue",
       "term": "perpetuate"
     },
     {
@@ -8991,31 +8341,20 @@
       "term": "portfolio"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Shorter word.",
-      "forms": [
-        [
-          "portion",
-          "part"
-        ],
-        [
-          "portions",
-          "parts"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'Eat five portions of fruit a day' became 'Eat five parts of fruit a day'; 'Serve a portion of chips' became 'Serve a part of chips'",
       "replacement": "part",
       "rule_id": "PS.LEXICAL.199",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "part",
       "term": "portion"
     },
     {
@@ -9122,27 +8461,20 @@
       "term": "predicated on"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A shorter, more common word.",
-      "forms": [
-        [
-          "predominant",
-          "main"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'Which is predominant?' became 'Which is main?'",
       "replacement": "main",
       "rule_id": "PS.LEXICAL.201",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "main",
       "term": "predominant"
     },
     {
@@ -9497,39 +8829,20 @@
       "term": "proceed"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Simple acquisition verb.",
-      "forms": [
-        [
-          "procure",
-          "get"
-        ],
-        [
-          "procures",
-          "gets"
-        ],
-        [
-          "procured",
-          "got"
-        ],
-        [
-          "procuring",
-          "getting"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'The Seller shall procure that its employees comply' became 'The Seller shall get that its employees comply'; 'He was charged with procuring an offence' became 'He was charged with getting an offence'",
       "replacement": "get",
       "rule_id": "PS.LEXICAL.205",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "get",
       "term": "procure"
     },
     {
@@ -9567,76 +8880,38 @@
       "term": "progressive tax"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "prohibit",
-          "ban"
-        ],
-        [
-          "prohibits",
-          "bans"
-        ],
-        [
-          "prohibited",
-          "banned"
-        ],
-        [
-          "prohibiting",
-          "banning"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The court made a prohibited steps order' became 'The court made a banned steps order'",
       "replacement": "ban",
       "rule_id": "PS.LEXICAL.206",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "ban",
       "term": "prohibit"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "An obscure word.",
-      "forms": [
-        [
-          "promulgate",
-          "announce"
-        ],
-        [
-          "promulgates",
-          "announces"
-        ],
-        [
-          "promulgated",
-          "announced"
-        ],
-        [
-          "promulgating",
-          "announcing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The agency promulgated a final rule' became 'The agency announced a final rule'; 'Regulations are promulgated in the Gazette' became 'Regulations are announced in the Gazette'",
       "replacement": "announce",
       "rule_id": "PS.LEXICAL.207",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "announce",
       "term": "promulgate"
     },
     {
@@ -10032,39 +9307,20 @@
       "term": "quantum meruit"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Explain the court action.",
-      "forms": [
-        [
-          "quash",
-          "overturn"
-        ],
-        [
-          "quashes",
-          "overturns"
-        ],
-        [
-          "quashed",
-          "overturned"
-        ],
-        [
-          "quashing",
-          "overturning"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The claimant seeks a quashing order' became 'The claimant seeks an overturning order'; 'Police quashed the rumour' became 'Police overturned the rumour'",
       "replacement": "overturn",
       "rule_id": "PS.LEXICAL.210",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "overturn",
       "term": "quash"
     },
     {
@@ -10325,31 +9581,20 @@
       "term": "relocate"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Shorter.",
-      "forms": [
-        [
-          "remainder",
-          "rest"
-        ],
-        [
-          "remainders",
-          "rests"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'Divide 7 by 2: the remainder is 1' became 'Divide 7 by 2: the rest is 1'; 'She holds the remainder after the life interest' became 'She holds the rest after the life interest'",
       "replacement": "rest",
       "rule_id": "PS.LEXICAL.214",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "rest",
       "term": "remainder"
     },
     {
@@ -10473,39 +9718,20 @@
       "term": "rent arrears"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "replicate",
-          "copy"
-        ],
-        [
-          "replicates",
-          "copies"
-        ],
-        [
-          "replicated",
-          "copied"
-        ],
-        [
-          "replicating",
-          "copying"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The virus replicates in the lungs' became 'The virus copies in the lungs'; 'Other labs failed to replicate the study' became 'Other labs failed to copy the study'",
       "replacement": "copy",
       "rule_id": "PS.LEXICAL.215",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "copy",
       "term": "replicate"
     },
     {
@@ -10560,64 +9786,38 @@
       "term": "require"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "requisite",
-          "required"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the result is ungrammatical: 'A valid passport is a requisite for entry' became 'A valid passport is a required for entry'",
       "replacement": "required",
       "rule_id": "PS.LEXICAL.217",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "required",
       "term": "requisite"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Contract term — use the simpler verb.",
-      "forms": [
-        [
-          "rescind",
-          "cancel"
-        ],
-        [
-          "rescinds",
-          "cancels"
-        ],
-        [
-          "rescinded",
-          "cancelled"
-        ],
-        [
-          "rescinding",
-          "cancelling"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'The buyer rescinded the contract for misrepresentation' became 'The buyer cancelled the contract for misrepresentation'; 'The contract may be rescinded if induced by fraud' became 'The contract may be cancelled if induced by fraud'",
       "replacement": "cancel",
       "rule_id": "PS.LEXICAL.218",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "cancel",
       "term": "rescind"
     },
     {
@@ -10638,39 +9838,20 @@
       "term": "resection"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "For residence — use the common word.",
-      "forms": [
-        [
-          "reside",
-          "live"
-        ],
-        [
-          "resides",
-          "lives"
-        ],
-        [
-          "resided",
-          "lived"
-        ],
-        [
-          "residing",
-          "living"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'Authority resides with the board' became 'Authority lives with the board'; 'The problem resides in the code' became 'The problem lives in the code'",
       "replacement": "live",
       "rule_id": "PS.LEXICAL.219",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "live",
       "term": "reside"
     },
     {
@@ -10827,32 +10008,21 @@
       "term": "revenue"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Plain noun.",
-      "forms": [
-        [
-          "revision",
-          "change"
-        ],
-        [
-          "revisions",
-          "changes"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'Students are busy with exam revision' became 'Students are busy with exam change'; 'Check out revision 42 of the code' became 'Check out change 42 of the code'",
       "replacement": "change",
       "rule_id": "PS.LEXICAL.222",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "change",
       "term": "revision"
     },
     {
@@ -11249,39 +10419,20 @@
       "term": "significant"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "signify",
-          "mean"
-        ],
-        [
-          "signifies",
-          "means"
-        ],
-        [
-          "signified",
-          "meant"
-        ],
-        [
-          "signifying",
-          "meaning"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'Please signify your agreement by signing' became 'Please mean your agreement by signing'; 'She signified her consent' became 'She meant her consent'",
       "replacement": "mean",
       "rule_id": "PS.LEXICAL.224",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "mean",
       "term": "signify"
     },
     {
@@ -11814,76 +10965,38 @@
       "term": "symptomatology"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "Or 'blend' — a simpler verb.",
-      "forms": [
-        [
-          "synthesise",
-          "combine"
-        ],
-        [
-          "synthesises",
-          "combines"
-        ],
-        [
-          "synthesised",
-          "combined"
-        ],
-        [
-          "synthesising",
-          "combining"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The lab synthesises the compound from benzene' became 'The lab combines the compound from benzene'; 'Plants synthesise sugars from sunlight' became 'Plants combine sugars from sunlight'",
       "replacement": "combine",
       "rule_id": "PS.LEXICAL.227",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "combine",
       "term": "synthesise"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "Or 'blend' — a simpler verb.",
-      "forms": [
-        [
-          "synthesize",
-          "combine"
-        ],
-        [
-          "synthesizes",
-          "combines"
-        ],
-        [
-          "synthesized",
-          "combined"
-        ],
-        [
-          "synthesizing",
-          "combining"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The lab synthesizes the compound from benzene' became 'The lab combines the compound from benzene'; 'The liver synthesizes cholesterol' became 'The liver combines cholesterol'",
       "replacement": "combine",
       "rule_id": "PS.LEXICAL.228",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "combine",
       "term": "synthesize"
     },
     {
@@ -12262,31 +11375,20 @@
       "term": "third party"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "The point at which something changes.",
-      "forms": [
-        [
-          "threshold",
-          "limit"
-        ],
-        [
-          "thresholds",
-          "limits"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'The VAT registration threshold is £90,000' became 'The VAT registration limit is £90,000'; 'She has a low pain threshold' became 'She has a low pain limit'",
       "replacement": "limit",
       "rule_id": "PS.LEXICAL.229",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "limit",
       "term": "threshold"
     },
     {
@@ -12392,31 +11494,20 @@
       "term": "tortfeasor"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "trajectory",
-          "path"
-        ],
-        [
-          "trajectories",
-          "paths"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "noun",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'We used group-based trajectory modelling' became 'We used group-based path modelling'",
       "replacement": "path",
       "rule_id": "PS.LEXICAL.230",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "path",
       "term": "trajectory"
     },
     {
@@ -12471,63 +11562,37 @@
       "term": "transition"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "transitory",
-          "temporary"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "a term of art: 'A transitory action may be brought in any county' became 'A temporary action may be brought in any county'; 'Transitory income is excluded from the test' became 'Temporary income is excluded from the test'",
       "replacement": "temporary",
       "rule_id": "PS.LEXICAL.232",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "temporary",
       "term": "transitory"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "The common word.",
-      "forms": [
-        [
-          "transmit",
-          "send"
-        ],
-        [
-          "transmits",
-          "sends"
-        ],
-        [
-          "transmitted",
-          "sent"
-        ],
-        [
-          "transmitting",
-          "sending"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "the meaning changes: 'Mosquitoes transmit malaria' became 'Mosquitoes send malaria'; 'The disease is transmitted by contact' became 'The disease is sent by contact'",
       "replacement": "send",
       "rule_id": "PS.LEXICAL.233",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "send",
       "term": "transmit"
     },
     {
@@ -13139,10 +12204,10 @@
     "by_classification": {
       "already-covered": 16,
       "deferred": 477,
-      "diagnostic": 99,
+      "diagnostic": 168,
       "protected": 23,
       "rejected": 14,
-      "safe-fix": 77
+      "safe-fix": 8
     },
     "conflicting_replacements": 1,
     "duplicate_across_sources": 55,

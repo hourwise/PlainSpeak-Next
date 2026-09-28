@@ -1,0 +1,495 @@
+# One disposition for each of the 97 rules that were automatic in ruleset
+# 2026.7. These are judgements. qualify.py checks that they match the engine
+# and the probes: every sentence named in `failing` did fire under 2026.7.
+#
+#   QUALIFIED_SAFE  every probe the rule fired on is still correct, including
+#                   the adversarial and specialist ones; it stays automatic
+#   DEMOTED         it fired on at least one realistic sentence and left it
+#                   ungrammatical, weaker, with a different meaning, or wrong
+#                   as a term of art; it becomes a diagnostic under the same ID
+#
+# `finding` names the defect: ungrammatical, meaning-shift, term-of-art or
+# never-applied. A rule may show more than one; the one that decided the case
+# comes first.
+# `residual` is for a retained rule: the risk that is left, written down.
+
+families:
+  wordy-phrases:
+    note: Multi-word stock phrases replaced by one word.
+    members: [PS.CLARITY.002, PS.CLARITY.003, PS.CLARITY.004, PS.CLARITY.005, PS.CLARITY.006, PS.CLARITY.008, PS.CLARITY.009, PS.CLARITY.010]
+  framing-openers:
+    note: Sentence-initial frames that are deleted.
+    members: [PS.FRAMING.001, PS.FRAMING.002, PS.FRAMING.003]
+  utilise:
+    note: Four spellings of one verb, each a separate word rule.
+    members: [PS.LEXICAL.001, PS.LEXICAL.002, PS.LEXICAL.003, PS.LEXICAL.004]
+  commence:
+    note: Two forms of one verb, each a separate word rule.
+    members: [PS.LEXICAL.005, PS.LEXICAL.006]
+  synthesise:
+    note: British and American spellings of one lemma rule. They stand or fall together.
+    members: [PS.LEXICAL.227, PS.LEXICAL.228]
+  optimal:
+    note: The adjective and the adjective-or-noun. Both fail on the same term of art.
+    members: [PS.LEXICAL.193, PS.LEXICAL.194]
+  predominant:
+    note: The adjective fails when used predicatively. The adverb has no such use.
+    members: [PS.LEXICAL.201, PS.LEXICAL.202]
+  heterogeneous:
+    note: A pair of opposites. Both are terms of art in chemistry and statistics.
+    members: [PS.LEXICAL.165, PS.LEXICAL.166]
+  clinical-nouns:
+    note: Clinical record terms replaced by lay words.
+    members: [PS.LEXICAL.129, PS.LEXICAL.154, PS.LEXICAL.175]
+  multi-word-replacements:
+    note: One word replaced by a phrase. It is the shape behind FIELD-001's phrasal-verb failures.
+    members: [PS.LEXICAL.127, PS.LEXICAL.163, PS.LEXICAL.174]
+
+rules:
+  PS.CLARITY.002:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Because" is an exact equivalent in every position probed, including legal reasoning and after a negation.'
+    residual: 'After a copula it gives "The delay is because the supplier failed". Some style guides dislike that construction, but it is grammatical and means the same.'
+  PS.CLARITY.003:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'In a chronology the phrase refers to a past moment, and "now" moves it to the present. This is the ordinary register of a witness statement.'
+    failing: ["At this point in time, the claimant had not been paid.", "The plan was sound at this point in time, but not later."]
+  PS.CLARITY.004:
+    disposition: QUALIFIED_SAFE
+    rationale: '"If" is an exact equivalent, including in lease and contract conditions, after "only" and "except", and before a parenthetical.'
+  PS.CLARITY.005:
+    disposition: QUALIFIED_SAFE
+    rationale: '"For" keeps the purpose reading in every probe. The statutory deeming formula is plural ("for the purposes of") and the phrase matcher does not reach it.'
+    residual: '"Paid for the purpose of X" becomes "paid for X". That could be read as a purchase, but the object is almost always the thing the money went on.'
+  PS.CLARITY.006:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Although" is an exact equivalent in both positions and before a parenthetical.'
+  PS.CLARITY.008:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Soon" is an exact equivalent, including under negation and in "at some point".'
+  PS.CLARITY.009:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Before" is an exact equivalent in time and in ranking ("ranks before"). Clinical, conveyancing and gerund complements all read correctly. The adjective "prior" is not matched.'
+    residual: 'In an intercreditor ranking clause "ranks prior to" is the usual drafting. "Ranks before" says the same thing.'
+  PS.CLARITY.010:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Regularly" carries the same interval-or-often ambiguity as the phrase it replaces, so nothing is gained or lost.'
+  PS.FRAMING.001:
+    disposition: QUALIFIED_SAFE
+    rationale: 'Deletes a frame that asserts nothing, and recapitalises the next word. Mid-sentence and reported-speech matches are refused, not applied.'
+    residual: 'The frame can carry emphasis in a warning notice. Deleting it keeps the statement but loses the emphasis.'
+  PS.FRAMING.002:
+    disposition: QUALIFIED_SAFE
+    rationale: 'Same shape and the same behaviour as PS.FRAMING.001.'
+    residual: 'As PS.FRAMING.001.'
+  PS.FRAMING.003:
+    disposition: DEMOTED
+    finding: never-applied
+    rationale: 'The phrase contains the modal "should". The integrity firewall refuses to delete a modal, so every match is refused and the rule has never changed any text. A rule that can only be refused is not a qualified automatic rule; as a diagnostic it reports the same finding without claiming it was attempted. The firewall is not loosened to let it through.'
+    failing: []
+  PS.LEXICAL.001:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Use" is an exact equivalent, including before a pronoun and sentence-initially. The defined terms "Utilisation Request" and "Utilisation Date" are different words and are not matched.'
+  PS.LEXICAL.002:
+    disposition: QUALIFIED_SAFE
+    rationale: 'As PS.LEXICAL.001, third person.'
+  PS.LEXICAL.003:
+    disposition: QUALIFIED_SAFE
+    rationale: 'As PS.LEXICAL.001, past and participle, including attributive use ("used capacity") and a borrower who "has used the full facility".'
+  PS.LEXICAL.004:
+    disposition: QUALIFIED_SAFE
+    rationale: 'As PS.LEXICAL.001, present participle and gerund, including "conducted using a randomised design".'
+  PS.LEXICAL.005:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Start" is an exact equivalent, including legislative commencement. The Civil Procedure Rules themselves say proceedings are "started", and the defined term "Commencement Date" is not matched.'
+  PS.LEXICAL.006:
+    disposition: QUALIFIED_SAFE
+    rationale: 'As PS.LEXICAL.005, past and participle, including "Once started".'
+  PS.LEXICAL.007:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: '"About" is also a preposition meaning "concerning". Before anything but a number it changes or blurs the meaning: "returns about the square root". It is also not idiomatic before an adjective ("about equal").'
+    failing: ["The function returns approximately the square root.", "The values are approximately equal."]
+  PS.LEXICAL.008:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Necessary and sufficient" is a fixed term in logic, mathematics and law. "Sufficient consideration" is a doctrine of contract law. "Enough" is not a drop-in adjective in either.'
+    failing: ["This is a necessary and sufficient condition.", "Necessary and sufficient conditions are listed below.", "Consideration must be sufficient but need not be adequate."]
+  PS.LEXICAL.011:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'In the protest sense the result is nonsense: "Students plan to show against the fees". The rule described this risk as "oddly rather than wrongly". It is wrong.'
+    failing: ["Students plan to demonstrate against the fees.", "Protesters will demonstrate outside parliament."]
+  PS.LEXICAL.100:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: '"Do" does not take the same objects. You accomplish goals, ambitions and objectives, but you do not "do" them.'
+    failing: ["She hopes to accomplish her ambitions.", "We will accomplish our goals.", "The Trust aims to accomplish its strategic objectives."]
+  PS.LEXICAL.104:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: '"Advantageous" means favourable. "Helpful" does not mean that: "advantageous terms" are not "helpful terms", and "an advantageous position" is not "a helpful position".'
+    failing: ["The company negotiated advantageous terms.", "They are in an advantageous position.", "The scheme offers advantageous tax treatment."]
+  PS.LEXICAL.105:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Reduce" is correct for pain, symptoms, backlog, congestion and concerns, before a pronoun, and in "alleviates the need for".'
+    residual: '"Alleviate" implies relief of suffering and "reduce" does not. In clinical prose the result is plainer, not wrong.'
+  PS.LEXICAL.106:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: 'The matcher reaches the fixed expression "alter ego", which becomes "change ego". The phrase is also a term of art in company law.'
+    failing: ["He acted as the company's alter ego.", "The court may pierce the veil where the company is an alter ego."]
+  PS.LEXICAL.107:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'Ambiguous means having two readings. Unclear means hard to understand. Contra proferentem applies to ambiguity, and "an ambiguous grammar" is a defined term in computing.'
+    failing: ["The sentence is ambiguous: it has two readings.", "Where a term is ambiguous, it is construed against the party that drafted it.", "An ambiguous grammar allows two parse trees."]
+  PS.LEXICAL.108:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'You ameliorate a problem by making it less bad. "Improved the problem" says the problem got better as a problem.'
+    failing: ["Measures ameliorated the problem."]
+  PS.LEXICAL.109:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: '"Anticipate" also means foresee and act ahead of. In finance, "anticipate repayment" means repay early. "Expect" says neither.'
+    failing: ["Good staff anticipate problems before they arise.", "The borrower may anticipate repayment of the loan."]
+  PS.LEXICAL.110:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'Appended means attached at the end. "Added" loses both the attachment in a contract schedule and the end position in software ("appends a line to the log").'
+    failing: ["The appended schedule forms part of this agreement.", "See the documents appended to this report.", "The command appends a line to the log."]
+  PS.LEXICAL.111:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: 'The fixed expression "keep someone apprised" becomes "keep you told".'
+    failing: ["We will keep you apprised.", "Keep us apprised of progress."]
+  PS.LEXICAL.112:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: 'You attain a degree or a qualification, but you do not "reach" one.'
+    failing: ["He attained a degree in law.", "Staff attained the qualification."]
+  PS.LEXICAL.114:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Beneficial owner", "beneficial interest" and "beneficial ownership" are terms of property and company law. They became "helpful owner".'
+    failing: ["She is the beneficial owner of the shares.", "He holds a beneficial interest in the property.", "The register of beneficial ownership is public."]
+  PS.LEXICAL.118:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'In software a component is a named construct, and "React parts" or "the Button part" is wrong.'
+    failing: ["Import the Button component from the library.", "React components render the page."]
+  PS.LEXICAL.121:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'A concurring judgment is a named kind of opinion, and "an agreeing opinion" is not.'
+    failing: ["Lord Smith delivered a concurring opinion."]
+  PS.LEXICAL.127:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'In drafting, "contemplated by this Agreement" means provided for. "Thought about by this Agreement" makes the document the thinker.'
+    failing: ["The transactions contemplated by this Agreement are complete.", "No such payment was contemplated by the parties."]
+  PS.LEXICAL.129:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'In a clinical record "cerebral contusion" and "pulmonary contusion" are injuries. "Cerebral bruise" understates them, and the record no longer uses the clinical term.'
+    failing: ["CT showed a cerebral contusion.", "The patient has a pulmonary contusion."]
+  PS.LEXICAL.131:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'Corroboration is independent confirmation, and some jurisdictions require it. "Supporting evidence" is weaker, so "must be supported" no longer states the rule.'
+    failing: ["There was no corroborating evidence.", "The confession must be corroborated."]
+  PS.LEXICAL.132:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: '"Lacking" does not fit the same slots. "Vitamin D lacking" and "a lacking service" are ungrammatical.'
+    failing: ["The patient is vitamin D deficient.", "They provided a deficient service."]
+  PS.LEXICAL.133:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'Definitive means conclusive, and final means last. A "definitive agreement" in M&A and a "definitive diagnosis" are terms, and "no final answer" is not "no definitive answer".'
+    failing: ["The parties signed a definitive agreement.", "A biopsy is needed for a definitive diagnosis.", "No definitive answer was given."]
+  PS.LEXICAL.134:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'To delineate is to mark exactly. To outline is to describe in general terms. A delineated flood zone or boundary is a precise one.'
+    failing: ["The map delineates the flood zone.", "The plan delineates each role."]
+  PS.LEXICAL.135:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Show" is correct for charts, drawings, photographs and murals, including the participle "depicting". The rule does not generate "depicted", so "was depicted as dishonest" is not reached.'
+  PS.LEXICAL.137:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'Designation is a formal act, such as a conservation area or land allocation. "Choose an area as a conservation area" loses the legal act.'
+    failing: ["The Secretary of State may designate an area as a conservation area.", "The council designates land for housing."]
+  PS.LEXICAL.138:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Detrimental reliance" is an element of estoppel. It became "harmful reliance".'
+    failing: ["The claim rests on detrimental reliance.", "Estoppel requires detrimental reliance on the promise."]
+  PS.LEXICAL.140:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Discontinued operations" is an accounting term (IFRS 5), and "a discontinued product" is no longer made. "Stopped" says neither.'
+    failing: ["Discontinued operations are shown separately in the accounts.", "Profit from discontinued operations fell.", "This is a discontinued product."]
+  PS.LEXICAL.141:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Disseminated intravascular coagulation" is a diagnosis. It became "spread intravascular coagulation".'
+    failing: ["The patient developed disseminated intravascular coagulation."]
+  PS.LEXICAL.143:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'In science, to elucidate a structure or mechanism is to determine it. "Explain the structure of the compound" describes something already known.'
+    failing: ["NMR was used to elucidate the structure of the compound.", "The study elucidated the mechanism."]
+  PS.LEXICAL.148:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Enumerated powers" is a constitutional term. It became "listed powers".'
+    failing: ["Congress has only its enumerated powers."]
+  PS.LEXICAL.149:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Clearly erroneous" names a standard of appellate review. Also, "wrong" can mean morally wrong and "erroneous" cannot.'
+    failing: ["The finding was reviewed under the clearly erroneous standard."]
+  PS.LEXICAL.150:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Worsen" is an exact equivalent, transitive and participial, including clinical use ("worsens asthma", "the worsened symptoms").'
+  PS.LEXICAL.152:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Spend" is an exact equivalent for money, effort, energy and ammunition ("rounds were spent"), including grant accounting.'
+  PS.LEXICAL.154:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Case fatality rate" is an epidemiological measure. It became "case death rate".'
+    failing: ["The case fatality rate was 2%."]
+  PS.LEXICAL.156:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'A finalised deal or divorce is concluded and formalised. A "finished" one reads as over or failed.'
+    failing: ["The deal was finalized yesterday.", "The divorce was finalized in court."]
+  PS.LEXICAL.157:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'Formulation is a pharmaceutical term. A drug "formulated as a tablet" is not "created as a tablet".'
+    failing: ["The drug is formulated as a tablet.", "The vaccine was formulated for children."]
+  PS.LEXICAL.158:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Frequently Asked Questions" is a fixed name. It became "Often Asked Questions".'
+    failing: ["Frequently Asked Questions", "See the frequently asked questions."]
+  PS.LEXICAL.163:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'In a definition it means "in the rest of this document". This is the defect already found in "hereafter" in 2026.7: "The Company (from now on the Seller)".'
+    failing: ["The Company (henceforth the Seller) agrees to sell.", "This agreement, henceforth referred to as the Contract, is binding."]
+  PS.LEXICAL.165:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Heterogeneous catalysis" and "heterogeneous treatment effects" are terms in chemistry and statistics.'
+    failing: ["The reaction uses heterogeneous catalysis.", "Heterogeneous treatment effects were found."]
+  PS.LEXICAL.166:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"A homogeneous equation" and "homogeneous catalysis" are terms of art. "Uniform equation" is wrong.'
+    failing: ["Solve the homogeneous equation.", "Homogeneous catalysis occurs in one phase."]
+  PS.LEXICAL.171:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: 'The matcher does not check part of speech, so the noun "initiates" is reached. Initiation into a body is also a different sense.'
+    failing: ["Only initiates may attend the ceremony.", "New members are initiated into the society."]
+  PS.LEXICAL.172:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Innovative Finance ISA" is a product name, and "innovative" does not mean "new".'
+    failing: ["Innovative Finance ISAs hold peer-to-peer loans.", "The Innovative Medicines Initiative funds research."]
+  PS.LEXICAL.173:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Inordinate and inexcusable delay" is the test for striking out a claim for want of prosecution.'
+    failing: ["There was inordinate and inexcusable delay.", "The claim was struck out for inordinate delay."]
+  PS.LEXICAL.174:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: 'The multi-word replacement collides with a following "in", and the participle is reached as an adjective.'
+    failing: ["The regulator may intervene in the market.", "In the intervening years, prices rose.", "The charity applied to intervene in the proceedings."]
+  PS.LEXICAL.175:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'Forensic and clinical records distinguish a laceration (a tear) from an incised wound. "A cut of the spleen" is also ungrammatical.'
+    failing: ["There was a laceration of the spleen.", "A 3 cm laceration was sutured."]
+  PS.LEXICAL.177:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Order of magnitude", earthquake magnitude and vector magnitude are fixed terms.'
+    failing: ["This is an order of magnitude cheaper.", "The earthquake had a magnitude of 6."]
+  PS.LEXICAL.179:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'In research, methodology is the rationale for a choice of methods, not a method. "Positivist method" says something else.'
+    failing: ["The paper critiques positivist methodology."]
+  PS.LEXICAL.181:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Loan modification" and "genetic modification" are terms. The latter is the same defect already found in "modify" in 2026.7.'
+    failing: ["She applied for a loan modification.", "Genetic modification of crops is regulated."]
+  PS.LEXICAL.184:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Require" is an exact equivalent with a noun or gerund object, before a pronoun, and in clinical use.'
+  PS.LEXICAL.185:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'Negligible means small enough to disregard, and tiny means very small. "Treated as tiny" and "clinically tiny" lose the judgement.'
+    failing: ["Effects below the threshold are treated as negligible.", "The dose is clinically negligible."]
+  PS.LEXICAL.187:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: '"Numerous" can describe a singular collective, as in the class-action numerosity test. "Many" cannot: "The class is so many".'
+    failing: ["The class is so numerous that joinder of all members is impracticable."]
+  PS.LEXICAL.190:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'Obsolete means no longer usable or supported, and outdated means old. Obsolete stock is written down in the accounts, and an obsolete function has been removed.'
+    failing: ["Obsolete stock is written down in the accounts.", "The function is obsolete and has been removed."]
+  PS.LEXICAL.191:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: 'Intransitive "obtain" (to prevail or be in force) is ordinary in legal writing, and it became "gets". "Obtaining services dishonestly" is also the name of an offence.'
+    failing: ["The same rule obtains in Scotland.", "The position that obtained before 2010 was different.", "He was charged with obtaining services dishonestly."]
+  PS.LEXICAL.192:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'In insurance, "occurrence" and "event" are distinct aggregation terms. "Per occurrence" and "per event" pay differently.'
+    failing: ["The insurer pays per occurrence, not per claim.", "The policy covers each occurrence up to £1m."]
+  PS.LEXICAL.193:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Pareto optimal" is a fixed term. It became "Pareto best".'
+    failing: ["The allocation is Pareto optimal."]
+  PS.LEXICAL.194:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'As PS.LEXICAL.193: "a Pareto optimum" became "a Pareto best".'
+    failing: ["This is a Pareto optimum."]
+  PS.LEXICAL.195:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'Loan origination and an "originating application" are terms of art. "Starts mortgages" and "a starting application" are wrong.'
+    failing: ["The bank originates mortgages for resale.", "Proceedings began with an originating application."]
+  PS.LEXICAL.197:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Permissible exposure limit" is a regulatory name. In ethics "permissible" is a term, and "morally allowed" is weaker.'
+    failing: ["The permissible exposure limit is 5 ppm.", "Is it morally permissible to lie?"]
+  PS.LEXICAL.198:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'To perpetuate is to cause something to continue. "Myths continue stigma" loses the causation and is barely grammatical.'
+    failing: ["Such myths perpetuate stigma.", "The rule perpetuates disadvantage."]
+  PS.LEXICAL.199:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'A portion of food is a serving. "Five parts of fruit a day" is wrong in public-health guidance.'
+    failing: ["Eat five portions of fruit a day.", "Serve a portion of chips."]
+  PS.LEXICAL.201:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: '"Main" is only attributive. A predicative "predominant" became "Which is main?"'
+    failing: ["Which is predominant?"]
+  PS.LEXICAL.202:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Mainly" is an exact equivalent in every adverbial position probed, including clinical description.'
+  PS.LEXICAL.205:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: '"Shall procure that" is a drafting term meaning ensure, and it became "shall get that". "Procuring an offence" is a criminal term.'
+    failing: ["The Seller shall procure that its employees comply.", "He was charged with procuring an offence."]
+  PS.LEXICAL.206:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'A "prohibited steps order" is a named order under the Children Act 1989. It became "banned steps order".'
+    failing: ["The court made a prohibited steps order."]
+  PS.LEXICAL.207:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'Promulgation is the formal act that gives a rule effect, and announcing one does not.'
+    failing: ["The agency promulgated a final rule.", "Regulations are promulgated in the Gazette."]
+  PS.LEXICAL.210:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'A "quashing order" is a named public-law remedy. Quashing a rumour is not overturning it.'
+    failing: ["The claimant seeks a quashing order.", "Police quashed the rumour."]
+  PS.LEXICAL.213:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Move" is an exact equivalent for offices, staff, residents and shops, before a pronoun, and intransitively.'
+    residual: 'A loader "relocates" an image when it adjusts its addresses. "Moves" is what a non-specialist would understand, but it is not the linker term.'
+  PS.LEXICAL.214:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'A remainder is a term in arithmetic and in property law, where it is a future interest. "The rest is 1" is wrong in both.'
+    failing: ["Divide 7 by 2: the remainder is 1.", "She holds the remainder after the life interest."]
+  PS.LEXICAL.215:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'A virus replicates, and a study is replicated. "The virus copies" and "failed to copy the study" change both.'
+    failing: ["The virus replicates in the lungs.", "Other labs failed to replicate the study."]
+  PS.LEXICAL.217:
+    disposition: DEMOTED
+    finding: ungrammatical
+    rationale: 'The singular noun is reached: "a requisite for entry" became "a required for entry".'
+    failing: ["A valid passport is a requisite for entry."]
+  PS.LEXICAL.218:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'Rescission is a remedy that unwinds a contract from the start. Cancellation is a different remedy.'
+    failing: ["The buyer rescinded the contract for misrepresentation.", "The contract may be rescinded if induced by fraud."]
+  PS.LEXICAL.219:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'Only people live somewhere. "Authority lives with the board" and "the problem lives in the code" say something else.'
+    failing: ["Authority resides with the board.", "The problem resides in the code."]
+  PS.LEXICAL.222:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'Exam revision, a version-control revision and a revision operation are terms. "Exam change" and "hip change" are wrong.'
+    failing: ["Students are busy with exam revision.", "Check out revision 42 of the code.", "The surgeon performed a hip revision."]
+  PS.LEXICAL.223:
+    disposition: QUALIFIED_SAFE
+    rationale: '"Examine" is an exact equivalent, including committee scrutiny of bills and spending, and before a pronoun.'
+    residual: 'Parliamentary "scrutiny" is a named function. The noun is not matched, and "examine" keeps the verb''s meaning.'
+  PS.LEXICAL.224:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'To signify consent is to indicate it. "Mean your agreement" and "meant its assent" are wrong.'
+    failing: ["Please signify your agreement by signing.", "She signified her consent.", "The Crown signified its assent."]
+  PS.LEXICAL.227:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'In chemistry and biology, to synthesise is to make. "Plants combine sugars" says something else.'
+    failing: ["The lab synthesises the compound from benzene.", "Plants synthesise sugars from sunlight."]
+  PS.LEXICAL.228:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'As PS.LEXICAL.227: "The liver combines cholesterol".'
+    failing: ["The lab synthesizes the compound from benzene.", "The liver synthesizes cholesterol."]
+  PS.LEXICAL.229:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'A threshold is where something starts, and a limit is where it stops. A tax "limit" reverses the meaning; "pain limit" and "on the limit of a breakthrough" are wrong.'
+    failing: ["The VAT registration threshold is £90,000.", "She has a low pain threshold.", "We are on the threshold of a breakthrough."]
+  PS.LEXICAL.230:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: 'Trajectory modelling and path modelling are different statistical methods.'
+    failing: ["We used group-based trajectory modelling."]
+  PS.LEXICAL.232:
+    disposition: DEMOTED
+    finding: term-of-art
+    rationale: '"Transitory action" (venue) and "transitory income" (economics) are terms of art.'
+    failing: ["A transitory action may be brought in any county.", "Transitory income is excluded from the test."]
+  PS.LEXICAL.233:
+    disposition: DEMOTED
+    finding: meaning-shift
+    rationale: 'Diseases are transmitted, not sent. "Mosquitoes send malaria".'
+    failing: ["Mosquitoes transmit malaria.", "The disease is transmitted by contact.", "The virus can be transmitted before symptoms appear."]

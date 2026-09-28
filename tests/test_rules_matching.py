@@ -201,18 +201,21 @@ def test_unreproducible_casing_is_refused_rather_than_guessed(ruleset_from) -> N
     assert match.replacement == ""
 
 
-def test_a_multi_word_replacement_keeps_a_single_capital(bundled) -> None:
+def test_a_multi_word_replacement_keeps_a_single_capital(ruleset_from) -> None:
     """One capitalised word is sentence-shaped, not title-shaped.
 
     "Henceforth" at the start of a sentence should become "From now on", not
     "From Now On": the capital marks the sentence, and reproducing it on every
     word would invent emphasis the author did not write. (The example was
-    "Ascertain" / "Find out" until ruleset 2026.6 demoted PS.LEXICAL.010.)
+    "Ascertain" / "Find out" until ruleset 2026.6 demoted PS.LEXICAL.010, and
+    the bundled PS.LEXICAL.163 until ruleset 2026.8 demoted it. No bundled
+    automatic rule has a multi-word replacement now, so the mechanism is tested
+    on a rule built here.)
     """
-    match = next(
-        m for m in find_matches("Henceforth the office is closed.", bundled.rules)
-        if m.rule_id == "PS.LEXICAL.163"
-    )
+    rule = VALID_RULE.replace(
+        'type: phrase\n  text: "in order to"', 'type: word\n  text: "henceforth"'
+    ).replace('replacement: "to"', 'replacement: "from now on"')
+    match = find_matches("Henceforth the office is closed.", rules_of(ruleset_from(rule)))[0]
     assert match.replacement == "From now on"
 
 

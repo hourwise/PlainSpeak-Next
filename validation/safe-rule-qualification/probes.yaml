@@ -1,0 +1,601 @@
+# Probe sentences for every automatic rule in ruleset 2026.7 (97 rules).
+#
+# Each rule gets sentences in four groups. Most were written before any output
+# was captured or any disposition decided. After the first run, a second pass
+# added sentences for the rules the first pass had not settled. The groups:
+#
+#   normal       ordinary uses the rule was written for
+#   adversarial  position, part of speech, participles, pronoun objects,
+#                phrasal verbs, infinitive complements, fixed expressions,
+#                punctuation, capitalisation
+#   specialist   legal, procedural, finance, accounting, clinical, technical,
+#                government — wherever the word plausibly works as a term
+#   control      further ordinary uses, so the audit is not built to demote;
+#                a qualified rule must apply every one
+#
+# qualify.py runs every sentence through `present` and records
+# what the rule actually did. Judgements are in dispositions.yaml.
+
+rules:
+  PS.CLARITY.002:
+    category: phrase — subordinating conjunction ("due to the fact that" -> "because")
+    normal: ["The meeting was cancelled due to the fact that the chair was ill.", "Due to the fact that the office is closed, calls are diverted."]
+    adversarial: ["The delay is due to the fact that the supplier failed.", "It was not due to the fact that we were late.", "Largely due to the fact that prices rose, sales fell."]
+    specialist: ["The claim failed due to the fact that the limitation period had expired."]
+    control: ["The system crashed due to the fact that the disk was full."]
+  PS.CLARITY.003:
+    category: phrase — adverbial ("at this point in time" -> "now")
+    normal: ["At this point in time, we cannot confirm the date.", "We have no vacancies at this point in time."]
+    adversarial: ["The plan was sound at this point in time, but not later.", "Is it wise, at this point in time, to proceed?"]
+    specialist: ["The court is not persuaded that, at this point in time, an injunction is necessary.", "At this point in time, the claimant had not been paid."]
+    control: ["No further action is required at this point in time."]
+  PS.CLARITY.004:
+    category: phrase — conditional conjunction ("in the event that" -> "if")
+    normal: ["In the event that you are late, call the office.", "We will refund you in the event that the flight is cancelled."]
+    adversarial: ["Only in the event that the server fails will the backup run.", "Except in the event that notice is given, the lease continues.", "In the event that, as expected, it rains, the match moves indoors."]
+    specialist: ["In the event that the Tenant defaults, the Landlord may terminate this lease."]
+    control: ["In the event that a fire alarm sounds, leave the building."]
+  PS.CLARITY.005:
+    category: phrase — prepositional ("for the purpose of" -> "for")
+    normal: ["The room is used for the purpose of training.", "Data is collected for the purpose of improving the service."]
+    adversarial: ["For the purpose of this letter, we means the council.", "The money was taken for the purpose of fraud.", "The sum was paid for the purpose of the repairs.", "For the purposes of this Act, a child is a person under 18."]
+    specialist: ["For the purpose of section 5, a dwelling includes a caravan.", "For the purpose of this Agreement, Business Day means a day on which banks are open."]
+    control: ["The vehicle may only be used for the purpose of deliveries."]
+  PS.CLARITY.006:
+    category: phrase — concessive conjunction ("in spite of the fact that" -> "although")
+    normal: ["In spite of the fact that it rained, the event went ahead.", "We continued in spite of the fact that funding was cut."]
+    adversarial: ["She was hired in spite of the fact that, strictly, she lacked the degree."]
+    specialist: ["The appeal was allowed in spite of the fact that the notice was late."]
+    control: ["In spite of the fact that sales fell, profits rose."]
+  PS.CLARITY.008:
+    category: phrase — adverbial ("in the near future" -> "soon")
+    normal: ["We will publish the report in the near future.", "In the near future, the office will move."]
+    adversarial: ["A decision is not expected in the near future.", "Rates may rise at some point in the near future.", "It is unlikely to happen in the near future."]
+    specialist: ["The Department intends to consult in the near future."]
+    control: ["New features will be released in the near future."]
+  PS.CLARITY.009:
+    category: phrase — preposition ("prior to" -> "before"); an integrity equivalence
+    normal: ["Please arrive prior to the meeting.", "Prior to the hearing, file the bundle."]
+    adversarial: ["The prior agreement still applies.", "It must be signed prior to, and not after, completion.", "Check the settings prior to installing."]
+    specialist: ["The patient must fast for 6 hours prior to surgery.", "Notice must be given prior to the Completion Date.", "The first charge ranks prior to the second charge."]
+    control: ["Back up your files prior to the upgrade."]
+  PS.CLARITY.010:
+    category: phrase — adverbial ("on a regular basis" -> "regularly")
+    normal: ["Staff are paid on a regular basis.", "Check the filters on a regular basis."]
+    adversarial: ["On a regular basis, the system backs up.", "Is it used on a regular basis?"]
+    specialist: ["Blood pressure should be monitored on a regular basis."]
+    control: ["The committee meets on a regular basis."]
+  PS.FRAMING.001:
+    category: framing deletion ("it is important to note that " -> nothing)
+    normal: ["It is important to note that the deposit is non-refundable.", "However, it is important to note that the office is closed."]
+    adversarial: ["It is important to note that no refunds are given.", "Staff said it is important to note that the rules changed."]
+    specialist: ["It is important to note that this letter does not constitute legal advice."]
+    control: ["It is important to note that prices may change."]
+  PS.FRAMING.002:
+    category: framing deletion ("it is worth noting that " -> nothing)
+    normal: ["It is worth noting that exports fell.", "Finally, it is worth noting that the survey was small."]
+    adversarial: ["It is worth noting that not every site replied.", "They said it is worth noting that costs rose."]
+    specialist: ["It is worth noting that the trial excluded children."]
+    control: ["It is worth noting that the data is provisional."]
+  PS.FRAMING.003:
+    category: framing deletion ("it should be noted that " -> nothing)
+    normal: ["It should be noted that the office is closed.", "It should be noted that fees apply."]
+    adversarial: ["However, it should be noted that the data is incomplete."]
+    specialist: ["It should be noted that the Respondent did not attend."]
+    control: ["It should be noted that the figures are estimates."]
+  PS.LEXICAL.001:
+    category: verb, base form ("utilise" -> "use")
+    normal: ["Please utilise the new portal.", "Staff should utilise the register."]
+    adversarial: ["We must utilise it before it expires.", "Utilise the form, not the email.", "Submit a Utilisation Request before the Utilisation Date."]
+    specialist: ["Hospitals should utilise spare theatre capacity."]
+    control: ["You can utilise the car park after 6pm."]
+  PS.LEXICAL.002:
+    category: verb, third person ("utilises" -> "uses")
+    normal: ["The service utilises cloud storage.", "Each team utilises the same template."]
+    adversarial: ["It utilises them sparingly."]
+    specialist: ["The algorithm utilises a hash table."]
+    control: ["The factory utilises solar power."]
+  PS.LEXICAL.003:
+    category: verb, past / participle ("utilised" -> "used")
+    normal: ["The funds were utilised for repairs.", "We utilised the spare room."]
+    adversarial: ["Utilised capacity rose to 80%.", "The utilised portion is shown in red."]
+    specialist: ["The borrower has utilised the full facility."]
+    control: ["The data was utilised in the report."]
+  PS.LEXICAL.004:
+    category: verb, present participle ("utilising" -> "using")
+    normal: ["Utilising the new system saves time.", "We are utilising the grant."]
+    adversarial: ["By utilising it, you agree to the terms."]
+    specialist: ["The study was conducted utilising a randomised design."]
+    control: ["Staff are utilising the training budget."]
+  PS.LEXICAL.005:
+    category: verb, base form ("commence" -> "start")
+    normal: ["Work will commence on Monday.", "The course will commence in May."]
+    adversarial: ["Please commence it immediately.", "Commence the test when ready."]
+    specialist: ["The claimant may commence proceedings.", "This section shall commence on 1 April.", "The lease will commence on the Commencement Date."]
+    control: ["Building works commence next week."]
+  PS.LEXICAL.006:
+    category: verb, past / participle ("commenced" -> "started")
+    normal: ["Work commenced on Monday.", "The trial has commenced."]
+    adversarial: ["Once commenced, the process cannot stop."]
+    specialist: ["Proceedings were commenced in the High Court.", "Employment commenced on 1 June."]
+    control: ["The survey commenced last spring."]
+  PS.LEXICAL.007:
+    category: adverb ("approximately" -> "about")
+    normal: ["It costs approximately £40.", "The journey takes approximately two hours."]
+    adversarial: ["The values are approximately equal.", "Approximately, how many attended?"]
+    specialist: ["Give approximately 5 mg per kg.", "The function returns approximately the square root."]
+    control: ["Approximately 300 people replied."]
+  PS.LEXICAL.008:
+    category: adjective ("sufficient" -> "enough")
+    normal: ["We have sufficient funds.", "Is there sufficient space?"]
+    adversarial: ["This is a necessary and sufficient condition.", "The evidence was sufficient to convict.", "Sufficient unto the day."]
+    specialist: ["Consideration must be sufficient but need not be adequate.", "Necessary and sufficient conditions are listed below."]
+    control: ["Allow sufficient time for delivery."]
+  PS.LEXICAL.011:
+    category: verb, base form ("demonstrate" -> "show")
+    normal: ["We will demonstrate the tool.", "You must demonstrate that you live in the area."]
+    adversarial: ["Students plan to demonstrate against the fees.", "Protesters will demonstrate outside parliament."]
+    specialist: ["The applicant must demonstrate a genuine need."]
+    control: ["Please demonstrate how the form works."]
+  PS.LEXICAL.100:
+    category: verb ("accomplish" -> "do")
+    normal: ["We can accomplish the task by Friday.", "The team accomplishes a lot."]
+    adversarial: ["She hopes to accomplish her ambitions.", "We will accomplish our goals.", "Accomplishing this took years."]
+    specialist: ["The Trust aims to accomplish its strategic objectives."]
+    control: ["What did the project accomplish?"]
+  PS.LEXICAL.104:
+    category: adjective ("advantageous" -> "helpful")
+    normal: ["The new timetable is advantageous for commuters.", "It would be advantageous to book early."]
+    adversarial: ["The company negotiated advantageous terms.", "They are in an advantageous position."]
+    specialist: ["The scheme offers advantageous tax treatment."]
+    control: ["Early payment is advantageous."]
+  PS.LEXICAL.105:
+    category: verb ("alleviate" -> "reduce")
+    normal: ["The drug will alleviate the pain.", "Extra staff alleviated the backlog."]
+    adversarial: ["Nothing alleviates it.", "This should alleviate concerns.", "This alleviates the need for a second visit."]
+    specialist: ["Treatment alleviates symptoms of asthma.", "The drug alleviates nausea."]
+    control: ["New buses will alleviate congestion."]
+  PS.LEXICAL.106:
+    category: verb ("alter" -> "change")
+    normal: ["You may alter your booking.", "The plan was altered."]
+    adversarial: ["He acted as the company's alter ego.", "Do not alter it."]
+    specialist: ["The court may pierce the veil where the company is an alter ego.", "The drug may alter liver function."]
+    control: ["The timetable altered in June."]
+  PS.LEXICAL.107:
+    category: adjective ("ambiguous" -> "unclear")
+    normal: ["The instructions are ambiguous.", "Ambiguous wording caused the dispute."]
+    adversarial: ["The sentence is ambiguous: it has two readings."]
+    specialist: ["Where a term is ambiguous, it is construed against the party that drafted it.", "An ambiguous grammar allows two parse trees."]
+    control: ["The results were ambiguous."]
+  PS.LEXICAL.108:
+    category: verb ("ameliorate" -> "improve")
+    normal: ["The policy will ameliorate conditions.", "Measures ameliorated the problem."]
+    adversarial: ["This ameliorates it somewhat."]
+    specialist: ["The treatment ameliorated symptoms."]
+    control: ["Steps were taken to ameliorate the situation."]
+  PS.LEXICAL.109:
+    category: verb ("anticipate" -> "expect")
+    normal: ["We anticipate delays.", "The anticipated date is 1 May."]
+    adversarial: ["Good staff anticipate problems before they arise.", "We anticipate it."]
+    specialist: ["The borrower may anticipate repayment of the loan."]
+    control: ["We anticipate a large turnout."]
+  PS.LEXICAL.110:
+    category: verb ("append" -> "add")
+    normal: ["Append your signature below.", "Append the file to the email."]
+    adversarial: ["The appended schedule forms part of this agreement.", "The command appends a line to the log."]
+    specialist: ["See the documents appended to this report."]
+    control: ["Please append a short summary."]
+  PS.LEXICAL.111:
+    category: verb ("apprise" -> "tell")
+    normal: ["We will apprise you of any change.", "Please apprise the team."]
+    adversarial: ["We will keep you apprised.", "Keep us apprised of progress."]
+    specialist: ["Counsel apprised the court of the settlement."]
+    control: ["The manager apprised staff of the decision."]
+  PS.LEXICAL.112:
+    category: verb ("attain" -> "reach")
+    normal: ["You must attain the age of 18.", "She attained a high score."]
+    adversarial: ["He attained a degree in law.", "Staff attained the qualification."]
+    specialist: ["The pupil attained the expected standard."]
+    control: ["Targets were attained in March."]
+  PS.LEXICAL.114:
+    category: adjective ("beneficial" -> "helpful")
+    normal: ["Exercise is beneficial.", "The change was beneficial to users."]
+    adversarial: ["She is the beneficial owner of the shares.", "He holds a beneficial interest in the property."]
+    specialist: ["The register of beneficial ownership is public."]
+    control: ["Regular breaks are beneficial."]
+  PS.LEXICAL.118:
+    category: noun ("component" -> "part")
+    normal: ["Each component is tested.", "The main components are listed."]
+    adversarial: ["Import the Button component from the library.", "React components render the page."]
+    specialist: ["The pay award has a performance component."]
+    control: ["Replace the faulty component."]
+  PS.LEXICAL.121:
+    category: verb ("concur" -> "agree")
+    normal: ["I concur with the report.", "The board concurred."]
+    adversarial: ["Lord Smith delivered a concurring opinion."]
+    specialist: ["The judges concurred in the result."]
+    control: ["Both doctors concur."]
+  PS.LEXICAL.127:
+    category: verb -> phrasal ("contemplate" -> "think about")
+    normal: ["We contemplate moving the office.", "She contemplated leaving."]
+    adversarial: ["The transactions contemplated by this Agreement are complete.", "We contemplate it."]
+    specialist: ["No such payment was contemplated by the parties."]
+    control: ["He is contemplating retirement."]
+  PS.LEXICAL.129:
+    category: noun, clinical ("contusion" -> "bruise")
+    normal: ["He had a contusion on his arm.", "Minor contusions were noted."]
+    adversarial: ["CT showed a cerebral contusion."]
+    specialist: ["The patient has a pulmonary contusion."]
+    control: ["A small contusion was dressed."]
+  PS.LEXICAL.131:
+    category: verb ("corroborate" -> "support")
+    normal: ["Witnesses corroborated her account.", "The data corroborates the findings."]
+    adversarial: ["There was no corroborating evidence."]
+    specialist: ["The confession must be corroborated."]
+    control: ["Records corroborate the dates."]
+  PS.LEXICAL.132:
+    category: adjective ("deficient" -> "lacking")
+    normal: ["The diet is deficient in iron.", "The report was deficient in detail."]
+    adversarial: ["The patient is vitamin D deficient.", "They provided a deficient service."]
+    specialist: ["The works were found deficient on inspection."]
+    control: ["Soil deficient in nitrogen needs feeding."]
+  PS.LEXICAL.133:
+    category: adjective ("definitive" -> "final")
+    normal: ["This is the definitive version.", "No definitive answer was given."]
+    adversarial: ["The parties signed a definitive agreement."]
+    specialist: ["A biopsy is needed for a definitive diagnosis."]
+    control: ["We will publish the definitive list."]
+  PS.LEXICAL.134:
+    category: verb ("delineate" -> "outline")
+    normal: ["The plan delineates each role.", "Boundaries were delineated."]
+    adversarial: ["Clearly delineated zones reduce risk."]
+    specialist: ["The map delineates the flood zone."]
+    control: ["Please delineate the steps."]
+  PS.LEXICAL.135:
+    category: verb ("depict" -> "show")
+    normal: ["The chart depicts the trend.", "The mural depicts local history."]
+    adversarial: ["The figure depicting the results is below.", "The claimant was depicted as dishonest."]
+    specialist: ["The drawing depicts the proposed extension."]
+    control: ["These photos depict the damage."]
+  PS.LEXICAL.137:
+    category: verb ("designate" -> "choose")
+    normal: ["Please designate a contact.", "Each team designates a lead."]
+    adversarial: ["The Secretary of State may designate an area as a conservation area."]
+    specialist: ["The council designates land for housing."]
+    control: ["Designate a fire marshal for each floor."]
+  PS.LEXICAL.138:
+    category: adjective ("detrimental" -> "harmful")
+    normal: ["Smoking is detrimental to health.", "The change was detrimental."]
+    adversarial: ["The claim rests on detrimental reliance."]
+    specialist: ["Estoppel requires detrimental reliance on the promise."]
+    control: ["Delays are detrimental to patients."]
+  PS.LEXICAL.140:
+    category: verb ("discontinue" -> "stop")
+    normal: ["Discontinue the medicine if you feel dizzy.", "The service was discontinued."]
+    adversarial: ["This is a discontinued product.", "Profit from discontinued operations fell."]
+    specialist: ["Discontinued operations are shown separately in the accounts."]
+    control: ["We will discontinue the old form."]
+  PS.LEXICAL.141:
+    category: verb ("disseminate" -> "spread")
+    normal: ["We will disseminate the findings.", "The leaflet was disseminated widely."]
+    adversarial: ["The patient developed disseminated intravascular coagulation."]
+    specialist: ["The cancer had disseminated to the liver."]
+    control: ["Results are disseminated to schools."]
+  PS.LEXICAL.143:
+    category: verb ("elucidate" -> "explain")
+    normal: ["Please elucidate your reasons.", "The report elucidates the causes."]
+    adversarial: ["Can you elucidate it?"]
+    specialist: ["The study elucidated the mechanism.", "NMR was used to elucidate the structure of the compound."]
+    control: ["The guide elucidates each step."]
+  PS.LEXICAL.148:
+    category: verb ("enumerate" -> "list")
+    normal: ["Enumerate the options.", "The rules are enumerated below."]
+    adversarial: ["The function enumerates connected devices."]
+    specialist: ["Congress has only its enumerated powers."]
+    control: ["The letter enumerates the charges."]
+  PS.LEXICAL.149:
+    category: adjective ("erroneous" -> "wrong")
+    normal: ["The figures were erroneous.", "An erroneous payment was made."]
+    adversarial: ["Erroneous, it was withdrawn."]
+    specialist: ["The tribunal made an erroneous finding of fact.", "The finding was reviewed under the clearly erroneous standard."]
+    control: ["Erroneous entries were removed."]
+  PS.LEXICAL.150:
+    category: verb ("exacerbate" -> "worsen")
+    normal: ["Stress can exacerbate symptoms.", "The delay exacerbated the problem."]
+    adversarial: ["Heat exacerbates it.", "The exacerbated symptoms settled with rest."]
+    specialist: ["Cold weather exacerbates asthma."]
+    control: ["Cuts exacerbated the shortage."]
+  PS.LEXICAL.152:
+    category: verb ("expend" -> "spend")
+    normal: ["Do not expend more than the budget.", "The funds were expended."]
+    adversarial: ["Energy expended on the task was wasted.", "All rounds were expended in training."]
+    specialist: ["Grant money must be expended by 31 March."]
+    control: ["We expended a lot of effort."]
+  PS.LEXICAL.154:
+    category: noun ("fatality" -> "death")
+    normal: ["There were no fatalities.", "Each fatality is investigated."]
+    adversarial: ["The case fatality rate was 2%."]
+    specialist: ["Road fatalities fell last year."]
+    control: ["The crash caused one fatality."]
+  PS.LEXICAL.156:
+    category: verb ("finalize" -> "finish")
+    normal: ["We will finalize the report.", "The plan was finalized."]
+    adversarial: ["The deal was finalized yesterday.", "Finalize the budget with the board."]
+    specialist: ["The divorce was finalized in court."]
+    control: ["Please finalize your order."]
+  PS.LEXICAL.157:
+    category: verb ("formulate" -> "create")
+    normal: ["We will formulate a policy.", "The plan was formulated quickly."]
+    adversarial: ["The drug is formulated as a tablet.", "Formulate the question clearly."]
+    specialist: ["The vaccine was formulated for children."]
+    control: ["They formulated a response."]
+  PS.LEXICAL.158:
+    category: adverb ("frequently" -> "often")
+    normal: ["Buses run frequently.", "We frequently update the site."]
+    adversarial: ["Frequently Asked Questions", "See the frequently asked questions."]
+    specialist: ["The dose may be given more frequently."]
+    control: ["Staff frequently work late."]
+  PS.LEXICAL.163:
+    category: adverb -> phrase ("henceforth" -> "from now on")
+    normal: ["Henceforth the office closes at 5pm.", "Meetings will henceforth be online."]
+    adversarial: ["The Company (henceforth the Seller) agrees to sell."]
+    specialist: ["This agreement, henceforth referred to as the Contract, is binding."]
+    control: ["Henceforth, all claims go online."]
+  PS.LEXICAL.165:
+    category: adjective ("heterogeneous" -> "varied")
+    normal: ["The group was heterogeneous.", "A heterogeneous population was studied."]
+    adversarial: ["The reaction uses heterogeneous catalysis."]
+    specialist: ["Heterogeneous treatment effects were found."]
+    control: ["The sample was heterogeneous in age."]
+  PS.LEXICAL.166:
+    category: adjective ("homogeneous" -> "uniform")
+    normal: ["The mixture is homogeneous.", "A homogeneous group was chosen."]
+    adversarial: ["Solve the homogeneous equation."]
+    specialist: ["Homogeneous catalysis occurs in one phase."]
+    control: ["The layer is homogeneous."]
+  PS.LEXICAL.171:
+    category: verb ("initiate" -> "start")
+    normal: ["We will initiate a refund.", "The process was initiated."]
+    adversarial: ["Initiate it now.", "Only the account owner can initiate a transfer.", "New members are initiated into the society.", "Only initiates may attend the ceremony."]
+    specialist: ["Doctors should initiate treatment promptly."]
+    control: ["Staff initiated the review."]
+  PS.LEXICAL.172:
+    category: adjective ("innovative" -> "new")
+    normal: ["This is an innovative approach.", "They use innovative methods."]
+    adversarial: ["The Innovative Medicines Initiative funds research."]
+    specialist: ["Innovative Finance ISAs hold peer-to-peer loans."]
+    control: ["The design is innovative."]
+  PS.LEXICAL.173:
+    category: adjective ("inordinate" -> "excessive")
+    normal: ["It took an inordinate amount of time.", "The fees were inordinate."]
+    adversarial: ["There was inordinate and inexcusable delay."]
+    specialist: ["The claim was struck out for inordinate delay."]
+    control: ["He spent inordinate sums."]
+  PS.LEXICAL.174:
+    category: verb -> phrasal ("intervene" -> "step in")
+    normal: ["Staff may intervene if needed.", "The referee intervened."]
+    adversarial: ["The regulator may intervene in the market.", "In the intervening years, prices rose."]
+    specialist: ["The charity applied to intervene in the proceedings."]
+    control: ["Police intervened quickly."]
+  PS.LEXICAL.175:
+    category: noun, clinical ("laceration" -> "cut")
+    normal: ["He had a laceration on his hand.", "Lacerations were cleaned."]
+    adversarial: ["A 3 cm laceration was sutured."]
+    specialist: ["There was a laceration of the spleen."]
+    control: ["The laceration healed well."]
+  PS.LEXICAL.177:
+    category: noun ("magnitude" -> "size")
+    normal: ["The magnitude of the problem is clear.", "Costs of this magnitude need approval."]
+    adversarial: ["The earthquake had a magnitude of 6.", "This is an order of magnitude cheaper."]
+    specialist: ["The magnitude of the vector is 5."]
+    control: ["We underestimated the magnitude of the task."]
+  PS.LEXICAL.179:
+    category: noun ("methodology" -> "method")
+    normal: ["The methodology is described below.", "We changed our methodology."]
+    adversarial: ["Methodologies differ between surveys."]
+    specialist: ["The paper critiques positivist methodology."]
+    control: ["The methodology was peer reviewed."]
+  PS.LEXICAL.181:
+    category: noun ("modification" -> "change")
+    normal: ["Any modification needs approval.", "Minor modifications were made."]
+    adversarial: ["She applied for a loan modification.", "Genetic modification of crops is regulated."]
+    specialist: ["The court granted a modification of the order."]
+    control: ["The modification took a week."]
+  PS.LEXICAL.184:
+    category: verb ("necessitate" -> "require")
+    normal: ["This will necessitate a review.", "Repairs necessitated closure."]
+    adversarial: ["It necessitates it.", "The fault necessitated replacing the pump."]
+    specialist: ["The findings necessitate further tests."]
+    control: ["The change necessitates new training."]
+  PS.LEXICAL.185:
+    category: adjective ("negligible" -> "tiny")
+    normal: ["The risk is negligible.", "The cost was negligible."]
+    adversarial: ["Effects below the threshold are treated as negligible."]
+    specialist: ["The dose is clinically negligible."]
+    control: ["The difference was negligible."]
+  PS.LEXICAL.187:
+    category: adjective ("numerous" -> "many")
+    normal: ["Numerous complaints were received.", "We made numerous changes."]
+    adversarial: ["The complaints were numerous.", "Numerous as they were, they were ignored."]
+    specialist: ["Numerous studies confirm the effect.", "The class is so numerous that joinder of all members is impracticable."]
+    control: ["There are numerous options."]
+  PS.LEXICAL.190:
+    category: adjective ("obsolete" -> "outdated")
+    normal: ["The form is obsolete.", "Obsolete equipment was sold."]
+    adversarial: ["The function is obsolete and has been removed."]
+    specialist: ["Obsolete stock is written down in the accounts."]
+    control: ["The rule is now obsolete."]
+  PS.LEXICAL.191:
+    category: verb ("obtain" -> "get")
+    normal: ["You can obtain a copy online.", "We obtained consent."]
+    adversarial: ["He was charged with obtaining services dishonestly.", "The same rule obtains in Scotland."]
+    specialist: ["Obtain informed consent before treatment.", "The position that obtained before 2010 was different."]
+    control: ["Forms can be obtained from reception."]
+  PS.LEXICAL.192:
+    category: noun ("occurrence" -> "event")
+    normal: ["Delays are a common occurrence.", "Each occurrence is logged."]
+    adversarial: ["The policy covers each occurrence up to £1m."]
+    specialist: ["The insurer pays per occurrence, not per claim."]
+    control: ["Such occurrences are rare."]
+  PS.LEXICAL.193:
+    category: adjective ("optimal" -> "best")
+    normal: ["Find the optimal route.", "The optimal dose varies."]
+    adversarial: ["The allocation is Pareto optimal."]
+    specialist: ["The solver returns an optimal solution."]
+    control: ["Results were optimal."]
+  PS.LEXICAL.194:
+    category: adjective / noun ("optimum" -> "best")
+    normal: ["The optimum temperature is 20C.", "Aim for the optimum."]
+    adversarial: ["This is a Pareto optimum."]
+    specialist: ["Store at the optimum humidity."]
+    control: ["The optimum size is small."]
+  PS.LEXICAL.195:
+    category: verb ("originate" -> "start")
+    normal: ["The flight originates in London.", "The idea originated in Leeds."]
+    adversarial: ["The bank originates mortgages for resale."]
+    specialist: ["Proceedings began with an originating application."]
+    control: ["The fire originated in the kitchen."]
+  PS.LEXICAL.197:
+    category: adjective ("permissible" -> "allowed")
+    normal: ["Parking is not permissible here.", "The permissible limit is 50."]
+    adversarial: ["Is it permissible?", "Is it morally permissible to lie?"]
+    specialist: ["The permissible exposure limit is 5 ppm."]
+    control: ["Short breaks are permissible."]
+  PS.LEXICAL.198:
+    category: verb ("perpetuate" -> "continue")
+    normal: ["Such myths perpetuate stigma.", "The policy perpetuated inequality."]
+    adversarial: ["Do not perpetuate it."]
+    specialist: ["The rule perpetuates disadvantage."]
+    control: ["Stereotypes are perpetuated by the media."]
+  PS.LEXICAL.199:
+    category: noun ("portion" -> "part")
+    normal: ["A portion of the rent is due.", "Portions of the report are redacted."]
+    adversarial: ["Serve a portion of chips.", "Eat five portions of fruit a day."]
+    specialist: ["The unused portion of the premium is refunded."]
+    control: ["A portion of the land was sold."]
+  PS.LEXICAL.201:
+    category: adjective ("predominant" -> "main")
+    normal: ["The predominant view is cautious.", "Rain is the predominant risk."]
+    adversarial: ["Which is predominant?"]
+    specialist: ["The predominant symptom was fatigue."]
+    control: ["English is the predominant language."]
+  PS.LEXICAL.202:
+    category: adverb ("predominantly" -> "mainly")
+    normal: ["Staff are predominantly part-time.", "It rains predominantly in winter."]
+    adversarial: ["Predominantly, users were young."]
+    specialist: ["The tumour was predominantly cystic."]
+    control: ["Sales are predominantly online.", "The workforce is predominantly female."]
+  PS.LEXICAL.205:
+    category: verb ("procure" -> "get")
+    normal: ["We will procure new laptops.", "Supplies were procured locally."]
+    adversarial: ["The Seller shall procure that its employees comply.", "He was charged with procuring an offence."]
+    specialist: ["The council procures services by tender."]
+    control: ["The school procured new books."]
+  PS.LEXICAL.206:
+    category: verb ("prohibit" -> "ban")
+    normal: ["Smoking is prohibited here.", "The law prohibits discrimination."]
+    adversarial: ["The court made a prohibited steps order.", "Prohibited items include knives."]
+    specialist: ["The tenant is prohibited from subletting."]
+    control: ["Parking is prohibited on the verge."]
+  PS.LEXICAL.207:
+    category: verb ("promulgate" -> "announce")
+    normal: ["The ministry promulgated new rules.", "We will promulgate the policy."]
+    adversarial: ["Regulations are promulgated in the Gazette."]
+    specialist: ["The agency promulgated a final rule."]
+    control: ["The guidance was promulgated in May."]
+  PS.LEXICAL.210:
+    category: verb ("quash" -> "overturn")
+    normal: ["The court quashed the conviction.", "The decision was quashed."]
+    adversarial: ["The claimant seeks a quashing order.", "Police quashed the rumour."]
+    specialist: ["The High Court may quash the decision on judicial review."]
+    control: ["The appeal court quashed the sentence."]
+  PS.LEXICAL.213:
+    category: verb ("relocate" -> "move")
+    normal: ["We will relocate the office.", "Staff were relocated."]
+    adversarial: ["Relocate it to the new folder."]
+    specialist: ["Residents were relocated during the works.", "The loader relocates the image to a random base address."]
+    control: ["The shop relocated to the high street."]
+  PS.LEXICAL.214:
+    category: noun ("remainder" -> "rest")
+    normal: ["The remainder is paid in May.", "The remainder of the term is waived."]
+    adversarial: ["Divide 7 by 2: the remainder is 1."]
+    specialist: ["She holds the remainder after the life interest."]
+    control: ["The remainder of the stock was sold."]
+  PS.LEXICAL.215:
+    category: verb ("replicate" -> "copy")
+    normal: ["Replicate the folder structure.", "The design was replicated."]
+    adversarial: ["The virus replicates in the lungs.", "Other labs failed to replicate the study."]
+    specialist: ["Data is replicated across three regions."]
+    control: ["We replicated the form online."]
+  PS.LEXICAL.217:
+    category: adjective ("requisite" -> "required")
+    normal: ["You need the requisite skills.", "The requisite forms are attached."]
+    adversarial: ["The requisite majority was not reached.", "A valid passport is a requisite for entry.", "The requisites of a valid will are set out below."]
+    specialist: ["The requisite notice period is 30 days."]
+    control: ["Has he the requisite experience?"]
+  PS.LEXICAL.218:
+    category: verb ("rescind" -> "cancel")
+    normal: ["The council rescinded the decision.", "We may rescind the offer."]
+    adversarial: ["The buyer rescinded the contract for misrepresentation."]
+    specialist: ["The contract may be rescinded if induced by fraud."]
+    control: ["The order was rescinded."]
+  PS.LEXICAL.219:
+    category: verb ("reside" -> "live")
+    normal: ["You must reside in the borough.", "She resides in Leeds."]
+    adversarial: ["Authority resides with the board.", "The problem resides in the code."]
+    specialist: ["The data resides on servers in the UK."]
+    control: ["Applicants must have resided here for a year."]
+  PS.LEXICAL.222:
+    category: noun ("revision" -> "change")
+    normal: ["The policy needs revision.", "The revisions are marked."]
+    adversarial: ["Students are busy with exam revision.", "Check out revision 42 of the code."]
+    specialist: ["The surgeon performed a hip revision."]
+    control: ["The draft went through two revisions."]
+  PS.LEXICAL.223:
+    category: verb ("scrutinize" -> "examine")
+    normal: ["The committee will scrutinize the bill.", "Accounts were scrutinized."]
+    adversarial: ["Scrutinize it carefully."]
+    specialist: ["The select committee scrutinizes government spending.", "Select committees scrutinize the work of government departments."]
+    control: ["Auditors scrutinized the claims."]
+  PS.LEXICAL.224:
+    category: verb ("signify" -> "mean")
+    normal: ["Red signifies danger.", "What does this symbol signify?"]
+    adversarial: ["Please signify your agreement by signing.", "She signified her consent."]
+    specialist: ["The Crown signified its assent."]
+    control: ["A tick signifies approval."]
+  PS.LEXICAL.227:
+    category: verb ("synthesise" -> "combine")
+    normal: ["The report synthesises the evidence.", "We synthesised the findings."]
+    adversarial: ["The lab synthesises the compound from benzene."]
+    specialist: ["Plants synthesise sugars from sunlight."]
+    control: ["The review synthesised twelve studies."]
+  PS.LEXICAL.228:
+    category: verb ("synthesize" -> "combine")
+    normal: ["The report synthesizes the evidence.", "We synthesized the findings."]
+    adversarial: ["The lab synthesizes the compound from benzene."]
+    specialist: ["The liver synthesizes cholesterol."]
+    control: ["The review synthesized twelve studies."]
+  PS.LEXICAL.229:
+    category: noun ("threshold" -> "limit")
+    normal: ["The income threshold is £20,000.", "Thresholds are reviewed yearly."]
+    adversarial: ["She has a low pain threshold.", "We are on the threshold of a breakthrough.", "He stood on the threshold."]
+    specialist: ["The VAT registration threshold is £90,000."]
+    control: ["Above the threshold, tax applies."]
+  PS.LEXICAL.230:
+    category: noun ("trajectory" -> "path")
+    normal: ["The project is on a good trajectory.", "Career trajectories vary."]
+    adversarial: ["Calculate the missile trajectory."]
+    specialist: ["The patient's recovery trajectory is slow.", "We used group-based trajectory modelling."]
+    control: ["Growth followed a steady trajectory."]
+  PS.LEXICAL.232:
+    category: adjective ("transitory" -> "temporary")
+    normal: ["The effect was transitory.", "Transitory pain is common."]
+    adversarial: ["Is it transitory?"]
+    specialist: ["Transitory income is excluded from the test.", "A transitory action may be brought in any county."]
+    control: ["The disruption will be transitory."]
+  PS.LEXICAL.233:
+    category: verb ("transmit" -> "send")
+    normal: ["We transmit data securely.", "The file was transmitted."]
+    adversarial: ["Mosquitoes transmit malaria.", "The disease is transmitted by contact."]
+    specialist: ["The virus can be transmitted before symptoms appear."]
+    control: ["The signal is transmitted at night."]

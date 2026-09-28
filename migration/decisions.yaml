@@ -25,64 +25,16 @@ safe_fix_verbs:
   - {term: utilise, target: use}
   - {term: utilize, target: use}
   - {term: commence, target: start}
-  - {term: alter, target: change}
-  - {term: obtain, target: get}
-  - {term: procure, target: get}
-  - {term: discontinue, target: stop}
-  - {term: demonstrate, target: show}
   - {term: depict, target: show}
-  - {term: elucidate, target: explain}
-  - {term: enumerate, target: list}
-  - {term: apprise, target: tell}
-  - {term: concur, target: agree}
-  - {term: corroborate, target: support}
   - {term: alleviate, target: reduce}
-  - {term: ameliorate, target: improve}
   - {term: exacerbate, target: worsen}
   - {term: necessitate, target: require}
-  - {term: prohibit, target: ban}
-  - {term: rescind, target: cancel}
-  - {term: replicate, target: copy}
   - {term: relocate, target: move}
   - {term: scrutinize, target: examine}
-  - {term: formulate, target: create}
-  - {term: synthesise, target: combine}
-  - {term: synthesize, target: combine}
-  - {term: intervene, target: step in}
-  - {term: originate, target: start}
-  - {term: initiate, target: start}
-  - {term: reside, target: live}
-  - {term: attain, target: reach}
-  - {term: append, target: add}
   - {term: expend, target: spend}
-  - {term: finalize, target: finish}
-  - {term: designate, target: choose}
-  - {term: contemplate, target: think about}
-  - {term: anticipate, target: expect}
-  - {term: perpetuate, target: continue}
-  - {term: disseminate, target: spread}
-  - {term: promulgate, target: announce}
-  - {term: delineate, target: outline}
-  - {term: accomplish, target: do}
-  - {term: transmit, target: send}
-  - {term: signify, target: mean}
-  - {term: quash, target: overturn}
 
 # ── Nouns, inflected for number ────────────────────────────────────────────
-safe_fix_nouns:
-  - {term: modification, target: change}
-  - {term: revision, target: change}
-  - {term: methodology, target: method}
-  - {term: magnitude, target: size}
-  - {term: portion, target: part}
-  - {term: component, target: part}
-  - {term: occurrence, target: event}
-  - {term: remainder, target: rest}
-  - {term: threshold, target: limit}
-  - {term: trajectory, target: path}
-  - {term: laceration, target: cut}
-  - {term: contusion, target: bruise}
-  - {term: fatality, target: death}
+safe_fix_nouns: []
 
 # ── Words with a single form ───────────────────────────────────────────────
 #
@@ -90,29 +42,7 @@ safe_fix_nouns:
 # engine does not generate comparatives, because none was needed and an
 # untested form class is a liability.
 safe_fix_words:
-  - {term: advantageous, target: helpful}
-  - {term: beneficial, target: helpful}
-  - {term: ambiguous, target: unclear}
-  - {term: erroneous, target: wrong}
-  - {term: numerous, target: many}
-  - {term: obsolete, target: outdated}
-  - {term: negligible, target: tiny}
-  - {term: inordinate, target: excessive}
-  - {term: permissible, target: allowed}
-  - {term: requisite, target: required}
-  - {term: transitory, target: temporary}
-  - {term: heterogeneous, target: varied}
-  - {term: homogeneous, target: uniform}
-  - {term: optimal, target: best}
-  - {term: optimum, target: best}
-  - {term: predominant, target: main}
-  - {term: detrimental, target: harmful}
-  - {term: deficient, target: lacking}
-  - {term: definitive, target: final}
-  - {term: innovative, target: new}
-  - {term: frequently, target: often}
   - {term: predominantly, target: mainly}
-  - {term: henceforth, target: from now on}
 
 # ── Reported, not rewritten ────────────────────────────────────────────────
 #
@@ -169,6 +99,81 @@ diagnostic:
   - {term: accordingly, reason: "found while repairing tests in the 2026.7 review, the same family as 'furthermore': 'Please act accordingly' became 'Please act so', and 'The fee is accordingly waived' became 'The fee is so waived'"}
   - {term: consequently, reason: "found while repairing tests in the 2026.7 review, the same family as 'furthermore': 'The rent was, consequently, increased' became 'The rent was, so, increased'"}
   - {term: hereafter, reason: "found while repairing tests in the 2026.7 review: in a definition it means 'from this point in the document', and 'The Company (hereafter the Seller)' became 'The Company (from now on the Seller)'"}
+  # Reclassified in the safe-rule qualification (ruleset 2026.8). Every rule
+  # that was still automatic was probed in normal, adversarial and specialist
+  # contexts; each of these fired in a realistic sentence and left it
+  # ungrammatical, with a different meaning, or wrong as a term of art. See
+  # SAFE_RULE_QUALIFICATION.md.
+  - {term: accomplish, reason: "the result is ungrammatical: 'She hopes to accomplish her ambitions' became 'She hopes to do her ambitions'; 'We will accomplish our goals' became 'We will do our goals'"}
+  - {term: advantageous, reason: "the meaning changes: 'The company negotiated advantageous terms' became 'The company negotiated helpful terms'; 'They are in an advantageous position' became 'They are in a helpful position'"}
+  - {term: alter, reason: "the result is ungrammatical: 'He acted as the company's alter ego' became 'He acted as the company's change ego'; 'The court may pierce the veil where the company is an alter ego' became 'The court may pierce the veil where the company is a change ego'"}
+  - {term: ambiguous, reason: "a term of art: 'The sentence is ambiguous: it has two readings' became 'The sentence is unclear: it has two readings'; 'Where a term is ambiguous, it is construed against the party that drafted it' became 'Where a term is unclear, it is construed against the party that drafted it'"}
+  - {term: ameliorate, reason: "the meaning changes: 'Measures ameliorated the problem' became 'Measures improved the problem'"}
+  - {term: anticipate, reason: "the meaning changes: 'Good staff anticipate problems before they arise' became 'Good staff expect problems before they arise'; 'The borrower may anticipate repayment of the loan' became 'The borrower may expect repayment of the loan'"}
+  - {term: append, reason: "the meaning changes: 'The appended schedule forms part of this agreement' became 'The added schedule forms part of this agreement'; 'See the documents appended to this report' became 'See the documents added to this report'"}
+  - {term: apprise, reason: "the result is ungrammatical: 'We will keep you apprised' became 'We will keep you told'; 'Keep us apprised of progress' became 'Keep us told of progress'"}
+  - {term: attain, reason: "the result is ungrammatical: 'He attained a degree in law' became 'He reached a degree in law'; 'Staff attained the qualification' became 'Staff reached the qualification'"}
+  - {term: beneficial, reason: "a term of art: 'She is the beneficial owner of the shares' became 'She is the helpful owner of the shares'; 'He holds a beneficial interest in the property' became 'He holds a helpful interest in the property'"}
+  - {term: component, reason: "a term of art: 'Import the Button component from the library' became 'Import the Button part from the library'; 'React components render the page' became 'React parts render the page'"}
+  - {term: concur, reason: "a term of art: 'Lord Smith delivered a concurring opinion' became 'Lord Smith delivered an agreeing opinion'"}
+  - {term: contemplate, reason: "the meaning changes: 'The transactions contemplated by this Agreement are complete' became 'The transactions thought about by this Agreement are complete'; 'No such payment was contemplated by the parties' became 'No such payment was thought about by the parties'"}
+  - {term: contusion, reason: "a term of art: 'CT showed a cerebral contusion' became 'CT showed a cerebral bruise'; 'The patient has a pulmonary contusion' became 'The patient has a pulmonary bruise'"}
+  - {term: corroborate, reason: "a term of art: 'There was no corroborating evidence' became 'There was no supporting evidence'; 'The confession must be corroborated' became 'The confession must be supported'"}
+  - {term: deficient, reason: "the result is ungrammatical: 'The patient is vitamin D deficient' became 'The patient is vitamin D lacking'; 'They provided a deficient service' became 'They provided a lacking service'"}
+  - {term: definitive, reason: "the meaning changes: 'The parties signed a definitive agreement' became 'The parties signed a final agreement'; 'A biopsy is needed for a definitive diagnosis' became 'A biopsy is needed for a final diagnosis'"}
+  - {term: delineate, reason: "the meaning changes: 'The map delineates the flood zone' became 'The map outlines the flood zone'; 'The plan delineates each role' became 'The plan outlines each role'"}
+  - {term: designate, reason: "a term of art: 'The Secretary of State may designate an area as a conservation area' became 'The Secretary of State may choose an area as a conservation area'; 'The council designates land for housing' became 'The council chooses land for housing'"}
+  - {term: detrimental, reason: "a term of art: 'The claim rests on detrimental reliance' became 'The claim rests on harmful reliance'; 'Estoppel requires detrimental reliance on the promise' became 'Estoppel requires harmful reliance on the promise'"}
+  - {term: discontinue, reason: "a term of art: 'Discontinued operations are shown separately in the accounts' became 'Stopped operations are shown separately in the accounts'; 'Profit from discontinued operations fell' became 'Profit from stopped operations fell'"}
+  - {term: disseminate, reason: "a term of art: 'The patient developed disseminated intravascular coagulation' became 'The patient developed spread intravascular coagulation'"}
+  - {term: elucidate, reason: "the meaning changes: 'NMR was used to elucidate the structure of the compound' became 'NMR was used to explain the structure of the compound'; 'The study elucidated the mechanism' became 'The study explained the mechanism'"}
+  - {term: enumerate, reason: "a term of art: 'Congress has only its enumerated powers' became 'Congress has only its listed powers'"}
+  - {term: erroneous, reason: "a term of art: 'The finding was reviewed under the clearly erroneous standard' became 'The finding was reviewed under the clearly wrong standard'"}
+  - {term: fatality, reason: "a term of art: 'The case fatality rate was 2%' became 'The case death rate was 2%'"}
+  - {term: finalize, reason: "the meaning changes: 'The deal was finalized yesterday' became 'The deal was finished yesterday'; 'The divorce was finalized in court' became 'The divorce was finished in court'"}
+  - {term: formulate, reason: "a term of art: 'The drug is formulated as a tablet' became 'The drug is created as a tablet'; 'The vaccine was formulated for children' became 'The vaccine was created for children'"}
+  - {term: frequently, reason: "a term of art: 'Frequently Asked Questions' became 'Often Asked Questions'; 'See the frequently asked questions' became 'See the often asked questions'"}
+  - {term: henceforth, reason: "the meaning changes: 'The Company (henceforth the Seller) agrees to sell' became 'The Company (from now on the Seller) agrees to sell'; 'This agreement, henceforth referred to as the Contract, is binding' became 'This agreement, from now on referred to as the Contract, is binding'"}
+  - {term: heterogeneous, reason: "a term of art: 'The reaction uses heterogeneous catalysis' became 'The reaction uses varied catalysis'; 'Heterogeneous treatment effects were found' became 'Varied treatment effects were found'"}
+  - {term: homogeneous, reason: "a term of art: 'Solve the homogeneous equation' became 'Solve the uniform equation'; 'Homogeneous catalysis occurs in one phase' became 'Uniform catalysis occurs in one phase'"}
+  - {term: initiate, reason: "the result is ungrammatical: 'Only initiates may attend the ceremony' became 'Only starts may attend the ceremony'; 'New members are initiated into the society' became 'New members are started into the society'"}
+  - {term: innovative, reason: "a term of art: 'Innovative Finance ISAs hold peer-to-peer loans' became 'New Finance ISAs hold peer-to-peer loans'; 'The Innovative Medicines Initiative funds research' became 'The New Medicines Initiative funds research'"}
+  - {term: inordinate, reason: "a term of art: 'There was inordinate and inexcusable delay' became 'There was excessive and inexcusable delay'; 'The claim was struck out for inordinate delay' became 'The claim was struck out for excessive delay'"}
+  - {term: intervene, reason: "the result is ungrammatical: 'The regulator may intervene in the market' became 'The regulator may step in in the market'; 'In the intervening years, prices rose' became 'In the stepping in years, prices rose'"}
+  - {term: laceration, reason: "a term of art: 'There was a laceration of the spleen' became 'There was a cut of the spleen'; 'A 3 cm laceration was sutured' became 'A 3 cm cut was sutured'"}
+  - {term: magnitude, reason: "a term of art: 'This is an order of magnitude cheaper' became 'This is an order of size cheaper'; 'The earthquake had a magnitude of 6' became 'The earthquake had a size of 6'"}
+  - {term: methodology, reason: "the meaning changes: 'The paper critiques positivist methodology' became 'The paper critiques positivist method'"}
+  - {term: modification, reason: "a term of art: 'She applied for a loan modification' became 'She applied for a loan change'; 'Genetic modification of crops is regulated' became 'Genetic change of crops is regulated'"}
+  - {term: negligible, reason: "the meaning changes: 'Effects below the threshold are treated as negligible' became 'Effects below the limit are treated as tiny'; 'The dose is clinically negligible' became 'The dose is clinically tiny'"}
+  - {term: numerous, reason: "the result is ungrammatical: 'The class is so numerous that joinder of all members is impracticable' became 'The class is so many that joinder of all members is impracticable'"}
+  - {term: obsolete, reason: "the meaning changes: 'Obsolete stock is written down in the accounts' became 'Outdated stock is written down in the accounts'; 'The function is obsolete and has been removed' became 'The function is outdated and has been removed'"}
+  - {term: obtain, reason: "the result is ungrammatical: 'The same rule obtains in Scotland' became 'The same rule gets in Scotland'; 'The position that obtained before 2010 was different' became 'The position that got before 2010 was different'"}
+  - {term: occurrence, reason: "a term of art: 'The insurer pays per occurrence, not per claim' became 'The insurer pays per event, not per claim'; 'The policy covers each occurrence up to £1m' became 'The policy covers each event up to £1m'"}
+  - {term: optimal, reason: "a term of art: 'The allocation is Pareto optimal' became 'The allocation is Pareto best'"}
+  - {term: optimum, reason: "a term of art: 'This is a Pareto optimum' became 'This is a Pareto best'"}
+  - {term: originate, reason: "a term of art: 'The bank originates mortgages for resale' became 'The bank starts mortgages for resale'; 'Proceedings began with an originating application' became 'Proceedings began with a starting application'"}
+  - {term: permissible, reason: "a term of art: 'The permissible exposure limit is 5 ppm' became 'The allowed exposure limit is 5 ppm'; 'Is it morally permissible to lie?' became 'Is it morally allowed to lie?'"}
+  - {term: perpetuate, reason: "the meaning changes: 'Such myths perpetuate stigma' became 'Such myths continue stigma'; 'The rule perpetuates disadvantage' became 'The rule continues disadvantage'"}
+  - {term: portion, reason: "the meaning changes: 'Eat five portions of fruit a day' became 'Eat five parts of fruit a day'; 'Serve a portion of chips' became 'Serve a part of chips'"}
+  - {term: predominant, reason: "the result is ungrammatical: 'Which is predominant?' became 'Which is main?'"}
+  - {term: procure, reason: "the result is ungrammatical: 'The Seller shall procure that its employees comply' became 'The Seller shall get that its employees comply'; 'He was charged with procuring an offence' became 'He was charged with getting an offence'"}
+  - {term: prohibit, reason: "a term of art: 'The court made a prohibited steps order' became 'The court made a banned steps order'"}
+  - {term: promulgate, reason: "the meaning changes: 'The agency promulgated a final rule' became 'The agency announced a final rule'; 'Regulations are promulgated in the Gazette' became 'Regulations are announced in the Gazette'"}
+  - {term: quash, reason: "a term of art: 'The claimant seeks a quashing order' became 'The claimant seeks an overturning order'; 'Police quashed the rumour' became 'Police overturned the rumour'"}
+  - {term: remainder, reason: "a term of art: 'Divide 7 by 2: the remainder is 1' became 'Divide 7 by 2: the rest is 1'; 'She holds the remainder after the life interest' became 'She holds the rest after the life interest'"}
+  - {term: replicate, reason: "the meaning changes: 'The virus replicates in the lungs' became 'The virus copies in the lungs'; 'Other labs failed to replicate the study' became 'Other labs failed to copy the study'"}
+  - {term: requisite, reason: "the result is ungrammatical: 'A valid passport is a requisite for entry' became 'A valid passport is a required for entry'"}
+  - {term: rescind, reason: "a term of art: 'The buyer rescinded the contract for misrepresentation' became 'The buyer cancelled the contract for misrepresentation'; 'The contract may be rescinded if induced by fraud' became 'The contract may be cancelled if induced by fraud'"}
+  - {term: reside, reason: "the meaning changes: 'Authority resides with the board' became 'Authority lives with the board'; 'The problem resides in the code' became 'The problem lives in the code'"}
+  - {term: revision, reason: "a term of art: 'Students are busy with exam revision' became 'Students are busy with exam change'; 'Check out revision 42 of the code' became 'Check out change 42 of the code'"}
+  - {term: signify, reason: "the meaning changes: 'Please signify your agreement by signing' became 'Please mean your agreement by signing'; 'She signified her consent' became 'She meant her consent'"}
+  - {term: synthesise, reason: "the meaning changes: 'The lab synthesises the compound from benzene' became 'The lab combines the compound from benzene'; 'Plants synthesise sugars from sunlight' became 'Plants combine sugars from sunlight'"}
+  - {term: synthesize, reason: "the meaning changes: 'The lab synthesizes the compound from benzene' became 'The lab combines the compound from benzene'; 'The liver synthesizes cholesterol' became 'The liver combines cholesterol'"}
+  - {term: threshold, reason: "the meaning changes: 'The VAT registration threshold is £90,000' became 'The VAT registration limit is £90,000'; 'She has a low pain threshold' became 'She has a low pain limit'"}
+  - {term: trajectory, reason: "a term of art: 'We used group-based trajectory modelling' became 'We used group-based path modelling'"}
+  - {term: transitory, reason: "a term of art: 'A transitory action may be brought in any county' became 'A temporary action may be brought in any county'; 'Transitory income is excluded from the test' became 'Temporary income is excluded from the test'"}
+  - {term: transmit, reason: "the meaning changes: 'Mosquitoes transmit malaria' became 'Mosquitoes send malaria'; 'The disease is transmitted by contact' became 'The disease is sent by contact'"}
+  - {term: demonstrate, reason: "the meaning changes: 'Students plan to demonstrate against the fees' became 'Students plan to show against the fees' (the hand-authored PS.LEXICAL.011)"}
   # Reclassified from safe-fix in the V1 acceptance review (ruleset 2026.5):
   # each broke a real sentence in the acceptance corpus or its probe.
   - {term: empirical, reason: "'empirical evidence' is evidence from observation or experiment, not 'observed evidence'"}

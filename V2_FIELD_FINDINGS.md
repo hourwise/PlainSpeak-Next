@@ -240,3 +240,19 @@ resting only on `utilize`, `prior to`, `commence` and the framing deletion.
 listed. The four rules found alongside it show that the earlier audit missed
 cases, so the remaining 97 automatic rules have not been shown safe in every
 context their matchers can reach; they have only not been shown unsafe.
+
+## The safe-rule qualification (ruleset 2026.8)
+
+That residual risk is what the next step addressed. Every one of the 97 rules
+still automatic in 2026.7 was probed — ordinary uses, adversarial positions
+and forms, and specialist legal, financial, clinical, technical and
+government sentences — and given one disposition. 23 were qualified; 74 are
+diagnostics, each resting on a sentence it broke. "Henceforth", "approximately",
+"obtain" and "reside", which this page's audits kept, are among them:
+"The Company (henceforth the Seller)" is the defect already found in
+"hereafter"; "returns approximately the square root" became "returns about the
+square root"; "The same rule obtains in Scotland" became "The same rule gets
+in Scotland"; "Authority resides with the board" became "Authority lives with
+the board". [SAFE_RULE_QUALIFICATION.md](SAFE_RULE_QUALIFICATION.md) is the
+ledger: every rule, every probe, every judgement, generated from
+`validation/safe-rule-qualification/` and held to the ruleset by a test.

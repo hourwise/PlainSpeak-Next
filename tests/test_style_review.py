@@ -61,6 +61,10 @@ FIXTURES = Path(__file__).resolve().parent / "style" / "stylefix"
 #: Plan hashes and digests carry the ruleset identity, so they moved with rulesets
 #: 2026.6 and 2026.7 (the field-testing and review reclassifications). The proposal IDs and the output
 #: hashes did not: nothing these documents contain was affected.
+#: Ruleset 2026.8 (the safe-rule qualification) demoted "obtain", the fixture's
+#: only SAFE change, so its last sentence gained "to scrutinize the evidence":
+#: after both proposals, so their identifiers are unchanged; the output hash
+#: moved with the text.
 PINNED = {
     "concessive-heavy": {
         "profile": "natural",
@@ -68,19 +72,19 @@ PINNED = {
             "SP-5de1cbe21aedf1ea",
             "SP-58df68f7f42b847b",
         ],
-        "plan_hash": "6c191708bfdd630dbabcffc3e974792279bf05b5048e11d36315dd1d0b38d2b0",
-        "plan_digest": "5622971e3150685875cbca4acd21289e1c9145a6c89573f61cdda35231721824",
-        "approved_digest": "c6d3d9ba9c20f09f2dc0fa8333c66979aaa67569e257584408ca738dc4a665ac",
-        "result_digest": "a35ae6011f1bb39028322072aef092343f059f3f8055ebedf0cf082dca45b093",
-        "output_hash": "37f9937a9f45961e71b703b9c39d24504222c250802329c438fde86db6ce4e1a",
+        "plan_hash": "15944fe78aeb683640a480586341ec6ab055a9a2905da2355034a039760a131a",
+        "plan_digest": "57b4c9eaa70dd86750c6296d7ed8327e2ed84be4bca53112663f20a59cf22b6e",
+        "approved_digest": "3fc685c2ceaa81966afffdb0af3650e882bce53f888698f0c57024d86719ca63",
+        "result_digest": "db6e42f71e883eaca30a70c95af420307936b48e2905015b2256d6a8f0680740",
+        "output_hash": "8e6d88cccfc292f0743d0b92c79dd1b5b048b4be28eade3ed823b029deee9415",
     },
     "signposted": {
         "profile": "plain",
         "proposal_ids": [],
-        "plan_hash": "bbb64991c44c456a1b17766a8ac68f2b714a332a4ea35fb3dce2ef9afd03dab0",
-        "plan_digest": "dd53b262f8ebc64e6a6586482b9752924a3746e56261b23186296a8bd709287c",
-        "approved_digest": "9ffa79c58f325cbdc03ae2a7bedef06d56e868c2dac0b194b90de6fa8f686082",
-        "result_digest": "98c61d06781fabe0eaee88d72fb7c3befb9e313fad89580df2d8461c06f9bfde",
+        "plan_hash": "b927ee082cd473ed21a0ba7abeffc44714262c67039a4dfc35b032b248d8a8ff",
+        "plan_digest": "56385e2d043945019f01868a4d44a03763b87d21f7e3fb7a536979448dd39d7f",
+        "approved_digest": "1dc6e631f69fce013ac29ca41b97d4f6b4665ae0c48d015db2831cb076844cac",
+        "result_digest": "c311a89b55884ef13e7d2ec42fbf51836b033c33c363af4d028b1fe61345fd75",
         "output_hash": "00ddb376fe3145c8e7768571e9c1d8f32cad021bdaeddcf5019359471fbd1c7c",
     },
 }

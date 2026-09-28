@@ -199,6 +199,13 @@ see [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md). The study was re-run again
 with no case changed: every result and outcome is the same, still with no
 false acceptance.
 
+The safe-rule qualification then probed every rule still automatic and
+reclassified 74 more (ruleset 2026.8; see
+[SAFE_RULE_QUALIFICATION.md](SAFE_RULE_QUALIFICATION.md)). None of them had
+supplied a substitution any case rests on. The study was re-run with no case
+changed: every result and outcome is the same, with no false acceptance; only
+the receipts moved, because each receipt names the ruleset.
+
 ## Reproducing it
 
 ```bash

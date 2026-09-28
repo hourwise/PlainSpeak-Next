@@ -75,23 +75,21 @@ examples:
 id: PS.CLARITY.003
 version: 1
 name: at-this-point-in-time
-mode: safe-fix
+mode: diagnostic
 description: >
-  "At this point in time" is "now". The longer form is a stock phrase rather
-  than a more precise one.
+  "At this point in time" is usually "now", but in a chronology it refers to a
+  past moment: "At this point in time, the claimant had not been paid" became
+  "Now, the claimant had not been paid", which moves the fact to the present.
+  Reclassified from safe-fix in the safe-rule qualification (ruleset 2026.8);
+  reported, not rewritten. The rule ID is unchanged.
 match:
   type: phrase
   text: "at this point in time"
-action:
-  type: replace
-  replacement: "now"
 scope:
   include: [prose]
-case:
-  policy: preserve
 priority: 100
 reason:
-  short: "\"at this point in time\" means \"now\""
+  short: "\"at this point in time\" is usually \"now\", but not in a chronology"
 provenance:
   source: "PlainSpeak project rule research"
   reference: ""
@@ -101,9 +99,6 @@ examples:
     - "We have no further information at this point in time."
   negative:
     - "The graph shows the value at this point in the cycle."
-  transform:
-    - before: "We have no further information at this point in time."
-      after: "We have no further information now."
 
 ---
 id: PS.CLARITY.004

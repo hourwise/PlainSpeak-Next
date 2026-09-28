@@ -1,4 +1,4 @@
-ruleset_version: "2026.7"
+ruleset_version: "2026.8"
 description: >
   The rules PlainSpeak Next ships with. Every rule states what it matches,
   what it would do, why, where it came from, and the cases where it must stay
@@ -58,3 +58,17 @@ description: >
   have the same defect: "Please act accordingly" became "Please act so",
   "consequently" likewise, "hereafter" in a definition became "from now on",
   and "A large number of them" became "Many them". Every rule keeps its ID.
+
+  2026.8 is the result of the safe-rule qualification: each of the 97 rules
+  still automatic in 2026.7 was probed in ordinary, adversarial and
+  specialist sentences — legal, financial, clinical, technical and
+  government — and kept only if every sentence it fired on stayed correct.
+  74 are reclassified as diagnostics. They broke grammar ("keep you apprised"
+  became "keep you told"), changed meaning ("the income threshold" became
+  "the income limit", which is where tax stops rather than starts), or broke
+  a term of art ("the beneficial owner" became "the helpful owner", "a
+  necessary and sufficient condition" became "a necessary and enough
+  condition"). One, "it should be noted that", had never been applied: the
+  integrity firewall refuses every match because it contains a modal. 23 rules
+  remain automatic. SAFE_RULE_QUALIFICATION.md records every rule, every
+  probe and every judgement. Every rule keeps its ID.

@@ -54,6 +54,11 @@ SAMPLE = (
 #: af79da49… through 1.0.0. Ruleset 2026.7 reclassified "in order to" (PS.CLARITY.001)
 #: as a diagnostic, so the sample now keeps "In order to finish"; nothing else moved.
 EXPECTED_OUTPUT_SHA256 = "6107653a69c28d04eda914897b91c338df09522e18406712a41e1b9bfc22aacc"
+#: A rule that matches but cannot be applied, reported as REFUSED. Until ruleset
+#: 2026.8 the sample above supplied one: the firewall refused to delete "It should
+#: be noted that", which contains a modal. That rule is a diagnostic now, so the
+#: sample keeps the phrase and nothing in it is refused.
+REFUSAL_SAMPLE = "However, it is important to note that the old portal closes on 30 June 2027.\n"
 
 results: list[dict] = []
 
@@ -132,7 +137,10 @@ def main() -> int:
     applied = {item["rule_id"] for item in data["applied"]}
     check("SAFE changes applied", {"PS.LEXICAL.001", "PS.CLARITY.009"} <= applied,
           ", ".join(sorted(applied)))
-    check("refusal reported", "PS.FRAMING.003" in {item["rule_id"] for item in data["refused"]})
+    refusal = json.loads(present(["--stdin", "--profile", "natural"], REFUSAL_SAMPLE).stdout)
+    check("refusal reported",
+          "PS.FRAMING.001" in {item["rule_id"] for item in refusal["refused"]}
+          and refusal["output"]["text"] == REFUSAL_SAMPLE)
     for surface in ("30 June 2027", "£42.50", "ACC-20931", "must", "not"):
         check(f"protected {surface!r} in output", surface in data["output"]["text"])
     check("short text reports insufficient sample", data["counts"]["insufficient_sample"] > 0)

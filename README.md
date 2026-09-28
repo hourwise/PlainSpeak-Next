@@ -242,6 +242,7 @@ The full accounting is in [LIMITATIONS.md](LIMITATIONS.md) and
 - [V2_SCOPE.md](V2_SCOPE.md) — what Verify, the GitHub Action and the MCP server add, and what stays unchanged
 - [VERIFY_STUDY.md](VERIFY_STUDY.md) — 97 transformations checked by hand against Verify, and what that found
 - [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md) — defects found by field testing of 1.0.0, and what changed
+- [SAFE_RULE_QUALIFICATION.md](SAFE_RULE_QUALIFICATION.md) — every automatic rule probed, qualified or demoted, with the sentences that decided it
 - [V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md) — what running PlainSpeak on 27 real documents found, and what changed
 - [RELEASING.md](RELEASING.md) and [RELEASE_READINESS.md](RELEASE_READINESS.md) — how a release is built and certified, and the evidence for this one
 - [ROADMAP.md](ROADMAP.md) — accepted phases, V1 blockers, and what comes after

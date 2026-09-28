@@ -1,0 +1,31 @@
+id: PS.FRAMING.003
+version: 1
+name: it-should-be-noted-that
+mode: safe-fix
+description: >
+  A passive variant of the same frame. Deleting it removes an instruction to
+  the reader, not a claim about the world.
+match:
+  type: phrase
+  text: "it should be noted that "
+action:
+  type: delete
+  recapitalize: true
+scope:
+  include: [prose]
+  exclude: [heading]
+priority: 120
+reason:
+  short: "Introductory framing that does not change the statement"
+provenance:
+  source: "PlainSpeak project rule research"
+  reference: ""
+  licence: "project-authored"
+examples:
+  positive:
+    - "It should be noted that the fee is non-refundable."
+  negative:
+    - "It should be signed before Friday."
+  transform:
+    - before: "It should be noted that the fee is non-refundable."
+      after: "The fee is non-refundable."

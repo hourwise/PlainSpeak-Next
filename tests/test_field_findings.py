@@ -133,14 +133,15 @@ def test_field_001_rule_ids_are_bound_to_their_terms():
             assert registry[term] == rule_id
 
 
+#: "approximately", "obtain", "reside" and "henceforth" passed this audit and
+#: were here too, until the safe-rule qualification (ruleset 2026.8) probed
+#: every automatic rule more widely and demoted them; see
+#: SAFE_RULE_QUALIFICATION.md, which holds the qualified rules to their controls.
 @pytest.mark.parametrize("before,after", [
     ("Please utilise the form.", "Please use the form."),
     ("Work will commence on Monday.", "Work will start on Monday."),
-    ("It costs approximately £40.", "It costs about £40."),
-    ("You can obtain a copy online.", "You can get a copy online."),
-    ("You must reside in the borough.", "You must live in the borough."),
     ("We will relocate the office.", "We will move the office."),
-    ("Henceforth the office is closed.", "From now on the office is closed."),
+    ("Stress can exacerbate symptoms.", "Stress can worsen symptoms."),
 ])
 def test_field_001_audited_rules_that_passed_still_apply(before, after):
     assert present_text(before + "\n", "natural").text.strip() == after
@@ -167,9 +168,9 @@ def test_field_001_no_automatic_rule_replaces_a_verb_with_a_separable_phrasal_ve
 
 
 def test_field_001_the_ruleset_records_the_reclassification(ruleset):
-    assert ruleset.version == "2026.7"
+    assert ruleset.version == "2026.8"
     assert len(ruleset) == 220
-    assert len([rule for rule in ruleset.rules if rule.mode == "safe-fix"]) == 97
+    assert len([rule for rule in ruleset.rules if rule.mode == "safe-fix"]) == 23
 
 
 # ── FIELD-003 ───────────────────────────────────────────────────────────────

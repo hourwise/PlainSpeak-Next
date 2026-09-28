@@ -26,9 +26,9 @@ NL = chr(10)
 #: self-consistent: a frozen application comparing itself to itself would pass
 #: while carrying a completely different ruleset.
 EXPECTED = {
-    "ruleset_version": "2026.7",
+    "ruleset_version": "2026.8",
     "ruleset_count": 220,
-    "ruleset_sha256": "dc414694104982b26328a493243e30aa94eab399ce8f155d18b60b1ab005e050",
+    "ruleset_sha256": "94ca278080c8a21b2f4be8d37ff4cd610bb00d98427af5bfc6f841939f4024ec",
     "integrity_version": "2026.2",
     "integrity_sha256": "ac617b5499557c17a61ff5a4fa6ce7b123109b3aacd2029887b7b7108808fda2",
     "morphology_version": "2026.1",

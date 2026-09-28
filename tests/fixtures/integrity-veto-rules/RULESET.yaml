@@ -1,0 +1,10 @@
+ruleset_version: "fixture-1"
+description: >
+  A fixture for the tests of the integrity firewall's refusals. Two rules,
+  copied verbatim from ruleset 2026.7, where both were bundled safe fixes:
+  PS.FRAMING.003 deletes "it should be noted that", which contains the modal
+  "should", so the firewall refuses every match; PS.CLARITY.009 replaces "prior
+  to" with "before" under a reviewed equivalence. Ruleset 2026.8 reclassified
+  PS.FRAMING.003 as a diagnostic because it could never be applied, so the
+  bundled rules no longer exercise the refusal; the firewall is a mechanism,
+  and is tested on this.

@@ -117,6 +117,13 @@ corrected deliberately ([V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md)):
   applied; nothing is applied that was not before, and each textual difference
   is a reverted substitution. The certification sample now keeps "In order to"
   (`6107653a…`, from `af79da49…`).
+- **Ruleset 2026.8** is the safe-rule qualification: each of those 97 rules was
+  probed in ordinary, adversarial and specialist sentences, and 74 more are
+  diagnostics ([SAFE_RULE_QUALIFICATION.md](SAFE_RULE_QUALIFICATION.md)). 23 of
+  220 rules remain automatic. None of the 145 outputs changed text against
+  2026.7; 15 (three documents under five profiles) no longer report the
+  refusal of "It should be noted that", which is now a diagnostic. Against
+  1.0.0 the picture is still 75 changed, each attributed, and 70 identical.
 - **`analyze` reports** qualify a sample shorter than 100 words or 3 sentences
   instead of presenting a verdict (FIELD-003). The JSON report gains a `sample`
   object; every existing field keeps its value.

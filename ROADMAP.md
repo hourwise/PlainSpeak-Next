@@ -108,8 +108,14 @@ run has none. See [VERIFY_STUDY.md](VERIFY_STUDY.md).
 Field testing of the published 1.0.0 found an unsafe SAFE rule (facilitate →
 help), a readability verdict on three words, and hard-to-discover `--stdin`.
 All fixed; a bounded audit reclassified 27 more rules, and an independent
-review of the Verify study 14 more. 97 of 220 rules remain automatic. See
+review of the Verify study 14 more. See
 [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md).
+
+### Stage 4d — Safe-rule qualification *(V2-G)*
+
+Every one of the 97 rules still automatic was probed in ordinary, adversarial
+and specialist contexts and given one disposition. 23 were qualified; 74 are
+diagnostics. See [SAFE_RULE_QUALIFICATION.md](SAFE_RULE_QUALIFICATION.md).
 
 *Backlog:* `plainspeak explain before.txt after.txt` — a semantic/style diff that
 classifies each difference as SAFE, PRESERVED, REVIEW or REFUSED.

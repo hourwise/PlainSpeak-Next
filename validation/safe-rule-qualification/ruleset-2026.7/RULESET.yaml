@@ -1,0 +1,60 @@
+ruleset_version: "2026.7"
+description: >
+  The rules PlainSpeak Next ships with. Every rule states what it matches,
+  what it would do, why, where it came from, and the cases where it must stay
+  quiet.
+
+  2026.2 adds the reviewed part of the inherited PlainSpeak glossary. The
+  glossary was source material, not a policy: every one of its 706 entries was
+  classified, and only those individually judged mechanically substitutable
+  became rules. The rest are diagnostics, deferred or rejected, and
+  GLOSSARY_MIGRATION.md accounts for all of them.
+
+  The bias throughout is towards refusing. Being able to detect a phrase is not
+  the same as being able to rewrite it safely, and where grammar or meaning
+  could depend on context the rule is a diagnostic.
+
+  2026.3 activates the `style-fix` mode and adds eight transition
+  substitutions. A style fix is not a safe fix: it is a preference relative to a
+  chosen style profile, it may propose nothing until the style layer has
+  produced the finding that justifies it, and it always requires human review.
+  No style fix can enter the accepted set of a plan.
+
+  2026.4 retires PS.STYLEFIX.007 and PS.STYLEFIX.008, the two style fixes that
+  answered transition density by replacing one connective with another. They
+  seemed to lower the density only because the measure did not count the
+  connective they wrote; with style policy 2026.2 counting it, neither could
+  ever resolve the finding that triggered it. Six style fixes remain.
+
+  2026.5 reclassifies 25 migrated safe fixes as diagnostics after the V1
+  acceptance review ran them over real prose. Each broke a sentence: a verb
+  that is as often a noun ("requests are rate-limited" became "asks are
+  rate-limited"), a replacement that changed the meaning ("undertakes to pay"
+  became "does to pay"), or one that broke the grammar ("convene a meeting"
+  became "meet a meeting"). They are still reported; they are no longer applied.
+  Every rule keeps its ID: migration/rule-ids.json binds each ID to its term.
+
+  2026.6 reclassifies 28 more safe fixes as diagnostics after field testing of
+  the published 1.0.0. "In order to facilitate the completion of the task"
+  became "To help the completion of the task": "facilitate X" is "make X
+  easier", "help X" is "assist X". A bounded audit of every automatic lexical
+  rule for that defect shape found 27 others failing in realistic sentences: a
+  separable phrasal verb before a pronoun ("reimburse you" became "pay back
+  you"), a verb that runs the other way ("comprises five members" became
+  "makes up five members"), a participle that is also an adjective ("augmented
+  reality" became "added to reality"), and terms of art ("comprehensive
+  insurance", "a preliminary hearing", "quantitative easing"). They are still
+  reported; they are no longer applied. Every rule keeps its ID.
+
+  2026.7 reclassifies ten more after an independent review of the Verify study
+  held every SAFE rule to the contexts its matcher can actually reach, not only
+  the sentence that exercised it. "In order to" also occurs as "in order" (put
+  in order) followed by a purpose: "Keep your papers in order to avoid delays"
+  became "Keep your papers to avoid delays". "Notify" is a procedure,
+  "retained earnings", "modified-release", "enhanced due diligence", "the
+  additional rate" and possession of a controlled drug are terms of art, and a
+  mid-sentence "furthermore", "moreover" or "additionally" became a comma-bound
+  "also" that moves the focus. Four more were found while repairing tests and
+  have the same defect: "Please act accordingly" became "Please act so",
+  "consequently" likewise, "hereafter" in a definition became "from now on",
+  and "A large number of them" became "Many them". Every rule keeps its ID.

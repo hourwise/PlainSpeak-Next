@@ -99,15 +99,19 @@ def test_a_sentence_an_automatic_change_used_to_break_is_left_alone(sentence):
 @pytest.mark.parametrize(
     "before, after",
     [
-        ("It offers an advantageous position.", "It offers a helpful position."),
-        ("An advantageous position helps.", "A helpful position helps."),
-        ("We found an erroneous result.", "We found a wrong result."),
+        # The vehicles are automatic rules that survived the safe-rule
+        # qualification (ruleset 2026.8). "An advantageous position", "an
+        # erroneous result" and "an obsolete tool" were the vehicles until
+        # their rules were demoted.
+        ("It was an exacerbated condition.", "It was a worsened condition."),
+        ("An exacerbated condition needs care.", "A worsened condition needs care."),
+        ("He found an expended cartridge.", "He found a spent cartridge."),
+        ("A scrutinized account was filed.", "An examined account was filed."),
         # "a" before a vowel letter with a consonant sound stays "a". This was
-        # "a unilateral decision" until "unilateral" was demoted in ruleset
-        # 2026.6 (field testing of 1.0.0: "one-sided" is not "made by one party").
-        ("They formed a homogeneous group.", "They formed a uniform group."),
-        ("It is an obsolete tool.", "It is an outdated tool."),
-        ("We have sufficient funds.", "We have enough funds."),
+        # "a unilateral decision" until ruleset 2026.6 and "a homogeneous
+        # group" until ruleset 2026.8.
+        ("It was a utilised portion.", "It was a used portion."),
+        ("It is predominantly online.", "It is mainly online."),
     ],
 )
 def test_the_article_agrees_with_the_replacement(before, after):
@@ -116,6 +120,6 @@ def test_the_article_agrees_with_the_replacement(before, after):
 
 def test_an_article_outside_the_words_markup_refuses_the_change():
     """The article cannot join a change it is not contiguous with; nothing is applied."""
-    result = present_text("It was an *advantageous* position.\n", "natural")
+    result = present_text("It was an *exacerbated* condition.\n", "natural")
     assert not result.changed
     assert result.refused

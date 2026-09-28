@@ -50,8 +50,22 @@ contract keeps its shape. Recommended version: 1.1.0 ([V2_SCOPE.md](V2_SCOPE.md)
   became a comma-bound "also". Found alongside: "Please act accordingly" became
   "Please act so", "consequently" likewise, "hereafter" in a definition became
   "from now on", "A large number of them" became "Many them". 97 of 220 rules
-  are now automatic; every ID is unchanged. The certification sample keeps "In
-  order to".
+  were then automatic; every ID is unchanged. The certification sample keeps
+  "In order to".
+- **Every remaining automatic rule qualified, and 74 reclassified** (ruleset
+  2026.8). Each of the 97 was probed in ordinary, adversarial and specialist
+  sentences — legal, financial, clinical, technical and government — and kept
+  only if every sentence it fired on stayed correct. The failures included
+  "keep you apprised" → "keep you told", "the beneficial owner" → "the helpful
+  owner", "a necessary and sufficient condition" → "a necessary and enough
+  condition", "the income threshold" → "the income limit", "Mosquitoes transmit
+  malaria" → "Mosquitoes send malaria" and "The same rule obtains in Scotland"
+  → "The same rule gets in Scotland". "It should be noted that" had never been
+  applied — the integrity firewall refuses every match, because it contains a
+  modal — and is a diagnostic now too. 23 of 220 rules remain automatic; every
+  ID is unchanged. [SAFE_RULE_QUALIFICATION.md](SAFE_RULE_QUALIFICATION.md)
+  records all 97 rules, all 573 probe sentences and every judgement, and a test
+  holds the ledger to the ruleset.
 
 See [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md).
 
