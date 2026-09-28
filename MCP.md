@@ -9,7 +9,7 @@ operations and nothing else.
 |---|---|---|
 | `present` | Applies PlainSpeak's SAFE changes to a text, and nothing else | `plainspeak.present.v1` |
 | `verify` | Checks a rewrite made by anyone — including the agent itself — against the integrity model | `plainspeak.verify.v1` |
-| `diagnose` | Reports everything PlainSpeak observes about a text, and changes nothing | `plainspeak.diagnose.v1` |
+| `diagnose` | Reports what `present` reports about a text, and changes nothing; rule diagnostics are not listed | `plainspeak.diagnose.v1` |
 
 Each tool returns **exactly the bytes** the CLI prints with `--format json` —
 the same contract, from the same pipeline call — as its text content, and the

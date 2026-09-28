@@ -7,14 +7,25 @@ All known limitations, uncertainties, and gaps. This document is maintained hone
 - **Bounded transformations.** Safe fixes are word- and phrase-level rules from
   a versioned ruleset; the six style fixes are transition substitutions that
   always require review. Nothing restructures a sentence, so output can still
-  read stiffly ("To help the successful completion of…").
+  read stiffly ("In order to facilitate the successful completion of…" is left
+  as written).
 - **The firewall is deliberately strict.** It compares protected facts, not
   meaning, so some correct changes are refused — deleting "it should be noted
-  that" is refused because it contains the modal "should" — and a change that
-  alters meaning without touching a protected category is not detected. The
+  that" would remove the modal "should", so no rule deletes it automatically —
+  and a change that alters meaning without touching a protected category is not
+  detected. The
   equivalence table that lets "prior to" become "before" has one entry.
 - **Mid-sentence deletions are refused** where removing a phrase would leave
   broken spacing or punctuation, so some framing phrases survive.
+- **Only 23 rules change text; the diagnostic rules are not shown.** Of 220
+  rules, 185 are diagnostics: words and phrases such as "facilitate", "obtain"
+  or "in order to" that cannot be rewritten safely in every context. They are
+  never applied. The engine matches them and records the matches in its plan,
+  but `present`, `diagnose`, the MCP tools and the desktop application do not
+  currently list rule diagnostics, so such a word is left as written and not
+  flagged. Rule descriptions that say a diagnostic is "reported" mean recorded
+  in the plan. Surfacing them is future work
+  ([ROADMAP.md](ROADMAP.md)).
 - **Style diagnostics need enough text.** Each has a minimum sample (four to
   eight sentences or paragraphs, 200 words for vocabulary). A short text is
   reported as too short to judge — most agent replies will be — so the style

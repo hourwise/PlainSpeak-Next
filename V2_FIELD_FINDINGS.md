@@ -33,8 +33,10 @@ realistic sentences it failed almost everywhere:
 
 No lexical pattern separates the few safe contexts ("facilitate you in") from
 the rest, and a rule that tried would be a guess about grammar. The rule is now
-a **diagnostic**: "facilitate" is still reported, and never rewritten. Its ID is
-unchanged.
+a **diagnostic**: "facilitate" is never rewritten. Its ID is unchanged. It is
+not flagged to users either: the engine matches a diagnostic rule and records
+the match in its plan, but `present`, `diagnose`, the MCP tools and the desktop
+application do not currently list rule diagnostics.
 
 ### The bounded audit
 
@@ -71,7 +73,7 @@ on*; each is a regression test in `tests/test_field_findings.py`. 111 of the
 220 rules are now automatic.
 
 **Limitation carried over:** like the 25 rules the V1 acceptance review
-reclassified, a reclassified migrated rule reports its base form only
+reclassified, a reclassified migrated rule matches its base form only
 ("facilitate", not "facilitates").
 
 ## FIELD-003 — a three-word readability verdict

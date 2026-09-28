@@ -49,7 +49,10 @@ A probe of every safe fix for the same classes of defect then found more:
 | grammar broken | "convene a meeting" → "meet a meeting"; "ubiquitous devices" → "everywhere devices"; "identical to" → "same to"; "collaborate with" → "work with with" |
 
 **25 migrated safe fixes were reclassified as diagnostics** (ruleset 2026.5).
-They are still reported; they are no longer applied. Each keeps its rule ID —
+They are no longer applied. (This review said they were "still reported". They
+remain in the ruleset as diagnostic rules, but `present` does not list rule
+diagnostics; corrected for 1.1.0, see [LIMITATIONS.md](LIMITATIONS.md).) Each
+keeps its rule ID —
 see *Rule IDs* below.
 
 **Articles.** A replacement that changes the first sound left the article

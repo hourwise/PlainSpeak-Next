@@ -125,6 +125,15 @@ classifies each difference as SAFE, PRESERVED, REVIEW or REFUSED.
 These are directions, not commitments. None is implemented, and nothing below
 was begun as part of V2.
 
+### Surfacing rule diagnostics
+
+185 of the 220 rules are diagnostics, and none is shown to users: the engine
+matches them and records them in its plan, but `present`, `diagnose`, the MCP
+tools and the desktop application list only style observations. Showing them —
+an additive field in the JSON contracts, and a row in the desktop — would let a
+reader see "facilitate" or "obtain" flagged rather than silently left alone. It
+is a contract addition, so it needs its own versioned change.
+
 ### Findings from the V2 validation study
 
 Verify's false refusals come from the integrity model's deliberate strictness.

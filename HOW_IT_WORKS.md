@@ -35,7 +35,9 @@ rulebook of 220 rules, 23 of which may change text automatically — "utilise" b
 where it applies and where it must not, and each is tested. Each of the 23
 has been qualified against ordinary, adversarial and specialist sentences;
 [SAFE_RULE_QUALIFICATION.md](SAFE_RULE_QUALIFICATION.md) records every one.
-A SAFE change is applied automatically only if:
+Most of the other rules are diagnostics — terms that cannot be substituted
+safely everywhere. They are never applied, and `present` and `diagnose` do
+not currently list them. A SAFE change is applied automatically only if:
 
 1. it passes the **integrity check** on its own, in its sentence, and together
    with every other change in the document; and

@@ -61,6 +61,12 @@ looked yet, which is the honest description of an entry inherited in bulk.
 | `already-covered` | 16 | Handled by a hand-authored Phase 4 rule |
 | **Total** | **706** | |
 
+A `diagnostic` entry becomes a diagnostic rule in the governed ruleset: never
+applied, matched by the engine and recorded in its plan. `present`,
+`diagnose`, the MCP tools and the desktop application do not currently list
+rule diagnostics, so "worth flagging" describes the classification, not what a
+user sees today; surfacing them is future work ([ROADMAP.md](ROADMAP.md)).
+
 That total is asserted by a test, not written by hand. The machine-readable
 inventory is [`migration/glossary-inventory.json`](migration/glossary-inventory.json),
 which carries every entry with its classification, reason, source module,

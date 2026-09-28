@@ -169,9 +169,11 @@ plainspeak diagnose document.md --profile natural   # plainspeak.diagnose.v1, ch
 plainspeak serve                                    # a local MCP server over stdio
 ```
 
-`diagnose` reports everything `present` observes — the SAFE changes it would
-make, suggestions awaiting a person, refusals, style observations and their
-coverage, protected facts, readability — and applies nothing. `serve` exposes
+`diagnose` reports what `present` reports — the SAFE changes it would make,
+suggestions awaiting a person, refusals, style observations and their coverage,
+protected facts, readability — and applies nothing. Neither lists the ruleset's
+diagnostic rules: a word whose rule is a diagnostic, such as "facilitate", is
+left as written and is not flagged (see [LIMITATIONS.md](LIMITATIONS.md)). `serve` exposes
 `present`, `verify` and `diagnose` to an agent as MCP tools, returning the same
 contracts byte for byte: stdio only, no network, no file access, no
 dependencies. See [MCP.md](MCP.md).
