@@ -1,4 +1,106 @@
-# Release readiness: PlainSpeak 1.0.0
+# Release readiness: PlainSpeak 1.1.0
+
+**Status: 1.1.0 CERTIFIED as a release candidate. Not merged to `main`, not
+tagged, not released on GitHub, not published to PyPI.**
+
+The candidate is on `codex/plainspeak-v2-verify`. `main` is still 1.0.0 at
+`877b691`, an ancestor of the candidate, so `main` can be fast-forwarded to it
+without rewriting history. Publishing follows [RELEASING.md](RELEASING.md) and
+needs an explicit decision at each step.
+
+## What was certified
+
+| | |
+|---|---|
+| commit | `1e72a10` on `codex/plainspeak-v2-verify`; the commit after it changes only this page |
+| CI run | [36402716013](https://github.com/hourwise/PlainSpeak-Next/actions/runs/36402716013), dispatched, all nine jobs green |
+| Action dogfood | [36402715744](https://github.com/hourwise/PlainSpeak-Next/actions/runs/36402715744), Linux and Windows green |
+| distribution | `plainspeak-next` — import package `plainspeak`, command `plainspeak` |
+| version | `1.1.0` |
+| classifiers | 14, every one accepted by PyPI's list (`trove-classifiers`), in `pyproject.toml`, the wheel and the sdist |
+| ruleset | 2026.8 / `94ca278080c8` / 220 rules, 23 automatic (1.0.0: 139), 6 style fixes |
+| integrity policy | 2026.2 / `ac617b549955` |
+| verification policy | 2026.2 / `35d8f46b2d60` |
+| morphology | 2026.1 / `93fba6907f87` |
+| style policy | 2026.2 / `80ef39cef5f5` |
+| profile pack | 2026.1 / `73deed35d673` — natural, plain, technical, government, academic |
+| JSON contracts | `plainspeak.present.v1`, `plainspeak.verify.v1`, `plainspeak.verify.receipt.v1`, `plainspeak.diagnose.v1` |
+| desktop smoke output | `ca5d501239c0d4b6…`, unchanged since 1.0.0 |
+| certification sample output | `6107653a69c28d04…` (1.0.0: `af79da49…`; "In order to" is no longer rewritten) |
+
+## Artifacts
+
+From CI run 36402716013. Checksums as published in each artifact's
+`SHA256SUMS`, each verified with `sha256sum --check` after download.
+
+| artifact | SHA-256 |
+|---|---|
+| `plainspeak_next-1.1.0-py3-none-any.whl` | `3160d8b82d6516d2a481a47d932734fb4c9aac7ff8db092fba431188245f0c52` |
+| `plainspeak_next-1.1.0.tar.gz` | `970387c62e9dbce0d41307b9269615e970a980bf71e0e7fe0b4257af9874f97c` |
+| `plainspeak-desktop-1.1.0-windows.zip` | `6e0618cc65c7a79097a33b75dd2e5b6342c4a525faf20556cc0b1de8a01bbf42` |
+| `plainspeak-desktop-1.1.0-windows.manifest.json` | `56d8bba99c5bf671a2b290a2d46246bcd680ea05fcf042f5d803b9988b6006c7` |
+| `plainspeak-desktop-1.1.0-linux.tar.gz` | `40a3e6a2545a112dcf74aa9e745f6fc132beb9758e4101516dbbb69e5552b71f` |
+| `plainspeak-desktop-1.1.0-linux.manifest.json` | `a7ffdd1090ae7b2141a6c8912e8c5ac75601870ab0cd0c03f249eb6562132ff2` |
+| `certification-python.json` (CI, Linux, Python 3.13) | `e77ab5eb54a88505387cf57302a056b8b34e1fe3bda4982522361cf28cbad249` |
+
+Distribution metadata, read from the CI-built files: the wheel's `METADATA`
+and the sdist's `PKG-INFO` both say `Name: plainspeak-next` and
+`Version: 1.1.0`, with the 14 declared classifiers. The wheel holds 121 files;
+its console scripts are `plainspeak`, `plainspeak-desktop` and
+`plainspeak-web`. `twine check --strict` passes on both.
+
+Desktop bundles: Windows 78 files, 81.5 MiB, `PlainSpeak.dist/desktop_main.exe`
+(SHA-256 `8921e6b6acab68b7…`); Linux 131 files, 163.2 MiB,
+`PlainSpeak.dist/desktop_main.bin` (SHA-256 `0287c624ef2f641b…`). The Windows
+build is not bit-reproducible, which is why every check below is on computed
+output. A wheel built locally from the same commit has different bytes
+(timestamps); only the CI-built files above are release artifacts.
+
+## Certification results
+
+| check | where | result |
+|---|---|---|
+| full test suite, with and without the desktop extra | CI: Windows, Linux, macOS × Python 3.10, 3.13 | green |
+| full test suite | locally, Windows 11, Python 3.14 | 4,359 passed, 1 skipped |
+| MCP server tests, Action tests, architecture policy, sealed identities, characterisation goldens | every test job | green |
+| Verify validation study, 97 cases, `cases.yaml` unchanged since V2-D | every test job, and `run_study.py --check` | every result and outcome as recorded; **0 false acceptances** |
+| review bundle and safe-rule qualification ledger current | `review_bundle.py --check`, `qualify.py --check`, `tests/test_safe_rule_qualification.py` | current; 97 rules, 23 qualified, 74 demoted |
+| glossary inventory current | `build_glossary_inventory.py --check` | `022d5c4bfd3d` |
+| GitHub Action dogfood | run 36402715744, Linux and Windows | green |
+| every classifier accepted by PyPI, in `pyproject.toml`, wheel and sdist | CI package job, and again locally on the CI files | 14 / 14 |
+| wheel and sdist carry the syllable dictionary, ruleset and profiles | CI, and again locally on the CI files | green |
+| `twine check --strict` | the CI-built wheel and sdist | passed |
+| installed wheel certified from outside the checkout | CI, Linux, Python 3.13 | **54 / 54** |
+| the same CI-built wheel, installed fresh with `[desktop]` | Windows 11, Python 3.14, PySide6 6.11.2 | **54 / 54**, desktop self-test included |
+| CLI smoke tests on that install | `--version`; `--help` for `analyze`, `present`, `verify`, `diagnose`, `serve`, `profiles`, `rules`; `analyze`, `present`, `diagnose` on `examples/agent_reply.md` | all exit 0; `present` output `e6b9106a…` as in WALKTHROUGH.md |
+| `verify` on that install | the presented file; an edit changing "12" to "10" | ACCEPTED (exit 0), two receipts byte-identical; REFUSED (exit 1) |
+| `serve` on that install | `initialize` and `tools/list` over stdio | server version 1.1.0; tools `present`, `verify`, `diagnose` |
+| engine with networking disabled | both certifications above | same output hash as online |
+| frozen desktop self-test outside the source tree | CI, Windows and Linux | OK, smoke `ca5d5012…` on both |
+| the CI-built Windows bundle, unzipped to an unrelated directory | Windows 11 | self-test OK, ruleset 2026.8, smoke `ca5d5012…` |
+
+## What changed since 1.0.0
+
+See [CHANGELOG.md](CHANGELOG.md). In short: `verify` with deterministic
+receipts, the GitHub Action, `serve` and `diagnose`; three field fixes; and 23
+automatic rules where 1.0.0 had 139, each remaining one qualified in
+[SAFE_RULE_QUALIFICATION.md](SAFE_RULE_QUALIFICATION.md). Of 145 `present`
+outputs checked against 1.0.0, 75 differ, each only by a demoted substitution
+being left out, and 70 are identical apart from the engine identity.
+
+## Known limitations carried into 1.1
+
+[LIMITATIONS.md](LIMITATIONS.md). In particular: rule diagnostics are matched
+but not listed by `present`, `diagnose`, the MCP tools or the desktop, so a
+word whose rule is a diagnostic is left as written and not flagged; Verify's
+`ACCEPTED` means every protected fact survived and every difference is
+accounted for, not that two texts mean the same; and the 23 automatic rules
+held in every probe tried, which is a sample, not a proof.
+
+## PlainSpeak 1.0.0 — the published release
+
+1.0.0 was published to PyPI as `plainspeak-next` and to GitHub as `v1.0.0`.
+Its readiness record follows as it was written.
 
 **Status: 1.0.0 CERTIFIED as `plainspeak-next`, with valid classifiers. Not
 published.**
@@ -28,7 +130,7 @@ Status as recorded before this certification, kept as it was:
 > > Nothing here records a publication. No tag exists, no GitHub release has
 > > been created, and nothing has been uploaded to PyPI.
 
-## What was certified
+### What was certified
 
 | | |
 |---|---|
@@ -51,7 +153,7 @@ The only change from the second certification's package metadata is one
 classifier fewer. Every engine identity and pinned output is the same; no code
 under `plainspeak/` changed.
 
-## Artifacts
+### Artifacts
 
 Checksums as published in each artifact's `SHA256SUMS`, each verified with
 `sha256sum --check` after download.
@@ -78,7 +180,7 @@ Desktop bundles: Windows 79 files, 80.9 MiB, `PlainSpeak.dist/desktop_main.exe`
 executable and manifest as both earlier certifications). The Windows build is
 not bit-reproducible, which is why every check below is on computed output.
 
-## Certification results
+### Certification results
 
 | check | where | result |
 |---|---|---|
@@ -94,7 +196,7 @@ not bit-reproducible, which is why every check below is on computed output.
 | frozen desktop self-test outside the source tree | CI, Windows and Linux | OK, smoke `ca5d5012…` on both |
 | the CI-built Windows bundle, unzipped to an unrelated directory | Windows 11 | self-test OK, smoke `ca5d5012…` |
 
-## Publication
+### Publication
 
 The PyPI distribution is `plainspeak-next` (`pip install plainspeak-next`);
 the import name and the command stay `plainspeak`. The unrelated `plainspeak`
@@ -108,7 +210,7 @@ publishes the wheel and sdist of run 36339056288 listed above, after checking
 their checksums, their metadata, every classifier against the current PyPI
 list, and that the tagged commit differs from `719376b` only in this page.
 
-## Withdrawn publication attempt
+### Withdrawn publication attempt
 
 The first attempt to publish 1.0.0, on 2026-09-27. Recorded before the tag
 and release were deleted, so what existed stays on record.
@@ -161,14 +263,14 @@ again*). The release was rebuilt as `plainspeak-next` and certified again from
 the start. The second certification, below, is the one a release publishes.
 The first is kept, unchanged, as a historical record.
 
-## Second certification (superseded)
+### Second certification (superseded)
 
 Kept as it was recorded. These artifacts were tagged `v1.0.0` and attached to
 a GitHub release, which were then withdrawn: PyPI refused the wheel's
 `Intended Audience :: Government` classifier (see *Withdrawn publication
 attempt*).
 
-### What was certified
+#### What was certified
 
 | | |
 |---|---|
@@ -189,7 +291,7 @@ attempt*).
 Every engine identity, the smoke output and the sample output are the same as
 in the first certification: no code under `plainspeak/` changed.
 
-### Artifacts
+#### Artifacts
 
 Checksums as published in each artifact's `SHA256SUMS`, each verified with
 `sha256sum --check` after download.
@@ -217,7 +319,7 @@ certification's; the archive differs only because it records file times. The
 Windows build is not bit-reproducible, which is why every check below is on
 computed output, not on bytes.
 
-### Certification results
+#### Certification results
 
 | check | where | result |
 |---|---|---|
@@ -236,7 +338,7 @@ unchanged, and three for the distribution identity — installed as
 `plainspeak-next` at the pinned version, no other distribution providing
 `import plainspeak`, and the `plainspeak` command installed.
 
-### Why 1.0.0 was certified again
+#### Why 1.0.0 was certified again
 
 The first certification's wheel and sdist were built with the distribution
 name `plainspeak`: their metadata said `Name: plainspeak`, and their files
@@ -256,7 +358,7 @@ release carries one coherent set built by one dispatched CI run; everything
 above was certified again. No artifact of the first certification is part of
 the release.
 
-### Publication, as it stood
+#### Publication, as it stood
 
 Decided: the PyPI distribution is `plainspeak-next`
 (`pip install plainspeak-next`); the import name stays `plainspeak`, as does
@@ -271,12 +373,12 @@ publishes the wheel and sdist of run 36329522785 listed above, after checking
 their checksums, their metadata and that the tagged commit differs from
 `2423c03` only in this page.
 
-## First certification (superseded)
+### First certification (superseded)
 
 Kept as it was recorded. These artifacts were never published and are not
 part of the release: their metadata names the distribution `plainspeak`.
 
-### What was certified
+#### What was certified
 
 | | |
 |---|---|
@@ -293,7 +395,7 @@ part of the release: their metadata names the distribution `plainspeak`.
 | desktop smoke output | `ca5d501239c0d4b6…` |
 | certification sample output | `af79da49458bde04…`, unchanged since 1.0.0rc1 |
 
-### Artifacts
+#### Artifacts
 
 Checksums as published in each artifact's `SHA256SUMS`, each verified with
 `sha256sum --check` after download.
@@ -312,7 +414,7 @@ Linux 132 files, 162.3 MiB, `PlainSpeak.dist/desktop_main.bin`. Neither build is
 bit-reproducible — wheels embed timestamps and Nuitka output varies between
 runs — which is why every check below is on computed output, not on bytes.
 
-### Certification results
+#### Certification results
 
 | check | where | result |
 |---|---|---|
@@ -326,7 +428,7 @@ runs — which is why every check below is on computed output, not on bytes.
 | the CI-built Windows bundle started on the offscreen platform | Windows 11 | running after 8 s, 72 MB, no error |
 | 27-document acceptance corpus through `analyze`, `present` and the desktop | locally | every protected fact kept, deterministic, desktop agrees with `present`; see [V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md) |
 
-### Checkpoint note
+#### Checkpoint note
 
 Two commits reached `main` red. `adc523b`, which added this page, failed the
 install-guidance test: a sentence here that *warns* against installing the
@@ -340,7 +442,7 @@ the suite's own exit status gating the commit, rather than by rewriting
 `main`. No package code differs from the certified `ff067c4`; the tag, when one
 is authorised, belongs on the current `main`.
 
-### Publication, as it stood
+#### Publication, as it stood
 
 The name `plainspeak` on PyPI is taken by an unrelated project (English to
 terminal commands), which also installs a top-level Python package named
@@ -353,7 +455,7 @@ terminal commands), which also installs a top-level Python package named
 Until that is decided, a 1.0.0 release is the Git tag and the GitHub release
 with the artifacts above attached, installed from the repository or the wheel.
 
-## What changed since 1.0.0rc1
+### What changed since 1.0.0rc1
 
 The acceptance review read PlainSpeak's output on 27 realistic documents and
 fixed what it found: 25 safe fixes that broke real sentences reclassified as
@@ -363,7 +465,7 @@ from a reviewed table, stable rule IDs, and profiles that say what they change.
 Preparing publication then found that `pip install plainspeak` installs an
 unrelated project; nothing in PlainSpeak Next now tells anyone to run it.
 
-## Known limitations carried into 1.0
+### Known limitations carried into 1.0
 
 Stated in full in [V1_SCOPE.md](V1_SCOPE.md) and [LIMITATIONS.md](LIMITATIONS.md).
 In brief: English only; word- and phrase-level changes, no sentence
