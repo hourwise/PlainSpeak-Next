@@ -315,7 +315,8 @@ def test_explaining_an_unknown_rule_raises() -> None:
 def test_an_explanation_is_plain_data() -> None:
     import json
 
-    rendered = explain_rule("PS.CLARITY.001", RULESET).as_dict()
+    # PS.CLARITY.009 since (ruleset 2026.7 reclassified PS.CLARITY.001, "in order to", as a diagnostic).
+    rendered = explain_rule("PS.CLARITY.009", RULESET).as_dict()
     assert json.loads(json.dumps(rendered)) == rendered
     assert rendered["mode"] == MODE_SAFE_FIX
     assert rendered["examples"]["transform"]

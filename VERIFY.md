@@ -61,7 +61,7 @@ exits 0, so a CI step fails on anything else unless told otherwise.
 - A spelling the integrity policy treats as the same fact: `£2,500` and `£2500`,
   `prior to` and `before`.
 - Any of PlainSpeak's reviewed **SAFE** rules, applied to either text, in either
-  direction: `utilize` ↔ `use`, `in order to` ↔ `to`. Both texts are normalised
+  direction: `utilize` ↔ `use`, `due to the fact that` ↔ `because`. Both texts are normalised
   with the same rules before they are compared.
 - Capitalisation of a word that became, or stopped being, the first word of
   its sentence. A word that is first in both texts and changed case is not

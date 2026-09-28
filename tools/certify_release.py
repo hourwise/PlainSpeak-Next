@@ -51,7 +51,9 @@ SAMPLE = (
     "It should be noted that the old portal will not accept payments of £42.50 or more.\n\n"
     "Your reference, ACC-20931, does not change. Statements arrive within 5 working days.\n"
 )
-EXPECTED_OUTPUT_SHA256 = "af79da49458bde04b68d4ce94967a44c6dcedfa50e36d0ae94669cfeb0a202d9"
+#: af79da49… through 1.0.0. Ruleset 2026.7 reclassified "in order to" (PS.CLARITY.001)
+#: as a diagnostic, so the sample now keeps "In order to finish"; nothing else moved.
+EXPECTED_OUTPUT_SHA256 = "6107653a69c28d04eda914897b91c338df09522e18406712a41e1b9bfc22aacc"
 
 results: list[dict] = []
 
@@ -128,7 +130,7 @@ def main() -> int:
 
     data = json.loads(present(["--stdin", "--profile", "natural"], SAMPLE).stdout)
     applied = {item["rule_id"] for item in data["applied"]}
-    check("SAFE changes applied", {"PS.CLARITY.001", "PS.LEXICAL.001", "PS.CLARITY.009"} <= applied,
+    check("SAFE changes applied", {"PS.LEXICAL.001", "PS.CLARITY.009"} <= applied,
           ", ".join(sorted(applied)))
     check("refusal reported", "PS.FRAMING.003" in {item["rule_id"] for item in data["refused"]})
     for surface in ("30 June 2027", "£42.50", "ACC-20931", "must", "not"):

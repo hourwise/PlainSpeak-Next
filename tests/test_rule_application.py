@@ -57,8 +57,9 @@ def run(source: str, ruleset=None):
 
 
 def test_a_plan_applies_its_accepted_changes() -> None:
-    _, _, result = run("Staff utilise the register in order to apply.\n")
-    assert result.output == "Staff use the register to apply.\n"
+    # "prior to" in place of "in order to" (ruleset 2026.7 reclassified PS.CLARITY.001, "in order to", as a diagnostic).
+    _, _, result = run("Staff utilise the register prior to applying.\n")
+    assert result.output == "Staff use the register before applying.\n"
     assert result.change_count == 2
     assert result.changed
 
@@ -76,11 +77,12 @@ def test_changes_are_applied_right_to_left_without_shifting_each_other() -> None
     """Several edits in one line must all land where they were mapped."""
     # "henceforth -> from now on" supplies the multi-word, length-changing edit
     # that "ascertain -> find out" supplied until ruleset 2026.6 demoted it.
-    source = "In order to utilise it henceforth, count approximately how many.\n"
+    # "prior to" in place of "in order to" (ruleset 2026.7 reclassified PS.CLARITY.001, "in order to", as a diagnostic).
+    source = "Prior to utilising it henceforth, count approximately how many.\n"
     _, plan, result = run(source)
 
     assert len(plan.accepted) == 4
-    assert result.output == "To use it from now on, count about how many.\n"
+    assert result.output == "Before using it from now on, count about how many.\n"
 
 
 def test_a_document_with_nothing_to_fix_is_returned_unchanged() -> None:
@@ -137,7 +139,7 @@ def test_nothing_is_applied_when_one_change_is_stale() -> None:
     """Atomicity: one bad proposal aborts the whole plan, not just itself."""
     from dataclasses import replace
 
-    source = "Staff utilise the register in order to apply.\n"
+    source = "Staff utilise the register prior to applying.\n"
     document = md(source)
     plan = build_plan(document)
     assert len(plan.accepted) == 2

@@ -107,7 +107,8 @@ run has none. See [VERIFY_STUDY.md](VERIFY_STUDY.md).
 
 Field testing of the published 1.0.0 found an unsafe SAFE rule (facilitate →
 help), a readability verdict on three words, and hard-to-discover `--stdin`.
-All fixed; a bounded audit reclassified 27 more rules. See
+All fixed; a bounded audit reclassified 27 more rules, and an independent
+review of the Verify study 14 more. 97 of 220 rules remain automatic. See
 [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md).
 
 *Backlog:* `plainspeak explain before.txt after.txt` — a semantic/style diff that

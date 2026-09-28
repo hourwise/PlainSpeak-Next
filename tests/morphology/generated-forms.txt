@@ -17,7 +17,6 @@ PS.LEXICAL.137  [verb]  designate -> choose  designates -> chooses  designating 
 PS.LEXICAL.140  [verb]  discontinue -> stop  discontinues -> stops  discontinued -> stopped  discontinuing -> stopping
 PS.LEXICAL.141  [verb]  disseminate -> spread  disseminates -> spreads  disseminated -> spread  disseminating -> spreading
 PS.LEXICAL.143  [verb]  elucidate -> explain  elucidates -> explains  elucidated -> explained  elucidating -> explaining
-PS.LEXICAL.147  [verb]  enhance -> improve  enhances -> improves  enhanced -> improved  enhancing -> improving
 PS.LEXICAL.148  [verb]  enumerate -> list  enumerates -> lists  enumerated -> listed  enumerating -> listing
 PS.LEXICAL.150  [verb]  exacerbate -> worsen  exacerbates -> worsens  exacerbated -> worsened  exacerbating -> worsening
 PS.LEXICAL.152  [verb]  expend -> spend  expends -> spends  expended -> spent  expending -> spending
@@ -30,15 +29,12 @@ PS.LEXICAL.175  [noun]  laceration -> cut  lacerations -> cuts
 PS.LEXICAL.177  [noun]  magnitude -> size  magnitudes -> sizes
 PS.LEXICAL.179  [noun]  methodology -> method  methodologies -> methods
 PS.LEXICAL.181  [noun]  modification -> change  modifications -> changes
-PS.LEXICAL.182  [verb]  modify -> change  modifies -> changes  modified -> changed  modifying -> changing
 PS.LEXICAL.184  [verb]  necessitate -> require  necessitates -> requires  necessitated -> required  necessitating -> requiring
-PS.LEXICAL.186  [verb]  notify -> tell  notifies -> tells  notified -> told  notifying -> telling
 PS.LEXICAL.191  [verb]  obtain -> get  obtains -> gets  obtained -> got  obtaining -> getting
 PS.LEXICAL.192  [noun]  occurrence -> event  occurrences -> events
 PS.LEXICAL.195  [verb]  originate -> start  originates -> starts  originated -> started  originating -> starting
 PS.LEXICAL.198  [verb]  perpetuate -> continue  perpetuates -> continues  perpetuated -> continued  perpetuating -> continuing
 PS.LEXICAL.199  [noun]  portion -> part  portions -> parts
-PS.LEXICAL.200  [verb]  possess -> have  possesses -> has  possessed -> had  possessing -> having
 PS.LEXICAL.205  [verb]  procure -> get  procures -> gets  procured -> got  procuring -> getting
 PS.LEXICAL.206  [verb]  prohibit -> ban  prohibits -> bans  prohibited -> banned  prohibiting -> banning
 PS.LEXICAL.207  [verb]  promulgate -> announce  promulgates -> announces  promulgated -> announced  promulgating -> announcing
@@ -48,7 +44,6 @@ PS.LEXICAL.214  [noun]  remainder -> rest  remainders -> rests
 PS.LEXICAL.215  [verb]  replicate -> copy  replicates -> copies  replicated -> copied  replicating -> copying
 PS.LEXICAL.218  [verb]  rescind -> cancel  rescinds -> cancels  rescinded -> cancelled  rescinding -> cancelling
 PS.LEXICAL.219  [verb]  reside -> live  resides -> lives  resided -> lived  residing -> living
-PS.LEXICAL.221  [verb]  retain -> keep  retains -> keeps  retained -> kept  retaining -> keeping
 PS.LEXICAL.222  [noun]  revision -> change  revisions -> changes
 PS.LEXICAL.223  [verb]  scrutinize -> examine  scrutinizes -> examines  scrutinized -> examined  scrutinizing -> examining
 PS.LEXICAL.224  [verb]  signify -> mean  signifies -> means  signified -> meant  signifying -> meaning

@@ -289,24 +289,23 @@ examples:
 id: PS.LEXICAL.009
 version: 1
 name: additional-to-extra
-mode: safe-fix
+mode: diagnostic
 description: >
-  "Additional" is "extra". The phrase "additional insured" is a term of art and
-  is protected separately by PS.PROTECT.002, which takes precedence over this
-  rule wherever the two overlap.
+  "Additional" is often "extra", but it is part of several terms of art beyond
+  "additional insured" (protected by PS.PROTECT.002): "the additional rate" of
+  income tax became "the extra rate", "Additional Voluntary Contributions"
+  became "Extra Voluntary Contributions", and "children with additional needs"
+  became "children with extra needs". Reclassified from safe-fix after the
+  independent review of the Verify study (ruleset 2026.7); reported, not
+  rewritten. The rule ID is unchanged.
 match:
   type: word
   text: "additional"
-action:
-  type: replace
-  replacement: "extra"
 scope:
   include: [prose]
-case:
-  policy: preserve
 priority: 100
 reason:
-  short: "\"extra\" is the everyday word"
+  short: "\"extra\" is the everyday word, but \"additional\" is part of several terms of art"
 provenance:
   source: "PlainSpeak inherited glossary, re-authored as a rule"
   reference: "plainspeak/core/glossary.py"
@@ -316,9 +315,6 @@ examples:
     - "Please send additional documents."
   negative:
     - "Additions to the register are published monthly."
-  transform:
-    - before: "Please send additional documents."
-      after: "Please send extra documents."
 
 ---
 id: PS.LEXICAL.010

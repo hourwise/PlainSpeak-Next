@@ -53,9 +53,9 @@ looked yet, which is the honest description of an entry inherited in bulk.
 
 | Classification | Count | Meaning |
 |---|---:|---|
-| `safe-fix` | 88 | Individually reviewed; became a rule |
+| `safe-fix` | 77 | Individually reviewed; became a rule |
 | `deferred` | 477 | Not yet individually reviewed, or a multi-word phrase |
-| `diagnostic` | 88 | Worth flagging, cannot be substituted mechanically |
+| `diagnostic` | 99 | Worth flagging, cannot be substituted mechanically |
 | `protected` | 23 | In the inherited protected-term register |
 | `rejected` | 14 | The inherited suggestion is wrong and was not carried forward |
 | `already-covered` | 16 | Handled by a hand-authored Phase 4 rule |
@@ -74,8 +74,10 @@ so the figures became 115 and 61; see
 [V1_ACCEPTANCE_REVIEW.md](V1_ACCEPTANCE_REVIEW.md). Field testing of the
 published 1.0.0 found "facilitate the completion of" becoming "help the
 completion of", and a bounded audit for the same defect reclassified 27 more
-migrated safe fixes (and the hand-authored PS.LEXICAL.010), so they are now 88
-and 88; see [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md). Every reclassified rule
+migrated safe fixes (and the hand-authored PS.LEXICAL.010), making them 88 and
+88; the independent review of the Verify study reclassified 11 more migrated
+safe fixes (and three hand-authored rules), so they are now 77 and 99; see
+[V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md). Every reclassified rule
 kept its ID. [`migration/rule-ids.json`](migration/rule-ids.json) binds each rule ID
 to its term for life: the builder once numbered rules by position, and
 reclassifying one would have renumbered 134 others.

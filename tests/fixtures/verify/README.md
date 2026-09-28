@@ -6,6 +6,6 @@ repository against them.
 
 | File | Expected | Why |
 |---|---|---|
-| `accepted.md` | ACCEPTED | PlainSpeak SAFE rules (`in order to` → `to`, `prior to` → `before`), a fact equivalence (`£1,500` → `£1500`) and nothing else |
+| `accepted.md` | ACCEPTED | a PlainSpeak SAFE rule (`prior to` → `before`), a fact equivalence (`£1,500` → `£1500`) and nothing else |
 | `refused.md` | REFUSED | `must` became `should`, `30 June` became `30 July`, and `cannot` became `can` |
 | `inconclusive.md` | INCONCLUSIVE | every protected item survived, but "the date your payment is taken" was reworded |

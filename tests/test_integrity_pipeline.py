@@ -522,7 +522,8 @@ def test_the_document_wide_check_runs_exactly_once(monkeypatch) -> None:
     """One whole-document comparison per application, not one per change."""
     from plainspeak.pipeline import apply as apply_module
 
-    source = "Staff utilise the register in order to apply, and commence work.\n"
+    # "prior to" in place of "in order to" (ruleset 2026.7 reclassified PS.CLARITY.001, "in order to", as a diagnostic).
+    source = "Staff utilise the register prior to applying, and commence work.\n"
     document = md(source)
     plan = build_plan(document)
     assert len(plan.accepted) >= 3

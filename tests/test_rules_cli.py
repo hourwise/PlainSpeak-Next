@@ -60,10 +60,11 @@ def test_rules_list_can_filter_by_mode(run, bundled, mode: str) -> None:
 
 
 def test_rules_explain_shows_the_whole_rule(run) -> None:
-    result = run("rules", "explain", "PS.CLARITY.001")
+    # PS.CLARITY.009 since (ruleset 2026.7 reclassified PS.CLARITY.001, "in order to", as a diagnostic).
+    result = run("rules", "explain", "PS.CLARITY.009")
 
     assert result.exit_code == 0
-    for expected in ("PS.CLARITY.001", "safe-fix", "clarity", "in order to",
+    for expected in ("PS.CLARITY.009", "safe-fix", "clarity", "prior to",
                      "Should match:", "Should not match:", "Produces:",
                      "project-authored"):
         assert expected in result.output

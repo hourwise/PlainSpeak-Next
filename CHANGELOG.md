@@ -39,6 +39,20 @@ contract keeps its shape. Recommended version: 1.1.0 ([V2_SCOPE.md](V2_SCOPE.md)
   the command that works; help shows `--stdin` examples and that `--profile`
   has no default. Input semantics and exit statuses are unchanged.
 
+- **Fourteen more SAFE rules reclassified after an independent review of the
+  Verify study** (ruleset 2026.7), which held each accepted SAFE substitution to
+  every context its matcher can reach: "must notify the authority in writing"
+  became "must tell"; "retained earnings" became "kept earnings";
+  "modified-release tablets" became "changed-release"; "enhanced due
+  diligence", "the additional rate" and "possess a controlled drug" are terms
+  of art; "Keep your papers in order to avoid delays" became "Keep your papers
+  to avoid delays"; a mid-sentence "furthermore", "moreover" or "additionally"
+  became a comma-bound "also". Found alongside: "Please act accordingly" became
+  "Please act so", "consequently" likewise, "hereafter" in a definition became
+  "from now on", "A large number of them" became "Many them". 97 of 220 rules
+  are now automatic; every ID is unchanged. The certification sample keeps "In
+  order to".
+
 See [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md).
 
 ### Added

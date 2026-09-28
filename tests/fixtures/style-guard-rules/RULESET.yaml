@@ -1,0 +1,7 @@
+ruleset_version: "fixture-1"
+description: >
+  A fixture for the style-guard tests. The three connective rules the guard was
+  first shown to hold back, copied verbatim from ruleset 2026.6, where they
+  were bundled safe fixes. Ruleset 2026.7 reclassified them as diagnostics
+  (mid-sentence they move the focus), so the bundled rules can no longer
+  exercise the guard; the guard is a mechanism and is tested on this.

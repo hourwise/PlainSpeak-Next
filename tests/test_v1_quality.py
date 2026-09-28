@@ -40,6 +40,17 @@ from plainspeak.style.profiles import load_profile
 
 PROFILES = ("natural", "plain", "technical", "government", "academic")
 
+#: The three connective rules the guard was first shown to hold back, as they
+#: were bundled in ruleset 2026.6. Ruleset 2026.7 reclassified them as
+#: diagnostics — mid-sentence, "The rent, moreover, is due" became "The rent,
+#: also, is due" — so the bundled rules no longer exercise the guard. The guard
+#: is a mechanism, and is tested on this fixture.
+from pathlib import Path as _Path
+
+from plainspeak.rules import load_ruleset as _load_ruleset
+
+GUARD_RULES = _load_ruleset(_Path(__file__).resolve().parent / "fixtures" / "style-guard-rules")
+
 #: Four paragraphs that lean on "Furthermore", "Moreover" and "Additionally".
 #: Three safe fixes turn all three into "Also,", which on its own would make
 #: twelve of twenty sentences begin with the same word.
@@ -70,7 +81,7 @@ _RANK = {"": 0, "info": 1, "notice": 2, "strong": 3}
 
 def test_safe_changes_never_make_a_baseline_diagnostic_more_severe():
     before = severities(SIGNPOSTED)
-    after = severities(present_text(SIGNPOSTED, "natural").text)
+    after = severities(present_text(SIGNPOSTED, "natural", ruleset=GUARD_RULES).text)
     worse = {key: (before.get(key, ""), value) for key, value in after.items()
              if _RANK[value] > _RANK[before.get(key, "")]}
     assert worse == {}
@@ -80,7 +91,7 @@ def test_without_the_guard_the_same_changes_would_have():
     """The case the guard exists for, shown to be real rather than assumed."""
     from plainspeak.pipeline import Span
 
-    plan = build_plan(parse_source(SIGNPOSTED))
+    plan = build_plan(parse_source(SIGNPOSTED), GUARD_RULES)
     withheld = [item for item in plan.refused if item.reason.startswith(REFUSAL_STYLE_REGRESSION)]
     assert withheld
     replacements = [(item.source_span, item.replacement) for item in plan.accepted]
@@ -95,7 +106,7 @@ def test_without_the_guard_the_same_changes_would_have():
 
 
 def test_a_withheld_change_is_refused_with_the_diagnostic_named():
-    result = present_text(SIGNPOSTED, "natural")
+    result = present_text(SIGNPOSTED, "natural", ruleset=GUARD_RULES)
     withheld = [item for item in result.refused if REFUSAL_STYLE_REGRESSION in item.refusal]
     assert withheld
     for item in withheld:
@@ -106,7 +117,7 @@ def test_a_withheld_change_is_refused_with_the_diagnostic_named():
 
 def test_a_rule_is_admitted_or_withheld_as_a_whole():
     """Never some of one rule's replacements and not others."""
-    result = present_text(SIGNPOSTED, "natural")
+    result = present_text(SIGNPOSTED, "natural", ruleset=GUARD_RULES)
     applied = {item.rule_id for item in result.applied}
     withheld = {item.rule_id for item in result.refused if REFUSAL_STYLE_REGRESSION in item.refusal}
     assert applied and withheld
@@ -114,7 +125,7 @@ def test_a_rule_is_admitted_or_withheld_as_a_whole():
 
 
 def test_the_guard_admits_rules_in_identifier_order():
-    result = present_text(SIGNPOSTED, "natural")
+    result = present_text(SIGNPOSTED, "natural", ruleset=GUARD_RULES)
     applied = sorted({item.rule_id for item in result.applied})
     withheld = sorted({item.rule_id for item in result.refused
                        if REFUSAL_STYLE_REGRESSION in item.refusal})
@@ -133,7 +144,7 @@ def test_the_guard_does_nothing_when_nothing_gets_worse():
 
 def test_safe_output_does_not_depend_on_the_profile():
     """The guard judges against the baseline, so SAFE means the same for everyone."""
-    outputs = {present_text(SIGNPOSTED, name).text for name in PROFILES}
+    outputs = {present_text(SIGNPOSTED, name, ruleset=GUARD_RULES).text for name in PROFILES}
     assert len(outputs) == 1
 
 
@@ -147,8 +158,8 @@ def test_the_plan_names_the_style_policy_it_was_guarded_under():
 
 
 def test_the_guard_is_deterministic():
-    first = build_plan(parse_source(SIGNPOSTED))
-    second = build_plan(parse_source(SIGNPOSTED))
+    first = build_plan(parse_source(SIGNPOSTED), GUARD_RULES)
+    second = build_plan(parse_source(SIGNPOSTED), GUARD_RULES)
     assert plan_to_dict(first) == plan_to_dict(second)
 
 
@@ -259,7 +270,8 @@ def test_the_desktop_session_carries_the_coverage(tmp_path):
 def test_a_short_text_still_gets_its_safe_fixes():
     """Too short for style is not too short for safe changes, and the guard stays out of it."""
     result = present_text(SHORT, "natural")
-    assert {item.rule_id for item in result.applied} >= {"PS.CLARITY.001", "PS.CLARITY.009"}
+    # PS.LEXICAL.001 in place of PS.CLARITY.001 (ruleset 2026.7 reclassified "in order to").
+    assert {item.rule_id for item in result.applied} >= {"PS.LEXICAL.001", "PS.CLARITY.009"}
     assert "before 3 June 2027" in result.text
 
 

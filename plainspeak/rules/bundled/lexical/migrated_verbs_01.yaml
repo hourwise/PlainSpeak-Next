@@ -638,43 +638,6 @@ examples:
       after: "The report used the word explain."
 
 ---
-id: PS.LEXICAL.147
-version: 1
-name: enhance-to-improve
-mode: safe-fix
-description: >
-  "Enhance" is "improve" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "enhance"
-  pos: verb
-action:
-  type: replace
-  lemma: "improve"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"improve\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word enhance."
-    - "The report used the word enhances."
-  negative:
-    - "The token enhancer is a different word."
-  transform:
-    - before: "The report used the word enhance."
-      after: "The report used the word improve."
-
----
 id: PS.LEXICAL.148
 version: 1
 name: enumerate-to-list
@@ -934,43 +897,6 @@ examples:
       after: "The report used the word step in."
 
 ---
-id: PS.LEXICAL.182
-version: 1
-name: modify-to-change
-mode: safe-fix
-description: >
-  "Modify" is "change" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "modify"
-  pos: verb
-action:
-  type: replace
-  lemma: "change"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"change\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word modify."
-    - "The report used the word modifies."
-  negative:
-    - "The token modifyr is a different word."
-  transform:
-    - before: "The report used the word modify."
-      after: "The report used the word change."
-
----
 id: PS.LEXICAL.184
 version: 1
 name: necessitate-to-require
@@ -1006,43 +932,6 @@ examples:
   transform:
     - before: "The report used the word necessitate."
       after: "The report used the word require."
-
----
-id: PS.LEXICAL.186
-version: 1
-name: notify-to-tell
-mode: safe-fix
-description: >
-  "Notify" is "tell" in plainer words. Migrated from the
-  inherited glossary after individual review; the forms this matches are
-  listed in the rule explanation rather than inferred.
-match:
-  type: lemma
-  lemma: "notify"
-  pos: verb
-action:
-  type: replace
-  lemma: "tell"
-scope:
-  include: [prose]
-case:
-  policy: preserve
-priority: 100
-reason:
-  short: "\"tell\" is the everyday word"
-provenance:
-  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The report used the word notify."
-    - "The report used the word notifies."
-  negative:
-    - "The token notifyr is a different word."
-  transform:
-    - before: "The report used the word notify."
-      after: "The report used the word tell."
 
 ---
 id: PS.LEXICAL.191
@@ -1117,3 +1006,114 @@ examples:
   transform:
     - before: "The report used the word originate."
       after: "The report used the word start."
+
+---
+id: PS.LEXICAL.198
+version: 1
+name: perpetuate-to-continue
+mode: safe-fix
+description: >
+  "Perpetuate" is "continue" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "perpetuate"
+  pos: verb
+action:
+  type: replace
+  lemma: "continue"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"continue\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word perpetuate."
+    - "The report used the word perpetuates."
+  negative:
+    - "The token perpetuater is a different word."
+  transform:
+    - before: "The report used the word perpetuate."
+      after: "The report used the word continue."
+
+---
+id: PS.LEXICAL.205
+version: 1
+name: procure-to-get
+mode: safe-fix
+description: >
+  "Procure" is "get" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "procure"
+  pos: verb
+action:
+  type: replace
+  lemma: "get"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"get\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word procure."
+    - "The report used the word procures."
+  negative:
+    - "The token procurer is a different word."
+  transform:
+    - before: "The report used the word procure."
+      after: "The report used the word get."
+
+---
+id: PS.LEXICAL.206
+version: 1
+name: prohibit-to-ban
+mode: safe-fix
+description: >
+  "Prohibit" is "ban" in plainer words. Migrated from the
+  inherited glossary after individual review; the forms this matches are
+  listed in the rule explanation rather than inferred.
+match:
+  type: lemma
+  lemma: "prohibit"
+  pos: verb
+action:
+  type: replace
+  lemma: "ban"
+scope:
+  include: [prose]
+case:
+  policy: preserve
+priority: 100
+reason:
+  short: "\"ban\" is the everyday word"
+provenance:
+  source: "PlainSpeak inherited glossary, individually reviewed and re-authored"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The report used the word prohibit."
+    - "The report used the word prohibits."
+  negative:
+    - "The token prohibitr is a different word."
+  transform:
+    - before: "The report used the word prohibit."
+      after: "The report used the word ban."

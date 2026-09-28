@@ -38,8 +38,10 @@ PUBLISHED_INPUT = "In order to facilitate the completion of the task, the user s
 
 def test_field_001_the_published_failure_is_fixed():
     result = present_text(PUBLISHED_INPUT, "natural")
-    assert result.text == "To facilitate the completion of the task, the user should verify the configuration.\n"
-    assert [item.rule_id for item in result.applied] == ["PS.CLARITY.001"]
+    # Ruleset 2026.6 stopped "facilitate" -> "help"; 2026.7 also stopped
+    # "in order to" -> "to" (V2-F), so the published sentence is now left as it is.
+    assert result.text == PUBLISHED_INPUT
+    assert result.applied == ()
 
 
 @pytest.mark.parametrize("sentence", [
@@ -90,6 +92,23 @@ RECLASSIFIED = {
     "PS.LEXICAL.209": ("quantitative", "The bank began quantitative easing.", "numerical easing"),
     "PS.LEXICAL.208": ("qualitative", "We used qualitative research methods.", "descriptive research"),
     "PS.LEXICAL.155": ("feasible", "It is feasible to finish by Friday.", "workable to finish"),
+    # V2-F: the independent review of the Verify study's accepted SAFE substitutions.
+    "PS.LEXICAL.186": ("notify", "The tenant must notify the authority in writing within 14 days.",
+                       "must tell the authority"),
+    "PS.LEXICAL.221": ("retain", "The company reported £5 million in retained earnings.", "kept earnings"),
+    "PS.LEXICAL.182": ("modify", "The patient must not crush modified-release tablets.", "changed-release"),
+    "PS.LEXICAL.147": ("enhance", "Staff need an enhanced DBS check.", "improved DBS"),
+    "PS.LEXICAL.200": ("possess", "It is an offence to possess a controlled drug.", "to have a controlled"),
+    "PS.LEXICAL.161": ("furthermore", "The tenant, furthermore, must pay the fee.", ", also,"),
+    "PS.LEXICAL.183": ("moreover", "The rent, moreover, is due monthly.", ", also,"),
+    "PS.LEXICAL.103": ("additionally", "The fee is, additionally, non-refundable.", ", also,"),
+    "PS.LEXICAL.009": ("additional", "You pay tax at the additional rate.", "extra rate"),
+    "PS.CLARITY.001": ("in-order-to", "Keep your papers in order to avoid delays.", "papers to avoid"),
+    # Found alongside the V2-F review, the same defect shape.
+    "PS.LEXICAL.101": ("accordingly", "Please act accordingly.", "act so"),
+    "PS.LEXICAL.122": ("consequently", "The rent was, consequently, increased.", ", so,"),
+    "PS.LEXICAL.164": ("hereafter", "The Company (hereafter the Seller) agrees.", "from now on"),
+    "PS.CLARITY.007": ("a-large-number-of", "A large number of them were late.", "Many them"),
 }
 
 
@@ -104,10 +123,13 @@ def test_field_001_reclassified_rules_stay_diagnostics_under_their_ids(ruleset, 
     assert text.strip() == sentence
 
 
+HAND_AUTHORED = {"PS.LEXICAL.010", "PS.LEXICAL.009", "PS.CLARITY.001", "PS.CLARITY.007"}
+
+
 def test_field_001_rule_ids_are_bound_to_their_terms():
     registry = json.loads((ROOT / "migration" / "rule-ids.json").read_text(encoding="utf-8"))
     for rule_id, (term, _sentence, _broken) in RECLASSIFIED.items():
-        if rule_id != "PS.LEXICAL.010":  # hand-authored, not in the migration registry
+        if rule_id not in HAND_AUTHORED:  # not in the migration registry
             assert registry[term] == rule_id
 
 
@@ -116,7 +138,6 @@ def test_field_001_rule_ids_are_bound_to_their_terms():
     ("Work will commence on Monday.", "Work will start on Monday."),
     ("It costs approximately £40.", "It costs about £40."),
     ("You can obtain a copy online.", "You can get a copy online."),
-    ("Please retain your receipt.", "Please keep your receipt."),
     ("You must reside in the borough.", "You must live in the borough."),
     ("We will relocate the office.", "We will move the office."),
     ("Henceforth the office is closed.", "From now on the office is closed."),
@@ -146,9 +167,9 @@ def test_field_001_no_automatic_rule_replaces_a_verb_with_a_separable_phrasal_ve
 
 
 def test_field_001_the_ruleset_records_the_reclassification(ruleset):
-    assert ruleset.version == "2026.6"
+    assert ruleset.version == "2026.7"
     assert len(ruleset) == 220
-    assert len([rule for rule in ruleset.rules if rule.mode == "safe-fix"]) == 111
+    assert len([rule for rule in ruleset.rules if rule.mode == "safe-fix"]) == 97
 
 
 # ── FIELD-003 ───────────────────────────────────────────────────────────────
@@ -261,7 +282,7 @@ def test_field_002_help_shows_stdin_and_the_required_profile():
 
 
 def test_file_and_stdin_give_the_same_transformation(tmp_path):
-    text = "In order to finish, utilise the portal.\n"
+    text = "Prior to finishing, utilise the portal.\n"
     source = tmp_path / "doc.md"
     source.write_bytes(text.encode("utf-8"))
     from_file = json.loads(CliRunner().invoke(main, ["present", str(source), "--profile", "natural"]).output)

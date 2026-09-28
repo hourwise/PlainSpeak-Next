@@ -26,7 +26,8 @@ def test_the_contract():
                 "diagnostics", "style_coverage", "readability", "plainspeak_version"):
         assert key in data
     assert "output" not in data and "applied" not in data
-    assert data["counts"]["safe"] == len(data["safe"]) == 3
+    # utilize -> use and prior to -> before; "in order to" is a diagnostic since ruleset 2026.7.
+    assert data["counts"]["safe"] == len(data["safe"]) == 2
 
 
 @pytest.mark.parametrize("path", sorted(CORPUS.glob("*.md"))[:9], ids=lambda path: path.stem)

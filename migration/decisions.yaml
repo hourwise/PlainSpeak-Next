@@ -26,7 +26,6 @@ safe_fix_verbs:
   - {term: utilize, target: use}
   - {term: commence, target: start}
   - {term: alter, target: change}
-  - {term: modify, target: change}
   - {term: obtain, target: get}
   - {term: procure, target: get}
   - {term: discontinue, target: stop}
@@ -34,13 +33,11 @@ safe_fix_verbs:
   - {term: depict, target: show}
   - {term: elucidate, target: explain}
   - {term: enumerate, target: list}
-  - {term: notify, target: tell}
   - {term: apprise, target: tell}
   - {term: concur, target: agree}
   - {term: corroborate, target: support}
   - {term: alleviate, target: reduce}
   - {term: ameliorate, target: improve}
-  - {term: enhance, target: improve}
   - {term: exacerbate, target: worsen}
   - {term: necessitate, target: require}
   - {term: prohibit, target: ban}
@@ -54,8 +51,6 @@ safe_fix_verbs:
   - {term: intervene, target: step in}
   - {term: originate, target: start}
   - {term: initiate, target: start}
-  - {term: possess, target: have}
-  - {term: retain, target: keep}
   - {term: reside, target: live}
   - {term: attain, target: reach}
   - {term: append, target: add}
@@ -115,15 +110,9 @@ safe_fix_words:
   - {term: deficient, target: lacking}
   - {term: definitive, target: final}
   - {term: innovative, target: new}
-  - {term: additionally, target: also}
-  - {term: furthermore, target: also}
-  - {term: moreover, target: also}
-  - {term: accordingly, target: so}
-  - {term: consequently, target: so}
   - {term: frequently, target: often}
   - {term: predominantly, target: mainly}
   - {term: henceforth, target: from now on}
-  - {term: hereafter, target: from now on}
 
 # ── Reported, not rewritten ────────────────────────────────────────────────
 #
@@ -164,6 +153,22 @@ diagnostic:
   - {term: quantitative, reason: "'quantitative easing' became 'numerical easing'"}
   - {term: qualitative, reason: "'qualitative research' is a method; 'descriptive research' is a different one"}
   - {term: feasible, reason: "'it is feasible to finish' became 'it is workable to finish'"}
+  # Reclassified after the independent review of the Verify study (ruleset 2026.7).
+  # A SAFE rule must be defensible wherever its matcher can fire, not only in the
+  # sentence that exercised it; each of these fired in a realistic construction
+  # where the substitution altered a term of art, weakened a legal or procedural
+  # meaning, or shifted what a sentence says. See V2_FIELD_FINDINGS.md.
+  - {term: notify, reason: "notice is a procedure, not a conversation: 'must notify the authority in writing within 14 days' became 'must tell the authority in writing', and 'notified of the decision' became 'told of the decision'"}
+  - {term: retain, reason: "'retained earnings' (an accounting term) became 'kept earnings'; 'the solicitor was retained' (engaged) became 'the solicitor was kept'"}
+  - {term: modify, reason: "'modified-release tablets' (a clinical term) became 'changed-release tablets'; 'genetically modified' became 'genetically changed'"}
+  - {term: enhance, reason: "'an enhanced DBS check' and 'enhanced due diligence' are defined terms; they became 'improved'"}
+  - {term: possess, reason: "possession is a legal term of art: 'it is an offence to possess a controlled drug' became 'to have a controlled drug'"}
+  - {term: furthermore, reason: "mid-sentence it moves the focus: 'The tenant, furthermore, must pay' became 'The tenant, also, must pay', which implies someone else must pay too"}
+  - {term: moreover, reason: "mid-sentence it moves the focus: 'The rent, moreover, is due monthly' became 'The rent, also, is due monthly'"}
+  - {term: additionally, reason: "mid-sentence it moves the focus: 'The fee is, additionally, non-refundable' became 'The fee is, also, non-refundable'"}
+  - {term: accordingly, reason: "found while repairing tests in the 2026.7 review, the same family as 'furthermore': 'Please act accordingly' became 'Please act so', and 'The fee is accordingly waived' became 'The fee is so waived'"}
+  - {term: consequently, reason: "found while repairing tests in the 2026.7 review, the same family as 'furthermore': 'The rent was, consequently, increased' became 'The rent was, so, increased'"}
+  - {term: hereafter, reason: "found while repairing tests in the 2026.7 review: in a definition it means 'from this point in the document', and 'The Company (hereafter the Seller)' became 'The Company (from now on the Seller)'"}
   # Reclassified from safe-fix in the V1 acceptance review (ruleset 2026.5):
   # each broke a real sentence in the acceptance corpus or its probe.
   - {term: empirical, reason: "'empirical evidence' is evidence from observation or experiment, not 'observed evidence'"}

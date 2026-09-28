@@ -191,6 +191,14 @@ The judgements in the study were all written by the same agent that built
 Verify; an independent human reading of that bundle is the check this study
 cannot supply for itself.
 
+That reading agreed with every Verify outcome and questioned four of the SAFE
+substitutions the PlainSpeak cases were accepted on. Re-examined against every
+context their matchers can reach, ten substitution families were reclassified
+(ruleset 2026.7), and four more of the same shape were found alongside them;
+see [V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md). The study was re-run again
+with no case changed: every result and outcome is the same, still with no
+false acceptance.
+
 ## Reproducing it
 
 ```bash

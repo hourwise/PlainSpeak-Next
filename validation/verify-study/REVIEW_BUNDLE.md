@@ -9,7 +9,7 @@ blocker.**
 
 - Cases judged to change protected meaning: 35
 - ACCEPTED cases resting on a move or a fact equivalence: 2
-- ACCEPTED cases resting on PlainSpeak's SAFE rules: 13
+- ACCEPTED cases resting on PlainSpeak's SAFE rules: 7
 - Historical false-acceptance probes: 2
 
 ## 1. The historical false acceptances
@@ -60,26 +60,6 @@ reviewed SAFE rules. Field testing of 1.0.0 found one such rule wrong
 (FIELD-001, facilitate → help) and 27 more like it, all now diagnostics; a
 reviewer should read each remaining substitution in its sentence.
 
-### P-ai-blog-intro — plainspeak — Verify: **ACCEPTED**
-
-- Judged: meaning **preserved** — PlainSpeak's own SAFE changes
-- Source: `corpus/ai-blog-intro`; producer: plainspeak present --profile natural, for all 27 acceptance-corpus documents
-- Verify's findings: safe_rule
-- What changed:
-  - …how organizations operate. **[Furthermore, → Also,]** leveraging cutting-edge technologies…
-  - …their workflows and **[enhance → improve]** productivity. Moreover, a…
-  - …organization's strategic vision. **[Additionally, → Also,]** it is essential…
-  - …into the data **[in order → ∅]** to ascertain which…
-
-### P-ai-cover-letter — plainspeak — Verify: **ACCEPTED**
-
-- Judged: meaning **preserved** — PlainSpeak's own SAFE changes
-- Source: `corpus/ai-cover-letter`; producer: plainspeak present --profile natural, for all 27 acceptance-corpus documents
-- Verify's findings: safe_rule
-- What changed:
-  - …in operational costs. **[Furthermore, → Also,]** I possess a…
-  - …costs. Furthermore, I **[possess → have]** a comprehensive understanding…
-
 ### P-ai-guide — plainspeak — Verify: **ACCEPTED**
 
 - Judged: meaning **preserved** — PlainSpeak's own SAFE changes
@@ -87,11 +67,6 @@ reviewer should read each remaining substitution in its sentence.
 - Verify's findings: safe_rule
 - What changed:
   - …imperative that you **[utilize → use]** a unique password…
-  - …of a breach. **[Additionally, → Also,]** passwords should contain…
-  - …numbers and symbols. **[Furthermore, → Also,]** enabling two-factor authentication…
-  - …authentication provides an **[additional → extra]** layer of protection.…
-  - …layer of protection. **[Moreover, → Also,]** a reputable password…
-  - …you can substantially **[enhance → improve]** your digital security…
 
 ### P-ai-product-answer — plainspeak — Verify: **ACCEPTED**
 
@@ -99,11 +74,7 @@ reviewer should read each remaining substitution in its sentence.
 - Source: `corpus/ai-product-answer`; producer: plainspeak present --profile natural, for all 27 acceptance-corpus documents
 - Verify's findings: safe_rule
 - What changed:
-  - …Great question! **[In order to → To]** get the most…
-  - …your notification settings. **[Furthermore, → Also,]** the reporting module…
-  - …provide actionable insights. **[Additionally, → Also,]** you can utilize…
   - …Additionally, you can **[utilize → use]** the export function…
-  - …all exports are **[retained → kept]** for 30 days,…
   - …are permanently deleted. **[It is worth noting that exports → Exports]** larger than 50…
 
 ### P-ai-summary-email — plainspeak — Verify: **ACCEPTED**
@@ -112,18 +83,7 @@ reviewer should read each remaining substitution in its sentence.
 - Source: `corpus/ai-summary-email`; producer: plainspeak present --profile natural, for all 27 acceptance-corpus documents
 - Verify's findings: safe_rule
 - What changed:
-  - …of yesterday's meeting **[in order → ∅]** to ensure that…
-  - …communications going forward. **[Additionally, → Also,]** it should be…
   - …must be completed **[prior to → before]** launch. Furthermore, all…
-  - …prior to launch. **[Furthermore, → Also,]** all team members…
-
-### P-finance-policy-excerpt — plainspeak — Verify: **ACCEPTED**
-
-- Judged: meaning **preserved** — PlainSpeak's own SAFE changes
-- Source: `corpus/finance-policy-excerpt`; producer: plainspeak present --profile natural, for all 27 acceptance-corpus documents
-- Verify's findings: safe_rule
-- What changed:
-  - …schedule. You must **[notify → tell]** us of any…
 
 ### P-gov-benefits-eligibility — plainspeak — Verify: **ACCEPTED**
 
@@ -131,7 +91,6 @@ reviewer should read each remaining substitution in its sentence.
 - Source: `corpus/gov-benefits-eligibility`; producer: plainspeak present --profile natural, for all 27 acceptance-corpus documents
 - Verify's findings: safe_rule
 - What changed:
-  - …12 August 2026. **[In order to → To]** determine eligibility, consideration…
   - …This award will **[commence → start]** on 1 September…
 
 ### P-gov-council-tax — plainspeak — Verify: **ACCEPTED**
@@ -140,8 +99,6 @@ reviewer should read each remaining substitution in its sentence.
 - Source: `corpus/gov-council-tax`; producer: plainspeak present --profile natural, for all 27 acceptance-corpus documents
 - Verify's findings: safe_rule
 - What changed:
-  - …you are hereby **[notified → told]** that you are…
-  - …method, you must **[notify → tell]** the Council prior…
   - …notify the Council **[prior to → before]** the first instalment…
 
 ### P-gov-nhs-appointment — plainspeak — Verify: **ACCEPTED**
@@ -151,7 +108,6 @@ reviewer should read each remaining substitution in its sentence.
 - Verify's findings: safe_rule
 - What changed:
   - …arrive 15 minutes **[prior to → before]** your appointment in…
-  - …to your appointment **[in order → ∅]** to complete registration.…
 
 ### P-short-agent-reply-2 — plainspeak — Verify: **ACCEPTED**
 
@@ -159,34 +115,7 @@ reviewer should read each remaining substitution in its sentence.
 - Source: `corpus/short-agent-reply-2`; producer: plainspeak present --profile natural, for all 27 acceptance-corpus documents
 - Verify's findings: safe_rule
 - What changed:
-  - … **[In order to → To]** reset your password,…
   - …your password, please **[utilize → use]** the link sent…
-
-### P-tech-api-reference — plainspeak — Verify: **ACCEPTED**
-
-- Judged: meaning **preserved** — PlainSpeak's own SAFE changes
-- Source: `corpus/tech-api-reference`; producer: plainspeak present --profile natural, for all 27 acceptance-corpus documents
-- Verify's findings: safe_rule
-- What changed:
-  - …per API key; **[additional → extra]** requests receive `429`…
-  - …Orders cannot be **[modified → changed]** after 24 hours.…
-
-### P-tech-postmortem — plainspeak — Verify: **ACCEPTED**
-
-- Judged: meaning **preserved** — PlainSpeak's own SAFE changes
-- Source: `corpus/tech-postmortem`; producer: plainspeak present --profile natural, for all 27 acceptance-corpus documents
-- Verify's findings: safe_rule
-- What changed:
-  - …sizes below 20. **[Additionally, → Also,]** an alert will…
-
-### P-tech-readme-install — plainspeak — Verify: **ACCEPTED**
-
-- Judged: meaning **preserved** — PlainSpeak's own SAFE changes
-- Source: `corpus/tech-readme-install`; producer: plainspeak present --profile natural, for all 27 acceptance-corpus documents
-- Verify's findings: safe_rule
-- What changed:
-  - …installer does not **[modify → change]** system Python. In…
-  - …modify system Python. **[In order to → To]** use a proxy,…
 
 ## 4. Every case judged to change protected meaning
 

@@ -83,7 +83,7 @@ def test_plainspeak_present_output_is_accepted_and_explained():
     explained = {(item["before"], item["after"]) for item in result.equivalences
                  if item["code"] == EQUIVALENCE_RULE}
     assert ("utilize", "use") in explained
-    assert ("in order to", "to") in explained
+    assert ("prior to", "before") in explained
 
 
 def test_a_subset_of_safe_changes_is_accepted():

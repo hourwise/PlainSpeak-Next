@@ -218,12 +218,13 @@ def test_a_multi_word_replacement_keeps_a_single_capital(bundled) -> None:
 
 def test_a_title_cased_phrase_keeps_title_case(bundled) -> None:
     """A genuinely multi-word capitalised match does get title case back."""
+    # "Due To The Fact That" in place of "In Order To" (ruleset 2026.7 reclassified PS.CLARITY.001, "in order to", as a diagnostic).
     match = next(
-        m for m in find_matches("Register In Order To Vote", bundled.rules)
-        if m.rule_id == "PS.CLARITY.001"
+        m for m in find_matches("Register Due To The Fact That Voting", bundled.rules)
+        if m.rule_id == "PS.CLARITY.002"
     )
-    assert match.matched_text == "In Order To"
-    assert match.replacement == "To"
+    assert match.matched_text == "Due To The Fact That"
+    assert match.replacement == "Because"
 
 
 # ── Deletion, spacing and punctuation ──────────────────────────────────────

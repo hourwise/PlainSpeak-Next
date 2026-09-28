@@ -9,23 +9,23 @@
 id: PS.CLARITY.001
 version: 1
 name: in-order-to
-mode: safe-fix
+mode: diagnostic
 description: >
-  "In order to" is "to" with three extra words. The infinitive that follows
-  carries the purpose on its own.
+  "In order to" is usually "to" with three extra words, but not always: "in
+  order" also means arranged, and a purpose infinitive can follow it. "Keep
+  your papers in order to avoid delays" became "Keep your papers to avoid
+  delays", losing the instruction to keep them organised. The matcher cannot
+  tell the two apart, so this is reported, not rewritten. Reclassified from
+  safe-fix after the independent review of the Verify study (ruleset 2026.7);
+  the rule ID is unchanged.
 match:
   type: phrase
   text: "in order to"
-action:
-  type: replace
-  replacement: "to"
 scope:
   include: [prose]
-case:
-  policy: preserve
 priority: 100
 reason:
-  short: "\"in order to\" is a longer way of writing \"to\""
+  short: "\"in order to\" can usually be \"to\", but not where \"in order\" means arranged"
 provenance:
   source: "PlainSpeak project rule research"
   reference: ""
@@ -36,9 +36,6 @@ examples:
     - "In order to apply, complete the form."
   negative:
     - "Please keep the files in order."
-  transform:
-    - before: "You must register in order to vote."
-      after: "You must register to vote."
 
 ---
 id: PS.CLARITY.002
@@ -214,22 +211,22 @@ examples:
 id: PS.CLARITY.007
 version: 1
 name: a-large-number-of
-mode: safe-fix
+mode: diagnostic
 description: >
-  "A large number of" counts nothing more precisely than "many" does.
+  "A large number of" counts nothing more precisely than "many" does, but it
+  takes a pronoun or a determiner where "many" needs "of": "A large number of
+  them were late" became "Many them were late", and "a large number of the
+  staff" became "many the staff". Found while repairing tests in the ruleset
+  2026.7 review and reclassified from safe-fix; reported, not rewritten. The
+  rule ID is unchanged.
 match:
   type: phrase
   text: "a large number of"
-action:
-  type: replace
-  replacement: "many"
 scope:
   include: [prose]
-case:
-  policy: preserve
 priority: 100
 reason:
-  short: "\"a large number of\" means \"many\""
+  short: "\"a large number of\" usually means \"many\", but \"many\" cannot always take its place"
 provenance:
   source: "PlainSpeak project rule research"
   reference: ""
@@ -239,9 +236,6 @@ examples:
     - "A large number of applications were received."
   negative:
     - "The form asks for a large number."
-  transform:
-    - before: "A large number of applications were received."
-      after: "Many applications were received."
 
 ---
 id: PS.CLARITY.008

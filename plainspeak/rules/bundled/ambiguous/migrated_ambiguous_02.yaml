@@ -164,6 +164,32 @@ examples:
     - "A different word entirely appears instead."
 
 ---
+id: PS.LEXICAL.101
+version: 1
+name: accordingly-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "accordingly" with
+  "so". This engine reports it instead: found while repairing tests in the 2026.7 review, the same family as 'furthermore': 'Please act accordingly' became 'Please act so', and 'The fee is accordingly waived' became 'The fee is so waived'.
+match:
+  type: word
+  text: "accordingly"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "found while repairing tests in the 2026.7 review, the same family as 'furthermore': 'Please act accordingly..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word accordingly here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
 id: PS.LEXICAL.102
 version: 1
 name: acquire-is-ambiguous
@@ -186,6 +212,32 @@ provenance:
 examples:
   positive:
     - "The notice used the word acquire here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.103
+version: 1
+name: additionally-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "additionally" with
+  "also". This engine reports it instead: mid-sentence it moves the focus: 'The fee is, additionally, non-refundable' became 'The fee is, also, non-refundable'.
+match:
+  type: word
+  text: "additionally"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "mid-sentence it moves the focus: 'The fee is, additionally, non-refundable' became 'The fee is, also, non-r..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word additionally here."
   negative:
     - "A different word entirely appears instead."
 
@@ -342,6 +394,32 @@ provenance:
 examples:
   positive:
     - "The notice used the word comprise here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
+id: PS.LEXICAL.122
+version: 1
+name: consequently-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "consequently" with
+  "so". This engine reports it instead: found while repairing tests in the 2026.7 review, the same family as 'furthermore': 'The rent was, consequently, increased' became 'The rent was, so, increased'.
+match:
+  type: word
+  text: "consequently"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "found while repairing tests in the 2026.7 review, the same family as 'furthermore': 'The rent was, conseque..."
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word consequently here."
   negative:
     - "A different word entirely appears instead."
 
@@ -658,6 +736,32 @@ examples:
     - "A different word entirely appears instead."
 
 ---
+id: PS.LEXICAL.147
+version: 1
+name: enhance-is-ambiguous
+mode: diagnostic
+description: >
+  The inherited glossary suggested replacing "enhance" with
+  "improve". This engine reports it instead: 'an enhanced DBS check' and 'enhanced due diligence' are defined terms; they became 'improved'.
+match:
+  type: word
+  text: "enhance"
+scope:
+  include: [prose]
+priority: 70
+reason:
+  short: "'an enhanced DBS check' and 'enhanced due diligence' are defined terms; they became 'improved'"
+provenance:
+  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
+  reference: "plainspeak/core/glossary.py"
+  licence: "project-authored"
+examples:
+  positive:
+    - "The notice used the word enhance here."
+  negative:
+    - "A different word entirely appears instead."
+
+---
 id: PS.LEXICAL.151
 version: 1
 name: expedite-is-ambiguous
@@ -680,109 +784,5 @@ provenance:
 examples:
   positive:
     - "The notice used the word expedite here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.153
-version: 1
-name: facilitate-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "facilitate" with
-  "help". This engine reports it instead: 'facilitate X' is 'make X easier', and 'help X' is 'assist X': 'facilitate the completion of the task' became 'help the completion of the task' (field report FIELD-001 on 1.0.0), 'facilitates access to' became 'helps access to', 'facilitate payment' became 'help payment'.
-match:
-  type: word
-  text: "facilitate"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "'facilitate X' is 'make X easier', and 'help X' is 'assist X': 'facilitate the completion of the task' beca..."
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word facilitate here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.155
-version: 1
-name: feasible-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "feasible" with
-  "workable". This engine reports it instead: 'it is feasible to finish' became 'it is workable to finish'.
-match:
-  type: word
-  text: "feasible"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "'it is feasible to finish' became 'it is workable to finish'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word feasible here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.159
-version: 1
-name: fundamental-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "fundamental" with
-  "basic". This engine reports it instead: means at the root, not merely basic: 'a fundamental shift' changed meaning.
-match:
-  type: word
-  text: "fundamental"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "means at the root, not merely basic: 'a fundamental shift' changed meaning"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word fundamental here."
-  negative:
-    - "A different word entirely appears instead."
-
----
-id: PS.LEXICAL.160
-version: 1
-name: furnish-is-ambiguous
-mode: diagnostic
-description: >
-  The inherited glossary suggested replacing "furnish" with
-  "give". This engine reports it instead: also means to put furniture in: 'furnish the flat' became 'give the flat'.
-match:
-  type: word
-  text: "furnish"
-scope:
-  include: [prose]
-priority: 70
-reason:
-  short: "also means to put furniture in: 'furnish the flat' became 'give the flat'"
-provenance:
-  source: "PlainSpeak inherited glossary, reviewed and kept as a diagnostic"
-  reference: "plainspeak/core/glossary.py"
-  licence: "project-authored"
-examples:
-  positive:
-    - "The notice used the word furnish here."
   negative:
     - "A different word entirely appears instead."

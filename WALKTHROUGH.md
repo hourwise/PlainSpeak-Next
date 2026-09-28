@@ -70,11 +70,10 @@ A profile is always required — PlainSpeak never chooses one for you. You will
 see:
 
 ```text
-PlainSpeak present — profile natural, ruleset 2026.6 (258b9e29edf4)
-input 2d3888ed6c930f0b  output fcfa1aa32c6e66e6
+PlainSpeak present — profile natural, ruleset 2026.7 (dc4146941049)
+input 2d3888ed6c930f0b  output e6b9106a71f199f1
 
-Applied automatically (SAFE): 3
-  'In order to' -> 'To'  [PS.CLARITY.001]
+Applied automatically (SAFE): 2
   'utilize' -> 'use'  [PS.LEXICAL.001]
   'prior to' -> 'before'  [PS.CLARITY.009]
 Awaiting a person (REVIEW, not applied): 2
@@ -95,9 +94,12 @@ Not enough text to judge 2 of 13 style diagnostics (INSUFFICIENT_SAMPLE) — the
 
 ## 4. Read what happened
 
-**Three SAFE changes were made.** Each is a rule from the published rulebook;
+**Two SAFE changes were made.** Each is a rule from the published rulebook;
 `plainspeak rules explain PS.CLARITY.009` shows any rule in full, with its
-examples. Every one passed the integrity check.
+examples. Every one passed the integrity check. "In order to" was left alone:
+it usually means "to", but "keep your papers in order to avoid delays" does
+not, and a rule that cannot tell the two apart is not allowed to rewrite
+either.
 
 **Two REVIEW suggestions were not made.** The text starts six paragraphs with
 "Nevertheless". PlainSpeak worked out that changing the last two is the fewest
@@ -132,10 +134,10 @@ For programs and AI agents, leave out `--format`: the default is a JSON record,
   "schema": "plainspeak.present.v1",
   "status": "ok",
   "profile": { "id": "natural", "version": 1, "sha256": "e6c391c6…" },
-  "counts": { "applied": 3, "review": 2, "refused": 1, "protected": 31,
+  "counts": { "applied": 2, "review": 2, "refused": 1, "protected": 31,
               "diagnostics": 5, "insufficient_sample": 2 },
   "input":  { "format": "markdown", "sha256": "2d3888ed…" },
-  "output": { "sha256": "fcfa1aa3…", "changed": true, "text": "…" }
+  "output": { "sha256": "e6b9106a…", "changed": true, "text": "…" }
 }
 ```
 
@@ -196,8 +198,7 @@ plainspeak verify reply.md reply-presented.md
 PlainSpeak verify — ACCEPTED
   every protected item survived, and every difference is one the integrity model accounts for.
 ...
-Accounted for: 3
-  PlainSpeak SAFE rule PS.CLARITY.001 'in order to' -> 'to'
+Accounted for: 2
   PlainSpeak SAFE rule PS.CLARITY.009 'prior to' -> 'before'
   PlainSpeak SAFE rule PS.LEXICAL.001 'utilize' -> 'use'
 ```

@@ -40,7 +40,7 @@ def run(*arguments):
 @pytest.mark.parametrize(
     "after,expected,word",
     [
-        ("You must pay £40 before 5pm.\n\nTo finish, use the portal.\n", EXIT_ACCEPTED, "ACCEPTED"),
+        ("You must pay £40 before 5pm.\n\nIn order to finish, use the portal.\n", EXIT_ACCEPTED, "ACCEPTED"),
         ("You should pay £40 before 5pm.\n\nTo finish, use the portal.\n", EXIT_REFUSED, "REFUSED"),
         ("You must pay £40 before 5pm.\n\nTo finish, use our shiny portal.\n", EXIT_INCONCLUSIVE,
          "INCONCLUSIVE"),

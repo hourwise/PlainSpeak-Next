@@ -6,7 +6,7 @@
     "note": "assignment, emergency exception and reasonableness dropped; \"not less than\" gone",
     "outcome": "correct",
     "protected": true,
-    "receipt": "b5cce0b0342e12f92ebb54e9d4ba8ecdc2468c51873bc48ad254ac379445c0d1",
+    "receipt": "70db302f5c57360988119633d244d9fd93198e60458ab61ae3006f72db19b014",
     "refused": [
       "comparator",
       "measurement",
@@ -26,7 +26,7 @@
     "note": "\"no later than\" and the managers' duty dropped",
     "outcome": "correct",
     "protected": true,
-    "receipt": "479b126613670fc246fabb2f77b006666e54c6675de445cab202060112783535",
+    "receipt": "ae92825c5deb48d52d2039df6a31fdd01e7dbc0898fc93e21c9fc581d7b15018",
     "refused": [
       "comparator",
       "modal"
@@ -42,7 +42,7 @@
     "note": "\"more than two claims in any 12-month period\" became \"after two claims in a year\"",
     "outcome": "correct",
     "protected": true,
-    "receipt": "1094a02ad59214d3d3ef9a5e451238efc78d25ea6e50967c569326dde7a32ee9",
+    "receipt": "43868cc099fd49970b8a37baa45413b5e6b04a4db5235ecd7387208b3fd3c01b",
     "refused": [
       "comparator",
       "modal",
@@ -59,7 +59,7 @@
     "note": "\"no earlier than 7 days\" became \"after 7 days\"; the \"do not revoke\" rule dropped",
     "outcome": "correct",
     "protected": true,
-    "receipt": "3f2c7740bc1ec59f6bf40574eaf67d4ae9f217ae21378d54defd676d870891cf",
+    "receipt": "61f553c93062b21d298dfa8030dc2bf715137e1a98d59c3d78145c2437f21076",
     "refused": [
       "comparator",
       "negation",
@@ -76,7 +76,7 @@
     "note": "\"usually within\" became \"in about\"; \"no paper copy\" dropped",
     "outcome": "correct",
     "protected": true,
-    "receipt": "0c762be93e7e817b86669d5fa7b1c979aa54b28bc0e3e4625cf184eb9decf6b3",
+    "receipt": "988d9f6f254daa64a9ce577000c679071ffb0946ca72f656f90e262879a86717",
     "refused": [
       "comparator",
       "modal",
@@ -93,7 +93,7 @@
     "note": "shall→must, \"not less than\"→\"at least\", \"save in the case of\"→\"except in\"",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "fcb2ef279291cc12843fafee5609a4b47969c9aacb8f05310ca582a5d4148acf",
+    "receipt": "9a9e83b082944c44db77daba032e06bf6e8580930a0c7079099026e7140af97e",
     "refused": [
       "comparator",
       "modal",
@@ -111,7 +111,7 @@
     "note": "plain rewrite; \"may request\"→\"can ask\", \"would be required\"→\"have to\"",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "e09a9b0793c1151ca5b46024a079bf4df245a92c1746f66a892190ff255b3180",
+    "receipt": "be4c3ba6a3deabadc36eddbdaf2e3ddc0274d9bb0adec8b1430db581f1eee59e",
     "refused": [
       "modal",
       "negation",
@@ -128,7 +128,7 @@
     "note": "imperative instead of should/must; \"prior to\"→\"before\"",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "7f872aafbe81399236ae2693dcbb643689e2c8a1ead5df65ed418f9f482b4168",
+    "receipt": "d8f764fa9a894c527c942c2a518256336a0cb75980baffbb0dd12e767255f0af",
     "refused": [
       "comparator",
       "modal",
@@ -145,7 +145,7 @@
     "note": "opening two sentences merged with \"only\" and \"never\"",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "f23f6f93a1e66c3eacf338429fa843e8ba83faa7e4682be60fefad674cadf7ba",
+    "receipt": "13f69b47b243d497163cf4d7a72e0de68efa63d42da4b797b217bf8a069d62f9",
     "refused": [
       "comparator"
     ],
@@ -160,7 +160,7 @@
     "note": "apology and stock phrases removed",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "5eb8ef8e1c1c068dd62f743107d38e6d58247fd8ee7016705df4d1d77e7e3e36",
+    "receipt": "9dd7a3b566d91dd5520d2dc12c045195bcedc3aada2224b57dc4ad0a9d9a1688",
     "refused": [
       "modal",
       "negation"
@@ -176,7 +176,7 @@
     "note": "\"limited to\"→\"up to\", \"subsequent\"→\"after the second\"",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "3d2c44b18b49a8ea223ac5f4f63889ba10282d0c7f0531fa2049dd10043974a4",
+    "receipt": "00bd63be2310ff1cfd48884c501f838285b5426f3372eb0c2a81efc7e01c8c0d",
     "refused": [
       "comparator",
       "modal"
@@ -192,7 +192,7 @@
     "note": "wording only; every keyword and value kept in order",
     "outcome": "caution (cost)",
     "protected": false,
-    "receipt": "a59d7cd09ae4be1b78bed78da4e2ca0f2e3a43e7d812606278e832a22ee77b38",
+    "receipt": "2720c29f7cf3dab18870e6fe9dd7e1e794df0bbc96e342267ecd39918f9c0cb1",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "sources/spec-password-reset",
@@ -208,7 +208,7 @@
     "note": "\"must be encrypted ... and must be tested\" → one \"must\" covering both",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "18dd16c3fdc1fb3d6c1f247110783998e77c557ad329c3be927fcaff10e39d21",
+    "receipt": "a8e2fe3b07f2e76f5ca33c66e95ef6a7af66177f37f70677fd6dc7506222670d",
     "refused": [
       "modal"
     ],
@@ -223,7 +223,7 @@
     "note": "two sentences joined with \"and\"",
     "outcome": "caution (cost)",
     "protected": false,
-    "receipt": "e2ecc07ce405597d5b81b31e7e97031d0cf7b977cbca907ba1bcb55214495bd7",
+    "receipt": "65a4d89dcac85396c2c1b0cf20d5d9181c1637b902afbdcba84dae2f63938194",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "corpus/good-plain-guide",
@@ -238,7 +238,7 @@
     "note": "rate limit restated as \"can make up to 100\"",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "9aca0645a85df5e63b84e3e8f43685a6883c710a039499d46e659111382b2040",
+    "receipt": "a81f5374fc1df6efff9b4e2be6c6e6902a202221dd147989ffdd92b43e054912",
     "refused": [
       "comparator",
       "modal"
@@ -254,7 +254,7 @@
     "note": "bulleted, cheerful; same instructions",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "6c4338d99b48185ab28c01b811c417f8bd482533c27b5da272c0f1093fafe9ea",
+    "receipt": "4efe2389d77d7151d701a6c6631e41fe7e1b780bce1d8f5a6d58625135ee73af",
     "refused": [
       "comparator",
       "modal",
@@ -271,7 +271,7 @@
     "note": "\"should appear\" became \"guaranteed\"",
     "outcome": "correct",
     "protected": true,
-    "receipt": "b70aec1c9513298c499e35073b25ef64bca649fefffeb3a2c1871c948fd7779e",
+    "receipt": "4c5808a30ea35c5ff62284389ee666849fea3f30a3a4fe97cb004f93550e83ab",
     "refused": [
       "modal"
     ],
@@ -286,7 +286,7 @@
     "note": "application date dropped; \"of the date of this letter\" dropped",
     "outcome": "correct",
     "protected": true,
-    "receipt": "bf5cd5136635e4284407af2e4576dfcd40b5f5c386b50c4e5c2b98342ee6f59f",
+    "receipt": "f8981086d65c3a725017c38e9893a48f19e559d54911ce277bff979e3b859dcd",
     "refused": [
       "date",
       "modal",
@@ -303,7 +303,7 @@
     "note": "assignment dropped; \"not less than 24 hours\" became \"with 24 hours\"",
     "outcome": "correct",
     "protected": true,
-    "receipt": "7ab6ac91d43baac8b18b71e707c9d5d08515d27eb52456d421dca9bd7f88ad8b",
+    "receipt": "e339ee6769a093bb27c90e106b00ed7d03974f37d549c4d0d160716f524da00c",
     "refused": [
       "comparator",
       "modal",
@@ -321,7 +321,7 @@
     "note": "prose into a numbered list",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "dba881a1980908723325585352cabf33747c82861c0b1e9a0f2e76972bd50e7e",
+    "receipt": "5015bc3970101becdcae2f870bde134a42ab66db8bf9567e973d0706d019e254",
     "refused": [
       "comparator",
       "modal",
@@ -338,7 +338,7 @@
     "note": "headings gone; \"which reached end of life\" dropped",
     "outcome": "correct",
     "protected": false,
-    "receipt": "4ced6b209d08a7eb88e525412214e76e753024a70b19c9631a4afd517a403bb5",
+    "receipt": "a030acd6aa2518590dc7a87d2ac2f09784185747383c5f1380bdcccbe8dabbf5",
     "refused": [
       "comparator",
       "number"
@@ -354,7 +354,7 @@
     "note": "\"thereof\" and the consent clause reworded; adds \"will\"",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "7d32db1706aaa1c7ae90512ca961a079e88a21d5655f2855d3f3515002d7ec56",
+    "receipt": "309d6949fb0c5ffd8d22844886685bca8ee592f33fe42b3710f3bb5b09b10f15",
     "refused": [
       "modal",
       "term"
@@ -370,7 +370,7 @@
     "note": "application date 12 August became 21 August",
     "outcome": "correct",
     "protected": true,
-    "receipt": "f43db8b4b9e68de23034f7b71e4600567791020cd25ef073993bc89f94481f0e",
+    "receipt": "a23bb00e5d8e1139e7758db4aa97081f24b23ada45d7541c3059434205e9634c",
     "refused": [
       "date"
     ],
@@ -385,7 +385,7 @@
     "note": "fasting instruction moved first",
     "outcome": "caution (cost)",
     "protected": false,
-    "receipt": "615457c3948dfebec586ac5359c832e771284ebca391f9df820b6acd22fed374",
+    "receipt": "bed9acb8be5370b3b7c12323a2114a366a2120fae0cd94c7b2a42b9047032ca0",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "corpus/gov-nhs-appointment",
@@ -400,7 +400,7 @@
     "note": "adds \"only\" for emphasis",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "8c3a271cfd400c7f90b5a073a214baa545937256b1a65a44bdd6c6f976339dea",
+    "receipt": "db99f712b3b8184355cb173ad8c9e2462daa1ed280e047127c2b54ce11c94243",
     "refused": [
       "comparator"
     ],
@@ -415,7 +415,7 @@
     "note": "exclusions as a bulleted list",
     "outcome": "caution (cost)",
     "protected": false,
-    "receipt": "d7453a48663272d27272d23bc346f97a7f8e7ee7c36c2d0bc62e1d2cbca711c6",
+    "receipt": "81dd8eb08e786892ac94f416388b2a0df0f67326b1e0972656423d84d5279696",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "corpus/finance-policy-excerpt",
@@ -430,7 +430,7 @@
     "note": "\"no longer freezes\" became \"Fixed ... freezing\"",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "78c23750f5cdbb5ce4534a0b4095cd7c75fbe8ec310a215a62d3bb6e86e7c54d",
+    "receipt": "8797f81f21825c13aa26c8a4aa3778160764e0bcd6adb28b1136f99b6fcd73fa",
     "refused": [
       "negation"
     ],
@@ -445,7 +445,7 @@
     "note": "apology sentence removed (tone only)",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "b2f4c1d99ab0a63f0bc2aacf2705bddee8f6a995ea85f527442ab6f51e441bbc",
+    "receipt": "c1d048c3480d8ce72e69eca696d62b2290ba46c2d105f017eb089620261f09fe",
     "refused": [
       "modal"
     ],
@@ -460,7 +460,7 @@
     "note": "\"shall endeavour\" (a duty) became \"will try\" (an intention)",
     "outcome": "correct",
     "protected": true,
-    "receipt": "57ba51aa38a4a7b870b1542661876634757cf89baaa9c0bca09c17c2ca54b260",
+    "receipt": "2f259eb851b998f8dd25865478b9060d49e6def8ba670f7f3696837dc1a63bf4",
     "refused": [
       "modal"
     ],
@@ -475,7 +475,7 @@
     "note": "step 2 fronted \"before switching\"",
     "outcome": "caution (cost)",
     "protected": false,
-    "receipt": "73805e14355a3ac423a38f7092a650b6fe4bc41d4a88eb8e0441c77d7e2472c8",
+    "receipt": "aefbab3b199bbaed3bfb60462ac4bc82eb7f4cfaeeff7133a077ff7b59b3e504",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "corpus/tech-runbook",
@@ -492,7 +492,7 @@
     "note": "£1,250 written as £1250",
     "outcome": "correct",
     "protected": false,
-    "receipt": "5e2639ac70aa5ea81be4beb96c46e4a4ac965e9e4de52bb37cf27b38851e4823",
+    "receipt": "1e2e61bea9cdff69f5e7c4e9f8e27b529c37c3dc269b3140213d52403838730f",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/legal-tenancy-clause",
@@ -505,7 +505,7 @@
     "note": "identical",
     "outcome": "correct",
     "protected": false,
-    "receipt": "2708e44d2ca9477c65e5dfbc12548423a37b9e0b1aa4ee91c4df745e073fca30",
+    "receipt": "31d8279efaa87bec608b8ab133cf99c8c0747d3fb24a6d0223a7ec42ab9249ac",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/good-plain-guide",
@@ -518,7 +518,7 @@
     "note": "adds \"easily\" and \"just\"",
     "outcome": "caution (cost)",
     "protected": false,
-    "receipt": "ccdbd7dc6eb4c109f5f96ae03d7566cadd593d57f0c7c518594e641bc8614ee1",
+    "receipt": "71c0f46fd5acbd6882f5894750424bc064a1b0f8d2e7ffc0f5b9d28b57da613f",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "corpus/good-plain-guide",
@@ -535,7 +535,7 @@
     "note": "line breaks only",
     "outcome": "correct",
     "protected": false,
-    "receipt": "e374129e27d034a4ec3fab4f645a3973995558ac16c5dfe3c0d05b2e5efe2100",
+    "receipt": "fc60d17f4a46616297c1532a3a55dad3b966bc3deee51ecf07d1e7b8c1f626fd",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/good-plain-guide",
@@ -548,7 +548,7 @@
     "note": "48 hours became 24 hours",
     "outcome": "correct",
     "protected": true,
-    "receipt": "529a0e1d183448e86b8da7ab82640787cfbf24e9f917bcb80c07cf047cc35317",
+    "receipt": "314abe31f637c28b252034aef06411c33eece2e345363f00cf0b33907ebc27b4",
     "refused": [
       "number"
     ],
@@ -563,7 +563,7 @@
     "note": "\"must not eat\" became \"must eat\"",
     "outcome": "correct",
     "protected": true,
-    "receipt": "2b2b6dde94c44d317e05c41ae2e57915d418b5bd9410e5947e64efd71dda7a5d",
+    "receipt": "62681ceb931d0494005b4fb9934203b4db9c2530175bb962f0797e53d6f25c40",
     "refused": [
       "negation"
     ],
@@ -578,7 +578,7 @@
     "note": "\"3% above\" became \"3% below\" — \"above\" is not a protected comparator",
     "outcome": "caution (correct)",
     "protected": true,
-    "receipt": "7369e173183ae6cda476ef52bc776820679b9853644604665d657c4ecfa48457",
+    "receipt": "fa8bda2353b9ff07065c4fceb671468e90b37414be4e5a22eda0177e99382162",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "corpus/legal-tenancy-clause",
@@ -593,7 +593,7 @@
     "note": "dates written as DD/MM/YYYY",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "86f5417ab03d676eb9950666e8caa0c810eb63707d5fa0ddccfcbb5ed490d6c2",
+    "receipt": "920858de3979ca18e307660ec54164eb788078f950821afec2ccae6a665417e1",
     "refused": [
       "date"
     ],
@@ -608,7 +608,7 @@
     "note": "\"more than two claims\" became \"two or more claims\"",
     "outcome": "correct",
     "protected": true,
-    "receipt": "7a6e309c274c305773a6ea6431e72925aefffb6ac81f6ccc5207aa14974a62f7",
+    "receipt": "c59ea22517c21b0ab58f9208b2593e9d3662f0ee97e64eb08227ce8e9b2e4f76",
     "refused": [
       "comparator"
     ],
@@ -623,7 +623,7 @@
     "note": "\"must not exceed 64 KB\" (≤) became \"must be under 64 KB\" (<)",
     "outcome": "correct",
     "protected": true,
-    "receipt": "0223d37ac44e798dd330de4faeacbcfd1de594a7320ab08e5b033a5751f4c490",
+    "receipt": "31ea8c7f0b83e019642029d190130012481d2fb998fb768699f7de3b7370ad21",
     "refused": [
       "negation"
     ],
@@ -638,7 +638,7 @@
     "note": "command in a code span changed",
     "outcome": "correct",
     "protected": true,
-    "receipt": "47415203f65f482486d425da60d9fbe09c75fb28e4e0bdb1cd26a62bdb9a6988",
+    "receipt": "8c6cf300399c1d2f8a31d42e09d83ce658beff1b23501063a895d220ce8432ed",
     "refused": [
       "code"
     ],
@@ -653,7 +653,7 @@
     "note": "invented a pay-out rule that contradicts forfeiture",
     "outcome": "caution (correct)",
     "protected": false,
-    "receipt": "32d58e0534f639e86c1f2c88a3fb29400c39abd7491b6f7e18430a2f20be371f",
+    "receipt": "af4bb114c49e4d02e5d57eec875e6c0a7a7c41e164cd1f5fe48ff053ed1ac059",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "corpus/gov-hr-policy",
@@ -668,7 +668,7 @@
     "note": "last paragraph (no restocking fee) missing",
     "outcome": "correct",
     "protected": true,
-    "receipt": "f94e172421bcdb0cc45968274705c3d63752c5535beac7c0c8c2d0e64d394391",
+    "receipt": "a58e6b446dca4f1b1badd6e72e3c8d83af289c7393e4350113ac141eb5e9c84f",
     "refused": [
       "modal",
       "negation"
@@ -684,7 +684,7 @@
     "note": "\"MUST NOT be usable more than once\" became \"MUST be usable once\"",
     "outcome": "correct",
     "protected": true,
-    "receipt": "302a0665dbaecf9dd6af93e9bb8061dc5c3907907dc5b8cabee708b6e1e5158c",
+    "receipt": "b3a79ed601ec2305a584d857086a55a08c22cad268b11d02b21917b5e421de05",
     "refused": [
       "comparator",
       "negation"
@@ -694,30 +694,26 @@
     "unresolved": []
   },
   "P-ai-blog-intro": {
-    "accounted_for": [
-      "safe_rule"
-    ],
+    "accounted_for": [],
     "class": "plainspeak",
     "meaning": "preserved",
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "810e48c532aca200a4395b9eb32a65898c2dd8bd939c96e7abd479a6e404bed9",
+    "receipt": "a99f6cb1cbf8afe8328a6558c6cdc424f3d941712a853dc53fd2396e97de49de",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/ai-blog-intro",
     "unresolved": []
   },
   "P-ai-cover-letter": {
-    "accounted_for": [
-      "safe_rule"
-    ],
+    "accounted_for": [],
     "class": "plainspeak",
     "meaning": "preserved",
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "dd093db65c77882d2f7c62729585e365c0b74a94e1272a766c333ff9937083eb",
+    "receipt": "1c19f99b040b0be52f734c2f881b8164df84f5c1179249e86b83a06991ee2bb2",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/ai-cover-letter",
@@ -732,7 +728,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "83747e3bd60594c23384eda28a211dc4e0124181d6f833fc67ca4e1807ad74ed",
+    "receipt": "a896f1399cbe85c39822fc42e2a5d69e578f0c27b3c5e04d2fc1e2387146003c",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/ai-guide",
@@ -747,7 +743,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "53dcc17d9d130888c1c266b1e53868e761a2b280f06ebe6c7ae3c6b477bba4d4",
+    "receipt": "893f2d2da8cdb508cc72273e31144e543a603d53871f901bac07bc854bb30a8f",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/ai-product-answer",
@@ -762,7 +758,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "ae1e349bf5afed6b0697414d4696c3f0404e39bef607abb81979a9067c0cc28f",
+    "receipt": "84043f6878644d9a75d31d4a08bfb69bee2d0ac204e7f7894b5ccd3540d930a3",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/ai-summary-email",
@@ -775,22 +771,20 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "17a17148fe50ffb71448202f35205f3854a59953a9bc674b4e75573d3dad9efb",
+    "receipt": "74a0018541a5ded176a135194f6358015503591973aaf18ffc55af0567f3ab41",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/ai-support-reply",
     "unresolved": []
   },
   "P-finance-policy-excerpt": {
-    "accounted_for": [
-      "safe_rule"
-    ],
+    "accounted_for": [],
     "class": "plainspeak",
     "meaning": "preserved",
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "bd232118d74d11b7c298a8d81e27e31e0d9e12c2a496c4040b1e62051f23c078",
+    "receipt": "f1a376c37e13e9f0bbf302d72d1dfa9e08ff3a1c6a5fb10c57a5077dc1304089",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/finance-policy-excerpt",
@@ -803,7 +797,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "f3b18ac0be31ca2da44486bfa8228cb16599b1c41ba2b5d07d351b9fb64f9efb",
+    "receipt": "de03c03c20484792da6f79f8b92c4e091b0c6c3cdfb0d9c30e05efff7e781bba",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/good-essay",
@@ -816,7 +810,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "d35da5748d5532fb2528b9d7fd71b5f4d8f257a82f4c2146d419c191a963f2a4",
+    "receipt": "aacb07676b84c04a9c393a3488850f88748c3aaeab4b3e191084bda810ef5ad7",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/good-news",
@@ -829,7 +823,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "2708e44d2ca9477c65e5dfbc12548423a37b9e0b1aa4ee91c4df745e073fca30",
+    "receipt": "31d8279efaa87bec608b8ab133cf99c8c0747d3fb24a6d0223a7ec42ab9249ac",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/good-plain-guide",
@@ -842,7 +836,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "df1fd590847bdb2852765fc069e2855a5b55a8372de1904691b72b6025d78974",
+    "receipt": "b49d61c9076e60eb635e1343db3e74eafa242b509b9df41803fce13510370ecd",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/good-story",
@@ -857,7 +851,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "b4e07d63dddead3a79e8889b986ff73d9ea17115d097b12350136b79304ece4a",
+    "receipt": "fe3b717ef27fc2f2bedf0743eaa243bbc6e581a5745e266dbf36e18a184dd48a",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/gov-benefits-eligibility",
@@ -872,7 +866,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "c1b8b4e0fa6270e09271991a4dced5bb12b8aacb015de185dc6d6cc46174b13c",
+    "receipt": "7a8795053a4956e1ef172222ac6b030936c2d8fb82edacbe71d633722dba1a35",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/gov-council-tax",
@@ -885,7 +879,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "0547d498ed13f8dc0ae6fc087b8cd7d775b929bcd81500b382ef3cd0612c1042",
+    "receipt": "82a985ee5a795e826bad9588ff0e1b45e9fcf5ea399f18857c1662cc66cf189f",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/gov-hr-policy",
@@ -900,7 +894,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "dd0ac7f23f11e8764430392977f6f7ed17fe5e0cdf62327214ec2a44f84f84ac",
+    "receipt": "ac7df67899ebdb637e391c3c6c3e209e7c4251d54d42673416a6bac2f6621d3c",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/gov-nhs-appointment",
@@ -913,7 +907,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "df1560a69786c6569b4111e04a637de2e53dcce984b9088f1d0d8d6430f67062",
+    "receipt": "8c153bc4415af7cf8afca1ef38658653d1f2aa1cdb4abadbc67d4bbf5154cb85",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/gov-planning-response",
@@ -926,7 +920,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "b5d19db19cccea4ca799fab7658e07be48b3dcf67aaae7dbae15375de5689e5c",
+    "receipt": "c95230d1b945da17a5c886bd7281e8625c5993fcc2fe3a8951e8707d47182c16",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/legal-tenancy-clause",
@@ -939,7 +933,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "1de17d16366d96804d5e961793b72d8dce719515fdaa68b1e516fdc2d17bc74c",
+    "receipt": "cc61c6fb9070b915c457a09ce9a0b930151535914f15292fb346b29a5cf08746",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/short-agent-reply-1",
@@ -954,7 +948,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "7d94d0e70bf9d9283f32e0924ecd91a10503c3df91bfa9820ff0820dfa11e47f",
+    "receipt": "b6b6a7acb88a65338be21b222072da8031fae178fb5decffd8fa72ee8ce20be3",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/short-agent-reply-2",
@@ -967,7 +961,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "66daadaab08926c1da440d1fa166026947df25fe0522bd1693665e124581fbe5",
+    "receipt": "efb7c85f388eb8b6bc677dab838c32bcf358745211e8d7f9327644d875ff0d80",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/short-agent-reply-3",
@@ -980,7 +974,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "946d2ba08253abec32b4b2519d4b3afc8f226eff3eb29d41b2eae18d351b2b34",
+    "receipt": "ab8a3266367708a0db3f569ac402e6d864f67ea3f80ea8de6897709dba796858",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/short-error-message",
@@ -993,52 +987,46 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "514f2db48fe7fd96f94be9c9c6d32684e4453ee28ca2974d8a542f0355dc6eaa",
+    "receipt": "19660336127bf9feb108796cdf10af31afd71ebd78047014dec3f0f6cc7a4894",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/short-notification",
     "unresolved": []
   },
   "P-tech-api-reference": {
-    "accounted_for": [
-      "safe_rule"
-    ],
+    "accounted_for": [],
     "class": "plainspeak",
     "meaning": "preserved",
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "b2f165b5c8b4d4056e0e1f4ce16a82d63429e8818ba7fb270fe05e60b48bd41c",
+    "receipt": "2998226d22be00fc44ccb226fcbc66cd7142a63d9ce09304436a6ba2b20d6c32",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/tech-api-reference",
     "unresolved": []
   },
   "P-tech-postmortem": {
-    "accounted_for": [
-      "safe_rule"
-    ],
+    "accounted_for": [],
     "class": "plainspeak",
     "meaning": "preserved",
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "9a4b70dd3056d8d5700fdc2dc5740e9aff57536649d35a2ff9ede3a3990d0bfc",
+    "receipt": "db18680827c64354758274bec7ca3c56ee7733f99ff7692122f8be13db21df1b",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/tech-postmortem",
     "unresolved": []
   },
   "P-tech-readme-install": {
-    "accounted_for": [
-      "safe_rule"
-    ],
+    "accounted_for": [],
     "class": "plainspeak",
     "meaning": "preserved",
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "bb1e1fa58c63a3a0ea8186a5fa32f9a22fd8a7921ad19cc16dcf84c92d6502d8",
+    "receipt": "1044e67bda3d34bd5865cb8cae0fe55b12dc349693abf664fcd544f6ad0ff741",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/tech-readme-install",
@@ -1051,7 +1039,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "f1bfa77e97b5a54b75fc9008e52af64b0ef5309c59da78b1680fb881889022dd",
+    "receipt": "29ae88b7ec5ed9e303686e9759e0a9625d2f3d5a08d45f5ab52321faa7c7b948",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/tech-release-notes",
@@ -1064,7 +1052,7 @@
     "note": "PlainSpeak's own SAFE changes",
     "outcome": "correct",
     "protected": false,
-    "receipt": "ddca6724855e310fff026b530aa5c4e558522dab59c9349ca5583a9a1bba4168",
+    "receipt": "c965f7a8d970bfa0253021a5079e23458046b5c2f7c32f8e1fa0f193ebde3f3b",
     "refused": [],
     "result": "ACCEPTED",
     "source": "corpus/tech-runbook",
@@ -1077,7 +1065,7 @@
     "note": "expiry MUST became SHOULD",
     "outcome": "correct",
     "protected": true,
-    "receipt": "4d44b365ed81862e43f0074749de03759241dfbb308f184e6e4adec1194687b5",
+    "receipt": "ee39c684687f7c05d7c6fa531f6692e53826803c893a15737edc65561ff4ad72",
     "refused": [
       "modal"
     ],
@@ -1092,7 +1080,7 @@
     "note": "\"at most 5\" became \"up to 5\"",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "2f056c53fb111ce423d80dd81da600643b95f0f294322c189133c9fd2cfcf87b",
+    "receipt": "ece4babfdb040fbe0ed50ccfaf3c9435ee8feea8af717c1da2f92c69cc2309a5",
     "refused": [
       "comparator"
     ],
@@ -1107,7 +1095,7 @@
     "note": "last paragraph moved first",
     "outcome": "caution (cost)",
     "protected": false,
-    "receipt": "1bc3e34420ae49b80f8507335b4a895e3977d69fc62bf3e1685d7fbaf10182de",
+    "receipt": "d305af3ae99ca0461de93f6c8e33137ee680b68c737e7747facb1c0260aae33e",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "sources/spec-password-reset",
@@ -1122,7 +1110,7 @@
     "note": "\"no longer than 6 years\" became \"up to 6 years\"",
     "outcome": "false refusal",
     "protected": false,
-    "receipt": "7863cc74b2f3825da87713cd6a7d6876a517a8f49dbc6f89369e9266012b20b9",
+    "receipt": "db5587cbed9068b0e09cd621d4c2a5946cfa5c8ae352fec30f35e37bbf6f94ab",
     "refused": [
       "comparator",
       "negation"
@@ -1138,7 +1126,7 @@
     "note": "\"at least once every 90 days\" became \"every 90 days\"",
     "outcome": "correct",
     "protected": true,
-    "receipt": "d58efb1f6c767658ddd602b8919cc132ab40097831fdb6378144c4d54799dbc0",
+    "receipt": "6de0aea0ac9bff5a709f2f4b510f69757dcf90513c95a78a8b841e6b06625ba2",
     "refused": [
       "comparator"
     ],
@@ -1153,7 +1141,7 @@
     "note": "the legal-hold exception dropped",
     "outcome": "correct",
     "protected": true,
-    "receipt": "5deff57201c814eac3cf5bdb9c43a191e7b22a3cd09437233f0a19da76a7bb74",
+    "receipt": "a638a27fd458454b081568a81fa0e6d2933c73a38bf3da5756588e1d3ad5d509",
     "refused": [
       "comparator"
     ],
@@ -1168,7 +1156,7 @@
     "note": "\"below\" became \"under\"",
     "outcome": "caution (cost)",
     "protected": false,
-    "receipt": "004ca0daa903eb72854ceb5ed502f3fc3b46d5d40bc5f468945a9ff860c8f7d5",
+    "receipt": "e1471b50c3be09e4530f04ec915a4f051a5402d1e95a5e9234f843fd4432746c",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "sources/spec-release-gate",
@@ -1183,7 +1171,7 @@
     "note": "800 ms became 500 ms",
     "outcome": "correct",
     "protected": true,
-    "receipt": "eb74c6193771af68f3ec3439195de52ab957a90648a208a9179e4ec1c4b05f9b",
+    "receipt": "7b2867bdea59ab350360ea689905b1caee8e2fede874efd628497e3e4acc26df",
     "refused": [
       "measurement"
     ],
@@ -1198,7 +1186,7 @@
     "note": "the negation now applies to promotions, not rollbacks",
     "outcome": "caution (correct)",
     "protected": true,
-    "receipt": "8422c93156ceff29aaab9a8aa03fb1094f160b1812124086a3ba1ebbea8189e1",
+    "receipt": "f7df14072b66bdc3346a8ad89b1ec7f8e9f140816b60b9886dd2f2bb56d9d382",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "sources/spec-release-gate",
@@ -1213,7 +1201,7 @@
     "note": "\"only if\" became \"if\"",
     "outcome": "correct",
     "protected": true,
-    "receipt": "8b9f8fe4837bda23113a4ba29f69b4f23bf3300a9b7359316f137836dbf8954b",
+    "receipt": "8ad8b8705060e6f9cfb59de43e2994dd173b8d97d5a520e0f8768953e59de2ee",
     "refused": [
       "comparator"
     ],
@@ -1228,7 +1216,7 @@
     "note": "422 became 400",
     "outcome": "correct",
     "protected": true,
-    "receipt": "50b691c894f049bac4d06b20d02299f36f8bd8461e8d6cc1f2279e507f6920a0",
+    "receipt": "ca44ef429b18041900f69d5f4c3172dddefcdc03351a489927bf5f2fa834f266",
     "refused": [
       "code",
       "number"
@@ -1244,7 +1232,7 @@
     "note": "100 per minute became 1,000",
     "outcome": "correct",
     "protected": true,
-    "receipt": "06a4638ac38580fbc6ce65f181853a0857af94c911315b3a7b789056eb00a5bf",
+    "receipt": "6963e09b6d872468113c8af29333ba93d9cb0b883deb2d3b7d68344bb67d4500",
     "refused": [
       "number"
     ],
@@ -1259,7 +1247,7 @@
     "note": "the two Added bullets swapped",
     "outcome": "caution (cost)",
     "protected": false,
-    "receipt": "81d2d62e800e2fb55c8614c25d21904205a46a943bb274f5f9d6f3d5a8eb7f8f",
+    "receipt": "7b75b25282cca763d97811beb75d4d6f7cf75bef6fab28ce64987b27927dc0f9",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "corpus/tech-release-notes",
@@ -1274,7 +1262,7 @@
     "note": "step 4 reworded",
     "outcome": "caution (cost)",
     "protected": false,
-    "receipt": "ed69bd4d850c8af160e055240cefea6e5ed0210e8150481c63dd89fd59d27b67",
+    "receipt": "3cc13f55bab0aa5d121fc0f39b0742b62d6727417c1092ff5e5a0f3bf5046d6a",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "corpus/tech-runbook",
@@ -1289,7 +1277,7 @@
     "note": "3.2.0 became 3.2.1",
     "outcome": "correct",
     "protected": true,
-    "receipt": "cbfdf897a96634a200ac9cded50988c93e7df10c555e313f6104d4caadcbfe40",
+    "receipt": "61185a5b2cd234686359ce564e100f1e4974d35907db0ba763214ba4b650515d",
     "refused": [
       "version"
     ],
@@ -1304,7 +1292,7 @@
     "note": "\"cannot be modified after 24 hours\" became \"can be modified within 24 hours\"",
     "outcome": "correct",
     "protected": true,
-    "receipt": "fd1a0cafaa0525d332e1ff9673e67e7805190daf0e9af5b22c18a293ce1a95c2",
+    "receipt": "7153d565765801a805884f9a489224a9638855c0e61aef70a996baa6eda38765",
     "refused": [
       "comparator",
       "modal",
@@ -1321,7 +1309,7 @@
     "note": "the 5-day deadline now governs paying, not submitting",
     "outcome": "caution (correct)",
     "protected": true,
-    "receipt": "b6f046cc7eb0780a4127e32e28c48b5c7dab8e36b1d7f81234654b187b53afa4",
+    "receipt": "c2cca23db565d790b2c7e2adde029396af8cf9a08f20388aff0c46bfaa74886f",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "inline",
@@ -1336,7 +1324,7 @@
     "note": "the 5pm deadline now reads as governing both actions",
     "outcome": "caution (correct)",
     "protected": true,
-    "receipt": "8575729d6ba684b02af81b58b3326e4179112c991a8a9d86782aa16d42302e3e",
+    "receipt": "8b43d532432892f40c91dd432f9acfcc8953c828a08fe3f5564461f1b6455736",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "inline",
@@ -1353,7 +1341,7 @@
     "note": "fronting in a single-clause sentence",
     "outcome": "correct",
     "protected": false,
-    "receipt": "52f00e96613c5890f4c957624274acc7814d7e37ad5d3abc2e24159611ea0005",
+    "receipt": "7bf0a0f9e1746a4ef8aaefe5b24a61274c6e1d7f07dbe02660e59154ea0a92a8",
     "refused": [],
     "result": "ACCEPTED",
     "source": "inline",
@@ -1366,7 +1354,7 @@
     "note": "nationality became a verb or adjective",
     "outcome": "caution (correct)",
     "protected": false,
-    "receipt": "c75d0717e62b84a12efe26b3325461f6187e2802c4faad24f2b9ed8bc5e67428",
+    "receipt": "2ef87fd84a51cad50fdce57dd423cf0cf0a059962e68e8916ed7c89fcf9a4059",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "inline",
@@ -1381,7 +1369,7 @@
     "note": "\"before Friday\" moved from paying to submitting",
     "outcome": "caution (correct)",
     "protected": true,
-    "receipt": "d0cec907ea74ce63ecf3bee1fa3c5b3b621ab9ebd88f71ab5771534e29d3367d",
+    "receipt": "8277d9cc04df34a9fbd6bbce3d9dc38b088ba34e48430f026815a65031cf1275",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "inline",
@@ -1396,7 +1384,7 @@
     "note": "amounts swapped",
     "outcome": "caution (correct)",
     "protected": true,
-    "receipt": "34d14a0b71946f41b33a531c378bc0a2369b28774244e54c1c8a2a4aba582ae2",
+    "receipt": "4fda5f49989cdd28e5c39d0ff8f85c86552f2556b027925fe20c133e3a13386c",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "inline",
@@ -1411,7 +1399,7 @@
     "note": "\"only\" moved from members to voting",
     "outcome": "caution (correct)",
     "protected": true,
-    "receipt": "ad6eb196f1c943f126f8b2bf462410a3254bc588498286e1f019d41fdbc436e1",
+    "receipt": "5533f8a0b1c076d1ccd6be6e80cf3bede73a78d2f67116980e21c5f6f1182aa7",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "inline",
@@ -1428,7 +1416,7 @@
     "note": "emphasis removed",
     "outcome": "correct",
     "protected": false,
-    "receipt": "c2546f4a32b190eac793b2e3a17244b06422ec2d02b8a3e9fe19a430e6d317e6",
+    "receipt": "eb6c91f4a9f77fa187a7cbc624be36875f272194595037a9d00061431dd5abab",
     "refused": [],
     "result": "ACCEPTED",
     "source": "inline",
@@ -1441,7 +1429,7 @@
     "note": "direction of payment reversed",
     "outcome": "caution (correct)",
     "protected": true,
-    "receipt": "41599bdbf2d237e20aee895472a08905d44233078f4b2ff8f3c9280271645019",
+    "receipt": "3e014797720415b3c11a14790e4a91f0320c8e3c51be3dc4eccd322756124f2f",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "inline",
@@ -1456,7 +1444,7 @@
     "note": "amounts swapped between days",
     "outcome": "caution (correct)",
     "protected": true,
-    "receipt": "ce45b84ba6aa35353cd84755cc46fa5b4d89166795b6056d6a0222b9cad7ae31",
+    "receipt": "c979fb27eb97c4476268adbc0f89614f02c938c55d6e586cafe1d1b5a01c2c8c",
     "refused": [],
     "result": "INCONCLUSIVE",
     "source": "inline",

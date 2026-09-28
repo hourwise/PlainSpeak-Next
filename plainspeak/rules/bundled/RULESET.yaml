@@ -1,4 +1,4 @@
-ruleset_version: "2026.6"
+ruleset_version: "2026.7"
 description: >
   The rules PlainSpeak Next ships with. Every rule states what it matches,
   what it would do, why, where it came from, and the cases where it must stay
@@ -45,3 +45,16 @@ description: >
   reality" became "added to reality"), and terms of art ("comprehensive
   insurance", "a preliminary hearing", "quantitative easing"). They are still
   reported; they are no longer applied. Every rule keeps its ID.
+
+  2026.7 reclassifies ten more after an independent review of the Verify study
+  held every SAFE rule to the contexts its matcher can actually reach, not only
+  the sentence that exercised it. "In order to" also occurs as "in order" (put
+  in order) followed by a purpose: "Keep your papers in order to avoid delays"
+  became "Keep your papers to avoid delays". "Notify" is a procedure,
+  "retained earnings", "modified-release", "enhanced due diligence", "the
+  additional rate" and possession of a controlled drug are terms of art, and a
+  mid-sentence "furthermore", "moreover" or "additionally" became a comma-bound
+  "also" that moves the focus. Four more were found while repairing tests and
+  have the same defect: "Please act accordingly" became "Please act so",
+  "consequently" likewise, "hereafter" in a definition became "from now on",
+  and "A large number of them" became "Many them". Every rule keeps its ID.

@@ -38,6 +38,11 @@ unchanged.
 
 ### The bounded audit
 
+> **Correction (V2-F).** The claim below that every automatic rule was reviewed
+> and the rest passed was too strong: the review of the Verify study found four
+> rules this audit had kept that fail in exactly this way (`accordingly`,
+> `consequently`, `hereafter`, `a large number of`). See *V2-F* below.
+
 Every one of the 139 automatic rules in ruleset 2026.5 was reviewed for the same
 defect shape — a context-free substitution that leaves a grammatically invalid
 or materially worse sentence — and each rule that looked at risk was run on
@@ -156,3 +161,82 @@ and outcome is identical, with no false acceptance. Only the receipts moved,
 because they name the ruleset. A compact bundle of the highest-risk cases for
 independent review is in
 [validation/verify-study/REVIEW_BUNDLE.md](validation/verify-study/REVIEW_BUNDLE.md).
+
+## V2-F — independent review of the accepted SAFE substitutions
+
+An independent reading of
+[validation/verify-study/REVIEW_BUNDLE.md](validation/verify-study/REVIEW_BUNDLE.md)
+agreed with every Verify outcome, and questioned four SAFE substitutions the
+PlainSpeak cases were accepted on. The principle, the same as FIELD-001's: **a
+SAFE rule must be defensible across every context its matcher can actually
+reach, not only the sentence that happened to exercise it.** Every substitution
+the bundle lists as accepted on a SAFE rule was held to that.
+
+**The questioned examples, run through the matcher:**
+
+| Sentence | Reachable? | 2026.6 produced |
+|---|---|---|
+| The tenant must notify the authority in writing within 14 days. | yes, PS.LEXICAL.186 | must tell the authority in writing |
+| The company reported £5 million in retained earnings. | yes, PS.LEXICAL.221 | kept earnings |
+| The solicitor was retained by the claimant. | yes, PS.LEXICAL.221 | was kept by the claimant |
+| The patient must not crush modified-release tablets. | yes, PS.LEXICAL.182 | changed-release tablets |
+| The product contains genetically modified ingredients. | yes, PS.LEXICAL.182 | genetically changed |
+| The policy names the landlord as an additional insured. | **no** — PS.PROTECT.002 protects the phrase and refused PS.LEXICAL.009 | unchanged |
+
+**Every substitution the bundle listed, decided:**
+
+| Substitution | Decision | Why |
+|---|---|---|
+| notify → tell (PS.LEXICAL.186) | **diagnostic** | notice is a procedure: "must notify … in writing" became "must tell" |
+| retain → keep (PS.LEXICAL.221) | **diagnostic** | "retained earnings", "the solicitor was retained" |
+| modify → change (PS.LEXICAL.182) | **diagnostic** | "modified-release tablets", "genetically modified" |
+| additional → extra (PS.LEXICAL.009) | **diagnostic** | "additional insured" was protected, but "the additional rate" of tax, "Additional Voluntary Contributions" and "additional needs" were not |
+| enhance → improve (PS.LEXICAL.147) | **diagnostic** | "an enhanced DBS check", "enhanced due diligence" |
+| possess → have (PS.LEXICAL.200) | **diagnostic** | "it is an offence to possess a controlled drug" |
+| in order to → to (PS.CLARITY.001) | **diagnostic** | "in order" also means arranged: "Keep your papers in order to avoid delays" became "Keep your papers to avoid delays"; "Put the files in order to find them" lost its sense |
+| furthermore / moreover / additionally → also (PS.LEXICAL.161, 183, 103) | **diagnostic** | mid-sentence they became a comma-bound "also" that moves the focus: "The tenant, furthermore, must pay" became "The tenant, also, must pay", which implies someone else must too |
+| utilize → use (PS.LEXICAL.001) | kept | one sense; no counterexample found |
+| prior to → before (PS.CLARITY.009) | kept | matches only the preposition ("the prior agreement" is untouched); an integrity equivalence |
+| commence → start (PS.LEXICAL.005) | kept | "start proceedings" is the Civil Procedure Rules' own phrase |
+| It is worth noting that → ∅ (PS.FRAMING.002) | kept | removes framing only; no counterexample found |
+
+**Found alongside, and reclassified:** repairing the style-guard tests needed
+two SAFE rules that write the same sentence opener, and the obvious candidates
+failed the same test — "Please act accordingly" became "Please act so" and "The
+fee is accordingly waived" "The fee is so waived" (PS.LEXICAL.101); "The rent
+was, consequently, increased" became "The rent was, so, increased"
+(PS.LEXICAL.122); "The Company (hereafter the Seller)" became "(from now on the
+Seller)" (PS.LEXICAL.164); "A large number of them were late" became "Many them
+were late" (PS.CLARITY.007). They were not on the bundle's list; they are
+reclassified because they are the same defect and were found, and each is
+recorded so it can be revisited. They also show that the V2-E audit was not
+exhaustive (see the correction above).
+
+**Result:** ruleset **2026.7**, 220 rules, **97 automatic**; every rule keeps its
+ID; `migration/rule-ids.json` is unchanged. The style-guard tests, which
+needed the three connective rules to demonstrate the guard, now run on a
+fixture ruleset holding exactly those rules as they were in 2026.6
+(`tests/fixtures/style-guard-rules/`): the guard is a mechanism and is still
+shown to hold back changes that would repeat a sentence opener.
+
+**What changed in the outputs.** Against ruleset 2026.6, 75 of the 145 checked
+`present` outputs changed (15 documents under five profiles), each only by no
+longer applying one of these rules, and each textual difference is exactly that
+substitution reverted; 70 are identical apart from the ruleset identity.
+Against 1.0.0, the cumulative picture is the same 75 and 70, all attributed to
+the 42 reclassifications. The certification sample now keeps "In order to
+finish" (`6107653a…`, was `af79da49…`), and the certification script expects
+the two SAFE changes that remain; the walkthrough example now makes two SAFE
+changes (`e6b9106a…`, was `fcfa1aa3…`). The desktop smoke output is unchanged
+(`ca5d5012…`). The style-review pins moved only in identity-bearing digests;
+the generated-forms snapshot lost exactly the five reclassified lemma rules.
+
+**Verify.** The 97-case study was re-run with no case changed: every result and
+outcome is identical, with no false acceptance. The regenerated review bundle
+now lists seven PlainSpeak cases accepted on SAFE rules (from thirteen), each
+resting only on `utilize`, `prior to`, `commence` and the framing deletion.
+
+**Residual risk.** This was a bounded review of the substitutions the bundle
+listed. The four rules found alongside it show that the earlier audit missed
+cases, so the remaining 97 automatic rules have not been shown safe in every
+context their matchers can reach; they have only not been shown unsafe.

@@ -304,16 +304,25 @@ def test_protection_holds_whatever_order_the_rules_load_in(ruleset_from) -> None
         assert plan.accepted == ()
 
 
-def test_the_bundled_protection_stops_the_bundled_safe_fix(bundled) -> None:
+def test_the_bundled_protection_still_holds_and_nothing_competes_with_it(bundled) -> None:
+    """"Additional insured" stays protected; no bundled safe fix reaches into it.
+
+    This used to show PS.PROTECT.002 stopping PS.LEXICAL.009 ("additional" ->
+    "extra") inside the phrase. Ruleset 2026.7 reclassified PS.LEXICAL.009 as a
+    diagnostic ("the additional rate" of tax is not "the extra rate"), so no
+    bundled pair exercises the precedence any more; the mechanism is tested with
+    constructed rules in `test_a_protected_rule_beats_a_competing_safe_fix`.
+    """
+    from plainspeak.rules import find_matches
+
     _, plan = plan_for(
         "Name the contractor as an additional insured and send additional documents.\n", bundled
     )
-    accepted = [c for c in plan.accepted if c.rule_id == "PS.LEXICAL.009"]
-    refused = [c for c in plan.refused if c.rule_id == "PS.LEXICAL.009"]
-
-    assert len(accepted) == 1, "the ordinary use should still be fixed"
-    assert len(refused) == 1
-    assert refused[0].reason == REFUSAL_DECLARED_PROTECTED
+    assert not [c for c in plan.accepted if c.rule_id == "PS.LEXICAL.009"]
+    for rule in bundled.rules:
+        if rule.mode == "protected":
+            competing = [m for m in find_matches(rule.match.text, bundled.rules) if m.mode == "safe-fix"]
+            assert not competing, (rule.id, competing)
 
 
 def test_the_inherited_register_still_overrides_a_rule(ruleset_from) -> None:
@@ -495,9 +504,10 @@ def test_planning_the_same_document_twice_gives_the_same_plan(bundled) -> None:
 
 
 def test_plain_text_documents_plan_too() -> None:
-    document = parse_text.parse("Staff utilise the register in order to apply.\n")
+    # "prior to" in place of "in order to" (ruleset 2026.7 reclassified PS.CLARITY.001, "in order to", as a diagnostic).
+    document = parse_text.parse("Staff utilise the register prior to applying.\n")
     plan = build_plan(document)
-    assert {c.rule_id for c in plan.accepted} == {"PS.LEXICAL.001", "PS.CLARITY.001"}
+    assert {c.rule_id for c in plan.accepted} == {"PS.LEXICAL.001", "PS.CLARITY.009"}
 
 
 def test_an_empty_document_plans_to_nothing() -> None:

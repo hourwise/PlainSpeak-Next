@@ -1,6 +1,6 @@
 # Changing your payment date
 
-To change the date your payment is taken, you must contact us before
+In order to change the date your payment is taken, you must contact us before
 30 June 2027. It should be noted that we cannot move a payment of more than
 £1500 without written notice.
 

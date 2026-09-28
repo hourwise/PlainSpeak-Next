@@ -347,8 +347,9 @@ def test_output_does_not_replace_an_existing_file_without_overwrite(runner, tmp_
 def test_the_walkthrough_example_does_what_the_walkthrough_says():
     """WALKTHROUGH.md shows real output. If the engine changes it, the page is wrong."""
     result = present(load_reviewable(REPO / "examples" / "agent_reply.md"), "natural")
+    # PS.CLARITY.001 ("in order to") stopped applying in ruleset 2026.7.
     assert [item.rule_id for item in result.applied] == [
-        "PS.CLARITY.001", "PS.LEXICAL.001", "PS.CLARITY.009",
+        "PS.LEXICAL.001", "PS.CLARITY.009",
     ]
     assert [(item.before, item.after) for item in result.review] == [("Nevertheless,", "Even so,")] * 2
     assert [item.rule_id for item in result.refused] == ["PS.FRAMING.003"]
@@ -357,6 +358,6 @@ def test_the_walkthrough_example_does_what_the_walkthrough_says():
     ]
     data = result.as_dict()
     assert data["input"]["sha256"].startswith("2d3888ed")
-    assert data["output"]["sha256"].startswith("fcfa1aa3")
+    assert data["output"]["sha256"].startswith("e6b9106a")
     walkthrough = (REPO / "WALKTHROUGH.md").read_text(encoding="utf-8")
-    assert "input 2d3888ed6c930f0b  output fcfa1aa32c6e66e6" in walkthrough
+    assert "input 2d3888ed6c930f0b  output e6b9106a71f199f1" in walkthrough

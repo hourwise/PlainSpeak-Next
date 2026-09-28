@@ -122,7 +122,7 @@ def test_present_returns_the_present_contract(server):
     expected = present_text(TEXT, "natural").to_json()
     assert answer["content"] == [{"type": "text", "text": expected}]
     assert answer["structuredContent"] == json.loads(expected)
-    assert answer["structuredContent"]["output"]["text"].startswith("To finish, you must use")
+    assert answer["structuredContent"]["output"]["text"].startswith("In order to finish, you must use")
 
 
 def test_present_keeps_safe_review_and_refused_apart(server):

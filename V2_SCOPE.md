@@ -107,12 +107,16 @@ This is the scope of the V2 release candidate. It has not been published.
 No V1 contract changed shape, and two field defects in 1.0.0's behaviour were
 corrected deliberately ([V2_FIELD_FINDINGS.md](V2_FIELD_FINDINGS.md)):
 
-- **Ruleset 2026.6** reclassifies 28 SAFE rules as diagnostics (FIELD-001: an
-  automatic rewrite that broke sentences, and the audit that followed). Of 145
-  `present` outputs checked — 29 documents under five profiles — 120 are
-  byte-identical to 1.0.0 apart from the ruleset identity, and 25 differ only in
-  that a reclassified rule is no longer applied; nothing is applied that was
-  not before, and each textual difference is a reverted substitution.
+- **Ruleset 2026.7** reclassifies 42 SAFE rules as diagnostics: 28 after field
+  testing (FIELD-001, an automatic rewrite that broke sentences, and the audit
+  that followed), 14 after the independent review of the Verify study, which
+  held each remaining SAFE rule to every context its matcher can reach. 97 of
+  220 rules remain automatic. Of 145 `present` outputs checked — 29 documents
+  under five profiles — 70 are byte-identical to 1.0.0 apart from the ruleset
+  identity, and 75 differ only in that a reclassified rule is no longer
+  applied; nothing is applied that was not before, and each textual difference
+  is a reverted substitution. The certification sample now keeps "In order to"
+  (`6107653a…`, from `af79da49…`).
 - **`analyze` reports** qualify a sample shorter than 100 words or 3 sentences
   instead of presenting a verdict (FIELD-003). The JSON report gains a `sample`
   object; every existing field keeps its value.

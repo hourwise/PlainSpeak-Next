@@ -50,28 +50,21 @@
       "term": "accomplish"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "A shorter, more direct word.",
-      "forms": [
-        [
-          "accordingly",
-          "so"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "found while repairing tests in the 2026.7 review, the same family as 'furthermore': 'Please act accordingly' became 'Please act so', and 'The fee is accordingly waived' became 'The fee is so waived'",
       "replacement": "so",
       "rule_id": "PS.LEXICAL.101",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "so",
       "term": "accordingly"
     },
     {
@@ -211,27 +204,20 @@
       "term": "additional"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "One word instead of four.",
-      "forms": [
-        [
-          "additionally",
-          "also"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "mid-sentence it moves the focus: 'The fee is, additionally, non-refundable' became 'The fee is, also, non-refundable'",
       "replacement": "also",
       "rule_id": "PS.LEXICAL.103",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "also",
       "term": "additionally"
     },
     {
@@ -2244,28 +2230,21 @@
       "term": "configuration"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "One word instead of four.",
-      "forms": [
-        [
-          "consequently",
-          "so"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "found while repairing tests in the 2026.7 review, the same family as 'furthermore': 'The rent was, consequently, increased' became 'The rent was, so, increased'",
       "replacement": "so",
       "rule_id": "PS.LEXICAL.122",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "so",
       "term": "consequently"
     },
     {
@@ -3727,39 +3706,20 @@
       "term": "endorsement"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A more common everyday word.",
-      "forms": [
-        [
-          "enhance",
-          "improve"
-        ],
-        [
-          "enhances",
-          "improves"
-        ],
-        [
-          "enhanced",
-          "improved"
-        ],
-        [
-          "enhancing",
-          "improving"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'an enhanced DBS check' and 'enhanced due diligence' are defined terms; they became 'improved'",
       "replacement": "improve",
       "rule_id": "PS.LEXICAL.147",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "improve",
       "term": "enhance"
     },
     {
@@ -4723,27 +4683,20 @@
       "term": "furnish"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "One word instead of three.",
-      "forms": [
-        [
-          "furthermore",
-          "also"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "mid-sentence it moves the focus: 'The tenant, furthermore, must pay' became 'The tenant, also, must pay', which implies someone else must pay too",
       "replacement": "also",
       "rule_id": "PS.LEXICAL.161",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "also",
       "term": "furthermore"
     },
     {
@@ -5060,27 +5013,20 @@
       "term": "henceforth"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A phrase that is easier to parse.",
-      "forms": [
-        [
-          "hereafter",
-          "from now on"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "found while repairing tests in the 2026.7 review: in a definition it means 'from this point in the document', and 'The Company (hereafter the Seller)' became 'The Company (from now on the Seller)'",
       "replacement": "from now on",
       "rule_id": "PS.LEXICAL.164",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "from now on",
       "term": "hereafter"
     },
     {
@@ -7735,39 +7681,20 @@
       "term": "modification"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A shorter, more direct verb.",
-      "forms": [
-        [
-          "modify",
-          "change"
-        ],
-        [
-          "modifies",
-          "changes"
-        ],
-        [
-          "modified",
-          "changed"
-        ],
-        [
-          "modifying",
-          "changing"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'modified-release tablets' (a clinical term) became 'changed-release tablets'; 'genetically modified' became 'genetically changed'",
       "replacement": "change",
       "rule_id": "PS.LEXICAL.182",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "change",
       "term": "modify"
     },
     {
@@ -7805,27 +7732,20 @@
       "term": "morbidity"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "",
-      "forms": [
-        [
-          "moreover",
-          "also"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "other",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "mid-sentence it moves the focus: 'The rent, moreover, is due monthly' became 'The rent, also, is due monthly'",
       "replacement": "also",
       "rule_id": "PS.LEXICAL.183",
       "sources": [
         "SIMPLE_WORD_MAP"
       ],
-      "target": "also",
       "term": "moreover"
     },
     {
@@ -8078,40 +7998,21 @@
       "term": "notice period"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "The most direct communication verb.",
-      "forms": [
-        [
-          "notify",
-          "tell"
-        ],
-        [
-          "notifies",
-          "tells"
-        ],
-        [
-          "notified",
-          "told"
-        ],
-        [
-          "notifying",
-          "telling"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "notice is a procedure, not a conversation: 'must notify the authority in writing within 14 days' became 'must tell the authority in writing', and 'notified of the decision' became 'told of the decision'",
       "replacement": "tell",
       "rule_id": "PS.LEXICAL.186",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "tell",
       "term": "notify"
     },
     {
@@ -9118,40 +9019,21 @@
       "term": "portion"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": true,
       "explanation": "The simplest word.",
-      "forms": [
-        [
-          "possess",
-          "have"
-        ],
-        [
-          "possesses",
-          "has"
-        ],
-        [
-          "possessed",
-          "had"
-        ],
-        [
-          "possessing",
-          "having"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "possession is a legal term of art: 'it is an offence to possess a controlled drug' became 'to have a controlled drug'",
       "replacement": "have",
       "rule_id": "PS.LEXICAL.200",
       "sources": [
         "GLOSSARY",
         "SIMPLE_WORD_MAP"
       ],
-      "target": "have",
       "term": "possess"
     },
     {
@@ -10877,39 +10759,20 @@
       "term": "restitution"
     },
     {
-      "classification": "safe-fix",
+      "classification": "diagnostic",
       "conflicting_replacement": null,
       "duplicate": false,
       "explanation": "A simpler, shorter word.",
-      "forms": [
-        [
-          "retain",
-          "keep"
-        ],
-        [
-          "retains",
-          "keeps"
-        ],
-        [
-          "retained",
-          "kept"
-        ],
-        [
-          "retaining",
-          "keeping"
-        ]
-      ],
+      "forms": [],
       "multi_word": false,
-      "part_of_speech": "verb",
       "protected": false,
       "protected_domain": "",
-      "reason": "individually reviewed as a mechanical substitution",
+      "reason": "'retained earnings' (an accounting term) became 'kept earnings'; 'the solicitor was retained' (engaged) became 'the solicitor was kept'",
       "replacement": "keep",
       "rule_id": "PS.LEXICAL.221",
       "sources": [
         "GLOSSARY"
       ],
-      "target": "keep",
       "term": "retain"
     },
     {
@@ -13276,10 +13139,10 @@
     "by_classification": {
       "already-covered": 16,
       "deferred": 477,
-      "diagnostic": 88,
+      "diagnostic": 99,
       "protected": 23,
       "rejected": 14,
-      "safe-fix": 88
+      "safe-fix": 77
     },
     "conflicting_replacements": 1,
     "duplicate_across_sources": 55,
