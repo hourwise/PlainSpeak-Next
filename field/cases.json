@@ -1,0 +1,41 @@
+{
+  "schema": "plainspeak.field.cases.v1",
+  "cases": [
+    {
+      "id": "PSF-001",
+      "class": "positive_control",
+      "original": "Prior to publication, you must submit all 12 documents.",
+      "instruction": "Rewrite the sentence yourself so it is slightly clearer. Preserve all facts and requirements."
+    },
+    {
+      "id": "PSF-002",
+      "class": "modal_comparator",
+      "original": "You must submit all 12 documents no later than 5pm on Friday.",
+      "instruction": "Rewrite the sentence yourself so it is easier to understand."
+    },
+    {
+      "id": "PSF-003",
+      "class": "removable_framing",
+      "original": "For the purpose of completing your application successfully, you must provide all 12 supporting documents no later than 5pm on Friday.",
+      "instruction": "Rewrite the sentence yourself so it is clearer and shorter."
+    },
+    {
+      "id": "PSF-004",
+      "class": "negation",
+      "original": "You must not submit fewer than 12 documents.",
+      "instruction": "Rewrite the sentence yourself so it is easier to understand."
+    },
+    {
+      "id": "PSF-005",
+      "class": "numbers_and_money",
+      "original": "The applicant must pay £250 before 4pm on 12 October.",
+      "instruction": "Rewrite the sentence yourself so it is clearer."
+    },
+    {
+      "id": "PSF-006",
+      "class": "scope",
+      "original": "Only registered applicants may request a refund within 14 days.",
+      "instruction": "Rewrite the sentence yourself so it is easier to understand."
+    }
+  ]
+}

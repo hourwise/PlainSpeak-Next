@@ -71,7 +71,7 @@ guarantees" document, and a walkthrough. The evidence is in
 [RELEASE_READINESS.md](RELEASE_READINESS.md). V1's public contracts are the
 compatibility baseline for everything below.
 
-## V2 — Verify, the GitHub Action and MCP *(implemented and validated on `codex/plainspeak-v2-verify`; not yet accepted)*
+## V2 — Verify, the GitHub Action and MCP *(accepted: released as 1.1.0 — merged to `main`, tagged `v1.1.0`, released on GitHub and PyPI on 2026-09-28)*
 
 What V2 promises is in [V2_SCOPE.md](V2_SCOPE.md). Every V1 contract is
 unchanged; V2 is additive.

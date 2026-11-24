@@ -1,12 +1,12 @@
 # Release readiness: PlainSpeak 1.1.0
 
-**Status: 1.1.0 CERTIFIED as a release candidate. Not merged to `main`, not
-tagged, not released on GitHub, not published to PyPI.**
+**Status: 1.1.0 released. Merged to `main` (`501e392`), tagged `v1.1.0`,
+released on GitHub and published to PyPI on 2026-09-28.**
 
-The candidate is on `codex/plainspeak-v2-verify`. `main` is still 1.0.0 at
-`877b691`, an ancestor of the candidate, so `main` can be fast-forwarded to it
-without rewriting history. Publishing follows [RELEASING.md](RELEASING.md) and
-needs an explicit decision at each step.
+The candidate was certified on `codex/plainspeak-v2-verify`; `main` was
+fast-forwarded to it without rewriting history, and publishing followed
+[RELEASING.md](RELEASING.md). Everything below is the pre-release
+certification record, kept as evidence.
 
 ## What was certified
 

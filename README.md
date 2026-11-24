@@ -32,7 +32,8 @@ See [V1_SCOPE.md](V1_SCOPE.md) for exactly what it does and does not promise.
 
 **Version 1.0.0** is published. **Version 1.1.0** — `verify`, the GitHub
 Action, the MCP server, `diagnose`, and a much smaller, qualified set of
-automatic rules — is prepared on this branch and is **not yet published**; what
+automatic rules — is **published**: merged to `main`, tagged `v1.1.0`,
+released on GitHub and PyPI on 2026-09-28; what
 changed is in [CHANGELOG.md](CHANGELOG.md), its scope in
 [V2_SCOPE.md](V2_SCOPE.md) and its validation in
 [VERIFY_STUDY.md](VERIFY_STUDY.md) and

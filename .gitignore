@@ -38,3 +38,6 @@ examples/plain_report.html
 # Release artifacts (tools/package_release.py)
 release/
 certification-*.json
+
+# Field-test harness output (field/runner.py writes one directory per run)
+field/results/
