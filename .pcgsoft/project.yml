@@ -22,7 +22,7 @@ project:
     - PlainSpeak Next
   category: open-source
   status: active-development
-  statusLabel: Released — version 1.1.0 on GitHub and PyPI; development continues
+  statusLabel: Active development — version 1.1.0 released on GitHub and PyPI
   summary: "A deterministic presentation tool for people who publish text written by a machine: it rewrites only where it can prove the change is safe, refuses anything that would alter a number, date, amount, identifier, negation or obligation, and says plainly what it changed, what it left for a person to decide, and what it refused. Version 1.1.0 is released on GitHub and PyPI."
   parentProject: null
   relatedProjects:
