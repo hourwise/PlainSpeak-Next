@@ -1,0 +1,40 @@
+# PCGsoft portfolio manifest — proposal data only.
+#
+# This file proposes project-owned metadata for the PCGsoft portfolio. It grants
+# nothing and publishes nothing: the canonical, human-approved record for this
+# project lives in PCGsoft's own site repository, and no field here overrides
+# it. Review it at milestones, releases and material capability or status
+# changes, never for routine commits.
+#
+# Safe YAML subset only (the site's parser rejects anchors, tags, aliases and
+# multi-line values), schema version 2, at most 24 KB, and never a hostname, IP
+# address, path, username, credential, private repository detail, task content,
+# log or dashboard URL. Drafted 2026-11-28 from this repository and the
+# canonical record; nothing here has been applied to that record.
+#
+# This repository is the current implementation of PlainSpeak. The older
+# repository holds the original work and is not a manifest source.
+schemaVersion: 2
+project:
+  slug: plain-speak
+  name: PlainSpeak
+  alternateNames:
+    - PlainSpeak Next
+  category: open-source
+  status: active-development
+  statusLabel: Released — version 1.1.0 on GitHub and PyPI; development continues
+  summary: "A deterministic presentation tool for people who publish text written by a machine: it rewrites only where it can prove the change is safe, refuses anything that would alter a number, date, amount, identifier, negation or obligation, and says plainly what it changed, what it left for a person to decide, and what it refused. Version 1.1.0 is released on GitHub and PyPI."
+  parentProject: null
+  relatedProjects:
+    - reticle
+  lastReviewed: 2026-11-28
+repository:
+  role: current
+web:
+  state: none
+  urls: []
+publication:
+  eligible: false
+  notes: Requires explicit PCGsoft review.
+activity:
+  enabled: false
